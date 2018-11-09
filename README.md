@@ -1,21 +1,18 @@
 # Cinema-ticket-reservation-system
+Client:  
+Ability to filter by parameters:  
+-city  
+-movie house  
+-date  
+-time  
+-film name  
+-amount of free places.   
+Ability to reserve places.  
+ability to look through previous reservations.  
 
-Система бронирования билетов в кино.  
-
-Клиент  
-Возможность фильтра по параметрам:  
--город  
--кинотеатр  
--дата  
--время  
--название фильма  
--количество доступных мест.   
-Возможность забронировать место.
-Возможность просмотреть список своих заказов.  
-
-Админ  
-Добавление информации о:  
--кинотеатрах  
--фильмах  
--сеансах.  
-Добавление дополнительных услуг, включенных в билет
+Admin  
+Add info about:  
+-cinema house  
+-films  
+-sessions.  
+Add extra services to reservation.  
