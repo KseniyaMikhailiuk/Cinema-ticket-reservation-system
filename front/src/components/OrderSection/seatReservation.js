@@ -1,14 +1,14 @@
 import React from 'react'
 import HallPlan from './hallPlan'
-//import OrderSettings from '.'
+import OrderSettings from './orderSettings'
 
 const SeatReservation = ({
     hallPlan
 }) => {
     return(
-        <sectoin>
+        <sectoin className="order-form">
             <HallPlan hallPlan={hallPlan}/>
-            {/* <OrderSettings /> */}
+            <OrderSettings />
         </sectoin>
     )
 }

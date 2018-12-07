@@ -3,7 +3,6 @@ import React from 'react'
 const HallPlan = ({
     hallPlan
 }) => {
-    console.log(hallPlan);
     return(
         <div className="hall-plan">
             <svg className="hall-plan__screen-svg-container">

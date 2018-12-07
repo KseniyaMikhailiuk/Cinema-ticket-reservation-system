@@ -6,6 +6,8 @@ export default [
             "type": "simple",
             "price": 10, 
             "occupied": false,
+            "raw": 1,
+            "line": 2,
         },
         {
             "id": 2,
@@ -13,6 +15,8 @@ export default [
             "type": "simple",
             "price": 10, 
             "occupied": false,
+            "raw": 1,
+            "line": 2,
         },
         {
             "id": 3,
@@ -20,6 +24,8 @@ export default [
             "type": "simple",
             "price": 10, 
             "occupied": false,
+            "raw": 1,
+            "line": 2,
         },
         {
             "id": 4,
@@ -27,6 +33,8 @@ export default [
             "type": "simple",
             "price": 10, 
             "occupied": false,
+            "raw": 1,
+            "line": 2,
         },
         {
             "id": 11,
@@ -34,6 +42,8 @@ export default [
             "type": "comfort",
             "price": 20, 
             "occupied": false,
+            "raw": 1,
+            "line": 2,
         },
     ],
     [
@@ -43,6 +53,8 @@ export default [
             "type": "simple",
             "price": 10, 
             "occupied": false,
+            "raw": 1,
+            "line": 2,
         },
         {
             "id": 6,
@@ -50,6 +62,8 @@ export default [
             "type": "simple",
             "price": 10, 
             "occupied": false,
+            "raw": 1,
+            "line": 2,
         },
         {
             "id": 7,
@@ -57,6 +71,8 @@ export default [
             "type": "simple",
             "price": 10, 
             "occupied": false,
+            "raw": 1,
+            "line": 2,
         },
         {
             "id": 11,
@@ -64,6 +80,8 @@ export default [
             "type": "comfort",
             "price": 20, 
             "occupied": false,
+            "raw": 1,
+            "line": 2,
         },
         {
             "id": 11,
@@ -71,6 +89,8 @@ export default [
             "type": "comfort",
             "price": 20, 
             "occupied": false,
+            "raw": 1,
+            "line": 2,
         },
     ],
     [
@@ -80,6 +100,8 @@ export default [
             "type": "simple",
             "price": 10, 
             "occupied": false,
+            "raw": 1,
+            "line": 2,
         },
         {
             "id": 11,
@@ -87,6 +109,8 @@ export default [
             "type": "loveseat",
             "price": 20, 
             "occupied": false,
+            "raw": 1,
+            "line": 2,
         },
 
         {
@@ -95,6 +119,8 @@ export default [
             "type": "loveseat",
             "price": 20, 
             "occupied": false,
+            "raw": 1,
+            "line": 2,
         },
     ]
 
