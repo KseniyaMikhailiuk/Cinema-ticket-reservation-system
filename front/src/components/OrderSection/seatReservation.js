@@ -3,11 +3,11 @@ import HallPlan from './hallPlan'
 //import OrderSettings from '.'
 
 const SeatReservation = ({
-    isAuthorized
+    hallPlan
 }) => {
     return(
         <sectoin>
-            <HallPlan isAuthorized={isAuthorized}/>
+            <HallPlan hallPlan={hallPlan}/>
             {/* <OrderSettings /> */}
         </sectoin>
     )

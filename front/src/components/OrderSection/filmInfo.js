@@ -10,7 +10,7 @@ const FilmInfo = ({
             </section>
             <section className="film-info-panel__description">
                 <h1>lalaland</h1> {/* {filmInfo.filmName} */}
-                <p>Arena sity</p> {/*{filmInfo.cinemaName} {filmInfo.cinemaLocation}*/}
+                <p>Arena city</p> {/*{filmInfo.cinemaName} {filmInfo.cinemaLocation}*/}
                 <p>25-05-2048</p> {/*{filmInfo.date}*/}
             </section>
         </div>

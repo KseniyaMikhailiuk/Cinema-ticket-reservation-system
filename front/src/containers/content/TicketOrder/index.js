@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 import OrderSection from '../../../components/OrderSection/'
+import hallPlan from'./hallPlanDB'
 
 class TicketOrder extends Component{
     render(){
         return(
-            <OrderSection />
+            <OrderSection hallPlan={hallPlan}/>
         )
     }
 }
