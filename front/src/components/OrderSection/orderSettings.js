@@ -14,7 +14,7 @@ const OrderSettings = () => {
                                 {element.seatType}
                                 {element.seatType}
                         </div>
-                        <div>&#10005;</div>
+                        <div className="order-list__cross">&#10005;</div>
                     </li> 
                 )}
             </ul>

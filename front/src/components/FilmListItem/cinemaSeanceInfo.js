@@ -12,7 +12,7 @@ const CinemaSeanceInfo = ({
             <section className="time">
                 {filmInfo.time.map(seance => 
                     <NavLink className="bordered" to="/" >
-                        {seance.getDate() + ' ' + seance.getHours() + ':' + seance.getMinutes()}
+                        {seance.getHours() + ':' + seance.getMinutes()}
                     </NavLink>
                 )}
             </section>

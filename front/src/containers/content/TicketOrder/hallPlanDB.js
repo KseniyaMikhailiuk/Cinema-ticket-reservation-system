@@ -120,7 +120,7 @@ export default [
             "price": 20, 
             "occupied": false,
             "raw": 1,
-            "line": 2,
+            "line": 2, 
         },
     ]
 

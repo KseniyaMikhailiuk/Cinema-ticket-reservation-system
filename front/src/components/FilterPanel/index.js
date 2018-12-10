@@ -1,5 +1,6 @@
 import React from 'react'
-import '../../../CommonStylesheets/formItems.scss'
+import {NavLink} from 'react-router-dom'
+import '../../CommonStylesheets/formItems.scss'
 import './filterPanel.scss'
 
 const today = new Date();
@@ -21,7 +22,7 @@ const FilterPanel = ({
                 <input className="form-item bordered" list="cities" placeholder="Выберите город"/>
                 <datalist id="cities">
                     {filterOptions.cities.map(city =>
-                        <option value={city.name} />  
+                        <option value={city.name} onClick={() => onFilterClick("cities", city.name)}/>                       
                     )}
                 </datalist>
 
@@ -29,7 +30,7 @@ const FilterPanel = ({
                 <datalist id="cinemas">
                     {filterOptions.cities.map(city =>
                         city.cinemas.map(cinema =>
-                            <option value={cinema}>{city.name}</option>    
+                            <option value={cinema} onClick={() => onFilterClick("cinemas", cinema)}>{city.name}</option>    
                         )
                     )}                    
                 </datalist>
@@ -39,7 +40,7 @@ const FilterPanel = ({
                 <input className="form-item bordered" list="date" placeholder="Выберите день"/>
                 <datalist id="date">
                     {dates.map(date =>
-                        <option value={date} />  
+                        <option value={date} onClick={() => onFilterClick("date", date)}/>  
                     )}
                 </datalist>
 
