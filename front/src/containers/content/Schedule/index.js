@@ -1,23 +1,26 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux'
-import films from '../../../services/api/filmsDB'
-import filterOptions from './filterOptionsDB'
-import ItemList from '../../../components/Common/ItemList/'
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+import filterOptions from './filterOptionsDB';
+import ItemList from '../../../components/Common/ItemList/';
 import FilmItem from '../../../components/FilmListItem/';
 import FilterPanel from '../../../components/FilterPanel';
-import * as actions from '../../../store/actions'
-import {getFilteredList} from '../../../store/reducers'
+import {fetchFilmList} from '../../../store/actions';
+import getFilteredList from '../../../store/reducers';
+import api from '../../../services/api'
 
 class Schedule extends Component{
+    componentWillMount(){
+
+    }
+
     render(){
-        if(!filmList.length){
-            return <p>Loading</p>
-        }
+        const {filmList, fetchFilmList} = this.props;
         return(
             <div>
-                <FilterPanel filterOptions={filterOptions} onFilterClick={actions.fetchFilmList}/>
+                <FilterPanel filterOptions={filterOptions} onFilterClick={fetchFilmList}/>
                 <ItemList 
-                    list={filmList}
+                    list={filmList.getFilteredList}
                     itemType={FilmItem}
                 />
             </div>
@@ -25,15 +28,15 @@ class Schedule extends Component{
     }
 } 
 
-mapStateToScheduleProps = (state, {match: {params}}) => {
+const mapStateToScheduleProps = (state, {match: {params}}) => {
     const filters = params.filter;
     return{
-        filmList: getFilteredList(state, filters)
+        filmList: getFilteredList(state, fetchFilmList(new Date()))
     }
 }
 
 Schedule = withRouter(connect(
     mapStateToScheduleProps,
-)(Schedule))
+)(Schedule));
 
 export default Schedule;

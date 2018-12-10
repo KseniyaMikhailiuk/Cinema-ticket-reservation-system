@@ -1,8 +1,7 @@
 import * as api from '../../services/api/filmsDB'
 
-export const fetchFilmList = (filters) => (dispatch, getState) =>{
-    dispatch({
+export const fetchFilmList = (filter = new Date()) => ({
         type: "FETCH_FILM_LIST",
-        filters
+        filter
     });
-}
+

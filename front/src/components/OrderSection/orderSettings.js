@@ -1,7 +1,6 @@
 import React from 'react'
 import order from './orderDB'
 
-console.log(order);
 const OrderSettings = () => {
     return(
         <section className="order-list">

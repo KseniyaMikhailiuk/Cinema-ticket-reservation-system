@@ -1,7 +1,6 @@
 import v4 from 'uuid/v4'
 
 const today = new Date();
-console.log(today);
 var nextDay;
 var dates = [];
 for(var i = 0; i < 9; i++){
@@ -21,27 +20,27 @@ const filmDatabase = [
                     {
                         "name": "Арена сити",
                         "schedule": [
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 10, 20),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 12, 40),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 10, 20),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 12, 40),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60)
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 10, 20),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 40),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 10, 20),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 40),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60)
                         ],
                     },
                     {
                         "name": "Аврора",
                         "schedule": [
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 10, 20),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 12, 40),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 10, 20),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 12, 40),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60)
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 10, 20),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 40),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 10, 20),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 40),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60)
                         ],
                     }
                 ]
@@ -58,29 +57,29 @@ const filmDatabase = [
                 "name": "Брест",
                 "cinemas": [
                     {
-                        "name": "Арена сити",
+                        "name": "Arena4 сити",
                         "schedule": [
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 10, 20),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 12, 40),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 10, 20),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 12, 40),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60)
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 10, 20),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 40),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 10, 20),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 40),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60)
                         ],
                     },
                     {
-                        "name": "lalala сити",
+                        "name": "Arena2 сити",
                         "schedule": [
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 10, 20),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 12, 40),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 10, 20),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 12, 40),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60)
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 10, 20),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 40),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 10, 20),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 40),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60)
                         ],
                     },
                 ]       
@@ -89,16 +88,16 @@ const filmDatabase = [
                 "name": "Гомель",
                 "cinemas": [
                     {
-                        "name": "kokoko сити",
+                        "name": "Arena1 сити",
                         "schedule": [
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 10, 20),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 12, 40),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 10, 20),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 12, 40),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60),
-                            new Date(today.getFullYear(), today.getMonth(), today.getDay(), 14, 60)
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 10, 20),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 40),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 10, 20),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12, 40),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60),
+                            new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 60)
                         ],
                     },
                 ]
@@ -110,14 +109,20 @@ const filmDatabase = [
 
 export default filmDatabase;
 
-const fetchFilmList = (filter, value) => {    
-    switch(filter){
-        case("city"):
-            return filmDatabase.filter(film => (film.cities.name == value));
-        case("cinema"):
-            return filmDatabase.filter(film => film.cinema == value)
-        case("day"):
-        default:
-            throw new Error(`Unknown filter ${filter}`);
-    }
+export const fetchFilmList = (filter) => {    
+    var filteredList = [];
+    filmDatabase.forEach(film => {
+        film.cities.forEach(city => city.cinemas.forEach(cinema => {
+            if(typeof cinema.schedule.find(time => time.getFullYear() === filter.getFullYear() && 
+            time.getMonth() === filter.getMonth() &&
+            time.getDate() === filter.getDate())){
+                if(!filteredList.find(chekced => film.filmName === chekced.filmName)){
+                    filteredList.push(film);
+                }
+            }
+        }));
+    });
+    return(
+        filteredList
+    )
 }

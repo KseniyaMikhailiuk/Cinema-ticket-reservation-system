@@ -4,7 +4,6 @@ import '../../CommonStylesheets/formItems.scss'
 import './filterPanel.scss'
 
 const today = new Date();
-console.log(today);
 var nextDay;
 var dates = [];
 for(var i = 0; i < 9; i++){
@@ -37,7 +36,7 @@ const FilterPanel = ({
             </div>
 
             <div className="filter-panel__group-container">
-                <input className="form-item bordered" list="date" placeholder="Выберите день"/>
+                <input className="form-item bordered" value={today} list="date" placeholder="Выберите день"/>
                 <datalist id="date">
                     {dates.map(date =>
                         <option value={date} onClick={() => onFilterClick("date", date)}/>  

@@ -1,12 +1,17 @@
 import React from 'react'
 import {BrowserRouter} from 'react-router-dom'
 import Page from './containers/headeredpage'
+import {Provider} from 'react-redux'  
 
-const App = () => {
+const App = ({
+    store
+}) => {
     return(
-        <BrowserRouter>
-            <Page />
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <Page />
+            </BrowserRouter>
+        </Provider>
     )
 }
 

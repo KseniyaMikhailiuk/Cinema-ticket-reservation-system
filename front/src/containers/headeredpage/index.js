@@ -3,7 +3,9 @@ import Header from '../../components/Common/Header'
 import Content from './content'
 import Footer from '../../components/Common/Footer'
 
-const Page = () => {
+const Page = ({
+    store
+}) => {
     return(
         <div>            
             <Header />
