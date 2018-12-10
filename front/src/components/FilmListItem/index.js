@@ -4,8 +4,10 @@ import image from '../../images/films/1.jpg'
 import './filmItem.scss'
 
 const FilmItem = ({
-    itemInfo
+    itemInfo,
+    cityFilter = "Минск" 
 }) => {
+
     return(
         <article className="film-item">
             <section className="film-item__image-container">
@@ -16,9 +18,11 @@ const FilmItem = ({
                 <h3>{itemInfo.date}</h3>
                 <p>{itemInfo.text} </p>
                 <section className="film-item__timetable">
-                    {itemInfo.timetable.map(itemInfo => 
+                    {
+                        itemInfo.cities.find(city => city.name === cityFilter).cinemas.map(itemInfo => 
                         <CinemaSeanceInfo filmInfo={itemInfo}/>                            
-                    )}
+                        )
+                    }
                 </section>
             </section>
         </article>

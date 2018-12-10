@@ -12,7 +12,9 @@ const filmDatabase = [
     {
         "id": v4(),
         "image": "1.jpg",
-        "filmName": "lalaland",
+        "title": "lalaland",
+        "date": "gsgsg",
+        "text": "jskjgwkerjgregjegqwreg",
         "cities": [
             {
                 "name": "Минск",
@@ -51,7 +53,9 @@ const filmDatabase = [
     {
         "id": v4(),
         "image": "1.jpg",
-        "filmName": "котики",
+        "title": "котики",
+        "date": "gsgsg",
+        "text": "jskjgwkerjgregjegqwreg",
         "cities": [
             {
                 "name": "Брест",
@@ -116,7 +120,7 @@ export const fetchFilmList = (filter) => {
             if(typeof cinema.schedule.find(time => time.getFullYear() === filter.getFullYear() && 
             time.getMonth() === filter.getMonth() &&
             time.getDate() === filter.getDate())){
-                if(!filteredList.find(chekced => film.filmName === chekced.filmName)){
+                if(!filteredList.find(chekced => film.title === chekced.title)){
                     filteredList.push(film);
                 }
             }
