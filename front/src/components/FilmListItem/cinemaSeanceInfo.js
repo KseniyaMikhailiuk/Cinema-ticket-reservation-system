@@ -4,7 +4,6 @@ import {NavLink} from 'react-router-dom'
 const CinemaSeanceInfo = ({
     filmInfo,
 }) => {
-    console.log(filmInfo);
     return (
         <section className="cinema-seance-timetable">
             <h1>
@@ -13,7 +12,7 @@ const CinemaSeanceInfo = ({
             <section className="time">
                 {filmInfo.schedule.map(seance => 
                     <NavLink className="bordered" to="/" >
-                        {`${seance.getHours()} : ${seance.getMinutes()}`}
+                        {`${seance.hour()} : ${seance.minute()}`}
                     </NavLink>
                 )}
             </section>

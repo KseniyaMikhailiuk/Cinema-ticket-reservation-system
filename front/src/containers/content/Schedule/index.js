@@ -6,7 +6,7 @@ import ItemList from '../../../components/Common/ItemList/';
 import FilmItem from '../../../components/FilmListItem/';
 import FilterPanel from '../../../components/FilterPanel';
 import * as actions  from '../../../store/actions';
-import {getFilteredList} from '../../../store/reducers';
+import {getFilteredList, getFilterObject} from '../../../store/reducers';
 
 class Schedule extends Component{
     componentWillMount(){
@@ -15,11 +15,11 @@ class Schedule extends Component{
 
     fetchData(){
         const {filter, fetchFilmList} = this.props;
-        fetchFilmList(new Date()).then(() => console.log('fetched'));
+        fetchFilmList(filter);
     }
 
     render(){
-        const {filmList, changeFilterObjectItem, filter} = this.props;
+        const {filmList, changeFilterObjectItem} = this.props;
         return(
             <div>
                 <FilterPanel filterOptions={filterOptions} onFilterClick={changeFilterObjectItem}/>
@@ -32,8 +32,14 @@ class Schedule extends Component{
     }
 } 
 
-const mapStateToScheduleProps = (state, filter = new Date()) => {
+const mapStateToScheduleProps = (state) => {
+    const filter = {
+        "city": filterOptions.cities[0].name,
+        "cinema": "",
+        "date": new Date()
+    }
     return{
+        filter: getFilterObject(state, filter),
         filmList: getFilteredList(state, filter)
     }
 }

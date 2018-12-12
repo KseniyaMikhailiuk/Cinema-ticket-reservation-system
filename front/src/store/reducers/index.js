@@ -22,8 +22,15 @@ const isDataRequested = (state =  false, action) => {
     }
 }
 
-export const getFilteredList = (state, filter) => {
+export const getFilteredList = (state) => {
     return state.filteredList;
+}
+
+export const getFilterObject = (state, filter) => {
+    if(!state.filterObject){
+        state.filterObject = filter;
+    }    
+    return state.filterObject
 }
 
 const filterObject = (state = null, action) => {
