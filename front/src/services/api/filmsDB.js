@@ -2,11 +2,14 @@ import v4 from 'uuid/v4'
 
 const today = new Date();
 var nextDay;
+const daysToDisplay = 9;
 var dates = [];
-for(var i = 0; i < 9; i++){
+for(var i = 0; i < daysToDisplay; i++){
     nextDay = new Date(today.getYear(), today.getMonth(), today.getDate() + i);
     dates.push(nextDay.getDate() + '/' + nextDay.getMonth() + ' ' + nextDay.getDay());
 }
+
+
 
 const filmDatabase = [
     {
@@ -113,20 +116,23 @@ const filmDatabase = [
 
 export default filmDatabase;
 
-export const fetchFilmList = (filter) => {    
-    var filteredList = [];
-    filmDatabase.forEach(film => {
-        film.cities.forEach(city => city.cinemas.forEach(cinema => {
-            if(typeof cinema.schedule.find(time => time.getFullYear() === filter.getFullYear() && 
-            time.getMonth() === filter.getMonth() &&
-            time.getDate() === filter.getDate())){
-                if(!filteredList.find(chekced => film.title === chekced.title)){
-                    filteredList.push(film);
+const delay = (ms) => 
+    new Promise(resolve => setTimeout(resolve, ms));
+
+export const fetchFilmList = (filter) => 
+    delay(500)
+    .then(() => {
+        var filteredList = [];
+        filmDatabase.forEach(film => {
+            film.cities.forEach(city => city.cinemas.forEach(cinema => {
+                if(typeof cinema.schedule.find(time => time.getFullYear() === filter.getFullYear() && 
+                time.getMonth() === filter.getMonth() &&
+                time.getDate() === filter.getDate())){
+                    if(!filteredList.find(chekced => film.title === chekced.title)){
+                        filteredList.push(film);
+                    }
                 }
-            }
-        }));
-    });
-    return(
-        filteredList
-    )
-}
+            }));
+        });
+        return filteredList;
+})

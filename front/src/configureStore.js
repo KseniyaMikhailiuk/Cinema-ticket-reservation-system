@@ -1,8 +1,10 @@
-import {createStore} from 'redux'
+import {createStore, applyMiddleware} from 'redux'
 import cinemaApp from './store/reducers'
+import thunk from 'redux-thunk'
 
 const configureStore = () => {
-    const store = createStore(cinemaApp);
+    const middlewares = [thunk];
+    const store = createStore(cinemaApp, applyMiddleware(...middlewares));
     return store;
 } 
 

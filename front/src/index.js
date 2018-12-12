@@ -4,7 +4,6 @@ import App from './App';
 import configureStore from './configureStore'
 import './main.scss'
 
-
 const store = configureStore();
 ReactDOM.render(
     <App store={store}/>, 

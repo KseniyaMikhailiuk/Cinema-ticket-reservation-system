@@ -2,19 +2,19 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 import '../../CommonStylesheets/formItems.scss'
 import './filterPanel.scss'
+import DatePickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
 
-const today = new Date();
-var nextDay;
-var dates = [];
-for(var i = 0; i < 9; i++){
-    nextDay = new Date(today.getYear(), today.getMonth(), today.getDate() + i);
-    dates.push(nextDay.getDate() + '/' + nextDay.getMonth() + ' ' + nextDay.getDay());
-}
 
 const FilterPanel = ({
     filterOptions,
     onFilterClick
 }) => {
+
+    const handleDayChange = (selectedDay, modifiers, dayPickerInput) => {
+        const input = dayPickerInput.getInput();
+        onFilterClick("date", selectedDay);
+    }
     return(
         <section className="filter-panel">  
             <div className="filter-panel__group-container">
@@ -24,7 +24,6 @@ const FilterPanel = ({
                         <option value={city.name} onClick={() => onFilterClick("cities", city.name)}/>                       
                     )}
                 </datalist>
-
                 <input className="form-item bordered" list="cinemas" placeholder="Выберите кинотеатр"/>
                 <datalist id="cinemas">
                     {filterOptions.cities.map(city =>
@@ -34,15 +33,10 @@ const FilterPanel = ({
                     )}                    
                 </datalist>
             </div>
-
             <div className="filter-panel__group-container">
-                <input className="form-item bordered" value={today} list="date" placeholder="Выберите день"/>
-                <datalist id="date">
-                    {dates.map(date =>
-                        <option value={date} onClick={() => onFilterClick("date", date)}/>  
-                    )}
-                </datalist>
-
+                <div className="form-item bordered">
+                    <DatePickerInput value={new Date()} onDayChange ={handleDayChange} />
+                </div>
                 <input className="form-item bordered" list="cinemas" placeholder="Выберите кинотеатр"/>
                 <datalist id="cinemas">
                     {filterOptions.cities.map(city =>
@@ -52,7 +46,6 @@ const FilterPanel = ({
                     )}                    
                 </datalist>
             </div>
-
         </section>
     )
 }
