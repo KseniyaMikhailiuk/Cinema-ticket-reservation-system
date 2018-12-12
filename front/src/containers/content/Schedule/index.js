@@ -9,7 +9,7 @@ import * as actions  from '../../../store/actions';
 import {getFilteredList, getFilterObject} from '../../../store/reducers';
 
 class Schedule extends Component{
-    componentWillMount(){
+    componentDidMount(){
         this.fetchData();
     }
 

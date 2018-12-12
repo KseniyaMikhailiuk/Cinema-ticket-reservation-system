@@ -10,7 +10,6 @@ const FilterPanel = ({
     filterOptions,
     onFilterClick
 }) => {
-
     const handleDayChange = (selectedDay, modifiers, dayPickerInput) => {
         const input = dayPickerInput.getInput();
         onFilterClick("date", selectedDay);

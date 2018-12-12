@@ -89,7 +89,7 @@ export const fetchFilmList = (filter) =>
                 if (city.name === filter.city) {
                     filteredFilm.cities = city;
                     var filteredCinemas = filterCinemas(city, filter)
-                    if (filteredCinemas){
+                    if (filteredCinemas.length > 0){
                         filteredFilm.cities.cinemas = filteredCinemas;
                         filteredList.push(filteredFilm);
                     }
@@ -107,7 +107,7 @@ const filterCinemas = (city, filter) => {
     .forEach(cinema => { 
         if (cinema.name === filter.cinema || !filter.cinema) {                            
             var filteredSchedule = filterSchedule(cinema, filter);
-            if (filteredSchedule){
+            if (filteredSchedule.length > 0){
                 cinema.schedule = filteredSchedule;
                 filteredCinemas.push(cinema);                                
             }
