@@ -4,11 +4,12 @@ import SeatReservation from './seatReservation'
 import './orderSection.scss'
 
 const OrderSection = ({
-    hallPlan
+    hallPlan,
+    orderInfo
 }) => {
     return(
         <section className="order-section">
-            <FilmInfo />
+            <FilmInfo filmInfo={orderInfo}/>
             <SeatReservation hallPlan={hallPlan}/>
         </section>
     )

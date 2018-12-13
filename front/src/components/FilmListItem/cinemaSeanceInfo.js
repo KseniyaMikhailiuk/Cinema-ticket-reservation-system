@@ -2,16 +2,18 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 
 const CinemaSeanceInfo = ({
-    filmInfo,
+    cinema,
+    filmInfo
 }) => {
     return (
         <section className="cinema-seance-timetable">
             <h1>
-                {filmInfo.name}
+                {cinema.name}
             </h1>   
             <section className="time">
-                {filmInfo.schedule.map(seance => 
-                    <NavLink className="bordered" to="/" >
+                {cinema.schedule.map(seance => 
+                    <NavLink className="bordered" 
+                        to={`/TicketOrder/${filmInfo.title}/${filmInfo.cities.name}/${cinema.name}/${seance}`}>
                         {`${seance.hour()} : ${seance.minute()}`}
                     </NavLink>
                 )}

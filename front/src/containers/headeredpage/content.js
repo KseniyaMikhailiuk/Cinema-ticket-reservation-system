@@ -9,11 +9,12 @@ import TicketOrder from '../content/TicketOrder';
 const Content = () => {
     return (
         <Switch>
+            <Route exact path="/" component={Home}/>
             <Route path='/Cinemas' component={Cinemas}/>
             <Route path='/Home' component={Home}/>
             <Route path='/Schedule' component={Schedule}/>
             <Route path='/SignIn' component={SignIn}/>
-            <Route path='/Info' component={TicketOrder}/>
+            <Route path='/TicketOrder/:film/:city/:cinema/:time' component={TicketOrder}/>
         </Switch>
     )
 }

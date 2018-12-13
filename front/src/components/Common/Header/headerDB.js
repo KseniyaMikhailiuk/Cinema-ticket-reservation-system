@@ -4,23 +4,23 @@ export default{
     navLinks: [
         {
             text: "Главная",
-            link: "./Home"
+            link: "/Home"
         },
         {
             text: "Афиша",
-            link: "./Schedule"
+            link: "/Schedule"
         },
         {
             text: "Кинотеатры",
-            link: "./Cinemas"
+            link: "/Cinemas"
         },
         {
             text: "Инфо",
-            link: "./Info"
+            link: "/Info"
         },
         {
             text: "Вход",
-            link: "./SignIn"
+            link: "/SignIn"
         }
     ]
 }

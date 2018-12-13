@@ -17,7 +17,8 @@ const FilmItem = ({
                 <h3>{itemInfo.date}</h3>
                 <p>{itemInfo.text} </p>
                 <section className="film-item__timetable"> {
-                    chosenCity.cinemas.map(cinema => <CinemaSeanceInfo filmInfo={cinema}/>)   
+                    chosenCity.cinemas.map(cinema => 
+                        <CinemaSeanceInfo cinema={cinema} filmInfo={itemInfo}/>)   
                 }                     
                 </section>
             </section>

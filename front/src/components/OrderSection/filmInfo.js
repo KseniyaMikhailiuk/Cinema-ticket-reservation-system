@@ -9,9 +9,9 @@ const FilmInfo = ({
                 <img />
             </section>
             <section className="film-info-panel__description">
-                <h1>lalaland</h1> {/* {filmInfo.filmName} */}
-                <p>Arena city</p> {/*{filmInfo.cinemaName} {filmInfo.cinemaLocation}*/}
-                <p>25-05-2048</p> {/*{filmInfo.date}*/}
+                <h1>{filmInfo.filmName}</h1> 
+                <p>{filmInfo.cinemaName} {filmInfo.cinemaLocation}</p>
+                <p>{filmInfo.date}</p>
             </section>
         </div>
     )
