@@ -7,7 +7,7 @@ import SignIn from '../content/SignIn'
 import TicketOrder from '../content/TicketOrder';
 
 const Content = () => {
-    return(
+    return (
         <Switch>
             <Route path='/Cinemas' component={Cinemas}/>
             <Route path='/Home' component={Home}/>

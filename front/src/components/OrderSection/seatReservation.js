@@ -5,7 +5,7 @@ import OrderSettings from './orderSettings'
 const SeatReservation = ({
     hallPlan
 }) => {
-    return(
+    return (
         <sectoin className="order-form">
             <HallPlan hallPlan={hallPlan}/>
             <OrderSettings />

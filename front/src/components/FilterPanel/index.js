@@ -1,9 +1,9 @@
 import React from 'react'
-import {NavLink} from 'react-router-dom'
 import '../../CommonStylesheets/formItems.scss'
 import './filterPanel.scss'
 import DatePickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
+import filterInputContent from './filterPanelDB'
 
 
 const FilterPanel = ({
@@ -14,16 +14,16 @@ const FilterPanel = ({
         const input = dayPickerInput.getInput();
         onFilterClick("date", selectedDay);
     }
-    return(
+    return (
         <section className="filter-panel">  
             <div className="filter-panel__group-container">
-                <input className="form-item bordered" list="cities" placeholder="Выберите город"/>
+                <input className="form-item bordered" list="cities" placeholder={filterInputContent.city}/>
                 <datalist id="cities">
                     {filterOptions.cities.map(city =>
                         <option value={city.name} onClick={() => onFilterClick("cities", city.name)}/>                       
                     )}
                 </datalist>
-                <input className="form-item bordered" list="cinemas" placeholder="Выберите кинотеатр"/>
+                <input className="form-item bordered" list="cinemas" placeholder={filterInputContent.cinema}/>
                 <datalist id="cinemas">
                     {filterOptions.cities.map(city =>
                         city.cinemas.map(cinema =>
@@ -34,9 +34,9 @@ const FilterPanel = ({
             </div>
             <div className="filter-panel__group-container">
                 <div className="form-item bordered">
-                    <DatePickerInput value={new Date()} onDayChange ={handleDayChange} />
+                    <DatePickerInput value={new Date()} />
                 </div>
-                <input className="form-item bordered" list="cinemas" placeholder="Выберите кинотеатр"/>
+                <input className="form-item bordered" list="cinemas" placeholder={filterInputContent.cinema}/>
                 <datalist id="cinemas">
                     {filterOptions.cities.map(city =>
                         city.cinemas.map(cinema =>

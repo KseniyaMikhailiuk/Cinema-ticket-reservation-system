@@ -1,4 +1,3 @@
-import * as api from '../../services/api/filmsDB'
 import { combineReducers } from 'redux';
 
 

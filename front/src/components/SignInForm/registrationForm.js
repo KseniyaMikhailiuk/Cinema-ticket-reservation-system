@@ -1,16 +1,27 @@
 import React from 'react'
+import formElementsContent from './registrationDB'
 
 const RegistrationForm = () => {
     return(
         <form>
             <fieldset className="sign-in-forms__fieldset">
-                <legend className="form-item sign-in-forms__legend">Регистрация</legend>
-                <input className="form-item sign-in-forms__text-input bordered" type="text" placeholder=" Имя" autoComplete="on" required/>
-                <input className="form-item sign-in-forms__text-input bordered" type="text" placeholder=" Фамилия" autoComplete="on" required/>
-                <input className="form-item sign-in-forms__text-input bordered" type="email" placeholder=" E-mail" autoComplete="on" required/>
-                <input className="form-item sign-in-forms__text-input bordered" type="password" placeholder=" Пароль" autoComplete="off" required/>
-                <input className="form-item sign-in-forms__text-input bordered" type="password" placeholder=" Повторите пароль" autoComplete="off" required/>
-                <input className="form-item sign-in-forms__button bordered" type="submit" value="Зарегистрироваться"/>                    
+                <legend className="form-item sign-in-forms__legend">
+                    {formElementsContent.legend.text}
+                </legend>
+                {
+                    formElementsContent
+                    .inputFields
+                    .map(field => 
+                        <input className="form-item sign-in-forms__text-input bordered" 
+                            type={field.type} 
+                            placeholder={field.placeholder} 
+                            autoComplete={field.autoComplete} 
+                        required/>)
+                }                
+                <input className="form-item sign-in-forms__button bordered" 
+                    type="submit" 
+                    value={formElementsContent.inputSubmit.text}
+                />                    
             </fieldset>
         </form>
     )

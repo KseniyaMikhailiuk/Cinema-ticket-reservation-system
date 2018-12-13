@@ -3,8 +3,8 @@ import OrderSection from '../../../components/OrderSection/'
 import hallPlan from'./hallPlanDB'
 
 class TicketOrder extends Component{
-    render(){
-        return(
+    render() {
+        return (
             <OrderSection hallPlan={hallPlan}/>
         )
     }

@@ -5,7 +5,7 @@ import RegistrationForm from './registrationForm'
 import AuthorizationForm from './authorizationForm'
 
 const SignInForm = () => {
-    return(
+    return (
         <section className="sign-in-forms">
             <AuthorizationForm />
             <RegistrationForm />

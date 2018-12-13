@@ -38,7 +38,7 @@ const mapStateToScheduleProps = (state) => {
         "cinema": "",
         "date": new Date()
     }
-    return{
+    return {
         filter: getFilterObject(state, filter),
         filmList: getFilteredList(state, filter)
     }

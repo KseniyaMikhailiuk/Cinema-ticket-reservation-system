@@ -1,19 +1,18 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
 import './header.scss'
+import headerItems from'./headerDB'
 
 const Header = () => {
-    return(
+    return (
         <nav>
             <p>
-                VELVET SCREEN
+                {headerItems.cinemaName}
             </p>
             <ul>
-                <li><NavLink to="./Home" activeClassName="selected">Главная</NavLink></li>  
-                <li><NavLink to="./Schedule" activeClassName="selected">Афиша</NavLink></li>
-                <li><NavLink to="./Cinemas" activeClassName="selected">Кинотеатры</NavLink></li>
-                <li><NavLink to="./Info" activeClassName="selected">Инфо</NavLink></li>
-                <li><NavLink to="./SignIn" activeClassName="selected">Вход&#10153;</NavLink> </li>
+                {headerItems.navLinks.map(item => 
+                    <li><NavLink to={item.link} activeClassName="selected">{item.text}</NavLink></li>
+                )}   
             </ul>    
         </nav>
     )

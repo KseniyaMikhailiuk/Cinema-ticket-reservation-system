@@ -82,7 +82,9 @@ export const fetchFilmList = (filter) =>
         var filteredList = [];
         filmDatabase
         .forEach(film => { 
-            var filteredFilm = film;
+            var filteredFilm = {
+                ...film
+            }
             film
             .cities
             .forEach(city => {

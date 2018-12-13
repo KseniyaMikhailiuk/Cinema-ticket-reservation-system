@@ -4,8 +4,8 @@ import ItemList from '../../../components/Common/ItemList/';
 import CinemaItem from '../../../components/CinemaListItem/';
 
 class Cinemas extends Component{
-    render(){
-        return(
+    render() {
+        return (
             <ItemList 
                 list={cinemas}
                 itemType={CinemaItem}

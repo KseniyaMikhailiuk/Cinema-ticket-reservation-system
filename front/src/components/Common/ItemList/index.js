@@ -6,7 +6,7 @@ const ItemList = ({
     itemType
 }) => {
     const Item = itemType;
-    return(
+    return (
         <div className="list">
             {list.map(item => 
                 <Item 

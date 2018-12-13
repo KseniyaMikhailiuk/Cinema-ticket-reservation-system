@@ -2,7 +2,7 @@ import React from 'react'
 import order from './orderDB'
 
 const OrderSettings = () => {
-    return(
+    return (
         <section className="order-list">
             <h1 className="order-list__title">Мои билеты</h1>
             <ul className="order-list__list">
@@ -18,7 +18,6 @@ const OrderSettings = () => {
                 )}
             </ul>
         </section>
-
     )
 }
 
