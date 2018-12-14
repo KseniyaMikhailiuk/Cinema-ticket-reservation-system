@@ -10,13 +10,13 @@ const RegistrationForm = () => {
                 </legend>
                 {
                     formElementsContent
-                    .inputFields
-                    .map(field => 
-                        <input className="form-item sign-in-forms__text-input bordered" 
-                            type={field.type} 
-                            placeholder={field.placeholder} 
-                            autoComplete={field.autoComplete} 
-                        required/>)
+                        .inputFields
+                        .map(field => 
+                            <input className="form-item sign-in-forms__text-input bordered" 
+                                type={field.type} 
+                                placeholder={field.placeholder} 
+                                autoComplete={field.autoComplete} 
+                            required/>)
                 }                
                 <input className="form-item sign-in-forms__button bordered" 
                     type="submit" 

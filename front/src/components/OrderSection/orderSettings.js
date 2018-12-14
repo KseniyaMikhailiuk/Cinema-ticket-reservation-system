@@ -9,14 +9,14 @@ const OrderSettings = () => {
                 {
                     order
                         .map(element => 
-                        <li className="order-list__item">
-                            <div className="ticket-info">
-                                <h1>{element.filmName}</h1>    
-                                    {element.seatType}
-                                    {element.seatType}
-                            </div>
-                            <div className="order-list__cross">&#10005;</div>
-                        </li> 
+                            <li className="order-list__item">
+                                <div className="ticket-info">
+                                    <h1>{element.filmName}</h1>    
+                                        {element.seatType}
+                                        {element.seatType}
+                                </div>
+                                <div className="order-list__cross">&#10005;</div>
+                            </li> 
                         )
                 }
             </ul>

@@ -3,7 +3,7 @@ import React from 'react'
 const FilmInfo = ({
     filmInfo
 }) => {
-    return(
+    return (
         <div className="film-info-panel">
             <section className="film-info-panel__img-container">
                 <img />

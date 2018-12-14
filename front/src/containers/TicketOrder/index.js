@@ -3,7 +3,7 @@ import OrderSection from '../../components/OrderSection/'
 import hallPlan from'./hallPlanDB'
 import {withRouter} from 'react-router'
 
-class TicketOrder extends Component{
+class TicketOrder extends Component {
 
     getFilmInfo() {
         const {match} = this.props;        

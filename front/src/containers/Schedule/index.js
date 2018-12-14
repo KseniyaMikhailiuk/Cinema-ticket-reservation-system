@@ -8,32 +8,32 @@ import FilterPanel from '../../components/FilterPanel';
 import * as actions  from '../../store/actions';
 import {getFilteredList, getFilterObject} from '../../store/reducers';
 
-class Schedule extends Component{
-    componentDidMount(){
+class Schedule extends Component {
+    componentDidMount() {
         this.fetchData();
     }
 
-    componentDidUpdate(prevProps){
-        if(this.props.filter !== prevProps.filter){
+    componentDidUpdate(prevProps) {
+        if (this.props.filter !== prevProps.filter) {
             this.fetchData();
         }
     }
 
-    fetchData(){
+    fetchData() {
         const {filter, fetchFilmList} = this.props;
         fetchFilmList(filter);
     }
 
-    render(){
+    render() {
         const {filmList, changeFilterObjectItem} = this.props;
-        return(
-            <div>
+        return (
+            <React.Fragment>
                 <FilterPanel filterOptions={filterOptions} onFilterClick={changeFilterObjectItem}/>
                 <ItemList 
                     list={filmList}
                     itemType={FilmItem}
                 />
-            </div>
+            </React.Fragment>
         )
     }
 } 

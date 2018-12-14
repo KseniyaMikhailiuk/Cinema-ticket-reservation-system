@@ -7,13 +7,13 @@ export const fetchFilmList = (filter) => (dispatch) => {
     })
     return api.fetchFilmList(filter)
         .then(
-        response => {
-            dispatch({
-                type: 'FETCH_FILM_LIST_SUCCESS',
-                response: response,
-            })
-        }
-    );
+            response => {
+                dispatch({
+                    type: 'FETCH_FILM_LIST_SUCCESS',
+                    response: response,
+                })
+            }
+        );
 };
 
 export const changeFilterObjectItem = (key, value) => (dispatch) => {

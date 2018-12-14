@@ -82,37 +82,36 @@ export const fetchFilmList = (filter) =>
         var filteredList = [];
         filmDatabase
         .forEach(film => { 
-            var filteredFilm = {...film}
+            let filteredFilm = {...film}
             film
-            .cities
-            .forEach(city => {
-                if (city.name === filter.city) {
-                    filteredFilm.cities = city;
-                    var filteredCinemas = filterCinemas(city, filter)
-                    if (filteredCinemas.length > 0){
-                        filteredFilm.cities.cinemas = filteredCinemas;
-                        filteredList.push(filteredFilm);
+                .cities
+                .forEach(city => {
+                    if (city.name === filter.city) {
+                        filteredFilm.cities = city;
+                        var filteredCinemas = filterCinemas(city, filter)
+                        if (filteredCinemas.length > 0){
+                            filteredFilm.cities.cinemas = filteredCinemas;
+                            filteredList.push(filteredFilm);
+                        }
                     }
-                }
-            }
-        );
-    });
-    return filteredList;
-})
+                });
+        });
+        return filteredList;
+    })
 
 const filterCinemas = (city, filter) => {
     var filteredCinemas = []; 
     city
-    .cinemas
-    .forEach(cinema => { 
-        if (cinema.name === filter.cinema || !filter.cinema) {                            
-            var filteredSchedule = filterSchedule(cinema, filter);
-            if (filteredSchedule.length > 0){
-                cinema.schedule = filteredSchedule;
-                filteredCinemas.push(cinema);                                
-            }
-        }                        
-    })
+        .cinemas
+        .forEach(cinema => { 
+            if (cinema.name === filter.cinema || !filter.cinema) {                            
+                var filteredSchedule = filterSchedule(cinema, filter);
+                if (filteredSchedule.length > 0){
+                    cinema.schedule = filteredSchedule;
+                    filteredCinemas.push(cinema);                                
+                }
+            }                        
+        })
     return filteredCinemas;
 }
 

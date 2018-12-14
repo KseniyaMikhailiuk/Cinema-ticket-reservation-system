@@ -3,7 +3,7 @@ import cinemas from './cinemasDB'
 import ItemList from '../../components/Common/ItemList/';
 import CinemaItem from '../../components/CinemaListItem/';
 
-class Cinemas extends Component{
+class Cinemas extends Component {
     render() {
         return (
             <ItemList 

@@ -7,7 +7,7 @@ const ItemList = ({
     itemType
 }) => {
     const Item = itemType;
-    if (list.length > 0){
+    if (list.length > 0) {
         return (
             <div className="list">
                 {

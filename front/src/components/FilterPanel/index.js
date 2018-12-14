@@ -29,10 +29,10 @@ const FilterPanel = ({
                 <datalist id="city">
                     {
                         filterOptions
-                        .cities
-                        .map(city =>
-                            <option value={city.name}/>                       
-                        )
+                            .cities
+                            .map(city =>
+                                <option value={city.name}/>                       
+                            )
                     }
                 </datalist>
                 <input className="form-item bordered" 

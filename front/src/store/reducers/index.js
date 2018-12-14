@@ -33,7 +33,7 @@ const initialFilterState = {
 }
 
 export const getFilterObject = (state) => {
-    if(!state.filterObject){
+    if (!state.filterObject){
         state.filterObject = initialFilterState;
     }    
     return state.filterObject
