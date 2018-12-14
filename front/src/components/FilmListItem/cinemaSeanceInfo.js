@@ -11,12 +11,16 @@ const CinemaSeanceInfo = ({
                 {cinema.name}
             </h1>   
             <section className="time">
-                {cinema.schedule.map(seance => 
-                    <NavLink className="bordered" 
-                        to={`/TicketOrder/${filmInfo.title}/${filmInfo.cities.name}/${cinema.name}/${seance}`}>
-                        {`${seance.hour()} : ${seance.minute()}`}
-                    </NavLink>
-                )}
+                {
+                    cinema
+                        .schedule
+                        .map(seance => 
+                            <NavLink className="bordered" 
+                                to={`/TicketOrder/${filmInfo.title}/${filmInfo.cities.name}/${cinema.name}/${seance}`}>
+                                {`${seance.hour()} : ${seance.minute()}`}
+                            </NavLink>
+                        )
+                }
             </section>
         </section>
     )

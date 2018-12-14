@@ -1,7 +1,7 @@
 import v4 from 'uuid/v4'
 import moment from 'moment'
 
-const today = moment().format("D MMMM YY hh:mm");
+const today = moment().format("D MMMM YY H:mm");
 const DAYS_AMOUNT = 7;
 const SEANSE_TIME_AMOUNT = 7;
 var dates = [];
@@ -82,9 +82,7 @@ export const fetchFilmList = (filter) =>
         var filteredList = [];
         filmDatabase
         .forEach(film => { 
-            var filteredFilm = {
-                ...film
-            }
+            var filteredFilm = {...film}
             film
             .cities
             .forEach(city => {

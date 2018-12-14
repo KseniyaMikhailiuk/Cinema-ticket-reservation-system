@@ -5,7 +5,7 @@ import {withRouter} from 'react-router'
 
 class TicketOrder extends Component{
 
-    getFilmInfo(){
+    getFilmInfo() {
         const {match} = this.props;        
     }
 

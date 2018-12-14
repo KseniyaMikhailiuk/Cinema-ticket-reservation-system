@@ -13,6 +13,12 @@ class Schedule extends Component{
         this.fetchData();
     }
 
+    componentDidUpdate(prevProps){
+        if(this.props.filter !== prevProps.filter){
+            this.fetchData();
+        }
+    }
+
     fetchData(){
         const {filter, fetchFilmList} = this.props;
         fetchFilmList(filter);
@@ -33,14 +39,9 @@ class Schedule extends Component{
 } 
 
 const mapStateToScheduleProps = (state) => {
-    const filter = {
-        "city": filterOptions.cities[0].name,
-        "cinema": "",
-        "date": new Date()
-    }
     return {
-        filter: getFilterObject(state, filter),
-        filmList: getFilteredList(state, filter)
+        filter: getFilterObject(state),
+        filmList: getFilteredList(state)
     }
 }
 

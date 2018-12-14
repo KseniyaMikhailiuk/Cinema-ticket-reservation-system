@@ -10,9 +10,13 @@ const Header = () => {
                 {headerItems.cinemaName}
             </p>
             <ul>
-                {headerItems.navLinks.map(item => 
-                    <li><NavLink to={item.link} activeClassName="selected">{item.text}</NavLink></li>
-                )}   
+                {
+                    headerItems
+                        .navLinks
+                        .map(item => 
+                            <li><NavLink to={item.link} activeClassName="selected">{item.text}</NavLink></li>
+                        )
+                }   
             </ul>    
         </nav>
     )

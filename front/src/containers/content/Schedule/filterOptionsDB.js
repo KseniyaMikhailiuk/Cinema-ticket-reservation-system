@@ -2,11 +2,11 @@ export default {
     "cities": [
         {   
             "name": "Минск",
-            "cinemas": ["qwe", "dfhnjmd", "gerhs"]
+            "cinemas": ["Арена сити", "Аврора", "gerhs"]
         },
         {   
             "name": "Брест",
-            "cinemas": ["hngfns", "snjsrsrty"]
+            "cinemas": ["Arena4 сити", "Arena2 сити"]
         },
         {   
             "name": "Гродно",

@@ -16,9 +16,13 @@ const FilmItem = ({
                 <h1>{itemInfo.title}</h1>
                 <h3>{itemInfo.date}</h3>
                 <p>{itemInfo.text} </p>
-                <section className="film-item__timetable"> {
-                    chosenCity.cinemas.map(cinema => 
-                        <CinemaSeanceInfo cinema={cinema} filmInfo={itemInfo}/>)   
+                <section className="film-item__timetable"> 
+                {
+                    chosenCity
+                        .cinemas
+                        .map(cinema => 
+                            <CinemaSeanceInfo cinema={cinema} filmInfo={itemInfo}/>
+                        )   
                 }                     
                 </section>
             </section>

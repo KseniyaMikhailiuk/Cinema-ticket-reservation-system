@@ -13,12 +13,15 @@ const FilmCarousel = () => (
         infiniteLoop={true} 
         dynamicHeight={true} 
         autoPlay>
-            {carouselItems.map(item => 
-                <div>
-                    <img src={filmImage}/>
-                    <p className="legend">{item.legend}</p>
-                </div>
-            )}           
+            {
+                carouselItems
+                    .map(item => 
+                        <div>
+                            <img src={filmImage}/>
+                            <p className="legend">{item.legend}</p>
+                        </div>
+                    )
+            }           
     </Carousel>
 );
 

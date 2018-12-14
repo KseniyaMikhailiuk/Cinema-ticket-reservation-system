@@ -14,35 +14,62 @@ const FilterPanel = ({
         const input = dayPickerInput.getInput();
         onFilterClick("date", selectedDay);
     }
+
+    const handleInputChange = (event) => {
+        onFilterClick(event.target.list.id, event.target.value);
+    }
+
     return (
         <section className="filter-panel">  
             <div className="filter-panel__group-container">
-                <input className="form-item bordered" list="cities" placeholder={filterInputContent.city}/>
-                <datalist id="cities">
-                    {filterOptions.cities.map(city =>
-                        <option value={city.name} onClick={() => onFilterClick("cities", city.name)}/>                       
-                    )}
-                </datalist>
-                <input className="form-item bordered" list="cinemas" placeholder={filterInputContent.cinema}/>
-                <datalist id="cinemas">
-                    {filterOptions.cities.map(city =>
-                        city.cinemas.map(cinema =>
-                            <option value={cinema} onClick={() => onFilterClick("cinemas", cinema)}>{city.name}</option>    
+                <input className="form-item bordered" 
+                    list="city" 
+                    placeholder={filterInputContent.city}
+                    onChange={handleInputChange}/>
+                <datalist id="city">
+                    {
+                        filterOptions
+                        .cities
+                        .map(city =>
+                            <option value={city.name}/>                       
                         )
-                    )}                    
+                    }
+                </datalist>
+                <input className="form-item bordered" 
+                    list="cinema" 
+                    placeholder={filterInputContent.cinema}
+                    onChange={handleInputChange}/>
+                <datalist id="cinema">
+                    {
+                        filterOptions
+                            .cities
+                            .map(city =>
+                                city
+                                    .cinemas
+                                    .map(cinema =>
+                                        <option value={cinema}>{city.name}</option>    
+                                    )
+                            )
+                    }                    
                 </datalist>
             </div>
             <div className="filter-panel__group-container">
                 <div className="form-item bordered">
                     <DatePickerInput value={new Date()} />
                 </div>
-                <input className="form-item bordered" list="cinemas" placeholder={filterInputContent.cinema}/>
-                <datalist id="cinemas">
-                    {filterOptions.cities.map(city =>
-                        city.cinemas.map(cinema =>
-                            <option value={cinema}>{city.name}</option>    
-                        )
-                    )}                    
+                <input className="form-item bordered" list="cinema" placeholder={filterInputContent.cinema}/>
+                <datalist id="cinema">
+                    {
+                        filterOptions
+                            .cities
+                            .map(city =>
+                                city
+                                    .cinemas
+                                    .map(cinema =>
+                                        <option value={cinema}>{city.name}</option>    
+                                    )
+                            )
+                    }                    
                 </datalist>
             </div>
         </section>
