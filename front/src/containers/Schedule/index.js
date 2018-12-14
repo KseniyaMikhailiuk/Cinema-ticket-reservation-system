@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import filterOptions from './filterOptionsDB';
-import ItemList from '../../../components/Common/ItemList/';
-import FilmItem from '../../../components/FilmListItem/';
-import FilterPanel from '../../../components/FilterPanel';
-import * as actions  from '../../../store/actions';
-import {getFilteredList, getFilterObject} from '../../../store/reducers';
+import ItemList from '../../components/Common/ItemList/';
+import FilmItem from '../../components/FilmListItem/';
+import FilterPanel from '../../components/FilterPanel';
+import * as actions  from '../../store/actions';
+import {getFilteredList, getFilterObject} from '../../store/reducers';
 
 class Schedule extends Component{
     componentDidMount(){

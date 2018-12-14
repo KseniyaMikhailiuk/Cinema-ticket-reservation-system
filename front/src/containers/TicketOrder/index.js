@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import OrderSection from '../../../components/OrderSection/'
+import OrderSection from '../../components/OrderSection/'
 import hallPlan from'./hallPlanDB'
 import {withRouter} from 'react-router'
 
