@@ -15,22 +15,22 @@ for(var i = 0; i < DAYS_AMOUNT; i++){
 
 const filmDatabase = [
     {
-        "id": v4(),
-        "image": "1.jpg",
-        "title": "lalaland",
-        "date": "gsgsg",
-        "text": "jskjgwkerjgregjegqwreg",
-        "cities": [
+        id: v4(),
+        image: "1.jpg",
+        title: "lalaland",
+        date: "gsgsg",
+        text: "jskjgwkerjgregjegqwreg",
+        cities: [
             {
-                "name": "Минск",
-                "cinemas": [
+                name: "Минск",
+                cinemas: [
                     {
-                        "name": "Арена сити",
-                        "schedule": dates,
+                        name: "Арена сити",
+                        schedule: dates,
                     },
                     {
-                        "name": "Аврора",
-                        "schedule": dates,
+                        name: "Аврора",
+                        schedule: dates,
                     }
                 ]
             }
@@ -38,31 +38,31 @@ const filmDatabase = [
         ]
     },
     {
-        "id": v4(),
-        "image": "1.jpg",
-        "title": "котики",
-        "date": "gsgsg",
-        "text": "jskjgwkerjgregjegqwreg",
-        "cities": [
+        id: v4(),
+        image: "1.jpg",
+        title: "котики",
+        date: "gsgsg",
+        text: "jskjgwkerjgregjegqwreg",
+        cities: [
             {
-                "name": "Брест",
-                "cinemas": [
+                name: "Брест",
+                cinemas: [
                     {
-                        "name": "Arena4 сити",
-                        "schedule": dates,
+                        name: "Arena4 сити",
+                        schedule: dates,
                     },
                     {
-                        "name": "Arena2 сити",
-                        "schedule": dates,
+                        name: "Arena2 сити",
+                        schedule: dates,
                     },
                 ]       
             },    
             {
-                "name": "Гомель",
-                "cinemas": [
+                name: "Гомель",
+                cinemas: [
                     {
-                        "name": "Arena1 сити",
-                        "schedule": dates,
+                        name: "Arena1 сити",
+                        schedule: dates,
                     },
                 ]
             }
@@ -123,3 +123,9 @@ const filterSchedule = (cinema, filter) => {
             time.month() === filter.date.getMonth() &&
             time.date() === filter.date.getDate())
 }
+
+export const fetchFilmInfo = (filmName) => 
+    delay(500)
+        .then(() => {
+            return filmDatabase.find(film => film.title === filmName);
+        })
