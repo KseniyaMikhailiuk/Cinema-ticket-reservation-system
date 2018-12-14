@@ -1,21 +1,14 @@
 import React from 'react'
 import '../../CommonStylesheets/formItems.scss'
 import './filterPanel.scss'
-import DatePickerInput from 'react-day-picker/DayPickerInput';
-import 'react-day-picker/lib/style.css';
-import filterInputContent from './filterPanelDB'
+import DatePickerCustomized from './datePicker'
 
 
 const FilterPanel = ({
     filterOptions,
     onFilterClick
 }) => {
-    const handleDayChange = (selectedDay, modifiers, dayPickerInput) => {
-        const input = dayPickerInput.getInput();
-        onFilterClick("date", selectedDay);
-    }
-
-    const handleInputChange = (event) => {
+     const handleInputChange = (event) => {
         onFilterClick(event.target.list.id, event.target.value);
     }
 
@@ -24,7 +17,7 @@ const FilterPanel = ({
             <div className="filter-panel__group-container">
                 <input className="form-item bordered" 
                     list="city" 
-                    placeholder={filterInputContent.city}
+                    placeholder="Выберите город"
                     onChange={handleInputChange}/>
                 <datalist id="city">
                     {
@@ -37,7 +30,7 @@ const FilterPanel = ({
                 </datalist>
                 <input className="form-item bordered" 
                     list="cinema" 
-                    placeholder={filterInputContent.cinema}
+                    placeholder="Выберите кинотеатр"
                     onChange={handleInputChange}/>
                 <datalist id="cinema">
                     {
@@ -55,9 +48,11 @@ const FilterPanel = ({
             </div>
             <div className="filter-panel__group-container">
                 <div className="form-item bordered">
-                    <DatePickerInput value={new Date()} />
+                    <DatePickerCustomized 
+                        onFilterClick={onFilterClick}                       
+                    />
                 </div>
-                <input className="form-item bordered" list="cinema" placeholder={filterInputContent.cinema}/>
+                <input className="form-item bordered" list="cinema" placeholder="Выберите кинотеатр"/>
                 <datalist id="cinema">
                     {
                         filterOptions

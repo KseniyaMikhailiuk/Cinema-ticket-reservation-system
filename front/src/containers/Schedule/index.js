@@ -27,13 +27,13 @@ class Schedule extends Component {
     render() {
         const {filmList, changeFilterObjectItem} = this.props;
         return (
-            <React.Fragment>
+            <>
                 <FilterPanel filterOptions={filterOptions} onFilterClick={changeFilterObjectItem}/>
                 <ItemList 
                     list={filmList}
                     itemType={FilmItem}
                 />
-            </React.Fragment>
+            </>
         )
     }
 } 

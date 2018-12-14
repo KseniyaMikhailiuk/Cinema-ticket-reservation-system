@@ -34,7 +34,7 @@ const HallPlan = ({
         return (100 - (seatsInLine - 1) * 5) / seatsInLine;    
     }
 
-    return(
+    return (
         <div className="hall-plan">
             <svg className="hall-plan__screen-svg-container">
                 <rect className="hall-plan__screen"/>

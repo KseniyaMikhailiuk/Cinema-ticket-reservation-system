@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import filterOptions from '../../containers/content/Schedule/filterOptionsDB'
+import filterOptions from '../../containers/Schedule/filterOptionsDB'
 
 
 const filteredList = (state = [], action) => {
