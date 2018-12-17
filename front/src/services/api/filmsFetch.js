@@ -26,11 +26,29 @@ const filmDatabase = [
                 cinemas: [
                     {
                         name: "Арена сити",
-                        schedule: dates,
+                        halls: [
+                            {
+                                number: 1,
+                                schedule: dates,
+                            },
+                            {
+                                number: 2,
+                                schedule: dates,
+                            }
+                        ]                        
                     },
                     {
                         name: "Аврора",
-                        schedule: dates,
+                        halls: [
+                            {
+                                number: 1,
+                                schedule: dates,
+                            },
+                            {
+                                number: 2,
+                                schedule: dates,
+                            }
+                        ]   
                     }
                 ]
             }
@@ -49,11 +67,29 @@ const filmDatabase = [
                 cinemas: [
                     {
                         name: "Arena4 сити",
-                        schedule: dates,
+                        halls: [
+                            {
+                                number: 1,
+                                schedule: dates,
+                            },
+                            {
+                                number: 2,
+                                schedule: dates,
+                            }
+                        ]   
                     },
                     {
                         name: "Arena2 сити",
-                        schedule: dates,
+                        halls: [
+                            {
+                                number: 1,
+                                schedule: dates,
+                            },
+                            {
+                                number: 2,
+                                schedule: dates,
+                            }
+                        ]   
                     },
                 ]       
             },    
@@ -62,7 +98,16 @@ const filmDatabase = [
                 cinemas: [
                     {
                         name: "Arena1 сити",
-                        schedule: dates,
+                        halls: [
+                            {
+                                number: 1,
+                                schedule: dates,
+                            },
+                            {
+                                number: 2,
+                                schedule: dates,
+                            }
+                        ]   
                     },
                 ]
             }
@@ -107,7 +152,7 @@ const filterCinemas = (city, filter) => {
             if (cinema.name === filter.cinema || !filter.cinema) {                            
                 var filteredSchedule = filterSchedule(cinema, filter);
                 if (filteredSchedule.length > 0){
-                    cinema.schedule = filteredSchedule;
+                    cinema.halls = filteredSchedule;
                     filteredCinemas.push(cinema);                                
                 }
             }                        
@@ -116,12 +161,24 @@ const filterCinemas = (city, filter) => {
 }
 
 const filterSchedule = (cinema, filter) => {
-    return cinema
-        .schedule
-        .filter(time => 
-            time.year() === filter.date.getFullYear() && 
-            time.month() === filter.date.getMonth() &&
-            time.date() === filter.date.getDate())
+    var filteredHalls = [];
+    cinema
+        .halls
+        .forEach(hall => {
+            var filteredHallSchedule = hall
+                .schedule
+                .filter(time => 
+                    time.year() === filter.date.getFullYear() && 
+                    time.month() === filter.date.getMonth() &&
+                    time.date() === filter.date.getDate())
+            if (filteredHallSchedule.length > 0){
+                filteredHalls.push({
+                    ...hall,
+                    schedule: filteredHallSchedule
+                })
+            }  
+        })
+    return filteredHalls;
 }
 
 export const fetchFilmInfo = (filmName) => 

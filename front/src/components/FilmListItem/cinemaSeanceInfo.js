@@ -13,6 +13,9 @@ const CinemaSeanceInfo = ({
             <section className="time">
                 {
                     cinema
+                    .halls
+                    .map(hall => 
+                        hall
                         .schedule
                         .map(seance => 
                             <NavLink className="bordered" 
@@ -20,6 +23,7 @@ const CinemaSeanceInfo = ({
                                 {`${seance.hour()} : ${seance.minute()}`}
                             </NavLink>
                         )
+                    )
                 }
             </section>
         </section>
