@@ -11,8 +11,10 @@ const filteredList = (state = [], action) => {
 
 const isDataRequested = (state =  false, action) => {
     switch(action.type){
+        case 'FETCH_FILM_INFO_REQUEST':
         case 'FETCH_FILM_LIST_REQUEST':
             return true;
+        case 'FETCH_FILM_INFO_SUCCESS':
         case 'FETCH_FILM_LIST_SUCCESS':
             return false;
         default:
@@ -28,6 +30,10 @@ export const getFilterObject = (state) => {
     return state.filterObject
 }
 
+export const getFilmInfo = (state) => {
+    return state.selectedFilmInfo;
+}
+
 const filterObject = (state = null, action) => {
     const {key, value} = action;
     switch(action.type){
@@ -41,10 +47,20 @@ const filterObject = (state = null, action) => {
     }
 }
 
+const selectedFilmInfo = (state = {}, action) => {
+    switch(action.type){
+        case 'FETCH_FILM_INFO_SUCCESS':
+            return action.response
+        default:
+            return state;
+    }
+}
+
 const cinemaApp = combineReducers ({
     filteredList,
     filterObject,
-    isDataRequested
+    isDataRequested,
+    selectedFilmInfo
 });
 
 export default cinemaApp;

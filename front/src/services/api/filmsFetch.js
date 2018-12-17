@@ -126,6 +126,10 @@ const filterSchedule = (cinema, filter) => {
 
 export const fetchFilmInfo = (filmName) => 
     delay(500)
-        .then(() => {
-            return filmDatabase.find(film => film.title === filmName);
+        .then(() => {            
+            var selectedFilm = filmDatabase.filter(film => film.title === filmName);
+            if (selectedFilm.length > 0){
+                return selectedFilm[0];
+            }
+            return {};
         })

@@ -1,4 +1,5 @@
 import React from 'react'
+import seatType from './seatTypes'
 
 const HallPlan = ({
     hallPlan
@@ -11,8 +12,8 @@ const HallPlan = ({
                     seatLine
                         .map(seat => {     
                             var seatWidth = standardSeatWidth + '%';
-                            if (seat.type === "loveseat"){
-                                seatWidth = (standardSeatWidth * 2 + 15) + '%'; 
+                            if (seat.type === seatType.loveseat.type){
+                                seatWidth = (standardSeatWidth * seatType.loveseat.guestOnSeatAmount + standardSeatWidth) + '%'; 
                             }
                             return (
                                 <svg className="hall-plan__seat-svg-container" width={seatWidth}>
@@ -29,9 +30,9 @@ const HallPlan = ({
         var seatsInLine = 0;
         seatLine
             .forEach(seat => {
-                seatsInLine += seat.weight;
+                seatsInLine += seatType[seat.type].guestOnSeatAmount;
             });         
-        return (100 - (seatsInLine - 1) * 5) / seatsInLine;    
+        return 100 / (seatsInLine * 2 - 1);    
     }
 
     return (
