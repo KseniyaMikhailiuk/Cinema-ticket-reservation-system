@@ -8,16 +8,25 @@ import FilmInfo from '../../components/OrderSection/filmInfo'
 import SeatReservation from '../../components/OrderSection/seatReservation'
 
 class TicketOrder extends Component {
-
     componentDidMount() {
-        const {fetchFilmInfo, selectedSeanceInfo, fetchHallPlan} = this.props;
-        fetchHallPlan(selectedSeanceInfo);
+        const {fetchFilmInfo, selectedSeanceInfo} = this.props;
+        this.fetchCurrentHallPlan();
         fetchFilmInfo(selectedSeanceInfo.film);
+    }
+
+    fetchCurrentHallPlan(){
+        const {selectedSeanceInfo, fetchHallPlan} = this.props;
+        fetchHallPlan(selectedSeanceInfo);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.orderInfo !== prevProps.orderInfo) {
+            this.fetchCurrentHallPlan();
+        }
     }
 
     addSeatToOrderList(seatId) {      
         const {addSeatToOrder, selectedSeanceInfo} = this.props;
-        console.log(selectedSeanceInfo)
         addSeatToOrder({
             seatId,
             selectedSeanceInfo

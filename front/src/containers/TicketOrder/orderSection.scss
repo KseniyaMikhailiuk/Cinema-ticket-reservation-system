@@ -79,6 +79,10 @@
             stroke: rgb(148, 118, 161);
             fill: rgb(83, 69, 82);
         }
+
+        &.occupied{
+            fill: rgb(83, 69, 82);
+        }
     }
 }
 
