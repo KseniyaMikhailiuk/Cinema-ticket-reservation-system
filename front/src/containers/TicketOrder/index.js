@@ -51,7 +51,7 @@ class TicketOrder extends Component {
     }
 }
 
-const mapStateToTicketOrderProps = (state, {match: match}) => { 
+const mapStateToTicketOrderProps = (state, {match}) => { 
     return{
         selectedSeanceInfo: match.params,
         filmInfo: getFilmInfo(state),

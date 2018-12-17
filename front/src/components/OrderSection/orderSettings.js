@@ -1,5 +1,4 @@
 import React from 'react'
-import order from './orderDB'
 
 const OrderSettings = ({
     orderInfo
@@ -14,7 +13,7 @@ const OrderSettings = ({
                             <li className="order-list__item">
                                 <div className="ticket-info">
                                     <h1>{`ряд: ${orderItem.line} место: ${orderItem.raw}`}</h1>    
-                                        {orderItem.seatType}
+                                    <p>{orderItem.type} {orderItem.price}</p>
                                 </div>
                                 <div className="order-list__cross">&#10005;</div>
                             </li> 
