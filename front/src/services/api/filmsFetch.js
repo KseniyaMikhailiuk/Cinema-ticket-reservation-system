@@ -124,18 +124,24 @@ const delay = (ms) =>
 export const fetchFilmList = (filter) => 
     delay(500)
     .then(() => {
-        var filteredList = [];
+        let filteredList = [];
         filmDatabase
         .forEach(film => { 
-            let filteredFilm = {...film}
+            let filteredFilm = {...film};
             film
                 .cities
                 .forEach(city => {
                     if (city.name === filter.city) {
-                        filteredFilm.cities = city;
-                        var filteredCinemas = filterCinemas(city, filter)
+                        var filteredCinemas = filterCinemas(city, filter);
                         if (filteredCinemas.length > 0){
-                            filteredFilm.cities.cinemas = filteredCinemas;
+                            var filteresCities = {
+                                ...city, 
+                                cinemas: filteredCinemas
+                            };
+                            filteredFilm = {
+                                ...film,
+                                cities: filteresCities
+                            }
                             filteredList.push(filteredFilm);
                         }
                     }
