@@ -2,8 +2,14 @@ import React from 'react'
 import seatType from './seatTypes'
 
 const HallPlan = ({
-    hallPlan
+    hallPlan,
+    onSeatSelect
 }) => {
+
+    const handleSeatSelect = (event) => {
+        console.log(event.target.id)
+        onSeatSelect(event.target.id);
+    }
 
     const displaySeatLine = (seatLine, standardSeatWidth) => {
         return (
@@ -16,8 +22,12 @@ const HallPlan = ({
                                 seatWidth = (standardSeatWidth * seatType.loveseat.guestOnSeatAmount + standardSeatWidth) + '%'; 
                             }
                             return (
-                                <svg className="hall-plan__seat-svg-container" width={seatWidth}>
-                                    <rect rx="10" ry="10" className="hall-plan__seat"/>
+                                <svg 
+                                    className="hall-plan__seat-svg-container" 
+                                    width={seatWidth} 
+                                    onClick={handleSeatSelect}
+                                >
+                                    <rect id={seat.id} rx="10" ry="10" className="hall-plan__seat"/>
                                 </svg>
                             )
                         })

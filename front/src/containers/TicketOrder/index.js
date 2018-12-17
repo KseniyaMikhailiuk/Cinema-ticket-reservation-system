@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router'
 import * as actions from '../../store/actions'
-import {getFilmInfo, getHallPlan} from '../../store/reducers'
+import {getFilmInfo, getHallPlan, getOrderInfo} from '../../store/reducers'
 import './orderSection.scss'
 import FilmInfo from '../../components/OrderSection/filmInfo'
 import SeatReservation from '../../components/OrderSection/seatReservation'
@@ -15,16 +15,28 @@ class TicketOrder extends Component {
         fetchFilmInfo(selectedSeanceInfo.film);
     }
 
-    getFilmInfo() {      
-
+    addSeatToOrderList(seatId) {      
+        const {addSeatToOrder, selectedSeanceInfo} = this.props;
+        console.log(selectedSeanceInfo)
+        addSeatToOrder({
+            seatId,
+            selectedSeanceInfo
+        })
     }
 
     render() {
-        const {filmInfo, selectedSeanceInfo, hallPlan} = this.props;
+        const {filmInfo, selectedSeanceInfo, hallPlan, orderInfo} = this.props;
         return (
             <section className="order-section">
-                <FilmInfo filmInfo={filmInfo} selectedSeanceInfo={selectedSeanceInfo}/>
-                <SeatReservation hallPlan={hallPlan}/>
+                <FilmInfo 
+                    filmInfo={filmInfo}
+                    selectedSeanceInfo={selectedSeanceInfo}
+                />
+                <SeatReservation 
+                    hallPlan={hallPlan} 
+                    orderInfo={orderInfo} 
+                    onSeatSelect={this.addSeatToOrderList.bind(this)}
+                />
             </section>
         )
     }
@@ -35,6 +47,7 @@ const mapStateToTicketOrderProps = (state, {match: match}) => {
         selectedSeanceInfo: match.params,
         filmInfo: getFilmInfo(state),
         hallPlan: getHallPlan(state),
+        orderInfo: getOrderInfo(state)
     }
 }
 

@@ -1,19 +1,20 @@
 import React from 'react'
 import order from './orderDB'
 
-const OrderSettings = () => {
+const OrderSettings = ({
+    orderInfo
+}) => {
     return (
         <section className="order-list">
             <h1 className="order-list__title">Мои билеты</h1>
             <ul className="order-list__list">
                 {
-                    order
-                        .map(element => 
+                    orderInfo
+                        .map(orderItem => 
                             <li className="order-list__item">
                                 <div className="ticket-info">
-                                    <h1>{element.filmName}</h1>    
-                                        {element.seatType}
-                                        {element.seatType}
+                                    <h1>{`ряд: ${orderItem.line} место: ${orderItem.raw}`}</h1>    
+                                        {orderItem.seatType}
                                 </div>
                                 <div className="order-list__cross">&#10005;</div>
                             </li> 

@@ -58,3 +58,18 @@ export const fetchHallPlan = (seanceInfo) => (dispatch) => {
             }
         )
 }
+
+export const addSeatToOrder = (seatId, seanceInfo) => (dispatch) => {
+    dispatch({
+        type: 'ADD_SEAT_INFO_REQUEST'
+    })
+
+    return cinemaHallPlans.occupySeat(seatId, seanceInfo)
+        .then(
+            response => 
+                dispatch({
+                    type: 'ADD_SEAT_TO_ORDER',
+                    seatInfo: response
+                })
+        )
+} 

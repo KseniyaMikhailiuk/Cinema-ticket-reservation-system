@@ -38,6 +38,10 @@ export const getHallPlan = (state) => {
     return state.hallPlan
 }
 
+export const getOrderInfo = (state) => {
+    return state.orderList;
+}
+
 const hallPlan = (state = [], action) => {
     switch(action.type){
         case 'FETCH_HALL_INFO_SUCCESS':
@@ -69,12 +73,22 @@ const selectedFilmInfo = (state = {}, action) => {
     }
 }
 
+const orderList = (state = [], action) => {
+    switch(action.type){
+        case 'ADD_SEAT_TO_ORDER':
+            return [...state, action.seatInfo];
+        default:
+            return state;
+    }
+}
+
 const cinemaApp = combineReducers ({
     filteredList,
     filterObject,
     isDataRequested,
     selectedFilmInfo,
-    hallPlan
+    hallPlan,
+    orderList
 });
 
 export default cinemaApp;
