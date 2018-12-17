@@ -1,11 +1,12 @@
-import * as api from '../../services/api/filmsFetch'
+import * as filmsInfo from '../../services/api/filmsFetch'
+import * as cinemaHallPlans from '../../services/api/hallPlanFetch'
 
 export const fetchFilmList = (filter) => (dispatch) => {
     dispatch({
         type: 'FETCH_FILM_LIST_REQUEST',
         filter
     })
-    return api.fetchFilmList(filter)
+    return filmsInfo.fetchFilmList(filter)
         .then(
             response => {
                 dispatch({
@@ -30,11 +31,28 @@ export const fetchFilmInfo = (filmName) => (dispatch) => {
         title: filmName
     })
 
-    return api.fetchFilmInfo(filmName)
+    return filmsInfo.fetchFilmInfo(filmName)
         .then(
             response => {
                 dispatch({
                     type: 'FETCH_FILM_INFO_SUCCESS',
+                    response: response
+                })
+            }
+        )
+}
+
+export const fetchHallPlan = (seanceInfo) => (dispatch) => {
+    dispatch({
+        type: 'FETCH_HALL_INFO_REQUEST',
+        seanceInfo: seanceInfo
+    })
+
+    return cinemaHallPlans.fetchHallPlan(seanceInfo)
+        .then(
+            response => {
+                dispatch({
+                    type: 'FETCH_HALL_INFO_SUCCESS',
                     response: response
                 })
             }

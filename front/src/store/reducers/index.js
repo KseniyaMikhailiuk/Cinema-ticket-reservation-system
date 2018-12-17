@@ -34,6 +34,19 @@ export const getFilmInfo = (state) => {
     return state.selectedFilmInfo;
 }
 
+export const getHallPlan = (state) => {
+    return state.hallPlan
+}
+
+const hallPlan = (state = [], action) => {
+    switch(action.type){
+        case 'FETCH_HALL_INFO_SUCCESS':
+            return action.response;
+        default:
+            return state;
+    }
+}
+
 const filterObject = (state = null, action) => {
     const {key, value} = action;
     switch(action.type){
@@ -60,7 +73,8 @@ const cinemaApp = combineReducers ({
     filteredList,
     filterObject,
     isDataRequested,
-    selectedFilmInfo
+    selectedFilmInfo,
+    hallPlan
 });
 
 export default cinemaApp;
