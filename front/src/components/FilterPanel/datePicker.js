@@ -6,25 +6,28 @@ class DatePickerCusomized extends DatePicker {
     constructor(props) {
         super(props);
         this.state = {
-          startDate: new Date()
+          selectedDate: new Date()
         };
         this.handleDayChange = this.handleDayChange.bind(this);
     }
 
-    handleDayChange (date) {
+    handleDayChange(date) {
         this.setState({
-            startDate: date
+            selectedDate: date
         });
         const {onFilterClick} = this.props;
         onFilterClick("date", date);
     }
 
     render() {
-        return <DatePicker className="form-item"
-            minDate={new Date()}
-            selected={new Date()}
-            onSelect={this.handleDayChange}                         
-        />
+        const {selectedDate} = this.props
+        return (
+            <DatePicker className="form-item"
+                minDate={new Date()}
+                selected={selectedDate}
+                onChange={this.handleDayChange}                         
+            />
+        )
     }
 }
 

@@ -1,6 +1,4 @@
 import { combineReducers } from 'redux';
-import filterOptions from '../../containers/Schedule/filterOptionsDB'
-
 
 const filteredList = (state = [], action) => {
     switch(action.type){
@@ -26,16 +24,7 @@ export const getFilteredList = (state) => {
     return state.filteredList;
 }
 
-const initialFilterState = {
-    "city": filterOptions.cities[0].name,
-    "cinema": "",
-    "date": new Date()
-}
-
-export const getFilterObject = (state) => {
-    if (!state.filterObject){
-        state.filterObject = initialFilterState;
-    }    
+export const getFilterObject = (state) => { 
     return state.filterObject
 }
 

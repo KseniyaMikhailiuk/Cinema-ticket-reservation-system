@@ -5,6 +5,7 @@ import DatePickerCustomized from './datePicker'
 
 
 const FilterPanel = ({
+    filter,
     filterOptions,
     onFilterClick
 }) => {
@@ -17,7 +18,7 @@ const FilterPanel = ({
             <div className="filter-panel__group-container">
                 <input className="form-item bordered" 
                     list="city" 
-                    placeholder="Выберите город"
+                    placeholder={filter.city}
                     onChange={handleInputChange}/>
                 <datalist id="city">
                     {
@@ -49,6 +50,7 @@ const FilterPanel = ({
             <div className="filter-panel__group-container">
                 <div className="form-item bordered">
                     <DatePickerCustomized 
+                        selectedDate={filter.date}
                         onFilterClick={onFilterClick}                       
                     />
                 </div>

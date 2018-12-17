@@ -25,10 +25,10 @@ class Schedule extends Component {
     }
 
     render() {
-        const {filmList, changeFilterObjectItem} = this.props;
+        const {filmList, changeFilterObjectItem, filter} = this.props;
         return (
             <>
-                <FilterPanel filterOptions={filterOptions} onFilterClick={changeFilterObjectItem}/>
+                <FilterPanel filter={filter} filterOptions={filterOptions} onFilterClick={changeFilterObjectItem}/>
                 <ItemList 
                     list={filmList}
                     itemType={FilmItem}
