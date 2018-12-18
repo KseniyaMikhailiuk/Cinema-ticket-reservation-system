@@ -3,7 +3,6 @@ import React from 'react'
 const FilmInfo = ({
     filmInfo
 }) => {
-    console.log(filmInfo)
     return (
         <div className="film-info-panel">
             <section className="film-info-panel__img-container">

@@ -186,6 +186,7 @@ export const fetchFilmList = (filter) =>
                     }
                 });
         });
+        
         return filteredList;
     })
 
@@ -202,6 +203,7 @@ const filterCinemas = (city, filter) => {
                 }
             }                        
         })
+
     return filteredCinemas;
 }
 
@@ -223,6 +225,7 @@ const filterSchedule = (cinema, filter) => {
                 })
             }  
         })
+
     return filteredHalls;
 }
 
@@ -249,5 +252,6 @@ export const fetchFilmInfo = (seanceId) =>
                     }
                 }
             }
+
             return {};
         })

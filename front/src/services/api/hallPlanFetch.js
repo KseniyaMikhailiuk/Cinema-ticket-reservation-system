@@ -359,8 +359,7 @@ const cinemaHallPlans = [
                                     raw: 1,
                                     line: 2, 
                                 },
-                            ]
-                        
+                            ]                        
                         ]
                     }
                 ]
@@ -396,6 +395,7 @@ export const fetchHallPlan = (seanceInfo) =>
                     })
             }
         })            
+
         return plan;
     })
 
@@ -403,24 +403,27 @@ export const occupySeat = (seatInfo) =>
     delay(500)
     .then(() => {
         let selectedSeat = {};
-        cinemaHallPlans
-        .find(city => 
-            city.cityName === seatInfo.selectedSeanceInfo.city)
-            .cinemas
-            .find(cinema =>
-                cinema.name === seatInfo.selectedSeanceInfo.cinema)
-                .halls
-                .find(hall => 
-                    hall.number === seatInfo.selectedSeanceInfo.hall)
-                    .plan
-                    .forEach(line => {
-                        line
-                        .forEach(seat => {
-                            if (seat.id === seatInfo.seatId) {
-                                seat.occupied = true;
-                                selectedSeat = seat;
+        for (let city of cinemaHallPlans){
+            if (city.cityName === seatInfo.selectedSeanceInfo.city){
+                for (let cinema of city.cinemas){
+                    if (cinema.name === seatInfo.selectedSeanceInfo.cinema){
+                        for (let hall of cinema.halls){
+                            if (hall.number === seatInfo.selectedSeanceInfo.hall){
+                                for (let line of hall.plan){
+                                    for (let seat of line){
+                                        if (seat.id === seatInfo.seatId) {
+                                            seat.occupied = true;
+                                            selectedSeat = seat;
+                                        }
+                                    }
+                                }
                             }
-                        })
-                    })
+                        }
+                    }
+                }
+            }
+            
+        }
+
         return selectedSeat;
     })
