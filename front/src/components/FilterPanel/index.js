@@ -54,17 +54,16 @@ const FilterPanel = ({
                         onFilterClick={onFilterClick}                       
                     />
                 </div>
-                <input className="form-item bordered" list="cinema" value="Выберите кинотеатр"/>
-                <datalist id="cinema">
+                <input className="form-item bordered" 
+                    list="filmName" 
+                    placeholder="Выберите фильм"
+                    onChange={handleInputChange}/>/>
+                <datalist id="filmName">
                     {
                         filterOptions
-                            .cities
-                            .map(city =>
-                                city
-                                    .cinemas
-                                    .map(cinema =>
-                                        <option value={cinema}>{city.name}</option>    
-                                    )
+                            .filmNames
+                            .map(filmName =>
+                                <option value={filmName}></option>
                             )
                     }                    
                 </datalist>

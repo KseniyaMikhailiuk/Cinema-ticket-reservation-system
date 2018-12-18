@@ -166,27 +166,29 @@ export const fetchFilmList = (filter) =>
         let filteredList = [];
         filmDatabase
         .forEach(film => { 
-            let filteredFilm = {...film};
-            film
-                .cities
-                .forEach(city => {
-                    if (city.name === filter.city) {
-                        var filteredCinemas = filterCinemas(city, filter);
-                        if (filteredCinemas.length > 0){
-                            var filteresCities = {
-                                ...city, 
-                                cinemas: filteredCinemas
-                            };
-                            filteredFilm = {
-                                ...film,
-                                cities: filteresCities
+            if (film.title.indexOf(filter.filmName) !== -1 || !filter.filmName){
+                let filteredFilm = {...film};
+                film
+                    .cities
+                    .forEach(city => {
+                        if (city.name === filter.city) {
+                            var filteredCinemas = filterCinemas(city, filter);
+                            if (filteredCinemas.length > 0){
+                                var filteresCities = {
+                                    ...city, 
+                                    cinemas: filteredCinemas
+                                };
+                                filteredFilm = {
+                                    ...film,
+                                    cities: filteresCities
+                                }
+                                filteredList.push(filteredFilm);
                             }
-                            filteredList.push(filteredFilm);
                         }
-                    }
-                });
+                    });
+            }            
         });
-        
+
         return filteredList;
     })
 

@@ -1,5 +1,5 @@
 export default {
-    "cities": [
+    cities: [
         {   
             "name": "Минск",
             "cinemas": ["Арена сити", "Аврора", "gerhs"]
@@ -25,4 +25,8 @@ export default {
             "cinemas": []
         },
     ],
+    filmNames: [
+        "lalaland",
+        "котики"
+    ]
 }
