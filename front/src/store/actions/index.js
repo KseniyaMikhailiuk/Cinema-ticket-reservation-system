@@ -25,13 +25,12 @@ export const changeFilterObjectItem = (key, value) => (dispatch) => {
     })
 }
 
-export const fetchFilmInfo = (filmName) => (dispatch) => {
+export const fetchFilmInfo = (seanceId) => (dispatch) => {
     dispatch({
         type: 'FETCH_FILM_INFO_REQUEST',
-        title: filmName
+        seanceId: seanceId
     })
-
-    return filmsInfo.fetchFilmInfo(filmName)
+    return filmsInfo.fetchFilmInfo(seanceId)
         .then(
             response => {
                 dispatch({

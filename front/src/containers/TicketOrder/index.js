@@ -9,27 +9,28 @@ import SeatReservation from '../../components/OrderSection/seatReservation'
 
 class TicketOrder extends Component {
     componentDidMount() {
-        const {fetchFilmInfo, selectedSeanceInfo} = this.props;
+        const {fetchFilmInfo, seanceId} = this.props;        
+        fetchFilmInfo(seanceId);
         this.fetchCurrentHallPlan();
-        fetchFilmInfo(selectedSeanceInfo.film);
-    }
-
-    fetchCurrentHallPlan(){
-        const {selectedSeanceInfo, fetchHallPlan} = this.props;
-        fetchHallPlan(selectedSeanceInfo);
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.orderInfo !== prevProps.orderInfo) {
+        if (this.props.orderInfo !== prevProps.orderInfo ||
+            this.props.filmInfo !== prevProps.filmInfo) {
             this.fetchCurrentHallPlan();
         }
     }
+    
+    fetchCurrentHallPlan(){
+        const {fetchHallPlan, filmInfo} = this.props;
+        fetchHallPlan(filmInfo);
+    }
 
     addSeatToOrderList(seatId) {      
-        const {addSeatToOrder, selectedSeanceInfo} = this.props;
+        const {addSeatToOrder, filmInfo} = this.props;
         addSeatToOrder({
             seatId,
-            selectedSeanceInfo
+            selectedSeanceInfo: filmInfo
         })
     }
 
@@ -53,7 +54,7 @@ class TicketOrder extends Component {
 
 const mapStateToTicketOrderProps = (state, {match}) => { 
     return{
-        selectedSeanceInfo: match.params,
+        seanceId: match.params.seanceId,
         filmInfo: getFilmInfo(state),
         hallPlan: getHallPlan(state),
         orderInfo: getOrderInfo(state)

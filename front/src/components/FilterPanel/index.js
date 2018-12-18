@@ -31,7 +31,7 @@ const FilterPanel = ({
                 </datalist>
                 <input className="form-item bordered" 
                     list="cinema" 
-                    value="Выберите кинотеатр"
+                    placeholder="Выберите кинотеатр"
                     onChange={handleInputChange}/>
                 <datalist id="cinema">
                     {

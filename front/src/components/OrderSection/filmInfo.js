@@ -1,18 +1,18 @@
 import React from 'react'
 
 const FilmInfo = ({
-    filmInfo,
-    selectedSeanceInfo
+    filmInfo
 }) => {
+    console.log(filmInfo)
     return (
         <div className="film-info-panel">
             <section className="film-info-panel__img-container">
                 <img src={filmInfo.image}/>
             </section>
             <section className="film-info-panel__description">
-                <h1>{filmInfo.title}</h1> 
-                <p>{selectedSeanceInfo.cinema}</p>
-                <p>{selectedSeanceInfo.date}</p>
+                <h1>{filmInfo.filmTitle}</h1> 
+                <p>{filmInfo.cinema}</p>
+                <p>{filmInfo.date}</p>
             </section>
         </div>
     )

@@ -6,13 +6,18 @@ const services = ["cookie", "cola", "nachos"];
 const today = moment().format("D MMMM YY H:mm");
 const DAYS_AMOUNT = 7;
 const SEANSE_TIME_AMOUNT = 7;
-var dates = [];
-for(var i = 0; i < DAYS_AMOUNT; i++){
-    var newDay = moment(today).add(i, 'days');
-    for(var j = 0; j < SEANSE_TIME_AMOUNT; j++){
-        var newSeanseTime = moment(newDay).add(j * 120, 'minutes');
-         dates.push({time: newSeanseTime, services: services, id: `${i}${j}`});
-    }    
+const CURRENT_HALLS_AMOUNT = 14;
+var currentSchedule = [];
+for (var k = 0; k < CURRENT_HALLS_AMOUNT; k++){
+    var dates = [];
+    for(var i = 0; i < DAYS_AMOUNT; i++){
+        var newDay = moment(today).add(i, 'days');
+        for(var j = 0; j < SEANSE_TIME_AMOUNT; j++){
+            var newSeanseTime = moment(newDay).add(j * 120, 'minutes');
+            dates.push({dateTime: newSeanseTime, services: services, id: `${i}${j}${k}`});
+        }    
+    }
+    currentSchedule.push(dates);
 }
 
 const filmDatabase = [
@@ -31,11 +36,11 @@ const filmDatabase = [
                         halls: [
                             {
                                 number: 1,
-                                schedule: dates,
+                                schedule: currentSchedule[0],
                             },
                             {
                                 number: 2,
-                                schedule: dates,
+                                schedule: currentSchedule[1],
                             }
                         ]                        
                     },
@@ -44,11 +49,11 @@ const filmDatabase = [
                         halls: [
                             {
                                 number: 1,
-                                schedule: dates,
+                                schedule: currentSchedule[2],
                             },
                             {
                                 number: 2,
-                                schedule: dates,
+                                schedule: currentSchedule[3],
                             }
                         ]   
                     },
@@ -57,11 +62,11 @@ const filmDatabase = [
                         halls: [
                             {
                                 number: 1,
-                                schedule: dates,
+                                schedule: currentSchedule[4],
                             },
                             {
                                 number: 2,
-                                schedule: dates,
+                                schedule: currentSchedule[5],
                             }
                         ]   
                     }
@@ -85,11 +90,11 @@ const filmDatabase = [
                         halls: [
                             {
                                 number: 1,
-                                schedule: dates,
+                                schedule: currentSchedule[6],
                             },
                             {
                                 number: 2,
-                                schedule: dates,
+                                schedule: currentSchedule[7],
                             }
                         ]   
                     },
@@ -98,11 +103,11 @@ const filmDatabase = [
                         halls: [
                             {
                                 number: 1,
-                                schedule: dates,
+                                schedule: currentSchedule[8],
                             },
                             {
                                 number: 2,
-                                schedule: dates,
+                                schedule: currentSchedule[9],
                             }
                         ]   
                     },
@@ -116,11 +121,11 @@ const filmDatabase = [
                         halls: [
                             {
                                 number: 1,
-                                schedule: dates,
+                                schedule: currentSchedule[10],
                             },
                             {
                                 number: 2,
-                                schedule: dates,
+                                schedule: currentSchedule[11],
                             }
                         ]   
                     },
@@ -135,11 +140,11 @@ const filmDatabase = [
                         halls: [
                             {
                                 number: 1,
-                                schedule: dates,
+                                schedule: currentSchedule[12],
                             },
                             {
                                 number: 2,
-                                schedule: dates,
+                                schedule: currentSchedule[13],
                             }
                         ]   
                     },
@@ -208,9 +213,9 @@ const filterSchedule = (cinema, filter) => {
             var filteredHallSchedule = hall
                 .schedule
                 .filter(seance => 
-                    seance.time.year() === filter.date.getFullYear() && 
-                    seance.time.month() === filter.date.getMonth() &&
-                    seance.time.date() === filter.date.getDate())
+                    seance.dateTime.year() === filter.date.getFullYear() && 
+                    seance.dateTime.month() === filter.date.getMonth() &&
+                    seance.dateTime.date() === filter.date.getDate())
             if (filteredHallSchedule.length > 0){
                 filteredHalls.push({
                     ...hall,
@@ -221,12 +226,28 @@ const filterSchedule = (cinema, filter) => {
     return filteredHalls;
 }
 
-export const fetchFilmInfo = (filmName) => 
+export const fetchFilmInfo = (seanceId) => 
     delay(500)
-        .then(() => {            
-            var selectedFilm = filmDatabase.filter(film => film.title === filmName);
-            if (selectedFilm.length > 0){
-                return selectedFilm[0];
+        .then(() => {  
+            for (let film of filmDatabase){
+                for (let city of film.cities){
+                    for (let cinema of city.cinemas){
+                        for (let hall of cinema.halls){
+                            for (let seance of hall.schedule){
+                                if (seance.id === seanceId){
+                                    return {
+                                        city: city.name,
+                                        cinema: cinema.name,
+                                        hall: hall.number,
+                                        filmTitle: film.title,
+                                        image: film.image,
+                                        dateTime: seance.dateTime
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
             return {};
         })

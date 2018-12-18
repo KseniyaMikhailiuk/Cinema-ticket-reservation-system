@@ -23,7 +23,7 @@ const App = ({
                         <Route path='/Home' component={Home}/>
                         <Route path='/Schedule' component={Schedule}/>
                         <Route path='/SignIn' component={SignIn}/>
-                        <Route path='/TicketOrder/:film/:city/:cinema/:hall/:time' component={TicketOrder}/>
+                        <Route path='/TicketOrder/:seanceId' component={TicketOrder}/>
                     </Switch>
                     <Footer />
                 </React.Fragment>

@@ -8,7 +8,7 @@ const cinemaHallPlans = [
                 name: "Арена сити",
                 halls: [
                     {
-                        number: "1",
+                        number: 1,
                         plan: [
                             [
                                 {
@@ -125,7 +125,7 @@ const cinemaHallPlans = [
                         ]
                     },
                     {
-                        number: "2",
+                        number: 2,
                         plan: [
                             [
                                 {
@@ -247,7 +247,7 @@ const cinemaHallPlans = [
                 name: "Аврора",
                 halls: [
                     {
-                        number: "1",
+                        number: 1,
                         plan: [
                             [
                                 {
