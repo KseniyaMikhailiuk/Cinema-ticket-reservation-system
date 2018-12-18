@@ -257,3 +257,36 @@ export const fetchFilmInfo = (seanceId) =>
 
             return {};
         })
+
+export const fetchFilterOptions = () => 
+    delay(500)
+        .then(() => {
+            let filterOptions = {
+                filmNames: [],
+                cities: []
+            };
+            for (let film of filmDatabase){
+                for (let city of film.cities){
+                    let existedCity = filterOptions.cities.find(addedCity => addedCity.name === city.name)           
+                    if (existedCity){
+                        for (let cinema of city.cinemas){
+                            if (existedCity.cinemas.indexOf(cinema.name) === -1){
+                                existedCity.cinemas.push(cinema.name);
+                            }                            
+                        }
+                    }
+                    else{
+                        let cinemaNames = []
+                        for (let cinema of city.cinemas){
+                            cinemaNames.push(cinema.name)                  
+                        }
+                        filterOptions.cities.push({
+                            name: city.name,
+                            cinemas: cinemaNames
+                        })
+                    }
+                }
+                filterOptions.filmNames.push(film.title);
+            }
+            return filterOptions;
+        })

@@ -1,13 +1,17 @@
 import {createStore, applyMiddleware} from 'redux'
 import cinemaApp from './store/reducers'
 import thunk from 'redux-thunk'
-import filterOptions from './containers/Schedule/filterOptionsDB'
 
 const initialState = {
     filterObject: {
-        "city": filterOptions.cities[0].name,
-        "cinema": "",
-        "date": new Date()
+        city: "Минск",
+        cinema: "",
+        date: new Date(),
+        filmName: ""
+    },
+    filterOptions: {
+        filmNames: [],
+        cities: []
     }
 }
 

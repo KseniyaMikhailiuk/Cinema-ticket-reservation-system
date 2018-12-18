@@ -17,6 +17,18 @@ export const fetchFilmList = (filter) => (dispatch) => {
         );
 };
 
+export const fetchFilterOptions = () => (dispatch) => {
+    return filmsInfo.fetchFilterOptions()
+        .then(
+            response => {
+                dispatch({
+                    type: 'FETCH_FILTER_OPTIONS_SUCCESS',
+                    response: response
+                })
+            }
+        )
+}
+
 export const changeFilterObjectItem = (key, value) => (dispatch) => {
     return dispatch({
         type: 'CHANGE_FILTER_OBJECT',

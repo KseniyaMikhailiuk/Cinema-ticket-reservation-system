@@ -57,7 +57,7 @@ const FilterPanel = ({
                 <input className="form-item bordered" 
                     list="filmName" 
                     placeholder="Выберите фильм"
-                    onChange={handleInputChange}/>/>
+                    onChange={handleInputChange}/>
                 <datalist id="filmName">
                     {
                         filterOptions

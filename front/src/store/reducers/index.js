@@ -1,5 +1,29 @@
 import { combineReducers } from 'redux';
 
+export const getFilteredList = (state) => {
+    return state.filteredList;
+}
+
+export const getFilterObject = (state) => { 
+    return state.filterObject
+}
+
+export const getFilmInfo = (state) => {
+    return state.selectedFilmInfo;
+}
+
+export const getHallPlan = (state) => {
+    return state.hallPlan
+}
+
+export const getOrderInfo = (state) => {
+    return state.orderList;
+}
+
+export const getFilterOptions = (state) => {
+    return state.filterOptions;
+}
+
 const filteredList = (state = [], action) => {
     switch(action.type){
         case 'FETCH_FILM_LIST_SUCCESS':
@@ -22,26 +46,6 @@ const isDataRequested = (state =  false, action) => {
     }
 }
 
-export const getFilteredList = (state) => {
-    return state.filteredList;
-}
-
-export const getFilterObject = (state) => { 
-    return state.filterObject
-}
-
-export const getFilmInfo = (state) => {
-    return state.selectedFilmInfo;
-}
-
-export const getHallPlan = (state) => {
-    return state.hallPlan
-}
-
-export const getOrderInfo = (state) => {
-    return state.orderList;
-}
-
 const hallPlan = (state = [], action) => {
     switch(action.type){
         case 'FETCH_HALL_INFO_SUCCESS':
@@ -51,7 +55,7 @@ const hallPlan = (state = [], action) => {
     }
 }
 
-const filterObject = (state = null, action) => {
+const filterObject = (state = {}, action) => {
     const {key, value} = action;
     switch(action.type){
         case 'CHANGE_FILTER_OBJECT': 
@@ -82,13 +86,23 @@ const orderList = (state = [], action) => {
     }
 }
 
+const filterOptions = (state = {}, action) => {
+    switch(action.type){
+        case 'FETCH_FILTER_OPTIONS_SUCCESS':
+            return action.response;
+        default:
+            return state;
+    }
+}
+
 const cinemaApp = combineReducers ({
-    filteredList,
+    filteredList,    
     filterObject,
     isDataRequested,
     selectedFilmInfo,
     hallPlan,
-    orderList
+    orderList,
+    filterOptions,
 });
 
 export default cinemaApp;

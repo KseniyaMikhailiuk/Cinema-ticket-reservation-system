@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import filterOptions from './filterOptionsDB';
 import ItemList from '../../components/Common/ItemList/';
 import FilmItem from '../../components/FilmListItem/';
 import FilterPanel from '../../components/FilterPanel';
 import * as actions  from '../../store/actions';
-import {getFilteredList, getFilterObject} from '../../store/reducers';
+import {getFilteredList, getFilterObject, getFilterOptions} from '../../store/reducers';
 
 class Schedule extends Component {
     componentDidMount() {
@@ -20,12 +19,13 @@ class Schedule extends Component {
     }
 
     fetchData() {
-        const {filter, fetchFilmList} = this.props;
+        const {filter, fetchFilmList, fetchFilterOptions} = this.props;
         fetchFilmList(filter);
+        fetchFilterOptions();
     }
 
     render() {
-        const {filmList, changeFilterObjectItem, filter} = this.props;
+        const {filmList, changeFilterObjectItem, filter, filterOptions} = this.props;
         return (
             <>
                 <FilterPanel filter={filter} filterOptions={filterOptions} onFilterClick={changeFilterObjectItem}/>
@@ -39,9 +39,10 @@ class Schedule extends Component {
 } 
 
 const mapStateToScheduleProps = (state) => {
-    return {
+    return {        
+        filterOptions: getFilterOptions(state),
         filter: getFilterObject(state),
-        filmList: getFilteredList(state)
+        filmList: getFilteredList(state),
     }
 }
 
