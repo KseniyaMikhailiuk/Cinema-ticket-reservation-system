@@ -19,8 +19,10 @@ const CinemaSeanceInfo = ({
                         .schedule
                         .map(seance => 
                             <NavLink className="bordered" 
-                                to={`/TicketOrder/${filmInfo.title}/${filmInfo.cities.name}/${cinema.name}/${hall.number}/${seance}`}>
-                                {`${seance.hour()} : ${seance.minute()}`}
+                                to={`/TicketOrder/${filmInfo.title}/${filmInfo.cities.name}/${cinema.name}/${hall.number}/${seance.time}`}
+                                key={seance.id}
+                            >
+                                {`${seance.time.hour()} : ${seance.time.minute()}`}
                             </NavLink>
                         )
                     )

@@ -18,7 +18,7 @@ const FilterPanel = ({
             <div className="filter-panel__group-container">
                 <input className="form-item bordered" 
                     list="city" 
-                    placeholder={filter.city}
+                    value={filter.city}
                     onChange={handleInputChange}/>
                 <datalist id="city">
                     {
@@ -31,7 +31,7 @@ const FilterPanel = ({
                 </datalist>
                 <input className="form-item bordered" 
                     list="cinema" 
-                    placeholder="Выберите кинотеатр"
+                    value="Выберите кинотеатр"
                     onChange={handleInputChange}/>
                 <datalist id="cinema">
                     {
@@ -54,7 +54,7 @@ const FilterPanel = ({
                         onFilterClick={onFilterClick}                       
                     />
                 </div>
-                <input className="form-item bordered" list="cinema" placeholder="Выберите кинотеатр"/>
+                <input className="form-item bordered" list="cinema" value="Выберите кинотеатр"/>
                 <datalist id="cinema">
                     {
                         filterOptions

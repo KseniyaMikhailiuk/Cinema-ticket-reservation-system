@@ -1,6 +1,8 @@
 import v4 from 'uuid/v4'
 import moment from 'moment'
 
+const services = ["cookie", "cola", "nachos"];
+
 const today = moment().format("D MMMM YY H:mm");
 const DAYS_AMOUNT = 7;
 const SEANSE_TIME_AMOUNT = 7;
@@ -8,8 +10,8 @@ var dates = [];
 for(var i = 0; i < DAYS_AMOUNT; i++){
     var newDay = moment(today).add(i, 'days');
     for(var j = 0; j < SEANSE_TIME_AMOUNT; j++){
-        var newSeanseTime = moment(newDay).add(j*120, 'minutes');
-        dates.push(newSeanseTime);
+        var newSeanseTime = moment(newDay).add(j * 120, 'minutes');
+         dates.push({time: newSeanseTime, services: services, id: `${i}${j}`});
     }    
 }
 
@@ -39,6 +41,19 @@ const filmDatabase = [
                     },
                     {
                         name: "Аврора",
+                        halls: [
+                            {
+                                number: 1,
+                                schedule: dates,
+                            },
+                            {
+                                number: 2,
+                                schedule: dates,
+                            }
+                        ]   
+                    },
+                    {
+                        name: "Комсомолец",
                         halls: [
                             {
                                 number: 1,
@@ -93,6 +108,25 @@ const filmDatabase = [
                     },
                 ]       
             },    
+            {
+                name: "Минск",
+                cinemas: [
+                    {
+                        name: "Арена сити",
+                        halls: [
+                            {
+                                number: 1,
+                                schedule: dates,
+                            },
+                            {
+                                number: 2,
+                                schedule: dates,
+                            }
+                        ]   
+                    },
+
+                ]       
+            }, 
             {
                 name: "Гомель",
                 cinemas: [
@@ -173,10 +207,10 @@ const filterSchedule = (cinema, filter) => {
         .forEach(hall => {
             var filteredHallSchedule = hall
                 .schedule
-                .filter(time => 
-                    time.year() === filter.date.getFullYear() && 
-                    time.month() === filter.date.getMonth() &&
-                    time.date() === filter.date.getDate())
+                .filter(seance => 
+                    seance.time.year() === filter.date.getFullYear() && 
+                    seance.time.month() === filter.date.getMonth() &&
+                    seance.time.date() === filter.date.getDate())
             if (filteredHallSchedule.length > 0){
                 filteredHalls.push({
                     ...hall,
