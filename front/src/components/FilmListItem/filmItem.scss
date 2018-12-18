@@ -1,0 +1,60 @@
+.film-item{
+    margin: 1% 0 1% 0;
+    padding: 3%;
+    display: flex;
+    background-color: rgb(31, 31, 31); 
+    color: rgb(230, 224, 224);
+    border: 1px;
+    border-style: solid;
+    border-radius: 20px;
+    border-color: rgb(137, 98, 155);
+
+    &__description{
+        width: 70%;
+        h1, h3, p{
+            margin-left: 5px; 
+            margin-bottom: 7px;
+        }
+    }
+
+    &__image{
+        width:100%;
+        height: auto;
+    }
+}
+
+.cinema-seance-timetable{
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    margin: 1% 0 1% 3%;
+    border-top: 1px dashed rgb(137, 98, 155);
+    padding-top: 2%;
+    h1{
+        width: 60%;
+    }
+    h1, a{
+        margin: 4px;
+        text-align: center;
+    }
+    .time{
+        display: inline-flex;
+        flex-wrap: wrap;
+    }
+    a{
+        text-decoration: none;
+        color: rgb(121, 85, 153);
+        width: 70px;
+        padding: 7px;
+        transition-duration: .5s;
+        &:hover{
+            background-color: white;
+            color: black;
+        }
+    }
+    .bordered{ 
+        border: 1px solid white;
+        border-radius: 10px;      
+    }
+}
+
