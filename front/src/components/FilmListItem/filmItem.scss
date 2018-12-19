@@ -48,8 +48,9 @@
         padding: 7px;
         transition-duration: .5s;
         &:hover{
-            background-color: white;
+            background-color:  rgb(140, 122, 156);
             color: black;
+            font-weight: bold;
         }
     }
     .bordered{ 

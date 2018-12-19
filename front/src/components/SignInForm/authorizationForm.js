@@ -5,7 +5,7 @@ const AuthorizationForm = () => {
         <form>
             <fieldset className="sign-in-forms__fieldset">
                 <legend className="form-item sign-in-forms__legend">
-                    "Вход в систему"
+                    Вход в систему
                 </legend>
                 <input className="form-item sign-in-forms__text-input bordered" 
                     type="email"

@@ -2,6 +2,7 @@ import React from 'react'
 import '../../CommonStylesheets/formItems.scss'
 import './filterPanel.scss'
 import DatePickerCustomized from './datePicker'
+import NumericInput from 'react-numeric-input'
 
 
 const FilterPanel = ({
@@ -15,8 +16,8 @@ const FilterPanel = ({
 
     return (
         <section className="filter-panel">  
-            <div className="filter-panel__group-container">
-                <input className="form-item bordered" 
+
+                <input className="form-item" 
                     list="city" 
                     value={filter.city}
                     onChange={handleInputChange}/>
@@ -29,7 +30,7 @@ const FilterPanel = ({
                             )
                     }
                 </datalist>
-                <input className="form-item bordered" 
+                <input className="form-item" 
                     list="cinema" 
                     placeholder="Выберите кинотеатр"
                     onChange={handleInputChange}/>
@@ -37,6 +38,7 @@ const FilterPanel = ({
                     {
                         filterOptions
                             .cities
+                            .filter(city => city.name === filter.city)
                             .map(city =>
                                 city
                                     .cinemas
@@ -46,15 +48,14 @@ const FilterPanel = ({
                             )
                     }                    
                 </datalist>
-            </div>
-            <div className="filter-panel__group-container">
-                <div className="form-item bordered">
+
+                <div className="form-item">
                     <DatePickerCustomized 
                         selectedDate={filter.date}
                         onFilterClick={onFilterClick}                       
                     />
                 </div>
-                <input className="form-item bordered" 
+                <input className="form-item" 
                     list="filmName" 
                     placeholder="Выберите фильм"
                     onChange={handleInputChange}/>
@@ -67,7 +68,9 @@ const FilterPanel = ({
                             )
                     }                    
                 </datalist>
-            </div>
+
+                <NumericInput className="form-item" min={0} max={100} value={0}/>
+
         </section>
     )
 }
