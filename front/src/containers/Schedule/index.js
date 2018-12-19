@@ -19,9 +19,8 @@ class Schedule extends Component {
     }
 
     fetchData() {
-        const {filter, fetchFilmList, fetchFilterOptions} = this.props;
+        const {filter, fetchFilmList} = this.props;
         fetchFilmList(filter);
-        fetchFilterOptions();
     }
 
     render() {

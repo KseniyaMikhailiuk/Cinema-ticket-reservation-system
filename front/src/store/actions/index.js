@@ -14,20 +14,19 @@ export const fetchFilmList = (filter) => (dispatch) => {
                     response: response,
                 })
             }
-        );
-};
-
-export const fetchFilterOptions = () => (dispatch) => {
-    return filmsInfo.fetchFilterOptions()
-        .then(
-            response => {
-                dispatch({
-                    type: 'FETCH_FILTER_OPTIONS_SUCCESS',
-                    response: response
-                })
-            }
         )
-}
+        .then(() => {      
+            filmsInfo.fetchFilterOptions()
+            .then(
+                response => {
+                    dispatch({
+                        type: 'FETCH_FILTER_OPTIONS_SUCCESS',
+                        response: response
+                    })
+                }
+            )}
+        )
+};
 
 export const changeFilterObjectItem = (key, value) => (dispatch) => {
     return dispatch({

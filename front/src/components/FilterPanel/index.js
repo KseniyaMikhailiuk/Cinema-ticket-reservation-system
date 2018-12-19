@@ -10,12 +10,16 @@ const FilterPanel = ({
     filterOptions,
     onFilterClick
 }) => {
-     const handleInputChange = (event) => {
+    const handleInputChange = (event) => {
         onFilterClick(event.target.list.id, event.target.value);
     }
 
     const handleFreeSeatsSelect = (value) => {
         onFilterClick("freeSeats", value)
+    }
+
+    const freeSeatsFormat = (amount) => {
+        return amount + ' свободно'
     }
 
     return (
@@ -75,14 +79,15 @@ const FilterPanel = ({
 
                 <NumericInput
                     className="form-item" 
-                    min={0}
+                    min={1}
                     max={100}
+                    placeholder="Места"
+                    format={freeSeatsFormat}
                     onChange={valueAsNumber =>
                         handleFreeSeatsSelect(
                           valueAsNumber
                         )}
                 />
-
         </section>
     )
 }

@@ -18,9 +18,7 @@ for (var k = 0; k < CURRENT_HALLS_AMOUNT; k++){
                 dateTime: newSeanseTime, 
                 services: services, 
                 id: `${i}${j}${k}`, 
-                seatsInfo: {
-                    occupiedSeats: [],
-                },
+                occupiedSeats: [],
             });
         }    
     }
@@ -43,10 +41,12 @@ const filmDatabase = [
                         halls: [
                             {
                                 number: 1,
+                                seatAmount: 50,
                                 schedule: currentSchedule[0],
                             },
                             {
                                 number: 2,
+                                seatAmount: 50,
                                 schedule: currentSchedule[1],
                             }
                         ]                        
@@ -56,10 +56,12 @@ const filmDatabase = [
                         halls: [
                             {
                                 number: 1,
+                                seatAmount: 50,
                                 schedule: currentSchedule[2],
                             },
                             {
                                 number: 2,
+                                seatAmount: 50,
                                 schedule: currentSchedule[3],
                             }
                         ]   
@@ -69,10 +71,12 @@ const filmDatabase = [
                         halls: [
                             {
                                 number: 1,
+                                seatAmount: 50,
                                 schedule: currentSchedule[4],
                             },
                             {
                                 number: 2,
+                                seatAmount: 50,
                                 schedule: currentSchedule[5],
                             }
                         ]   
@@ -97,10 +101,12 @@ const filmDatabase = [
                         halls: [
                             {
                                 number: 1,
+                                seatAmount: 50,
                                 schedule: currentSchedule[6],
                             },
                             {
                                 number: 2,
+                                seatAmount: 50,
                                 schedule: currentSchedule[7],
                             }
                         ]   
@@ -110,10 +116,12 @@ const filmDatabase = [
                         halls: [
                             {
                                 number: 1,
+                                seatAmount: 50,
                                 schedule: currentSchedule[8],
                             },
                             {
                                 number: 2,
+                                seatAmount: 50,
                                 schedule: currentSchedule[9],
                             }
                         ]   
@@ -128,10 +136,12 @@ const filmDatabase = [
                         halls: [
                             {
                                 number: 1,
+                                seatAmount: 50,
                                 schedule: currentSchedule[10],
                             },
                             {
                                 number: 2,
+                                seatAmount: 50,
                                 schedule: currentSchedule[11],
                             }
                         ]   
@@ -147,10 +157,12 @@ const filmDatabase = [
                         halls: [
                             {
                                 number: 1,
+                                seatAmount: 50,
                                 schedule: currentSchedule[12],
                             },
                             {
                                 number: 2,
+                                seatAmount: 50,
                                 schedule: currentSchedule[13],
                             }
                         ]   
@@ -226,7 +238,8 @@ const filterSchedule = (cinema, filter) => {
                 .filter(seance => 
                     seance.dateTime.year() === filter.date.getFullYear() && 
                     seance.dateTime.month() === filter.date.getMonth() &&
-                    seance.dateTime.date() === filter.date.getDate())
+                    seance.dateTime.date() === filter.date.getDate() &&
+                    hall.seatAmount - seance.occupiedSeats.length >= filter.freeSeats)
             if (filteredHallSchedule.length > 0){
                 filteredHalls.push({
                     ...hall,
@@ -272,11 +285,12 @@ export const fetchFilterOptions = () =>
         .then(() => {
             let filterOptions = {
                 filmNames: [],
-                cities: []
+                cities: [],
+                freeSeats: 0
             };
             for (let film of filmDatabase){
                 for (let city of film.cities){
-                    let existedCity = filterOptions.cities.find(addedCity => addedCity.name === city.name)           
+                    let existedCity = filterOptions.cities.find(addedCity => addedCity.name === city.name);     
                     if (existedCity){
                         for (let cinema of city.cinemas){
                             if (existedCity.cinemas.indexOf(cinema.name) === -1){
@@ -287,7 +301,15 @@ export const fetchFilterOptions = () =>
                     else{
                         let cinemaNames = []
                         for (let cinema of city.cinemas){
-                            cinemaNames.push(cinema.name)                  
+                            cinemaNames.push(cinema.name)  
+                            for (let hall of cinema.halls){
+                                for (let seance of hall.schedule){
+                                    let freeSeats = hall.seatAmount - seance.occupiedSeats.length;
+                                    if (freeSeats > filterOptions.freeSeats){
+                                        filterOptions.freeSeats = freeSeats;
+                                    }
+                                }
+                            }                
                         }
                         filterOptions.cities.push({
                             name: city.name,
@@ -313,7 +335,7 @@ export const occupySeat = (info) =>
                                     if (hall.number === info.seanceInfo.hall){
                                         for(let seance of hall.schedule){
                                             if(seance.id === info.seanceInfo.seanceId){                                      
-                                                seance.seatsInfo.occupiedSeats.push({
+                                                seance.occupiedSeats.push({
                                                     line: info.line,
                                                     raw: info.raw,
                                                     dateTime: new Date()
