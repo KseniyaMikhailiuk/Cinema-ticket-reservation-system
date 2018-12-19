@@ -14,6 +14,10 @@ const FilterPanel = ({
         onFilterClick(event.target.list.id, event.target.value);
     }
 
+    const handleFreeSeatsSelect = (value) => {
+        onFilterClick("freeSeats", value)
+    }
+
     return (
         <section className="filter-panel">  
 
@@ -69,7 +73,15 @@ const FilterPanel = ({
                     }                    
                 </datalist>
 
-                <NumericInput className="form-item" min={0} max={100} value={0}/>
+                <NumericInput
+                    className="form-item" 
+                    min={0}
+                    max={100}
+                    onChange={valueAsNumber =>
+                        handleFreeSeatsSelect(
+                          valueAsNumber
+                        )}
+                />
 
         </section>
     )

@@ -14,7 +14,14 @@ for (var k = 0; k < CURRENT_HALLS_AMOUNT; k++){
         var newDay = moment(today).add(i, 'days');
         for(var j = 0; j < SEANSE_TIME_AMOUNT; j++){
             var newSeanseTime = moment(newDay).add(j * 120, 'minutes');
-            dates.push({dateTime: newSeanseTime, services: services, id: `${i}${j}${k}`});
+            dates.push({
+                dateTime: newSeanseTime, 
+                services: services, 
+                id: `${i}${j}${k}`, 
+                seatsInfo: {
+                    occupiedSeats: [],
+                },
+            });
         }    
     }
     currentSchedule.push(dates);
@@ -246,7 +253,9 @@ export const fetchFilmInfo = (seanceId) =>
                                         hall: hall.number,
                                         filmTitle: film.title,
                                         image: film.image,
-                                        dateTime: seance.dateTime
+                                        dateTime: seance.dateTime,
+                                        seanceId: seanceId,
+                                        seatsInfo: seance.seatsInfo
                                     }
                                 }
                             }
@@ -290,3 +299,33 @@ export const fetchFilterOptions = () =>
             }
             return filterOptions;
         })
+
+export const occupySeat = (info) => 
+    delay(500)
+    .then(() => {
+        for (let film of filmDatabase){
+            if (film.title === info.seanceInfo.filmTitle){
+                for (let city of film.cities){
+                    if (city.name === info.seanceInfo.city){                        
+                        for (let cinema of city.cinemas){                     
+                            if (cinema.name === info.seanceInfo.cinema){
+                                for (let hall of cinema.halls){
+                                    if (hall.number === info.seanceInfo.hall){
+                                        for(let seance of hall.schedule){
+                                            if(seance.id === info.seanceInfo.seanceId){                                      
+                                                seance.seatsInfo.occupiedSeats.push({
+                                                    line: info.line,
+                                                    raw: info.raw,
+                                                    dateTime: new Date()
+                                                });
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }            
+                }
+            }
+        }
+    })

@@ -26,12 +26,12 @@ class TicketOrder extends Component {
         fetchHallPlan(filmInfo);
     }
 
-    addSeatToOrderList(seatId) {      
+    addSeatToOrderList(seat) {      
         const {addSeatToOrder, filmInfo} = this.props;
-        addSeatToOrder({
-            seatId,
-            selectedSeanceInfo: filmInfo
-        })
+        addSeatToOrder(
+            seat,
+            filmInfo
+        )
     }
 
     render() {
@@ -44,6 +44,7 @@ class TicketOrder extends Component {
                 />
                 <SeatReservation 
                     hallPlan={hallPlan} 
+                    seatsInfo={filmInfo.seatsInfo}
                     orderInfo={orderInfo} 
                     onSeatSelect={this.addSeatToOrderList.bind(this)}
                 />

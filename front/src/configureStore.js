@@ -7,7 +7,8 @@ const initialState = {
         city: "Минск",
         cinema: "",
         date: new Date(),
-        filmName: ""
+        filmName: "",
+        freeSeats: 0
     },
     filterOptions: {
         filmNames: [],

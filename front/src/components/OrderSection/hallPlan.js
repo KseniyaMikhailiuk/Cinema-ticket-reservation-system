@@ -3,11 +3,12 @@ import seatType from './seatTypes'
 
 const HallPlan = ({
     hallPlan,
+    seatsInfo,
     onSeatSelect
 }) => {
 
-    const handleSeatSelect = (event) => {
-        onSeatSelect(event.target.id);
+    const handleSeatSelect = (seat) => {
+        onSeatSelect(seat);
     }
 
     const displaySeatLine = (seatLine, standardSeatWidth) => {
@@ -20,7 +21,9 @@ const HallPlan = ({
                             if (seat.type === seatType.loveseat.type) {
                                 seatWidth = (standardSeatWidth * seatType.loveseat.amountOfGuestsOnOneSeat + standardSeatWidth) + '%'; 
                             }
-                            if (seat.occupied) {
+                            if (seatsInfo.occupiedSeats.find(occupiedSeat => 
+                                occupiedSeat.line === seat.line &&
+                                occupiedSeat.raw === seat.raw)) {
                                 return(
                                     <svg 
                                         className="hall-plan__seat-svg-container" 
@@ -34,7 +37,7 @@ const HallPlan = ({
                                 <svg 
                                     className="hall-plan__seat-svg-container" 
                                     width={seatWidth} 
-                                    onClick={handleSeatSelect}
+                                    onClick={() => handleSeatSelect(seat)}
                                 >
                                     <rect id={seat.id} rx="10" ry="10" className="hall-plan__seat"/>
                                 </svg>

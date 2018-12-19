@@ -4,12 +4,13 @@ import OrderSettings from './orderSettings'
 
 const SeatReservation = ({
     hallPlan,
+    seatsInfo,
     onSeatSelect, 
-    orderInfo
+    orderInfo,
 }) => {
     return (
         <sectoin className="order-form">
-            <HallPlan hallPlan={hallPlan} onSeatSelect={onSeatSelect}/>
+            <HallPlan hallPlan={hallPlan} seatsInfo={seatsInfo} onSeatSelect={onSeatSelect}/>
             <OrderSettings orderInfo={orderInfo} />
         </sectoin>
     )
