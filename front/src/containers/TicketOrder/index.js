@@ -15,13 +15,16 @@ class TicketOrder extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.orderInfo !== prevProps.orderInfo ||
-            this.props.filmInfo !== prevProps.filmInfo) {
+        if (this.props.orderInfo !== prevProps.orderInfo) {
+            const {fetchFilmInfo, seanceId} = this.props;
+            fetchFilmInfo(seanceId);
+        }
+        if (this.props.filmInfo !== prevProps.filmInfo) {
             this.fetchCurrentHallPlan();
         }
     }
 
-    fetchCurrentHallPlan(){
+    fetchCurrentHallPlan() {
         const {fetchHallPlan, filmInfo} = this.props;
         fetchHallPlan(filmInfo);
     }
@@ -34,9 +37,19 @@ class TicketOrder extends Component {
         )
     }
 
+    removeSeatFromOrderList(line, raw) {
+        const {removeSeatFromOrder, filmInfo} = this.props;
+        removeSeatFromOrder(
+            {
+                line,
+                raw
+            },
+            filmInfo
+        )
+    }
+
     render() {
         const {filmInfo, selectedSeanceInfo, hallPlan, orderInfo} = this.props;
-        console.log(filmInfo)
         return (
             <section className="order-section">
                 <FilmInfo
@@ -48,6 +61,7 @@ class TicketOrder extends Component {
                     seatsInfo={filmInfo.seatsInfo}
                     orderInfo={orderInfo}
                     onSeatSelect={this.addSeatToOrderList.bind(this)}
+                    onCancelOrderItemClick={this.removeSeatFromOrderList.bind(this)}
                 />
             </section>
         )

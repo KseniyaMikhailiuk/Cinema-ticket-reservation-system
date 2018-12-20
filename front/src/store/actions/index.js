@@ -15,7 +15,7 @@ export const fetchFilmList = (filter) => (dispatch) => {
                 })
             }
         )
-        .then(() => {      
+        .then(() => {
             filmsInfo.fetchFilterOptions()
             .then(
                 response => {
@@ -71,13 +71,26 @@ export const fetchHallPlan = (seanceInfo) => (dispatch) => {
 
 export const addSeatToOrder = (seatInfo, seanceInfo) => (dispatch) => {
     dispatch({
-        type: 'ADD_SEAT_INFO_REQUEST'
+        type: 'ADD_SEAT_TO_ORDER_REQUEST'
     })
     return filmsInfo.occupySeat({line: seatInfo.line, raw: seatInfo.raw, seanceInfo})
-        .then(() => 
+        .then(() =>
                 dispatch({
                     type: 'ADD_SEAT_TO_ORDER',
                     seatInfo: seatInfo
                 })
         )
-} 
+}
+
+export const removeSeatFromOrder = (seatInfo, seanceInfo) => (dispatch) => {
+    dispatch({
+        type: 'REMOVE_SEAT_FROM_ORDER_REQUEST'
+    })
+    return filmsInfo.releaseSeat({line: seatInfo.line, raw: seatInfo.raw, seanceInfo})
+        .then(() => {
+            dispatch({
+                type: 'REMOVE_SEAT_FROM_ORDER',
+                seatInfo: seatInfo
+            })
+        })
+}

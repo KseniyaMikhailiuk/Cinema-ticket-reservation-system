@@ -1,7 +1,8 @@
 import React from 'react'
 
 const OrderSettings = ({
-    orderInfo
+    orderInfo,
+    onCancelOrderItemClick
 }) => {
     return (
         <section className="order-list">
@@ -9,14 +10,18 @@ const OrderSettings = ({
             <ul className="order-list__list">
                 {
                     orderInfo
-                        .map(orderItem => 
+                        .map(orderItem =>
                             <li className="order-list__item">
                                 <div className="ticket-info">
-                                    <h1>{`ряд: ${orderItem.line} место: ${orderItem.raw}`}</h1>    
+                                    <h1>{`ряд: ${orderItem.line} место: ${orderItem.raw}`}</h1>
                                     <p>{orderItem.type} {orderItem.price}</p>
                                 </div>
-                                <div className="order-list__cross">&#10005;</div>
-                            </li> 
+                                <div
+                                    className="order-list__cross"
+                                    onClick={() => onCancelOrderItemClick(orderItem.line, orderItem.raw)}>
+                                    &#10005;
+                                </div>
+                            </li>
                         )
                 }
             </ul>

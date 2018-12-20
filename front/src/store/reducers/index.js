@@ -81,6 +81,8 @@ const orderList = (state = [], action) => {
     switch(action.type){
         case 'ADD_SEAT_TO_ORDER':
             return [...state, action.seatInfo];
+        case 'REMOVE_SEAT_FROM_ORDER':
+            return state.filter(seat => !(seat.line == action.seatInfo.line && seat.raw == action.seatInfo.raw));
         default:
             return state;
     }

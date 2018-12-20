@@ -3,7 +3,6 @@ import moment from 'moment'
 
 const services = ["cookie", "cola", "nachos"];
 
-const today = moment().format("D MMMM YY H:mm");
 const DAYS_AMOUNT = 7;
 const SEANSE_TIME_AMOUNT = 7;
 const CURRENT_HALLS_AMOUNT = 14;
@@ -11,7 +10,7 @@ var currentSchedule = [];
 for (var k = 0; k < CURRENT_HALLS_AMOUNT; k++){
     var dates = [];
     for(var i = 0; i < DAYS_AMOUNT; i++){
-        var newDay = moment(today).add(i, 'days');
+        var newDay = moment().add(i, 'days');
         for(var j = 0; j < SEANSE_TIME_AMOUNT; j++){
             var newSeanseTime = moment(newDay).add(j * 120, 'minutes');
             dates.push({
@@ -218,8 +217,10 @@ const filterCinemas = (city, filter) => {
             if (cinema.name === filter.cinema || !filter.cinema) {
                 var filteredHallsSchedule = filterSchedule(cinema, filter);
                 if (filteredHallsSchedule.length > 0){
-                    cinema.halls = filteredHallsSchedule;
-                    filteredCinemas.push(cinema);
+                    filteredCinemas.push({
+                        ...cinema,
+                        halls: filteredHallsSchedule
+                    });
                 }
             }
         })
@@ -324,23 +325,26 @@ export const fetchFilterOptions = () =>
 export const occupySeat = (info) =>
     delay(500)
     .then(() => {
-        for (let film of filmDatabase){
-            if (film.title === info.seanceInfo.filmTitle){
-                for (let city of film.cities){
-                    if (city.name === info.seanceInfo.city){
-                        for (let cinema of city.cinemas){
-                            if (cinema.name === info.seanceInfo.cinema){
-                                for (let hall of cinema.halls){
-                                    if (hall.number === info.seanceInfo.hall){
-                                        for(let seance of hall.schedule){
-                                            if(seance.id === info.seanceInfo.seanceId){
-                                                seance.occupiedSeats.push({
-                                                    line: info.line,
-                                                    raw: info.raw,
-                                                    dateTime: new Date()
-                                                });
-                                            }
-                                            return;
+        let selectedSeanceSeats = findSeance(info).occupiedSeats;
+        selectedSeanceSeats.push({
+            line: info.line,
+            raw: info.raw,
+            dateTime: new Date()
+        });
+    })
+
+const findSeance = (info) => {
+    for (let film of filmDatabase){
+        if (film.title === info.seanceInfo.filmTitle){
+            for (let city of film.cities){
+                if (city.name === info.seanceInfo.city){
+                    for (let cinema of city.cinemas){
+                        if (cinema.name === info.seanceInfo.cinema){
+                            for (let hall of cinema.halls){
+                                if (hall.number === info.seanceInfo.hall){
+                                    for(let seance of hall.schedule){
+                                        if(seance.id === info.seanceInfo.seanceId){
+                                            return seance;
                                         }
                                     }
                                 }
@@ -348,6 +352,18 @@ export const occupySeat = (info) =>
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+export const releaseSeat = (info) =>
+    delay(500)
+    .then(() => {
+        let selectedSeanceSeats = findSeance(info).occupiedSeats;
+        for (var i = 0; i < selectedSeanceSeats.length; i++){
+            if (selectedSeanceSeats[i].line === info.line && selectedSeanceSeats[i].raw === info.raw){
+                selectedSeanceSeats.splice(i, 1);
             }
         }
     })
