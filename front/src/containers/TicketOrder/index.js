@@ -9,7 +9,8 @@ import SeatReservation from '../../components/OrderSection/seatReservation'
 
 class TicketOrder extends Component {
     componentDidMount() {
-        const {fetchFilmInfo, seanceId} = this.props;
+        const {fetchFilmInfo, seanceId, clearInfoOnExit} = this.props;
+        clearInfoOnExit();
         fetchFilmInfo(seanceId);
         this.fetchCurrentHallPlan();
     }
@@ -22,11 +23,6 @@ class TicketOrder extends Component {
         if (this.props.filmInfo !== prevProps.filmInfo) {
             this.fetchCurrentHallPlan();
         }
-    }
-
-    componentWillUnmount() {
-        const {clearInfoOnExit} = this.props;
-        clearInfoOnExit();
     }
 
     fetchCurrentHallPlan() {

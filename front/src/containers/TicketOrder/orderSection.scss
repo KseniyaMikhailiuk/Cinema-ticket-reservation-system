@@ -42,9 +42,10 @@
         margin: 0 0 0 5%;
         width: 50%;
         h3{
+            font-size: 1.5vw;
             text-align: center;
             color:  rgb(158, 111, 154);
-            margin: 2vw 0 0 0;
+            margin: 2vw 0 1vw 0;
         }
     }
 }
@@ -53,7 +54,6 @@
     &__screen-svg-container{
         width: 100%;
         height: 5px;
-        margin-top: 1vw;
     }
 
     &__screen{
@@ -99,7 +99,7 @@
 
 .additional-services{
     width: 100%;
-
+    margin-bottom: 1vw;
     &__panel{
         list-style: none;
         display: inline-flex;

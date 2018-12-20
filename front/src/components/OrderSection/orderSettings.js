@@ -5,6 +5,15 @@ const OrderSettings = ({
     onCancelOrderTicketClick,
     onCancelOrderServiceClick
 }) => {
+
+    const submitTicketOrder = () => {
+        if (orderInfo.seats.length > 0){
+            return(
+                <input type="submit" value="Готово"/>
+            )
+        }
+    }
+
     return (
         <section className="order-list">
             <h1 className="order-list__title">Мои билеты</h1>
@@ -44,6 +53,9 @@ const OrderSettings = ({
                         )
                 }
             </ul>
+            {
+                submitTicketOrder()
+            }
         </section>
     )
 }
