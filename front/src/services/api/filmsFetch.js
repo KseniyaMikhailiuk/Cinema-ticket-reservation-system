@@ -217,9 +217,9 @@ const filterCinemas = (city, filter) => {
         .cinemas
         .forEach(cinema => { 
             if (cinema.name === filter.cinema || !filter.cinema) {                            
-                var filteredSchedule = filterSchedule(cinema, filter);
-                if (filteredSchedule.length > 0){
-                    cinema.halls = filteredSchedule;
+                var filteredHallsSchedule = filterSchedule(cinema, filter);
+                if (filteredHallsSchedule.length > 0){
+                    cinema.halls = filteredHallsSchedule;
                     filteredCinemas.push(cinema);                                
                 }
             }                        

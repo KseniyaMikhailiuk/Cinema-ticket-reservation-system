@@ -27,6 +27,7 @@ const FilterPanel = ({
 
                 <input className="form-item" 
                     list="city" 
+                    placeholder="Выберите город"
                     value={filter.city}
                     onChange={handleInputChange}/>
                 <datalist id="city">
