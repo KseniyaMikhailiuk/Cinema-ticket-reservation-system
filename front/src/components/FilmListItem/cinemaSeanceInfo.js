@@ -7,9 +7,9 @@ const CinemaSeanceInfo = ({
 }) => {
     return (
         <section className="cinema-seance-timetable">
-            <h1>
+            <h3>
                 {cinema.name}
-            </h1>   
+            </h3>   
             <section className="time">
                 {
                     cinema

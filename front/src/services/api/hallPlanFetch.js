@@ -14,40 +14,35 @@ const cinemaHallPlans = [
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 1,
                                 },
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 2,
                                     line: 1,
                                 },
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 3,
                                     line: 1,
                                 },
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 4,
                                     line: 1,
                                 },
                                 {
                                     id: v4(),
                                     type: "comfort",
-                                    price: 20, 
-                                    occupied: false,
+                                    price: 20,
                                     raw: 5,
                                     line: 1,
                                 },
@@ -56,40 +51,35 @@ const cinemaHallPlans = [
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 2,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 3,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "comfort",
-                                    price: 20, 
-                                    occupied: false,
+                                    price: 20,
                                     raw: 4,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "comfort",
-                                    price: 20, 
-                                    occupied: false,
+                                    price: 20,
                                     raw: 5,
                                     line: 2,
                                 },
@@ -98,30 +88,27 @@ const cinemaHallPlans = [
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 3,
                                 },
                                 {
                                     id: v4(),
                                     type: "loveseat",
-                                    price: 20, 
-                                    occupied: false,
+                                    price: 20,
                                     raw: 2,
                                     line: 3,
                                 },
-                        
+
                                 {
                                     id: v4(),
                                     type: "loveseat",
-                                    price: 20, 
-                                    occupied: false,
+                                    price: 20,
                                     raw: 3,
-                                    line: 3, 
+                                    line: 3,
                                 },
                             ]
-                        
+
                         ]
                     },
                     {
@@ -131,40 +118,35 @@ const cinemaHallPlans = [
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "comfort",
-                                    price: 20, 
-                                    occupied: false,
+                                    price: 20,
                                     raw: 1,
                                     line: 2,
                                 },
@@ -173,40 +155,35 @@ const cinemaHallPlans = [
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "comfort",
-                                    price: 20, 
-                                    occupied: false,
+                                    price: 20,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "comfort",
-                                    price: 20, 
-                                    occupied: false,
+                                    price: 20,
                                     raw: 1,
                                     line: 2,
                                 },
@@ -215,30 +192,27 @@ const cinemaHallPlans = [
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "loveseat",
-                                    price: 20, 
-                                    occupied: false,
+                                    price: 20,
                                     raw: 1,
                                     line: 2,
                                 },
-                        
+
                                 {
                                     id: v4(),
                                     type: "loveseat",
-                                    price: 20, 
-                                    occupied: false,
+                                    price: 20,
                                     raw: 1,
-                                    line: 2, 
+                                    line: 2,
                                 },
                             ]
-                        
+
                         ]
                     }
                 ]
@@ -253,40 +227,35 @@ const cinemaHallPlans = [
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "comfort",
-                                    price: 20, 
-                                    occupied: false,
+                                    price: 20,
                                     raw: 1,
                                     line: 2,
                                 },
@@ -295,40 +264,35 @@ const cinemaHallPlans = [
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "comfort",
-                                    price: 20, 
-                                    occupied: false,
+                                    price: 20,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "comfort",
-                                    price: 20, 
-                                    occupied: false,
+                                    price: 20,
                                     raw: 1,
                                     line: 2,
                                 },
@@ -337,29 +301,26 @@ const cinemaHallPlans = [
                                 {
                                     id: v4(),
                                     type: "standard",
-                                    price: 10, 
-                                    occupied: false,
+                                    price: 10,
                                     raw: 1,
                                     line: 2,
                                 },
                                 {
                                     id: v4(),
                                     type: "loveseat",
-                                    price: 20, 
-                                    occupied: false,
+                                    price: 20,
                                     raw: 1,
                                     line: 2,
                                 },
-                        
+
                                 {
                                     id: v4(),
                                     type: "loveseat",
-                                    price: 20, 
-                                    occupied: false,
+                                    price: 20,
                                     raw: 1,
-                                    line: 2, 
+                                    line: 2,
                                 },
-                            ]                        
+                            ]
                         ]
                     }
                 ]
@@ -370,10 +331,10 @@ const cinemaHallPlans = [
 
 export default cinemaHallPlans;
 
-const delay = (ms) => 
+const delay = (ms) =>
     new Promise(resolve => setTimeout(resolve, ms));
 
-export const fetchHallPlan = (seanceInfo) => 
+export const fetchHallPlan = (seanceInfo) =>
     delay(500)
     .then(() => {
         var plan = []
@@ -386,7 +347,7 @@ export const fetchHallPlan = (seanceInfo) =>
                         if (cinema.name === seanceInfo.cinema) {
                             cinema
                                 .halls
-                                .forEach(hall => {   
+                                .forEach(hall => {
                                     if (hall.number === seanceInfo.hall) {
                                         plan = hall.plan;
                                     }
@@ -394,36 +355,6 @@ export const fetchHallPlan = (seanceInfo) =>
                         }
                     })
             }
-        })            
-
+        })
         return plan;
-    })
-
-export const occupySeat = (seatInfo) => 
-    delay(500)
-    .then(() => {
-        let selectedSeat = {};
-        for (let city of cinemaHallPlans){
-            if (city.cityName === seatInfo.selectedSeanceInfo.city){
-                for (let cinema of city.cinemas){
-                    if (cinema.name === seatInfo.selectedSeanceInfo.cinema){
-                        for (let hall of cinema.halls){
-                            if (hall.number === seatInfo.selectedSeanceInfo.hall){
-                                for (let line of hall.plan){
-                                    for (let seat of line){
-                                        if (seat.id === seatInfo.seatId) {
-                                            seat.occupied = true;
-                                            selectedSeat = seat;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            
-        }
-
-        return selectedSeat;
     })

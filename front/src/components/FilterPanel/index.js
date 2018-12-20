@@ -2,6 +2,7 @@ import React from 'react'
 import '../../CommonStylesheets/formItems.scss'
 import './filterPanel.scss'
 import DatePickerCustomized from './datePicker'
+import NumericInput from 'react-numeric-input'
 
 
 const FilterPanel = ({
@@ -9,15 +10,24 @@ const FilterPanel = ({
     filterOptions,
     onFilterClick
 }) => {
-     const handleInputChange = (event) => {
+    const handleInputChange = (event) => {
         onFilterClick(event.target.list.id, event.target.value);
     }
 
+    const handleFreeSeatsSelect = (value) => {
+        onFilterClick("freeSeats", value)
+    }
+
+    const freeSeatsFormat = (amount) => {
+        return amount + ' свободно'
+    }
+
     return (
-        <section className="filter-panel">  
-            <div className="filter-panel__group-container">
-                <input className="form-item bordered" 
-                    list="city" 
+        <section className="filter-panel">
+
+                <input className="form-item"
+                    list="city"
+                    placeholder="Выберите город"
                     value={filter.city}
                     onChange={handleInputChange}/>
                 <datalist id="city">
@@ -25,50 +35,58 @@ const FilterPanel = ({
                         filterOptions
                             .cities
                             .map(city =>
-                                <option value={city.name}/>                       
+                                <option value={city.name}/>
                             )
                     }
                 </datalist>
-                <input className="form-item bordered" 
-                    list="cinema" 
+                <input className="form-item"
+                    list="cinema"
                     placeholder="Выберите кинотеатр"
                     onChange={handleInputChange}/>
                 <datalist id="cinema">
                     {
                         filterOptions
                             .cities
-                            .map(city =>
-                                city
-                                    .cinemas
+                            .filter(city => city.name === filter.city)
+                            .map(city => city.cinemas
                                     .map(cinema =>
-                                        <option value={cinema}>{city.name}</option>    
+                                        <option value={cinema}>{city.name}</option>
                                     )
                             )
-                    }                    
+                    }
                 </datalist>
-            </div>
-            <div className="filter-panel__group-container">
-                <div className="form-item bordered">
-                    <DatePickerCustomized 
+
+                <div className="form-item">
+                    <DatePickerCustomized
                         selectedDate={filter.date}
-                        onFilterClick={onFilterClick}                       
+                        onFilterClick={onFilterClick}
                     />
                 </div>
-                <input className="form-item bordered" list="cinema" value="Выберите кинотеатр"/>
-                <datalist id="cinema">
+                <input className="form-item"
+                    list="filmName"
+                    placeholder="Выберите фильм"
+                    onChange={handleInputChange}/>
+                <datalist id="filmName">
                     {
                         filterOptions
-                            .cities
-                            .map(city =>
-                                city
-                                    .cinemas
-                                    .map(cinema =>
-                                        <option value={cinema}>{city.name}</option>    
-                                    )
+                            .filmNames
+                            .map(filmName =>
+                                <option value={filmName}></option>
                             )
-                    }                    
+                    }
                 </datalist>
-            </div>
+
+                <NumericInput
+                    className="form-item"
+                    min={1}
+                    max={100}
+                    placeholder="Места"
+                    format={freeSeatsFormat}
+                    onChange={valueAsNumber =>
+                        handleFreeSeatsSelect(
+                          valueAsNumber
+                        )}
+                />
         </section>
     )
 }

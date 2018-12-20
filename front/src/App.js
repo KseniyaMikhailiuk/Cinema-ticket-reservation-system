@@ -17,14 +17,16 @@ const App = ({
             <BrowserRouter>
                 <React.Fragment>
                     <Header />
-                    <Switch>
-                        <Route exact path="/" component={Home}/>
-                        <Route path='/Cinemas' component={Cinemas}/>
-                        <Route path='/Home' component={Home}/>
-                        <Route path='/Schedule' component={Schedule}/>
-                        <Route path='/SignIn' component={SignIn}/>
-                        <Route path='/TicketOrder/:seanceId' component={TicketOrder}/>
-                    </Switch>
+                        <section className="content">
+                            <Switch>
+                                <Route exact path="/" component={Home}/>
+                                <Route path='/Cinemas' component={Cinemas}/>
+                                <Route path='/Home' component={Home}/>
+                                <Route path='/Schedule' component={Schedule}/>
+                                <Route path='/SignIn' component={SignIn}/>
+                                <Route path='/TicketOrder/:seanceId' component={TicketOrder}/>
+                            </Switch>
+                    </section>
                     <Footer />
                 </React.Fragment>
             </BrowserRouter>
