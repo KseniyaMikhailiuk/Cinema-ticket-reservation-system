@@ -1,7 +1,7 @@
 import v4 from 'uuid/v4'
 import moment from 'moment'
 
-const services = ["cookie", "cola", "nachos"];
+const services = [{name: "cookie", price: 2}, {name: "cola", price: 3}, {name: "nachos", price: 3}];
 
 const DAYS_AMOUNT = 7;
 const SEANSE_TIME_AMOUNT = 7;
@@ -254,31 +254,36 @@ const filterSchedule = (cinema, filter) => {
 export const fetchFilmInfo = (seanceId) =>
     delay(500)
         .then(() => {
-            for (let film of filmDatabase){
-                for (let city of film.cities){
-                    for (let cinema of city.cinemas){
-                        for (let hall of cinema.halls){
-                            for (let seance of hall.schedule){
-                                if (seance.id === seanceId){
-                                    return {
-                                        city: city.name,
-                                        cinema: cinema.name,
-                                        hall: hall.number,
-                                        filmTitle: film.title,
-                                        image: film.image,
-                                        dateTime: seance.dateTime,
-                                        seanceId: seanceId,
-                                        seatsInfo: seance.occupiedSeats
-                                    }
-                                }
+            return findSeance(seanceId);
+        })
+
+const findSeance = (seanceId) => {
+    for (let film of filmDatabase){
+        for (let city of film.cities){
+            for (let cinema of city.cinemas){
+                for (let hall of cinema.halls){
+                    for (let seance of hall.schedule){
+                        if (seance.id === seanceId){
+                            return {
+                                city: city.name,
+                                cinema: cinema.name,
+                                hall: hall.number,
+                                filmTitle: film.title,
+                                image: film.image,
+                                dateTime: seance.dateTime,
+                                seanceId: seanceId,
+                                seatsInfo: seance.occupiedSeats,
+                                services: seance.services
                             }
                         }
                     }
                 }
             }
+        }
+    }
 
-            return {};
-        })
+    return {};
+}
 
 export const fetchFilterOptions = () =>
     delay(500)
@@ -325,7 +330,7 @@ export const fetchFilterOptions = () =>
 export const occupySeat = (info) =>
     delay(500)
     .then(() => {
-        let selectedSeanceSeats = findSeance(info).occupiedSeats;
+        let selectedSeanceSeats = findSeance(info.seanceInfo.seanceId).seatsInfo;
         selectedSeanceSeats.push({
             line: info.line,
             raw: info.raw,
@@ -333,34 +338,10 @@ export const occupySeat = (info) =>
         });
     })
 
-const findSeance = (info) => {
-    for (let film of filmDatabase){
-        if (film.title === info.seanceInfo.filmTitle){
-            for (let city of film.cities){
-                if (city.name === info.seanceInfo.city){
-                    for (let cinema of city.cinemas){
-                        if (cinema.name === info.seanceInfo.cinema){
-                            for (let hall of cinema.halls){
-                                if (hall.number === info.seanceInfo.hall){
-                                    for(let seance of hall.schedule){
-                                        if(seance.id === info.seanceInfo.seanceId){
-                                            return seance;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
 export const releaseSeat = (info) =>
     delay(500)
     .then(() => {
-        let selectedSeanceSeats = findSeance(info).occupiedSeats;
+        let selectedSeanceSeats = findSeance(info.seanceInfo.seanceId).seatsInfo;
         for (var i = 0; i < selectedSeanceSeats.length; i++){
             if (selectedSeanceSeats[i].line === info.line && selectedSeanceSeats[i].raw === info.raw){
                 selectedSeanceSeats.splice(i, 1);

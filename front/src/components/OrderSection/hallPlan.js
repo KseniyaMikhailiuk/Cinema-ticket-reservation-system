@@ -54,6 +54,9 @@ const HallPlan = ({
 
     return (
         <div className="hall-plan">
+            <h3>
+                Выберите место
+            </h3>
             <svg className="hall-plan__screen-svg-container">
                 <rect className="hall-plan__screen"/>
             </svg>

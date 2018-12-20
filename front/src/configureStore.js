@@ -14,6 +14,10 @@ const initialState = {
         filmNames: [],
         cities: []
     },
+    selectedFilmInfo: {
+        services: [],
+        seats: []
+    }
 }
 
 const configureStore = () => {

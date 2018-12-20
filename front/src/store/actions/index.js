@@ -11,7 +11,7 @@ export const fetchFilmList = (filter) => (dispatch) => {
             response => {
                 dispatch({
                     type: 'FETCH_FILM_LIST_SUCCESS',
-                    response: response,
+                    response
                 })
             }
         )
@@ -21,7 +21,7 @@ export const fetchFilmList = (filter) => (dispatch) => {
                 response => {
                     dispatch({
                         type: 'FETCH_FILTER_OPTIONS_SUCCESS',
-                        response: response
+                        response
                     })
                 }
             )}
@@ -39,14 +39,14 @@ export const changeFilterObjectItem = (key, value) => (dispatch) => {
 export const fetchFilmInfo = (seanceId) => (dispatch) => {
     dispatch({
         type: 'FETCH_FILM_INFO_REQUEST',
-        seanceId: seanceId
+        seanceId
     })
     return filmsInfo.fetchFilmInfo(seanceId)
         .then(
             response => {
                 dispatch({
                     type: 'FETCH_FILM_INFO_SUCCESS',
-                    response: response
+                    response
                 })
             }
         )
@@ -63,7 +63,7 @@ export const fetchHallPlan = (seanceInfo) => (dispatch) => {
             response => {
                 dispatch({
                     type: 'FETCH_HALL_INFO_SUCCESS',
-                    response: response
+                    response
                 })
             }
         )
@@ -77,9 +77,16 @@ export const addSeatToOrder = (seatInfo, seanceInfo) => (dispatch) => {
         .then(() =>
                 dispatch({
                     type: 'ADD_SEAT_TO_ORDER',
-                    seatInfo: seatInfo
+                    seatInfo
                 })
         )
+}
+
+export const addServiceToOrder = (serviceInfo) => (dispatch) => {
+    dispatch({
+        type: 'ADD_SERVICE_TO_ORDER',
+        serviceInfo
+    })
 }
 
 export const removeSeatFromOrder = (seatInfo, seanceInfo) => (dispatch) => {
@@ -90,19 +97,20 @@ export const removeSeatFromOrder = (seatInfo, seanceInfo) => (dispatch) => {
         .then(() => {
             dispatch({
                 type: 'REMOVE_SEAT_FROM_ORDER',
-                seatInfo: seatInfo
+                seatInfo
             })
         })
 }
 
-export const clearOrderList = () => (dispatch) => {
+export const removeServiceFromOrder = (serviceId) => (dispatch) => {
     dispatch({
-        type: 'CLEAR_ORDER_LIST'
+        type: 'REMOVE_SERVICE_FROM_ORDER',
+        serviceId
     })
 }
 
-export const clearHallPlan = () => (dispatch) => {
+export const clearInfoOnExit = () => (dispatch) => {
     dispatch({
-        type: 'CLEAR_HALL_PLAN'
+        type: 'CLEAR_INFO_ON_EXIT'
     })
 }

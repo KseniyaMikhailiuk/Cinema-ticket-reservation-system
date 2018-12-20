@@ -25,9 +25,8 @@ class TicketOrder extends Component {
     }
 
     componentWillUnmount() {
-        const {clearOrderList, clearHallPlan} = this.props;
-        clearOrderList();
-        clearHallPlan();
+        const {clearInfoOnExit} = this.props;
+        clearInfoOnExit();
     }
 
     fetchCurrentHallPlan() {
@@ -55,7 +54,7 @@ class TicketOrder extends Component {
     }
 
     render() {
-        const {filmInfo, selectedSeanceInfo, hallPlan, orderInfo} = this.props;
+        const {filmInfo, selectedSeanceInfo, hallPlan, orderInfo, addServiceToOrder, removeServiceFromOrder} = this.props;
         return (
             <section className="order-section">
                 <FilmInfo
@@ -64,10 +63,12 @@ class TicketOrder extends Component {
                 />
                 <SeatReservation
                     hallPlan={hallPlan}
-                    seatsInfo={filmInfo.seatsInfo}
+                    filmInfo={filmInfo}
                     orderInfo={orderInfo}
                     onSeatSelect={this.addSeatToOrderList.bind(this)}
-                    onCancelOrderItemClick={this.removeSeatFromOrderList.bind(this)}
+                    onCancelOrderTicketClick={this.removeSeatFromOrderList.bind(this)}
+                    onServiceClick={addServiceToOrder}
+                    onCancelOrderServiceClick={removeServiceFromOrder}
                 />
             </section>
         )

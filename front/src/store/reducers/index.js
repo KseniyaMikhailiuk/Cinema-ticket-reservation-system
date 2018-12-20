@@ -33,7 +33,7 @@ const filteredList = (state = [], action) => {
     }
 }
 
-const isDataRequested = (state =  false, action) => {
+const isDataRequested = (state = false, action) => {
     switch(action.type){
         case 'FETCH_FILM_INFO_REQUEST':
         case 'FETCH_FILM_LIST_REQUEST':
@@ -50,7 +50,7 @@ const hallPlan = (state = [], action) => {
     switch(action.type){
         case 'FETCH_HALL_INFO_SUCCESS':
             return action.response;
-        case 'CLEAR_HALL_PLAN':
+        case 'CLEAR_INFO_ON_EXIT':
             return [];
         default:
             return state;
@@ -73,19 +73,49 @@ const filterObject = (state = {}, action) => {
 const selectedFilmInfo = (state = {}, action) => {
     switch(action.type){
         case 'FETCH_FILM_INFO_SUCCESS':
-            return action.response
+            return action.response;
+        case 'CLEAR_INFO_ON_EXIT':
+            return {
+                seatsInfo: []
+            };
         default:
             return state;
     }
 }
 
-const orderList = (state = [], action) => {
+const orderList = (state = {seats: [], services: []}, action) => {
     switch(action.type){
         case 'ADD_SEAT_TO_ORDER':
-            return [...state, action.seatInfo];
+            return {
+                ...state,
+                seats: [
+                    ...state.seats,
+                    action.seatInfo
+                ]
+            };
+        case 'ADD_SERVICE_TO_ORDER':
+            return {
+                ...state,
+                services: [
+                    ...state.services,
+                    action.serviceInfo
+                ]
+            }
         case 'REMOVE_SEAT_FROM_ORDER':
-            return state.filter(seat => !(seat.line == action.seatInfo.line && seat.raw == action.seatInfo.raw));
-        case 'CLEAR_ORDER_LIST':
+            return {
+                ...state,
+                seats: state
+                    .seats
+                    .filter(seat => !(seat.line == action.seatInfo.line && seat.raw == action.seatInfo.raw))
+                }
+        case 'REMOVE_SERVICE_FROM_ORDER':
+            return {
+                ...state,
+                services: state
+                    .services
+                    .filter(service => !(service.id === action.serviceId))
+                }
+        case 'CLEAR_INFO_ON_EXIT':
             return [];
         default:
             return state;
