@@ -13,6 +13,9 @@ const initialState = {
     filterOptions: {
         filmNames: [],
         cities: []
+    },
+    filmInfo: {
+        seatsInfo: []
     }
 }
 
@@ -20,6 +23,6 @@ const configureStore = () => {
     const middlewares = [thunk];
     const store = createStore(cinemaApp, initialState, applyMiddleware(...middlewares));
     return store;
-} 
+}
 
 export default configureStore;

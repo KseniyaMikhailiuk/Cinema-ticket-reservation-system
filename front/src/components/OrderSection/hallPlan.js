@@ -16,7 +16,7 @@ const HallPlan = ({
                             if (seat.type === seatType.loveseat.type) {
                                 seatWidth = (standardSeatWidth * seatType.loveseat.amountOfGuestsOnOneSeat + standardSeatWidth) + '%';
                             }
-                            if (seatsInfo.occupiedSeats.find(occupiedSeat =>
+                            if (seatsInfo.find(occupiedSeat =>
                                 occupiedSeat.line === seat.line &&
                                 occupiedSeat.raw === seat.raw)) {
                                 return(

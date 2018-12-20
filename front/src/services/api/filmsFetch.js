@@ -267,7 +267,7 @@ export const fetchFilmInfo = (seanceId) =>
                                         image: film.image,
                                         dateTime: seance.dateTime,
                                         seanceId: seanceId,
-                                        seatsInfo: seance.seatsInfo
+                                        seatsInfo: seance.occupiedSeats
                                     }
                                 }
                             }
@@ -340,6 +340,7 @@ export const occupySeat = (info) =>
                                                     dateTime: new Date()
                                                 });
                                             }
+                                            return;
                                         }
                                     }
                                 }

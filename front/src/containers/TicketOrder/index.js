@@ -9,7 +9,7 @@ import SeatReservation from '../../components/OrderSection/seatReservation'
 
 class TicketOrder extends Component {
     componentDidMount() {
-        const {fetchFilmInfo, seanceId} = this.props;        
+        const {fetchFilmInfo, seanceId} = this.props;
         fetchFilmInfo(seanceId);
         this.fetchCurrentHallPlan();
     }
@@ -20,13 +20,13 @@ class TicketOrder extends Component {
             this.fetchCurrentHallPlan();
         }
     }
-    
+
     fetchCurrentHallPlan(){
         const {fetchHallPlan, filmInfo} = this.props;
         fetchHallPlan(filmInfo);
     }
 
-    addSeatToOrderList(seat) {      
+    addSeatToOrderList(seat) {
         const {addSeatToOrder, filmInfo} = this.props;
         addSeatToOrder(
             seat,
@@ -36,16 +36,17 @@ class TicketOrder extends Component {
 
     render() {
         const {filmInfo, selectedSeanceInfo, hallPlan, orderInfo} = this.props;
+        console.log(filmInfo)
         return (
             <section className="order-section">
-                <FilmInfo 
+                <FilmInfo
                     filmInfo={filmInfo}
                     selectedSeanceInfo={selectedSeanceInfo}
                 />
-                <SeatReservation 
-                    hallPlan={hallPlan} 
+                <SeatReservation
+                    hallPlan={hallPlan}
                     seatsInfo={filmInfo.seatsInfo}
-                    orderInfo={orderInfo} 
+                    orderInfo={orderInfo}
                     onSeatSelect={this.addSeatToOrderList.bind(this)}
                 />
             </section>
@@ -53,7 +54,7 @@ class TicketOrder extends Component {
     }
 }
 
-const mapStateToTicketOrderProps = (state, {match}) => { 
+const mapStateToTicketOrderProps = (state, {match}) => {
     return{
         seanceId: match.params.seanceId,
         filmInfo: getFilmInfo(state),
