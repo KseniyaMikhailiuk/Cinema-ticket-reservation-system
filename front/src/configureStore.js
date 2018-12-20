@@ -16,6 +16,9 @@ const initialState = {
     },
     selectedFilmInfo: {
         services: [],
+    },
+    orderList: {
+        services: [],
         seats: []
     }
 }

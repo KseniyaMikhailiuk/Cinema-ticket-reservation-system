@@ -76,7 +76,8 @@ const selectedFilmInfo = (state = {}, action) => {
             return action.response;
         case 'CLEAR_INFO_ON_EXIT':
             return {
-                seatsInfo: []
+                seatsInfo: [],
+                services:[]
             };
         default:
             return state;
@@ -116,7 +117,9 @@ const orderList = (state = {seats: [], services: []}, action) => {
                     .filter(service => !(service.id === action.serviceId))
                 }
         case 'CLEAR_INFO_ON_EXIT':
-            return [];
+            return {
+                seats: [], services: []
+            };
         default:
             return state;
     }

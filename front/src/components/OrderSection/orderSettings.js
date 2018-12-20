@@ -5,7 +5,6 @@ const OrderSettings = ({
     onCancelOrderTicketClick,
     onCancelOrderServiceClick
 }) => {
-    console.log(orderInfo)
     return (
         <section className="order-list">
             <h1 className="order-list__title">Мои билеты</h1>
