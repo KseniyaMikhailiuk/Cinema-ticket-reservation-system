@@ -94,3 +94,15 @@ export const removeSeatFromOrder = (seatInfo, seanceInfo) => (dispatch) => {
             })
         })
 }
+
+export const clearOrderList = () => (dispatch) => {
+    dispatch({
+        type: 'CLEAR_ORDER_LIST'
+    })
+}
+
+export const clearHallPlan = () => (dispatch) => {
+    dispatch({
+        type: 'CLEAR_HALL_PLAN'
+    })
+}

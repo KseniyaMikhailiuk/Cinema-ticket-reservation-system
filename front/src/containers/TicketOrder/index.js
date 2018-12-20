@@ -24,6 +24,12 @@ class TicketOrder extends Component {
         }
     }
 
+    componentWillUnmount() {
+        const {clearOrderList, clearHallPlan} = this.props;
+        clearOrderList();
+        clearHallPlan();
+    }
+
     fetchCurrentHallPlan() {
         const {fetchHallPlan, filmInfo} = this.props;
         fetchHallPlan(filmInfo);

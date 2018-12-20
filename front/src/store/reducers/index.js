@@ -50,6 +50,8 @@ const hallPlan = (state = [], action) => {
     switch(action.type){
         case 'FETCH_HALL_INFO_SUCCESS':
             return action.response;
+        case 'CLEAR_HALL_PLAN':
+            return [];
         default:
             return state;
     }
@@ -83,6 +85,8 @@ const orderList = (state = [], action) => {
             return [...state, action.seatInfo];
         case 'REMOVE_SEAT_FROM_ORDER':
             return state.filter(seat => !(seat.line == action.seatInfo.line && seat.raw == action.seatInfo.raw));
+        case 'CLEAR_ORDER_LIST':
+            return [];
         default:
             return state;
     }
