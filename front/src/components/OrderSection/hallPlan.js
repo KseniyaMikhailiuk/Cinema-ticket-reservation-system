@@ -6,38 +6,33 @@ const HallPlan = ({
     seatsInfo,
     onSeatSelect
 }) => {
-
-    const handleSeatSelect = (seat) => {
-        onSeatSelect(seat);
-    }
-
     const displaySeatLine = (seatLine, standardSeatWidth) => {
         return (
             <section className="hall-plan__line">
                 {
                     seatLine
-                        .map(seat => {     
+                        .map(seat => {
                             var seatWidth = standardSeatWidth + '%';
                             if (seat.type === seatType.loveseat.type) {
-                                seatWidth = (standardSeatWidth * seatType.loveseat.amountOfGuestsOnOneSeat + standardSeatWidth) + '%'; 
+                                seatWidth = (standardSeatWidth * seatType.loveseat.amountOfGuestsOnOneSeat + standardSeatWidth) + '%';
                             }
-                            if (seatsInfo.occupiedSeats.find(occupiedSeat => 
+                            if (seatsInfo.occupiedSeats.find(occupiedSeat =>
                                 occupiedSeat.line === seat.line &&
                                 occupiedSeat.raw === seat.raw)) {
                                 return(
-                                    <svg 
-                                        className="hall-plan__seat-svg-container" 
-                                        width={seatWidth} 
+                                    <svg
+                                        className="hall-plan__seat-svg-container"
+                                        width={seatWidth}
                                     >
                                         <rect id={seat.id} rx="10" ry="10" className="hall-plan__seat occupied"/>
                                     </svg>
                                 )
                             }
                             return (
-                                <svg 
-                                    className="hall-plan__seat-svg-container" 
-                                    width={seatWidth} 
-                                    onClick={() => handleSeatSelect(seat)}
+                                <svg
+                                    className="hall-plan__seat-svg-container"
+                                    width={seatWidth}
+                                    onClick={() => onSeatSelect(seat)}
                                 >
                                     <rect id={seat.id} rx="10" ry="10" className="hall-plan__seat"/>
                                 </svg>
@@ -53,8 +48,8 @@ const HallPlan = ({
         seatLine
             .forEach(seat => {
                 seatsInLine += seatType[seat.type].amountOfGuestsOnOneSeat;
-            });         
-        return 100 / (seatsInLine * 2 - 1);    
+            });
+        return 100 / (seatsInLine * 2 - 1);
     }
 
     return (

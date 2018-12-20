@@ -23,10 +23,10 @@ const FilterPanel = ({
     }
 
     return (
-        <section className="filter-panel">  
+        <section className="filter-panel">
 
-                <input className="form-item" 
-                    list="city" 
+                <input className="form-item"
+                    list="city"
                     placeholder="Выберите город"
                     value={filter.city}
                     onChange={handleInputChange}/>
@@ -35,12 +35,12 @@ const FilterPanel = ({
                         filterOptions
                             .cities
                             .map(city =>
-                                <option value={city.name}/>                       
+                                <option value={city.name}/>
                             )
                     }
                 </datalist>
-                <input className="form-item" 
-                    list="cinema" 
+                <input className="form-item"
+                    list="cinema"
                     placeholder="Выберите кинотеатр"
                     onChange={handleInputChange}/>
                 <datalist id="cinema">
@@ -48,24 +48,22 @@ const FilterPanel = ({
                         filterOptions
                             .cities
                             .filter(city => city.name === filter.city)
-                            .map(city =>
-                                city
-                                    .cinemas
+                            .map(city => city.cinemas
                                     .map(cinema =>
-                                        <option value={cinema}>{city.name}</option>    
+                                        <option value={cinema}>{city.name}</option>
                                     )
                             )
-                    }                    
+                    }
                 </datalist>
 
                 <div className="form-item">
-                    <DatePickerCustomized 
+                    <DatePickerCustomized
                         selectedDate={filter.date}
-                        onFilterClick={onFilterClick}                       
+                        onFilterClick={onFilterClick}
                     />
                 </div>
-                <input className="form-item" 
-                    list="filmName" 
+                <input className="form-item"
+                    list="filmName"
                     placeholder="Выберите фильм"
                     onChange={handleInputChange}/>
                 <datalist id="filmName">
@@ -75,11 +73,11 @@ const FilterPanel = ({
                             .map(filmName =>
                                 <option value={filmName}></option>
                             )
-                    }                    
+                    }
                 </datalist>
 
                 <NumericInput
-                    className="form-item" 
+                    className="form-item"
                     min={1}
                     max={100}
                     placeholder="Места"

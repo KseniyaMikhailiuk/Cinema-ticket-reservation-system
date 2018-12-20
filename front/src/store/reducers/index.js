@@ -4,7 +4,7 @@ export const getFilteredList = (state) => {
     return state.filteredList;
 }
 
-export const getFilterObject = (state) => { 
+export const getFilterObject = (state) => {
     return state.filterObject
 }
 
@@ -58,7 +58,7 @@ const hallPlan = (state = [], action) => {
 const filterObject = (state = {}, action) => {
     const {key, value} = action;
     switch(action.type){
-        case 'CHANGE_FILTER_OBJECT': 
+        case 'CHANGE_FILTER_OBJECT':
             return {
                 ...state,
                 [key]: value
@@ -96,7 +96,7 @@ const filterOptions = (state = {}, action) => {
 }
 
 const cinemaApp = combineReducers ({
-    filteredList,    
+    filteredList,
     filterObject,
     isDataRequested,
     selectedFilmInfo,

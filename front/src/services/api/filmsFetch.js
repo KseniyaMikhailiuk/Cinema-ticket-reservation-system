@@ -15,12 +15,12 @@ for (var k = 0; k < CURRENT_HALLS_AMOUNT; k++){
         for(var j = 0; j < SEANSE_TIME_AMOUNT; j++){
             var newSeanseTime = moment(newDay).add(j * 120, 'minutes');
             dates.push({
-                dateTime: newSeanseTime, 
-                services: services, 
-                id: `${i}${j}${k}`, 
+                dateTime: newSeanseTime,
+                services: services,
+                id: `${i}${j}${k}`,
                 occupiedSeats: [],
             });
-        }    
+        }
     }
     currentSchedule.push(dates);
 }
@@ -49,7 +49,7 @@ const filmDatabase = [
                                 seatAmount: 50,
                                 schedule: currentSchedule[1],
                             }
-                        ]                        
+                        ]
                     },
                     {
                         name: "Аврора",
@@ -64,7 +64,7 @@ const filmDatabase = [
                                 seatAmount: 50,
                                 schedule: currentSchedule[3],
                             }
-                        ]   
+                        ]
                     },
                     {
                         name: "Комсомолец",
@@ -79,11 +79,11 @@ const filmDatabase = [
                                 seatAmount: 50,
                                 schedule: currentSchedule[5],
                             }
-                        ]   
+                        ]
                     }
                 ]
             }
-            
+
         ]
     },
     {
@@ -109,7 +109,7 @@ const filmDatabase = [
                                 seatAmount: 50,
                                 schedule: currentSchedule[7],
                             }
-                        ]   
+                        ]
                     },
                     {
                         name: "Arena2 сити",
@@ -124,10 +124,10 @@ const filmDatabase = [
                                 seatAmount: 50,
                                 schedule: currentSchedule[9],
                             }
-                        ]   
+                        ]
                     },
-                ]       
-            },    
+                ]
+            },
             {
                 name: "Минск",
                 cinemas: [
@@ -144,11 +144,11 @@ const filmDatabase = [
                                 seatAmount: 50,
                                 schedule: currentSchedule[11],
                             }
-                        ]   
+                        ]
                     },
 
-                ]       
-            }, 
+                ]
+            },
             {
                 name: "Гомель",
                 cinemas: [
@@ -165,7 +165,7 @@ const filmDatabase = [
                                 seatAmount: 50,
                                 schedule: currentSchedule[13],
                             }
-                        ]   
+                        ]
                     },
                 ]
             }
@@ -176,15 +176,15 @@ const filmDatabase = [
 
 export default filmDatabase;
 
-const delay = (ms) => 
+const delay = (ms) =>
     new Promise(resolve => setTimeout(resolve, ms));
 
-export const fetchFilmList = (filter) => 
+export const fetchFilmList = (filter) =>
     delay(500)
     .then(() => {
         let filteredList = [];
         filmDatabase
-        .forEach(film => { 
+        .forEach(film => {
             if (film.title.indexOf(filter.filmName) !== -1 || !filter.filmName){
                 let filteredFilm = {...film};
                 film
@@ -194,7 +194,7 @@ export const fetchFilmList = (filter) =>
                             var filteredCinemas = filterCinemas(city, filter);
                             if (filteredCinemas.length > 0){
                                 var filteresCities = {
-                                    ...city, 
+                                    ...city,
                                     cinemas: filteredCinemas
                                 };
                                 filteredFilm = {
@@ -205,24 +205,23 @@ export const fetchFilmList = (filter) =>
                             }
                         }
                     });
-            }            
+            }
         });
-
         return filteredList;
     })
 
 const filterCinemas = (city, filter) => {
-    var filteredCinemas = []; 
+    var filteredCinemas = [];
     city
         .cinemas
-        .forEach(cinema => { 
-            if (cinema.name === filter.cinema || !filter.cinema) {                            
+        .forEach(cinema => {
+            if (cinema.name === filter.cinema || !filter.cinema) {
                 var filteredHallsSchedule = filterSchedule(cinema, filter);
                 if (filteredHallsSchedule.length > 0){
                     cinema.halls = filteredHallsSchedule;
-                    filteredCinemas.push(cinema);                                
+                    filteredCinemas.push(cinema);
                 }
-            }                        
+            }
         })
 
     return filteredCinemas;
@@ -235,8 +234,8 @@ const filterSchedule = (cinema, filter) => {
         .forEach(hall => {
             var filteredHallSchedule = hall
                 .schedule
-                .filter(seance => 
-                    seance.dateTime.year() === filter.date.getFullYear() && 
+                .filter(seance =>
+                    seance.dateTime.year() === filter.date.getFullYear() &&
                     seance.dateTime.month() === filter.date.getMonth() &&
                     seance.dateTime.date() === filter.date.getDate() &&
                     hall.seatAmount - seance.occupiedSeats.length >= filter.freeSeats)
@@ -245,15 +244,15 @@ const filterSchedule = (cinema, filter) => {
                     ...hall,
                     schedule: filteredHallSchedule
                 })
-            }  
+            }
         })
 
     return filteredHalls;
 }
 
-export const fetchFilmInfo = (seanceId) => 
+export const fetchFilmInfo = (seanceId) =>
     delay(500)
-        .then(() => {  
+        .then(() => {
             for (let film of filmDatabase){
                 for (let city of film.cities){
                     for (let cinema of city.cinemas){
@@ -280,7 +279,7 @@ export const fetchFilmInfo = (seanceId) =>
             return {};
         })
 
-export const fetchFilterOptions = () => 
+export const fetchFilterOptions = () =>
     delay(500)
         .then(() => {
             let filterOptions = {
@@ -290,18 +289,18 @@ export const fetchFilterOptions = () =>
             };
             for (let film of filmDatabase){
                 for (let city of film.cities){
-                    let existedCity = filterOptions.cities.find(addedCity => addedCity.name === city.name);     
+                    let existedCity = filterOptions.cities.find(addedCity => addedCity.name === city.name);
                     if (existedCity){
                         for (let cinema of city.cinemas){
                             if (existedCity.cinemas.indexOf(cinema.name) === -1){
                                 existedCity.cinemas.push(cinema.name);
-                            }                            
+                            }
                         }
                     }
                     else{
                         let cinemaNames = []
                         for (let cinema of city.cinemas){
-                            cinemaNames.push(cinema.name)  
+                            cinemaNames.push(cinema.name)
                             for (let hall of cinema.halls){
                                 for (let seance of hall.schedule){
                                     let freeSeats = hall.seatAmount - seance.occupiedSeats.length;
@@ -309,7 +308,7 @@ export const fetchFilterOptions = () =>
                                         filterOptions.freeSeats = freeSeats;
                                     }
                                 }
-                            }                
+                            }
                         }
                         filterOptions.cities.push({
                             name: city.name,
@@ -322,19 +321,19 @@ export const fetchFilterOptions = () =>
             return filterOptions;
         })
 
-export const occupySeat = (info) => 
+export const occupySeat = (info) =>
     delay(500)
     .then(() => {
         for (let film of filmDatabase){
             if (film.title === info.seanceInfo.filmTitle){
                 for (let city of film.cities){
-                    if (city.name === info.seanceInfo.city){                        
-                        for (let cinema of city.cinemas){                     
+                    if (city.name === info.seanceInfo.city){
+                        for (let cinema of city.cinemas){
                             if (cinema.name === info.seanceInfo.cinema){
                                 for (let hall of cinema.halls){
                                     if (hall.number === info.seanceInfo.hall){
                                         for(let seance of hall.schedule){
-                                            if(seance.id === info.seanceInfo.seanceId){                                      
+                                            if(seance.id === info.seanceInfo.seanceId){
                                                 seance.occupiedSeats.push({
                                                     line: info.line,
                                                     raw: info.raw,
@@ -346,7 +345,7 @@ export const occupySeat = (info) =>
                                 }
                             }
                         }
-                    }            
+                    }
                 }
             }
         }
