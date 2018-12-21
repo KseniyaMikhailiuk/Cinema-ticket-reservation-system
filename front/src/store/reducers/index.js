@@ -134,14 +134,42 @@ const filterOptions = (state = {}, action) => {
     }
 }
 
+const isLoggedIn = (state = false, action) => {
+    switch(action.type){
+        case 'AUTHORIZATION':
+            return true;
+        default:
+            return state;
+    }
+}
+
+const userInfo = (state = {}, action) => {
+    switch(action.type){
+        default:
+            return state;
+    }
+}
+
+const isRequestSucceeded = (state = false, action) => {
+    switch(action.type){
+        case 'REQUEST_SUCCEEDED':
+            return true;
+        default:
+            return state;
+    }
+}
+
 const cinemaApp = combineReducers ({
     filteredList,
     filterObject,
     isDataRequested,
+    isRequestSucceeded,
     selectedFilmInfo,
     hallPlan,
     orderList,
     filterOptions,
+    isLoggedIn,
+    userInfo
 });
 
 export default cinemaApp;

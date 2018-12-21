@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getOrderInfo} from '../../store/reducers'
+import {getOrderInfo, getFilmInfo} from '../../store/reducers'
 import * as actions from '../../store/actions'
 import './submitOrder.scss'
+import SuccessMessage from '../../components/Common/SuccessMessage'
+import {withRouter} from 'react-router-dom'
 
 class SubmitOrder extends Component{
 
@@ -19,13 +21,18 @@ class SubmitOrder extends Component{
     }
 
     render() {
-        const {orderInfo} = this.props;
+        const {orderInfo, addOrderToDatabase, orderId, filmInfo, userId, isRequestSucceeded} = this.props;
         if (orderInfo.seats.length <= 0){
             return(
                 <div className="order-list__title submit-order__title">
                     Ваш заказ пуст
                 </div>
             )
+        }
+
+        if (isRequestSucceeded){
+            setTimeout(() => {this.props.history.push('/Schedule');}, 1000)
+            return <SuccessMessage/>
         }
         return(
             <div className="order-list submit-order">
@@ -49,21 +56,31 @@ class SubmitOrder extends Component{
                 <h1 className="order-list__title submit-order__title">
                     {`Общая сумма заказа: ${this.totalPrice()}`}
                 </h1>
-                <input className="submit-order__button bordered" type="button" value="Купить"/>
+                <input
+                    className="submit-order__button bordered"
+                    type="button"
+                    value="Купить"
+                    onClick={() => addOrderToDatabase({...orderInfo, orderId}, filmInfo.seanceId, userId)}
+                />
             </div>
         )
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, {match}) => {
+    console.log(state.isRequestSucceeded)
     return{
-        orderInfo: getOrderInfo(state)
+        orderInfo: getOrderInfo(state),
+        orderId: match.params.orderId,
+        filmInfo: getFilmInfo(state),
+        userId: state.userInfo.id,
+        isRequestSucceeded: state.isRequestSucceeded
     }
 }
 
-SubmitOrder = connect(
+SubmitOrder = withRouter(connect(
     mapStateToProps,
     actions
-)(SubmitOrder)
+)(SubmitOrder))
 
 export default SubmitOrder;

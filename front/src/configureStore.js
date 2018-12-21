@@ -20,6 +20,9 @@ const initialState = {
     orderList: {
         services: [],
         seats: []
+    },
+    userInfo: {
+        id: 1,
     }
 }
 

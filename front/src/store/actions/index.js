@@ -1,5 +1,6 @@
 import * as filmsInfo from '../../services/api/filmsFetch'
 import * as cinemaHallPlans from '../../services/api/hallPlanFetch'
+import * as orderInfoFetch from '../../services/api/orderInfoFetch'
 
 export const fetchFilmList = (filter) => (dispatch) => {
     dispatch({
@@ -113,4 +114,17 @@ export const clearInfoOnExit = () => (dispatch) => {
     dispatch({
         type: 'CLEAR_INFO_ON_EXIT'
     })
+}
+
+export const addOrderToDatabase = (orderId, orderInfo, userId) => (dispatch) => {
+    dispatch({
+        type: 'ADD_ORDER_TO_DATABASE_REQUEST'
+    })
+
+    return orderInfoFetch.addOrder(orderId, orderInfo, userId)
+        .then(() => {
+            dispatch({
+                type: 'REQUEST_SUCCEEDED'
+            })
+        })
 }
