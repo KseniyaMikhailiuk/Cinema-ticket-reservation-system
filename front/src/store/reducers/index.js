@@ -109,7 +109,7 @@ const orderList = (state = {seats: [], services: []}, action) => {
                 ...state,
                 seats: state
                     .seats
-                    .filter(seat => !(seat.line == action.seatInfo.line && seat.raw == action.seatInfo.raw))
+                    .filter(seat => !(seat.line === action.seatInfo.line && seat.raw === action.seatInfo.raw))
                 }
         case 'REMOVE_SERVICE_FROM_ORDER':
             return {
