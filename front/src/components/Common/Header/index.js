@@ -9,12 +9,11 @@ const Header = () => {
                 VELVET SCREEN
             </p>
             <ul>
-                <li><NavLink to="/Home" activeClassName="selected">Главная</NavLink></li>   
+                <li><NavLink to="/Home" activeClassName="selected">Главная</NavLink></li>
                 <li><NavLink to="/Schedule" activeClassName="selected">Афиша</NavLink></li>
                 <li><NavLink to="/Cinemas" activeClassName="selected">Кинотеатры</NavLink></li>
-                <li><NavLink to="/Info" activeClassName="selected">Инфо</NavLink></li>
                 <li><NavLink to="/SignIn" activeClassName="selected">Вход</NavLink></li>
-            </ul>    
+            </ul>
         </nav>
     )
 }

@@ -6,24 +6,28 @@ import {getFilmInfo, getHallPlan, getOrderInfo} from '../../store/reducers'
 import './orderSection.scss'
 import FilmInfo from '../../components/OrderSection/filmInfo'
 import SeatReservation from '../../components/OrderSection/seatReservation'
+import '../../CommonStylesheets/orderList.scss'
 
 class TicketOrder extends Component {
     componentDidMount() {
-        const {fetchFilmInfo, seanceId} = this.props;
-        fetchFilmInfo(seanceId);
-        this.fetchCurrentHallPlan();
+        const {startFilmInfoFetching, seanceId, clearInfo} = this.props;
+        clearInfo();
+        startFilmInfoFetching(seanceId);
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.orderInfo !== prevProps.orderInfo ||
-            this.props.filmInfo !== prevProps.filmInfo) {
-            this.fetchCurrentHallPlan();
+        if (this.props.filmInfo !== prevProps.filmInfo) {
+            this.getCurrentHallPlan();
+        }
+        if (this.props.orderInfo !== prevProps.orderInfo) {
+            const {startFilmInfoFetching, seanceId} = this.props;
+            startFilmInfoFetching(seanceId);
         }
     }
 
-    fetchCurrentHallPlan(){
-        const {fetchHallPlan, filmInfo} = this.props;
-        fetchHallPlan(filmInfo);
+    getCurrentHallPlan() {
+        const {startHallPlanFetchingAction, filmInfo} = this.props;
+        startHallPlanFetchingAction(filmInfo);
     }
 
     addSeatToOrderList(seat) {
@@ -34,9 +38,19 @@ class TicketOrder extends Component {
         )
     }
 
+    removeSeatFromOrderList(line, raw) {
+        const {removeSeatFromOrder, filmInfo} = this.props;
+        removeSeatFromOrder(
+            {
+                line,
+                raw
+            },
+            filmInfo
+        )
+    }
+
     render() {
-        const {filmInfo, selectedSeanceInfo, hallPlan, orderInfo} = this.props;
-        console.log(filmInfo)
+        const {filmInfo, selectedSeanceInfo, hallPlan, orderInfo, addServiceToOrder, removeServiceFromOrder} = this.props;
         return (
             <section className="order-section">
                 <FilmInfo
@@ -45,9 +59,14 @@ class TicketOrder extends Component {
                 />
                 <SeatReservation
                     hallPlan={hallPlan}
-                    seatsInfo={filmInfo.seatsInfo}
+                    filmInfo={filmInfo}
                     orderInfo={orderInfo}
-                    onSeatSelect={this.addSeatToOrderList.bind(this)}
+                    actions={{
+                        onSeatSelect: this.addSeatToOrderList.bind(this),
+                        onCancelOrderTicketClick: this.removeSeatFromOrderList.bind(this),
+                        onServiceClick: addServiceToOrder,
+                        onCancelOrderServiceClick: removeServiceFromOrder
+                    }}
                 />
             </section>
         )

@@ -1,6 +1,6 @@
 .order-section{
     width: 70%;
-    background-color: rgb(31, 31, 31); 
+    background-color: rgb(31, 31, 31);
     min-width: 640px;
     margin: auto;
     display: block;
@@ -11,11 +11,11 @@
 }
 
 .film-info-panel{
-    background-color: rgba(134, 63, 128, 0.3); 
+    background-color: rgba(134, 63, 128, 0.3);
     width: 100%;
     display: flex;
     border-radius: 20px 20px 0 0;
-     
+
     &__img-container{
         width: 30%;
     }
@@ -37,24 +37,35 @@
 
 .order-form{
     display: flex;
+
+    .order-options{
+        margin: 0 0 0 5%;
+        width: 50%;
+        h3{
+            font-size: 1.5vw;
+            text-align: center;
+            color:  rgb(158, 111, 154);
+            margin: 2vw 0 1vw 0;
+        }
+    }
 }
 
 .hall-plan{
-    margin: 5% 0 0 5%;
-    width: 50%;
     &__screen-svg-container{
         width: 100%;
         height: 5px;
     }
 
-    &__screen{        
-        width: 100%;        
-        fill:rgb(119, 81, 136);
+    &__screen{
+        width: 100%;
+        fill:rgb(31, 31, 31);
+        stroke: rgb(119, 81, 136);
+        stroke-width: 3;
     }
 
     &__seats{
         width: 100%;
-        margin-bottom: 5%; 
+        margin-bottom: 5%;
     }
 
     &__line{
@@ -67,7 +78,7 @@
         height: 40px;
         margin: 0 5% 0 5%;
     }
-    &__seat{        
+    &__seat{
         height: 100%;
         width: 100%;
         fill:rgb(31, 31, 31);
@@ -86,40 +97,26 @@
     }
 }
 
-.order-list{
-    width: 50%;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-right: 3%;
-    &__title{
-        color: white;
-        margin: 3%;
-        font-size: 2.5vw;
-        text-align: center;
-    }
-
-    &__list{
-        margin: 3%;
+.additional-services{
+    width: 100%;
+    margin-bottom: 1vw;
+    &__panel{
+        list-style: none;
+        display: inline-flex;
         width: 100%;
-        height: 300px;
-        display: block;
-        overflow-y: auto;
-        & > li:not(:last-child) {
-            border-bottom: 1px solid rgba(134, 63, 128, 0.3);
-        }
-    
-        & li{
+        padding: 0;
+        justify-content: space-around;
+
+        li{
             color: white;
-            font-size: 1vw;
-            margin: 3% 0 3% 0;
-            width:90%;
-            display: flex;
-            justify-content: space-between;
+            font-size: 1.5vw;
+            padding: 0.5vw 1vw 0.5vw 1vw;
+            cursor: pointer;
+            transition: 0.5s;
         }
-        & h1, p{
-            display: block;
+
+        li:hover{
+            background-color: rgb(83, 69, 82);
         }
-    }
-    &__cross{
-        right: 0;
     }
 }

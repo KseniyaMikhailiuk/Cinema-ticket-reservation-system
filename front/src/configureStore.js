@@ -1,6 +1,7 @@
 import {createStore, applyMiddleware} from 'redux'
 import cinemaApp from './store/reducers'
 import thunk from 'redux-thunk'
+import moment from 'moment'
 
 const initialState = {
     filterObject: {
@@ -14,8 +15,17 @@ const initialState = {
         filmNames: [],
         cities: []
     },
-    filmInfo: {
-        seatsInfo: []
+    selectedFilmInfo: {
+        seatsInfo: [],
+        services:[],
+        dateTime: moment()
+    },
+    orderList: {
+        services: [],
+        seats: []
+    },
+    userInfo: {
+        id: 1,
     }
 }
 
