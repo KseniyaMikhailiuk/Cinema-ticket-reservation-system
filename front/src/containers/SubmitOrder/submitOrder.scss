@@ -1,0 +1,21 @@
+.submit-order{
+    &__title{
+        color: rgb(172, 149, 172);
+    }
+    &__list{
+        height: initial;
+    }
+    &__list-item{
+        h1, p{
+            font-size: 2vw;
+            color: white;
+        }
+    }
+    &__button{
+        height: 3vw;
+        font-size: 2vw;
+        background-color: rgb(109, 88, 107);
+        color: white;
+    }
+}
+

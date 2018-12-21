@@ -1,4 +1,6 @@
 import React from 'react'
+import {NavLink} from 'react-router-dom'
+import v4 from 'uuid'
 
 const OrderSettings = ({
     orderInfo,
@@ -9,7 +11,11 @@ const OrderSettings = ({
     const submitTicketOrder = () => {
         if (orderInfo.seats.length > 0){
             return(
-                <input type="submit" value="Готово"/>
+                <div className="order-list__submit-button">
+                    <NavLink to={`/SubmitOrder/${v4()}`}>
+                        Готово
+                    </NavLink>
+                </div>
             )
         }
     }

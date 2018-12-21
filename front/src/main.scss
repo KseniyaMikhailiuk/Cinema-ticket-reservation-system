@@ -2,6 +2,9 @@ body{
     width: 100%;
     background-color: rgb(111, 108, 128);
     .content{
+        width: 100%;
         font-family: Arial, Helvetica, sans-serif;
+        display: inline-flex;
+        justify-content: center;
     }
 }

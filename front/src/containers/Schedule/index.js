@@ -26,19 +26,19 @@ class Schedule extends Component {
     render() {
         const {filmList, changeFilterObjectItem, filter, filterOptions} = this.props;
         return (
-            <>
+            <section>
                 <FilterPanel filter={filter} filterOptions={filterOptions} onFilterClick={changeFilterObjectItem}/>
-                <ItemList 
+                <ItemList
                     list={filmList}
                     itemType={FilmItem}
                 />
-            </>
+            </section>
         )
     }
-} 
+}
 
 const mapStateToScheduleProps = (state) => {
-    return {        
+    return {
         filterOptions: getFilterOptions(state),
         filter: getFilterObject(state),
         filmList: getFilteredList(state),

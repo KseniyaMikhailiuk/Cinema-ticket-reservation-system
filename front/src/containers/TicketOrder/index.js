@@ -6,6 +6,7 @@ import {getFilmInfo, getHallPlan, getOrderInfo} from '../../store/reducers'
 import './orderSection.scss'
 import FilmInfo from '../../components/OrderSection/filmInfo'
 import SeatReservation from '../../components/OrderSection/seatReservation'
+import '../../CommonStylesheets/orderList.scss'
 
 class TicketOrder extends Component {
     componentDidMount() {
