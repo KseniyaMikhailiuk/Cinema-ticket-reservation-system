@@ -21,8 +21,10 @@ const HallPlan = ({
                                 occupiedSeat.raw === seat.raw)) {
                                 return(
                                     <svg
-                                        className="hall-plan__seat-svg-container"
+                                        className="hall-plan__seat-svg-container "
                                         width={seatWidth}
+                                        preserveAspectRatio="none"
+                                        viewBox="0 0 180 180"
                                     >
                                         <rect id={seat.id} rx="10" ry="10" className="hall-plan__seat occupied"/>
                                     </svg>
@@ -32,6 +34,8 @@ const HallPlan = ({
                                 <svg
                                     className="hall-plan__seat-svg-container"
                                     width={seatWidth}
+                                    preserveAspectRatio="none"
+                                    viewBox="0 0 180 180"
                                     onClick={() => onSeatSelect(seat)}
                                 >
                                     <rect id={seat.id} rx="10" ry="10" className="hall-plan__seat"/>
@@ -57,7 +61,10 @@ const HallPlan = ({
             <h3>
                 Выберите место
             </h3>
-            <svg className="hall-plan__screen-svg-container">
+            <svg className="hall-plan__screen-svg-container"
+                preserveAspectRatio="none"
+                viewBox="0 0 500"
+            >
                 <rect className="hall-plan__screen"/>
             </svg>
             <div className="hall-plan__seats">
