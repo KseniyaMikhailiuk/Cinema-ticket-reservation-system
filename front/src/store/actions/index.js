@@ -2,7 +2,7 @@ import * as filmsInfo from '../../services/api/filmsFetch'
 import * as cinemaHallPlans from '../../services/api/hallPlanFetch'
 import * as orderInfoFetch from '../../services/api/orderInfoFetch'
 
-export const fetchFilmList = (filter) => (dispatch) => {
+export const startFilmListFetching = (filter) => (dispatch) => {
     dispatch({
         type: 'FETCH_FILM_LIST_REQUEST',
         filter
@@ -37,7 +37,7 @@ export const changeFilterObjectItem = (key, value) => (dispatch) => {
     })
 }
 
-export const fetchFilmInfo = (seanceId) => (dispatch) => {
+export const startFilmInfoFetching = (seanceId) => (dispatch) => {
     dispatch({
         type: 'FETCH_FILM_INFO_REQUEST',
         seanceId
@@ -53,7 +53,7 @@ export const fetchFilmInfo = (seanceId) => (dispatch) => {
         )
 }
 
-export const fetchHallPlan = (seanceInfo) => (dispatch) => {
+export const startHallPlanFetchingAction = (seanceInfo) => (dispatch) => {
     dispatch({
         type: 'FETCH_HALL_INFO_REQUEST',
         seanceInfo: seanceInfo

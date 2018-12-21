@@ -29,7 +29,6 @@ const App = ({
                                 <Route path='/SubmitOrder/:orderId' component={SubmitOrder}/>
                             </Switch>
                     </section>
-                    <Footer />
                 </React.Fragment>
             </BrowserRouter>
         </Provider>

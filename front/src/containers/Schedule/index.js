@@ -19,14 +19,14 @@ class Schedule extends Component {
     }
 
     fetchData() {
-        const {filter, fetchFilmList} = this.props;
-        fetchFilmList(filter);
+        const {filter, startFilmListFetching} = this.props;
+        startFilmListFetching(filter);
     }
 
     render() {
         const {filmList, changeFilterObjectItem, filter, filterOptions} = this.props;
         return (
-            <section>
+            <section className="shedule-page">
                 <FilterPanel filter={filter} filterOptions={filterOptions} onFilterClick={changeFilterObjectItem}/>
                 <ItemList
                     list={filmList}

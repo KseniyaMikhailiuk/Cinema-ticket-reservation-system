@@ -4,7 +4,6 @@ import {getOrderInfo, getFilmInfo} from '../../store/reducers'
 import * as actions from '../../store/actions'
 import './submitOrder.scss'
 import SuccessMessage from '../../components/Common/SuccessMessage'
-import {withRouter} from 'react-router-dom'
 
 class SubmitOrder extends Component{
 
@@ -37,7 +36,6 @@ class SubmitOrder extends Component{
         }
 
         if (isRequestSucceeded){
-            setTimeout(() => {this.props.history.push('/Schedule');}, 1000)
             return <SuccessMessage/>
         }
 
@@ -84,9 +82,9 @@ const mapStateToProps = (state, {match}) => {
     }
 }
 
-SubmitOrder = withRouter(connect(
+SubmitOrder = connect(
     mapStateToProps,
     actions
-)(SubmitOrder))
+)(SubmitOrder)
 
 export default SubmitOrder;

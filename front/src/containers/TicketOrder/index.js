@@ -10,24 +10,24 @@ import '../../CommonStylesheets/orderList.scss'
 
 class TicketOrder extends Component {
     componentDidMount() {
-        const {fetchFilmInfo, seanceId, clearInfo} = this.props;
+        const {startFilmInfoFetching, seanceId, clearInfo} = this.props;
         clearInfo();
-        fetchFilmInfo(seanceId);
+        startFilmInfoFetching(seanceId);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.filmInfo !== prevProps.filmInfo) {
-            this.fetchCurrentHallPlan();
+            this.getCurrentHallPlan();
         }
         if (this.props.orderInfo !== prevProps.orderInfo) {
-            const {fetchFilmInfo, seanceId} = this.props;
-            fetchFilmInfo(seanceId);
+            const {startFilmInfoFetching, seanceId} = this.props;
+            startFilmInfoFetching(seanceId);
         }
     }
 
-    fetchCurrentHallPlan() {
-        const {fetchHallPlan, filmInfo} = this.props;
-        fetchHallPlan(filmInfo);
+    getCurrentHallPlan() {
+        const {startHallPlanFetchingAction, filmInfo} = this.props;
+        startHallPlanFetchingAction(filmInfo);
     }
 
     addSeatToOrderList(seat) {

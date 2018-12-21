@@ -1,11 +1,16 @@
-import React from 'react'
+import React, {Component} from 'react'
 import './successMessage.scss'
+import {withRouter} from 'react-router-dom'
 
-const SuccessMessage = () => {
-    return(
-        <article className="success-message bordered">
-            &#10003;
-        </article>
-    )
+class SuccessMessage extends Component{
+    render(){
+        return(
+            <button className="success-message bordered" onClick={() => {this.props.history.push('/Schedule')}}>
+                &#10003;
+            </button>
+        )
+    }
+
 }
-export default SuccessMessage;
+
+export default withRouter(SuccessMessage);

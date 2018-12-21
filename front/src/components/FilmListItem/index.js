@@ -1,6 +1,6 @@
 import React from 'react'
 import CinemaSeanceInfo from './cinemaSeanceInfo'
-import image from '../../images/films/1.jpg'
+import image from '../../images/assets/1.jpg'
 import './filmItem.scss'
 
 const FilmItem = ({

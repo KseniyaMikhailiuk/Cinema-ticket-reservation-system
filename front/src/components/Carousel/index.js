@@ -6,22 +6,22 @@ import './carousel.scss'
 import carouselItems from './carouselDB'
 
 const FilmCarousel = () => (
-    <Carousel className="film-carousel" 
+    <Carousel className="film-carousel"
         showArrows={true}
-        showThumbs={false} 
-        showIndicators={false} 
-        infiniteLoop={true} 
-        dynamicHeight={true} 
+        showThumbs={false}
+        showIndicators={false}
+        infiniteLoop={true}
+        dynamicHeight={true}
         autoPlay>
             {
                 carouselItems
-                    .map(item => 
+                    .map(item =>
                         <div>
                             <img src={filmImage}/>
                             <p className="legend">{item.legend}</p>
                         </div>
                     )
-            }           
+            }
     </Carousel>
 );
 
