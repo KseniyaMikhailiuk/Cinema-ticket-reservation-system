@@ -1,7 +1,7 @@
 import v4 from 'uuid/v4'
 import moment from 'moment'
 
-const services = [{name: "cookie", price: 2}, {name: "cola", price: 3}, {name: "nachos", price: 3}];
+const services = [{name: "кукис", price: 2}, {name: "кола", price: 3}, {name: "начос", price: 3}];
 
 const DAYS_AMOUNT = 7;
 const SEANSE_TIME_AMOUNT = 7;

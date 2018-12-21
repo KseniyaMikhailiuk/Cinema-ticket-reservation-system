@@ -9,9 +9,12 @@ const FilmInfo = ({
                 <img src={filmInfo.image}/>
             </section>
             <section className="film-info-panel__description">
-                <h1>{filmInfo.filmTitle}</h1> 
+                <h1>{filmInfo.filmTitle}</h1>
                 <p>{filmInfo.cinema}</p>
-                <p>{filmInfo.date}</p>
+                <p>
+                    {`${filmInfo.dateTime.hour()}:${filmInfo.dateTime.minute()}`}
+                    {` ${filmInfo.dateTime.date()}.${filmInfo.dateTime.month()}`}
+                </p>
             </section>
         </div>
     )

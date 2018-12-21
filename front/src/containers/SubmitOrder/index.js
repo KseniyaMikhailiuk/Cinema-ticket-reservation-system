@@ -8,6 +8,11 @@ import {withRouter} from 'react-router-dom'
 
 class SubmitOrder extends Component{
 
+    componentWillUnmount(){
+        const {clearInfo} = this.props;
+        clearInfo();
+    }
+
     totalPrice = () => {
         const {orderInfo} = this.props;
         let totalPrice = 0;
@@ -22,6 +27,7 @@ class SubmitOrder extends Component{
 
     render() {
         const {orderInfo, addOrderToDatabase, orderId, filmInfo, userId, isRequestSucceeded} = this.props;
+
         if (orderInfo.seats.length <= 0){
             return(
                 <div className="order-list__title submit-order__title">
@@ -34,6 +40,7 @@ class SubmitOrder extends Component{
             setTimeout(() => {this.props.history.push('/Schedule');}, 1000)
             return <SuccessMessage/>
         }
+
         return(
             <div className="order-list submit-order">
                 <h1 className="order-list__title submit-order__title">
@@ -68,7 +75,6 @@ class SubmitOrder extends Component{
 }
 
 const mapStateToProps = (state, {match}) => {
-    console.log(state.isRequestSucceeded)
     return{
         orderInfo: getOrderInfo(state),
         orderId: match.params.orderId,

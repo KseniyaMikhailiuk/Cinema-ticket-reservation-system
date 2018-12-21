@@ -6,22 +6,26 @@ import AdditionalServices from './additionalServices'
 const SeatReservation = ({
     hallPlan,
     filmInfo,
-    onSeatSelect,
     orderInfo,
-    onCancelOrderTicketClick,
-    onCancelOrderServiceClick,
-    onServiceClick
+    actions
 }) => {
     return (
         <sectoin className="order-form">
             <section className="order-options">
-                <HallPlan hallPlan={hallPlan} seatsInfo={filmInfo.seatsInfo} onSeatSelect={onSeatSelect}/>
-                <AdditionalServices additionalServicesList={filmInfo.services} onServiceClick={onServiceClick}/>
+                <HallPlan
+                    hallPlan={hallPlan}
+                    seatsInfo={filmInfo.seatsInfo}
+                    onSeatSelect={actions.onSeatSelect}
+                />
+                <AdditionalServices
+                    additionalServicesList={filmInfo.services}
+                    onServiceClick={actions.onServiceClick}
+                />
             </section>
             <OrderSettings
                 orderInfo={orderInfo}
-                onCancelOrderTicketClick={onCancelOrderTicketClick}
-                onCancelOrderServiceClick={onCancelOrderServiceClick}/>
+                onCancelOrderTicketClick={actions.onCancelOrderTicketClick}
+                onCancelOrderServiceClick={actions.onCancelOrderServiceClick}/>
         </sectoin>
     )
 }

@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import moment from 'moment'
 
 export const getFilteredList = (state) => {
     return state.filteredList;
@@ -50,7 +51,7 @@ const hallPlan = (state = [], action) => {
     switch(action.type){
         case 'FETCH_HALL_INFO_SUCCESS':
             return action.response;
-        case 'CLEAR_INFO_ON_EXIT':
+        case 'CLEAR_INFO':
             return [];
         default:
             return state;
@@ -74,10 +75,11 @@ const selectedFilmInfo = (state = {}, action) => {
     switch(action.type){
         case 'FETCH_FILM_INFO_SUCCESS':
             return action.response;
-        case 'CLEAR_INFO_ON_EXIT':
+        case 'CLEAR_INFO':
             return {
                 seatsInfo: [],
-                services:[]
+                services:[],
+                dateTime: moment()
             };
         default:
             return state;
@@ -116,7 +118,7 @@ const orderList = (state = {seats: [], services: []}, action) => {
                     .services
                     .filter(service => !(service.id === action.serviceId))
                 }
-        case 'CLEAR_INFO_ON_EXIT':
+        case 'CLEAR_INFO':
             return {
                 seats: [], services: []
             };
@@ -154,6 +156,8 @@ const isRequestSucceeded = (state = false, action) => {
     switch(action.type){
         case 'REQUEST_SUCCEEDED':
             return true;
+        case 'CLEAR_INFO':
+            return false;
         default:
             return state;
     }

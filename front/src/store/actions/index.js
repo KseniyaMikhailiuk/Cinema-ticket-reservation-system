@@ -110,9 +110,9 @@ export const removeServiceFromOrder = (serviceId) => (dispatch) => {
     })
 }
 
-export const clearInfoOnExit = () => (dispatch) => {
+export const clearInfo = () => (dispatch) => {
     dispatch({
-        type: 'CLEAR_INFO_ON_EXIT'
+        type: 'CLEAR_INFO'
     })
 }
 

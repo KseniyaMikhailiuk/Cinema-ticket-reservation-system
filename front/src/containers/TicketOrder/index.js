@@ -10,19 +10,18 @@ import '../../CommonStylesheets/orderList.scss'
 
 class TicketOrder extends Component {
     componentDidMount() {
-        const {fetchFilmInfo, seanceId, clearInfoOnExit} = this.props;
-        clearInfoOnExit();
+        const {fetchFilmInfo, seanceId, clearInfo} = this.props;
+        clearInfo();
         fetchFilmInfo(seanceId);
-        this.fetchCurrentHallPlan();
     }
 
     componentDidUpdate(prevProps) {
+        if (this.props.filmInfo !== prevProps.filmInfo) {
+            this.fetchCurrentHallPlan();
+        }
         if (this.props.orderInfo !== prevProps.orderInfo) {
             const {fetchFilmInfo, seanceId} = this.props;
             fetchFilmInfo(seanceId);
-        }
-        if (this.props.filmInfo !== prevProps.filmInfo) {
-            this.fetchCurrentHallPlan();
         }
     }
 
@@ -62,10 +61,12 @@ class TicketOrder extends Component {
                     hallPlan={hallPlan}
                     filmInfo={filmInfo}
                     orderInfo={orderInfo}
-                    onSeatSelect={this.addSeatToOrderList.bind(this)}
-                    onCancelOrderTicketClick={this.removeSeatFromOrderList.bind(this)}
-                    onServiceClick={addServiceToOrder}
-                    onCancelOrderServiceClick={removeServiceFromOrder}
+                    actions={{
+                        onSeatSelect: this.addSeatToOrderList.bind(this),
+                        onCancelOrderTicketClick: this.removeSeatFromOrderList.bind(this),
+                        onServiceClick: addServiceToOrder,
+                        onCancelOrderServiceClick: removeServiceFromOrder
+                    }}
                 />
             </section>
         )
