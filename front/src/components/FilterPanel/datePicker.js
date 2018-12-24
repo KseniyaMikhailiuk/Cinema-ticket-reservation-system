@@ -25,7 +25,7 @@ class DatePickerCusomized extends DatePicker {
             <DatePicker className="form-item"
                 minDate={new Date()}
                 selected={selectedDate}
-                onChange={this.handleDayChange}                         
+                onChange={this.handleDayChange}
             />
         )
     }

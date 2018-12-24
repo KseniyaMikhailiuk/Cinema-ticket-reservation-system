@@ -1,22 +1,21 @@
-.sign-in-forms{
+.forms{
     width: 50%;
     min-width: 800px;
-    height: 100%;
     margin: auto;
     display: flex;
     justify-content: space-around;
     margin-top: 10px;
     border: 1px solid black;
     border-radius: 20px;
-    background-color: rgb(31, 31, 31); 
+    background-color: rgb(31, 31, 31);
 
     &__fieldset{
         width: 70%;
         color: white;
-    }    
-    &__text-input{        
+    }
+    &__text-input{
         width: 300px;
-        height: 40px;            
+        height: 40px;
     }
     &__button{
         height: 40px;
@@ -28,10 +27,10 @@
             background-color: rgb(201, 179, 206);
         }
     }
-    &__legend{    
+    &__legend{
         background-color: rgb(31, 31, 31);
         padding-top: 30px;
-        font-size: 130%;  
+        font-size: 130%;
     }
 }
 

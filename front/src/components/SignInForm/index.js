@@ -1,12 +1,12 @@
 import React from 'react'
 import '../../CommonStylesheets/formItems.scss'
-import './signInForm.scss'
+import '../../CommonStylesheets/form.scss'
 import RegistrationForm from './registrationForm'
 import AuthorizationForm from './authorizationForm'
 
 const SignInForm = () => {
     return (
-        <section className="sign-in-forms">
+        <section className="forms">
             <AuthorizationForm />
             <RegistrationForm />
         </section>

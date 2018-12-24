@@ -66,6 +66,14 @@ const filterObject = (state = {}, action) => {
                 ...state,
                 [key]: value
             }
+        case 'CLEAR_INFO':
+            return {
+                city: "Минск",
+                cinema: "",
+                date: new Date(),
+                filmName: "",
+                freeSeats: 0
+            }
         default:
             return state;
     }

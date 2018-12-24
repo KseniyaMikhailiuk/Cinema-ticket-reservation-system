@@ -17,17 +17,21 @@ export const startFilmListFetching = (filter) => (dispatch) => {
             }
         )
         .then(() => {
-            filmsInfo.fetchFilterOptions()
-            .then(
-                response => {
-                    dispatch({
-                        type: 'FETCH_FILTER_OPTIONS_SUCCESS',
-                        response
-                    })
-                }
-            )}
-        )
+            startFilterOptionsFetching()
+        })
 };
+
+export const startFilterOptionsFetching = () => (dispatch) =>
+    filmsInfo.fetchFilterOptions()
+        .then(
+            response => {
+                dispatch({
+                    type: 'FETCH_FILTER_OPTIONS_SUCCESS',
+                    response
+                })
+            }
+        )
+
 
 export const changeFilterObjectItem = (key, value) => (dispatch) => {
     return dispatch({
