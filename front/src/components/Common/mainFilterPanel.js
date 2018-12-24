@@ -27,6 +27,7 @@ const MainFilterPanel = ({
                         )
                 }
             </datalist>
+
             <input className="form-item"
                 list="cinema"
                 placeholder="Выберите кинотеатр"
@@ -39,7 +40,7 @@ const MainFilterPanel = ({
                         .filter(city => city.name === filter.city)
                         .map(city => city.cinemas
                                 .map(cinema =>
-                                    <option value={cinema}>{city.name}</option>
+                                    <option value={cinema.name}>{city.name}</option>
                                 )
                         )
                 }
@@ -51,6 +52,7 @@ const MainFilterPanel = ({
                     onFilterClick={onFilterClick}
                 />
             </div>
+
             <input className="form-item"
                 list="filmName"
                 placeholder="Выберите фильм"

@@ -16,9 +16,6 @@ export const startFilmListFetching = (filter) => (dispatch) => {
                 })
             }
         )
-        .then(() => {
-            startFilterOptionsFetching()
-        })
 };
 
 export const startFilterOptionsFetching = () => (dispatch) =>

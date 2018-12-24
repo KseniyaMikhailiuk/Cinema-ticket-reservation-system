@@ -291,6 +291,7 @@ export const fetchFilterOptions = () =>
             let filterOptions = {
                 filmNames: [],
                 cities: [],
+                cinemas: [],
                 freeSeats: 0
             };
             for (let film of filmDatabase){
@@ -298,16 +299,29 @@ export const fetchFilterOptions = () =>
                     let existedCity = filterOptions.cities.find(addedCity => addedCity.name === city.name);
                     if (existedCity){
                         for (let cinema of city.cinemas){
-                            if (existedCity.cinemas.indexOf(cinema.name) === -1){
-                                existedCity.cinemas.push(cinema.name);
+                            let existaedCinema = existedCity.cinemas.find(existedCinema => existedCinema.name === cinema.name);
+                            if (!existaedCinema){
+                                let hallsInfo = [];
+                                for (let hall of cinema.halls){
+                                    hallsInfo.push(hall.number);
+                                }
+                                existedCity.cinemas.push({name: cinema.name, halls: hallsInfo});
+                            }
+                            else{
+                                for (let hall of cinema.halls){
+                                    if (existaedCinema.halls.indexOf(hall.number) === -1){
+                                        existaedCinema.halls.push(hall);
+                                    }
+                                }
                             }
                         }
                     }
                     else{
-                        let cinemaNames = []
+                        let cinemaNames = [];
                         for (let cinema of city.cinemas){
-                            cinemaNames.push(cinema.name)
+                            let hallsInfo = [];
                             for (let hall of cinema.halls){
+                                hallsInfo.push(hall.number);
                                 for (let seance of hall.schedule){
                                     let freeSeats = hall.seatAmount - seance.occupiedSeats.length;
                                     if (freeSeats > filterOptions.freeSeats){
@@ -315,6 +329,7 @@ export const fetchFilterOptions = () =>
                                     }
                                 }
                             }
+                            cinemaNames.push({name: cinema.name, halls: hallsInfo})
                         }
                         filterOptions.cities.push({
                             name: city.name,

@@ -7,6 +7,9 @@ const AddFilmForm = () => {
         <article className="forms admin">
             <form>
                 <fieldset>
+                    <legend className="form-item forms__legend">
+                        Добавить фильм
+                    </legend>
                     <input placeholder="Введите название" className="form-item admin__form-item"/>
                     <input className="form-item admin__form-item" type="date" />
                     <textarea

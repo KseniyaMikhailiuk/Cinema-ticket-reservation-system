@@ -1,5 +1,8 @@
 .admin{
     padding-bottom: 2vw;
+    form{
+        width: 60%;
+    }
     textarea{
         resize: none;
     }
@@ -8,5 +11,22 @@
     }
     .react-datepicker__input-container input{
         margin: 0;
+    }
+
+    .react-numeric-input{
+        margin-top: 2.5vw;
+        input{
+            height: 100%;
+            margin: 0;
+            width: 100%;
+            border: none !important;
+            font-size: 1.5vw !important;
+        }
+        b{
+            box-shadow: none !important;
+            i{
+                border-color:  rgb(112, 110, 114) transparent !important;
+            }
+        }
     }
 }
