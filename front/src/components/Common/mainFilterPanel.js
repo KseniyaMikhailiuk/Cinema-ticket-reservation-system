@@ -1,18 +1,24 @@
 import React from 'react'
-import DatePickerCustomized from '../FilterPanel/datePicker'
+import DatePickerCustomized from './datePicker'
 
 const MainFilterPanel = ({
     filter,
     filterOptions,
-    onFilterClick
+    onFilterClick,
+    handleInputChangeAdmin
 }) => {
     const handleInputChange = (event) => {
         onFilterClick(event.target.list.id, event.target.value);
+        if (typeof handleInputChangeAdmin === 'function'){
+            handleInputChangeAdmin(event);
+        }
     }
 
     return (
         <>
-            <input className="form-item"
+            <input
+                name="city"
+                className="form-item"
                 list="city"
                 placeholder="Выберите город"
                 value={filter.city}
@@ -28,7 +34,9 @@ const MainFilterPanel = ({
                 }
             </datalist>
 
-            <input className="form-item"
+            <input
+                name="cinema"
+                className="form-item"
                 list="cinema"
                 placeholder="Выберите кинотеатр"
                 onChange={handleInputChange}
@@ -50,10 +58,13 @@ const MainFilterPanel = ({
                 <DatePickerCustomized
                     selectedDate={filter.date}
                     onFilterClick={onFilterClick}
+                    handleInputChangeAdmin={handleInputChangeAdmin}
                 />
             </div>
 
-            <input className="form-item"
+            <input
+                name="filmName"
+                className="form-item"
                 list="filmName"
                 placeholder="Выберите фильм"
                 onChange={handleInputChange}

@@ -5,28 +5,36 @@ import AddFilmForm from '../../components/AdminForms/addFilmForm'
 import AddSeanceForm from '../../components/AdminForms/addSeanceForm';
 import {getFilterObject, getFilterOptions} from '../../store/reducers';
 import * as actions from '../../store/actions'
+import AddAdditionalServicesForm from '../../components/AdminForms/addAdditionalServicesForm'
+import * as filmsInfo from '../../services/api/filmsFetch'
 
 class Admin extends Component{
 
-    componentDidMount(){
+    componentDidMount() {
         const {startFilterOptionsFetching} = this.props;
         startFilterOptionsFetching();
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         const {clearInfo} = this.props;
         clearInfo();
     }
 
-    render(){
+    addFilmToDatabase(filmInfo) {
+        console.log(filmInfo)
+        filmsInfo.addFilmToDatabase(filmInfo);
+    }
+
+    render() {
         const {filter, filterOptions, changeFilterObjectItem} = this.props;
         return(
             <section>
-                <AddFilmForm/>
+                <AddFilmForm onSubmit={this.addFilmToDatabase}/>
                 <AddSeanceForm filter={filter}
                     filterOptions={filterOptions}
                     changeFilterObjectItem={changeFilterObjectItem}
                 />
+                <AddAdditionalServicesForm/>
             </section>
         )
     }

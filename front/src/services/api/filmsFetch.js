@@ -30,7 +30,7 @@ const filmDatabase = [
         image: "1.jpg",
         title: "lalaland",
         date: "gsgsg",
-        text: "jskjgwkerjgregjegqwreg",
+        description: "jskjgwkerjgregjegqwreg",
         cities: [
             {
                 name: "Минск",
@@ -90,7 +90,7 @@ const filmDatabase = [
         image: "1.jpg",
         title: "котики",
         date: "gsgsg",
-        text: "jskjgwkerjgregjegqwreg",
+        description: "jskjgwkerjgregjegqwreg",
         cities: [
             {
                 name: "Брест",
@@ -362,4 +362,17 @@ export const releaseSeat = (info) =>
                 selectedSeanceSeats.splice(i, 1);
             }
         }
+    })
+
+export const addFilmToDatabase = (film) =>
+    delay(500)
+    .then(() => {
+        filmDatabase.push({
+            id: v4(),
+            title: film.filmName,
+            image: film.filmPoster,
+            date: film.filmRelease,
+            description: film.filmDescription,
+            cities: []
+        })
     })
