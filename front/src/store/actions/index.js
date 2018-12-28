@@ -129,3 +129,9 @@ export const addOrderToDatabase = (orderId, orderInfo, userId) => (dispatch) => 
             })
         })
 }
+
+export const dispatchSuccess = () => (dispatch) => {
+    dispatch({
+        type: 'REQUEST_SUCCEEDED'
+    })
+}

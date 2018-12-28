@@ -26,7 +26,8 @@ const initialState = {
     },
     userInfo: {
         id: 1,
-    }
+    },
+    isRequestSucceeded: false
 }
 
 const configureStore = () => {

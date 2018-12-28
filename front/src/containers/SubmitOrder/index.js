@@ -36,7 +36,7 @@ class SubmitOrder extends Component{
         }
 
         if (isRequestSucceeded){
-            return <SuccessMessage/>
+            return <SuccessMessage path='/Schedule'/>
         }
 
         return(

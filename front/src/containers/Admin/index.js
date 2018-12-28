@@ -7,8 +7,15 @@ import {getFilterObject, getFilterOptions} from '../../store/reducers';
 import * as actions from '../../store/actions'
 import AddAdditionalServicesForm from '../../components/AdminForms/addAdditionalServicesForm'
 import * as filmsInfo from '../../services/api/filmsFetch'
+import SuccessMessage from '../../components/Common/SuccessMessage'
 
 class Admin extends Component{
+
+    constructor(props){
+        super(props);
+        this.addFilmToDatabase = this.addFilmToDatabase.bind(this);
+        this.addSeanceToDatabase = this.addSeanceToDatabase.bind(this);
+    }
 
     componentDidMount() {
         const {startFilterOptionsFetching} = this.props;
@@ -20,16 +27,28 @@ class Admin extends Component{
         clearInfo();
     }
 
-    addFilmToDatabase(filmInfo) {
-        filmsInfo.addFilmToDatabase(filmInfo);
+    addFilmToDatabase (filmInfo) {
+        const {dispatchSuccess} = this.props;
+        filmsInfo.addFilmToDatabase(filmInfo)
+        .then(() => {
+            dispatchSuccess();
+        });
     }
 
     addSeanceToDatabase(seanceInfo) {
-        filmsInfo.addSeanceToDatabase(seanceInfo);
+        const {dispatchSuccess} = this.props;
+        filmsInfo.addSeanceToDatabase(seanceInfo)
+        .then(() => {
+            dispatchSuccess();
+        });
     }
 
     render() {
-        const {filter, filterOptions, changeFilterObjectItem} = this.props;
+        const {filter, filterOptions, changeFilterObjectItem, isRequestSucceeded} = this.props;
+        if (isRequestSucceeded){
+            return <SuccessMessage path='/Schedule'/>
+        }
+
         return(
             <section>
                 <AddFilmForm onSubmit={this.addFilmToDatabase}/>
@@ -48,6 +67,7 @@ const mapStateToScheduleProps = (state) => {
     return {
         filterOptions: getFilterOptions(state),
         filter: getFilterObject(state),
+        isRequestSucceeded: state.isRequestSucceeded,
     }
 }
 
