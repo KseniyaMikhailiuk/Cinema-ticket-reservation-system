@@ -5,6 +5,7 @@
     }
     textarea{
         resize: none;
+        height: 15vw;
     }
     .form-item{
         width: 100%;
@@ -15,6 +16,7 @@
 
     .react-numeric-input{
         margin-top: 2.5vw;
+        height: 3vw;
         input{
             height: 100%;
             margin: 0;
@@ -27,6 +29,29 @@
             i{
                 border-color:  rgb(112, 110, 114) transparent !important;
             }
+        }
+    }
+
+    &__services{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        .react-numeric-input{
+            margin: 0;
+        }
+        input{
+            background-color: rgb(46, 45, 45);
+            border: none;
+            font-size: 1.5vw;
+            color: white;
+        }
+    }
+
+    .select{
+        div{
+            background-color: rgb(46, 45, 45);
+            border: none;
+            color: white;
         }
     }
 }

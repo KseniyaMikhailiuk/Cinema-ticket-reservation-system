@@ -400,7 +400,7 @@ export const addSeanceToDatabase = (seance) =>
                                 seatAmount: 50,
                                 schedule: [{
                                     dateTime: dateTime,
-                                    services: services,
+                                    services: seance.services,
                                     id: v4(),
                                     occupiedSeats: [],
                                 }]
@@ -419,7 +419,7 @@ export const addSeanceToDatabase = (seance) =>
                             seatAmount: 50,
                             schedule: [{
                                 dateTime: dateTime,
-                                services: services,
+                                services: seance.services,
                                 id: v4(),
                                 occupiedSeats: [],
                             }]
@@ -435,7 +435,7 @@ export const addSeanceToDatabase = (seance) =>
                         seatAmount: 50,
                         schedule: [{
                             dateTime: dateTime,
-                            services: services,
+                            services: seance.services,
                             id: v4(),
                             occupiedSeats: [],
                         }]
@@ -445,7 +445,7 @@ export const addSeanceToDatabase = (seance) =>
                 }
                 existedHall.schedule.push({
                     dateTime: dateTime,
-                    services: services,
+                    services: seance.services,
                     id: v4(),
                     occupiedSeats: [],
                 });

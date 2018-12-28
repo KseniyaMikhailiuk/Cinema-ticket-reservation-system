@@ -12,6 +12,10 @@ import SuccessMessage from '../../components/Common/SuccessMessage'
 
 class Admin extends Component{
 
+    state = {
+        additionalServices: []
+    }
+
     constructor(props){
         super(props);
         this.addFilmToDatabase = this.addFilmToDatabase.bind(this);
@@ -22,6 +26,12 @@ class Admin extends Component{
     componentDidMount() {
         const {startFilterOptionsFetching} = this.props;
         startFilterOptionsFetching();
+        servicesInfo.getAdditionalServices()
+        .then(services => {
+            this.setState({
+                additionalServices: services
+            });
+        })
     }
 
     componentWillUnmount() {
@@ -55,6 +65,7 @@ class Admin extends Component{
 
     render() {
         const {filter, filterOptions, changeFilterObjectItem, isRequestSucceeded} = this.props;
+
         if (isRequestSucceeded){
             return <SuccessMessage path='/Schedule'/>
         }
@@ -66,8 +77,10 @@ class Admin extends Component{
                     filterOptions={filterOptions}
                     changeFilterObjectItem={changeFilterObjectItem}
                     onSubmit={this.addSeanceToDatabase}
+                    additionalServices={this.state.additionalServices}
                 />
-                <AddAdditionalServicesForm onSubmit={this.addAdditionalServicesToDatabase}/>
+                <AddAdditionalServicesForm
+                    onSubmit={this.addAdditionalServicesToDatabase}/>
             </section>
         )
     }

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import MainFilterPanel from '../Common/mainFilterPanel';
 import NumericInput from 'react-numeric-input'
+import Select from 'react-select';
 
 class AddSeanceForm extends Component{
     state = {
@@ -11,6 +12,7 @@ class AddSeanceForm extends Component{
         date: new Date(),
         time: "",
         price: 0,
+        services: []
     }
 
     constructor(props) {
@@ -18,7 +20,7 @@ class AddSeanceForm extends Component{
         this.handlePriceChange = this.handlePriceChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.sendInfo = this.sendInfo.bind(this);
-        const {filter} = this.props;
+        const { filter } = this.props;
         this.state.city = filter.city;
     }
 
@@ -35,9 +37,31 @@ class AddSeanceForm extends Component{
         })
     }
 
+    handleServicePriceChange (value, selectedService){
+        this.state.services.find(service => service.name === selectedService).price = value;
+    }
+
+    handleServicesChange = (selectedOptions) => {
+        if (selectedOptions.length < 1){
+            this.setState({
+                services: []
+            });
+        }
+        for (let service of selectedOptions){
+            this.setState({
+                services: [
+                    ...this.state.services,
+                    {
+                        name: service.value
+                    }
+                ]
+            });
+        }
+      }
+
     sendInfo (event) {
         event.preventDefault();
-        const {onSubmit} = this.props;
+        const { onSubmit } = this.props;
         onSubmit(this.state);
     }
 
@@ -46,7 +70,8 @@ class AddSeanceForm extends Component{
     }
 
     render(){
-        const {filter, filterOptions, changeFilterObjectItem} = this.props
+        const { filter, filterOptions, changeFilterObjectItem, additionalServices } = this.props
+        const { selectedOption } = this.state.services;
         return(
             <article className="forms admin">
                 <form onSubmit={this.sendInfo}>
@@ -81,7 +106,12 @@ class AddSeanceForm extends Component{
                                 )
                             }
                         </datalist>
-                        <input  name="time" className="form-item" type="time" required onChange={this.handleInputChange}/>
+                        <input
+                            name="time"
+                            className="form-item"
+                            type="time"
+                            required
+                            onChange={this.handleInputChange}/>
                         <NumericInput
                             name="price"
                             className="form-item"
@@ -92,6 +122,34 @@ class AddSeanceForm extends Component{
                             onChange={this.handlePriceChange}
                             required
                         />
+                        <Select
+                            name="services"
+                            className="form-item select"
+                            options={additionalServices}
+                            isMulti
+                            isSearchable
+                            value={selectedOption}
+                            onChange={this.handleServicesChange}
+                            placeholder="Выберите дополнительные услуги"
+                        />
+                        <ul>
+                            {
+                                this.state.services.map(service =>
+                                    <li className="form-item admin__services">
+                                        <label >{service.name}</label>
+                                        <NumericInput
+                                            name={service.name}
+                                            min={1}
+                                            max={100}
+                                            placeholder="Цена услуги"
+                                            format={this.moneyFormat}
+                                            onChange={(selectedOption) => this.handleServicePriceChange(selectedOption, service.name)}
+                                            required
+                                        />
+                                    </li>
+                                )
+                            }
+                        </ul>
                     </fieldset>
                     <input className="form-item forms__button bordered" value="Добавить" type="submit"></input>
                 </form>
