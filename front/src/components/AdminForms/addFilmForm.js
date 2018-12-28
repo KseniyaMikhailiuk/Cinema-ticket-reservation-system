@@ -24,13 +24,12 @@ class AddFilmForm extends Component {
     }
 
     sendInfo (event) {
+        event.preventDefault();
         const {onSubmit} = this.props;
         onSubmit(this.state);
-        event.preventDefault();
     }
 
-    render(){
-
+    render() {
         return(
             <article className="forms admin">
                 <form onSubmit={this.sendInfo}>

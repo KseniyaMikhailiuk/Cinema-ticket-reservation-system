@@ -6,8 +6,10 @@ class AddSeanceForm extends Component{
     state = {
         city: "",
         cinema: "",
+        hall: 0,
         filmName: "",
-        dateTime: new Date(),
+        date: new Date(),
+        time: "",
         price: 0,
     }
 
@@ -16,6 +18,8 @@ class AddSeanceForm extends Component{
         this.handlePriceChange = this.handlePriceChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.sendInfo = this.sendInfo.bind(this);
+        const {filter} = this.props;
+        this.state.city = filter.city;
     }
 
     handleInputChange(event){
@@ -32,9 +36,9 @@ class AddSeanceForm extends Component{
     }
 
     sendInfo (event) {
+        event.preventDefault();
         const {onSubmit} = this.props;
         onSubmit(this.state);
-        event.preventDefault();
     }
 
     moneyFormat(value){
@@ -56,7 +60,9 @@ class AddSeanceForm extends Component{
                             onFilterClick={changeFilterObjectItem}
                             handleInputChangeAdmin={this.handleInputChange}
                         />
-                        <input className="form-item"
+                        <input
+                            name="hall"
+                            className="form-item"
                             list="hallNumbers"
                             placeholder="Выберите зал"
                             onChange={this.handleInputChange}
@@ -75,7 +81,7 @@ class AddSeanceForm extends Component{
                                 )
                             }
                         </datalist>
-                        <input className="form-item" type="time" required/>
+                        <input  name="time" className="form-item" type="time" required onChange={this.handleInputChange}/>
                         <NumericInput
                             name="price"
                             className="form-item"

@@ -14,7 +14,7 @@ class DatePickerCusomized extends DatePicker {
     handleDayChange(date) {
         const {handleInputChangeAdmin} = this.props
         if (typeof handleInputChangeAdmin === 'function'){
-            handleInputChangeAdmin({target: "date", value: date})
+            handleInputChangeAdmin({target: {name: "date", value: date}})
         }
         this.setState({
             selectedDate: date
@@ -27,6 +27,7 @@ class DatePickerCusomized extends DatePicker {
         const {selectedDate} = this.props
         return (
             <DatePicker
+                name="time"
                 className="form-item"
                 minDate={new Date()}
                 selected={selectedDate}

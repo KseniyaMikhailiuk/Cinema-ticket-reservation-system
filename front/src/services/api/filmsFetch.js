@@ -376,3 +376,79 @@ export const addFilmToDatabase = (film) =>
             cities: []
         })
     })
+
+export const addSeanceToDatabase = (seance) =>
+    delay(500)
+    .then(() => {
+        let dateTime = moment({
+            year: seance.date.getFullYear(),
+            month: seance.date.getMonth(),
+            date: seance.date.getDate(),
+            hour: seance.time.split(':')[0],
+            minute: seance.time.split(':')[1]
+        })
+        for (let film of filmDatabase){
+            if (film.title === seance.filmName){
+                let existedCity= film.cities.find(city => city.name === seance.city);
+                if (!existedCity){
+                    existedCity = {
+                        name: seance.city,
+                        cinemas: [{
+                            name: seance.cinema,
+                            halls: [{
+                                number: seance.hall,
+                                seatAmount: 50,
+                                schedule: [{
+                                    dateTime: dateTime,
+                                    services: services,
+                                    id: v4(),
+                                    occupiedSeats: [],
+                                }]
+                            }]
+                        }]
+                    };
+                    film.cities.push(existedCity);
+                    return;
+                }
+                let existedCinema = existedCity.cinemas.find(cinema => cinema.name === seance.cinema);
+                if (!existedCinema){
+                    existedCinema = {
+                        name: seance.cinema,
+                        halls: [{
+                            number: seance.hall,
+                            seatAmount: 50,
+                            schedule: [{
+                                dateTime: dateTime,
+                                services: services,
+                                id: v4(),
+                                occupiedSeats: [],
+                            }]
+                        }]
+                    };
+                    existedCity.cinemas.push(existedCinema);
+                    return;
+                }
+                let existedHall = existedCinema.halls.find(hall => hall.number.toString() === seance.hall);
+                if (!existedHall){
+                    existedHall = {
+                        number: seance.hall,
+                        seatAmount: 50,
+                        schedule: [{
+                            dateTime: dateTime,
+                            services: services,
+                            id: v4(),
+                            occupiedSeats: [],
+                        }]
+                    };
+                    existedCinema.halls.push(existedHall);
+                    return;
+                }
+                existedHall.schedule.push({
+                    dateTime: dateTime,
+                    services: services,
+                    id: v4(),
+                    occupiedSeats: [],
+                });
+            }
+        }
+    })

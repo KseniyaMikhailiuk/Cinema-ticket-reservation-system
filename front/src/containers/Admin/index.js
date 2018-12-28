@@ -21,8 +21,11 @@ class Admin extends Component{
     }
 
     addFilmToDatabase(filmInfo) {
-        console.log(filmInfo)
         filmsInfo.addFilmToDatabase(filmInfo);
+    }
+
+    addSeanceToDatabase(seanceInfo) {
+        filmsInfo.addSeanceToDatabase(seanceInfo);
     }
 
     render() {
@@ -33,6 +36,7 @@ class Admin extends Component{
                 <AddSeanceForm filter={filter}
                     filterOptions={filterOptions}
                     changeFilterObjectItem={changeFilterObjectItem}
+                    onSubmit={this.addSeanceToDatabase}
                 />
                 <AddAdditionalServicesForm/>
             </section>
