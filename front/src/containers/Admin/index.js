@@ -6,6 +6,7 @@ import AddSeanceForm from '../../components/AdminForms/addSeanceForm';
 import {getFilterObject, getFilterOptions} from '../../store/reducers';
 import * as actions from '../../store/actions'
 import AddAdditionalServicesForm from '../../components/AdminForms/addAdditionalServicesForm'
+import * as servicesInfo from '../../services/api/addditionalServicesFetch'
 import * as filmsInfo from '../../services/api/filmsFetch'
 import SuccessMessage from '../../components/Common/SuccessMessage'
 
@@ -15,6 +16,7 @@ class Admin extends Component{
         super(props);
         this.addFilmToDatabase = this.addFilmToDatabase.bind(this);
         this.addSeanceToDatabase = this.addSeanceToDatabase.bind(this);
+        this.addAdditionalServicesToDatabase = this.addAdditionalServicesToDatabase.bind(this);
     }
 
     componentDidMount() {
@@ -35,12 +37,20 @@ class Admin extends Component{
         });
     }
 
-    addSeanceToDatabase(seanceInfo) {
+    addSeanceToDatabase (seanceInfo) {
         const {dispatchSuccess} = this.props;
         filmsInfo.addSeanceToDatabase(seanceInfo)
         .then(() => {
             dispatchSuccess();
         });
+    }
+
+    addAdditionalServicesToDatabase (serviceInfo) {
+        const {dispatchSuccess} = this.props;
+        servicesInfo.addAdditionalService(serviceInfo)
+        .then(() => {
+            dispatchSuccess();
+        })
     }
 
     render() {
@@ -57,7 +67,7 @@ class Admin extends Component{
                     changeFilterObjectItem={changeFilterObjectItem}
                     onSubmit={this.addSeanceToDatabase}
                 />
-                <AddAdditionalServicesForm/>
+                <AddAdditionalServicesForm onSubmit={this.addAdditionalServicesToDatabase}/>
             </section>
         )
     }
