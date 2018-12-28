@@ -63,7 +63,7 @@ const HallPlan = ({
             </h3>
             <svg className="hall-plan__screen-svg-container"
                 preserveAspectRatio="none"
-                viewBox="0 0 500"
+                viewBox="0 0 500 5"
             >
                 <rect className="hall-plan__screen"/>
             </svg>

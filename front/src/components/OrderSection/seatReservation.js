@@ -10,7 +10,7 @@ const SeatReservation = ({
     actions
 }) => {
     return (
-        <sectoin className="order-form">
+        <section className="order-form">
             <section className="order-options">
                 <HallPlan
                     hallPlan={hallPlan}
@@ -26,7 +26,7 @@ const SeatReservation = ({
                 orderInfo={orderInfo}
                 onCancelOrderTicketClick={actions.onCancelOrderTicketClick}
                 onCancelOrderServiceClick={actions.onCancelOrderServiceClick}/>
-        </sectoin>
+        </section>
     )
 }
 
