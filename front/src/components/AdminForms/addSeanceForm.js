@@ -130,7 +130,7 @@ class AddSeanceForm extends Component{
                             isSearchable
                             value={selectedOption}
                             onChange={this.handleServicesChange}
-                            placeholder="Выберите дополнительные услуги"
+                            placeholder="Выберите доп услуги"
                         />
                         <ul>
                             {
