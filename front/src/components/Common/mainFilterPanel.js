@@ -58,7 +58,6 @@ const MainFilterPanel = ({
                 <DatePickerCustomized
                     selectedDate={filter.date}
                     onFilterClick={onFilterClick}
-                    handleInputChangeAdmin={handleInputChangeAdmin}
                 />
             </div>
 

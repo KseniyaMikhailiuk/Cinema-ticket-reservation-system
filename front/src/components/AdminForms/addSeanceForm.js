@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import MainFilterPanel from '../Common/mainFilterPanel';
+import DatePickerCustomized from '../Common/datePicker'
 import NumericInput from 'react-numeric-input'
 import Select from 'react-select';
 
@@ -19,17 +19,27 @@ class AddSeanceForm extends Component{
         super(props);
         this.handlePriceChange = this.handlePriceChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleCityChange = this.handleCityChange.bind(this);
+        this.handleCinemaChange = this.handleCinemaChange.bind(this);
+        this.handleFilmNameChange = this.handleFilmNameChange.bind(this);
+        this.handleHallChange = this.handleHallChange.bind(this);
+        this.handleTimeChange = this.handleTimeChange.bind(this);
         this.sendInfo = this.sendInfo.bind(this);
         const { filter } = this.props;
         this.state.city = filter.city;
     }
 
-    handleInputChange(event){
-        let target = event.target;
+    handleInputChange(name, value){
         this.setState({
-            [target.name]: target.value
+            [name]: value
         })
     }
+
+    handleCityChange (selectedOption) {this.handleInputChange("city", selectedOption.label)}
+    handleCinemaChange (selectedOption) {this.handleInputChange("cinema", selectedOption.label)}
+    handleFilmNameChange (selectedOption) {this.handleInputChange("filmName", selectedOption.label)}
+    handleHallChange (selectedOption) {this.handleInputChange("hall", selectedOption.label)}
+    handleTimeChange (event) {this.handleInputChange(event.target.name, event.target.value)}
 
     handlePriceChange(value){
         this.setState({
@@ -57,10 +67,14 @@ class AddSeanceForm extends Component{
                 ]
             });
         }
-      }
+    }
 
     sendInfo (event) {
         event.preventDefault();
+        if (!this.state.city || !this.state.cinema || !this.state.filmName || !this.state.hall){
+            alert('Вы заполнили не все поля')
+            return;
+        }
         const { onSubmit } = this.props;
         onSubmit(this.state);
     }
@@ -70,8 +84,11 @@ class AddSeanceForm extends Component{
     }
 
     render(){
-        const { filter, filterOptions, changeFilterObjectItem, additionalServices } = this.props
+        const { filterOptions, filmNames, additionalServices } = this.props
         const { selectedOption } = this.state.services;
+        let halls = filterOptions.halls.filter(hall =>
+            this.state.city && this.state.cinema &&
+            hall.value.indexOf(this.state.city) !== -1 && hall.value.indexOf(this.state.cinema) !== -1)
         return(
             <article className="forms admin">
                 <form onSubmit={this.sendInfo}>
@@ -79,33 +96,47 @@ class AddSeanceForm extends Component{
                         <legend className="form-item forms__legend">
                             Добавить сеанс
                         </legend>
-                        <MainFilterPanel
-                            filter={filter}
-                            filterOptions={filterOptions}
-                            onFilterClick={changeFilterObjectItem}
-                            handleInputChangeAdmin={this.handleInputChange}
+                        <Select
+                            name="city"
+                            className="form-item select"
+                            options={filterOptions.cities}
+                            isSearchable
+                            isClearable
+                            onChange={this.handleCityChange}
+                            placeholder="Выберите город"
                         />
-                        <input
+                        <Select
+                            name="cinema"
+                            className="form-item select"
+                            options={filterOptions.cinemas.filter(cinema => cinema.value === this.state.city || this.state.city)}
+                            isSearchable
+                            isClearable
+                            onChange={this.handleCinemaChange}
+                            placeholder="Выберите кинотеатр"
+                        />
+                        <div className="form-item">
+                            <DatePickerCustomized
+                                selectedDate={this.state.date}
+                                onFilterClick={this.handleInputChange}
+                            />
+                        </div>
+                        <Select
+                            name="filmName"
+                            className="form-item select"
+                            options={filmNames}
+                            isSearchable
+                            isClearable
+                            onChange={this.handleFilmNameChange}
+                            placeholder="Выберите фильм"
+                        />
+                        <Select
                             name="hall"
-                            className="form-item"
-                            list="hallNumbers"
+                            className="form-item select"
+                            options={halls}
+                            isSearchable
+                            onChange={this.handleHallChange}
                             placeholder="Выберите зал"
-                            onChange={this.handleInputChange}
-                            required/>
-                        <datalist id="hallNumbers">
-                            {
-                                filterOptions
-                                .cities
-                                .filter(city => city.name === filter.city)
-                                .map(city => city.cinemas
-                                    .map(cinema => cinema.halls
-                                        .map(hall =>
-                                            <option value={hall}>{cinema.name}</option>
-                                        )
-                                    )
-                                )
-                            }
-                        </datalist>
+                        />
                         <input
                             name="time"
                             className="form-item"
@@ -121,6 +152,7 @@ class AddSeanceForm extends Component{
                             format={this.moneyFormat}
                             onChange={this.handlePriceChange}
                             required
+                            autoComplete="off"
                         />
                         <Select
                             name="services"
@@ -132,23 +164,23 @@ class AddSeanceForm extends Component{
                             onChange={this.handleServicesChange}
                             placeholder="Выберите доп услуги"
                         />
-                        <ul>
-                            {
-                                this.state.services.map(service =>
-                                    <li className="form-item admin__services">
-                                        <label >{service.name}</label>
-                                        <NumericInput
-                                            name={service.name}
-                                            min={1}
-                                            max={100}
-                                            placeholder="Цена услуги"
-                                            format={this.moneyFormat}
-                                            onChange={(selectedOption) => this.handleServicePriceChange(selectedOption, service.name)}
-                                            required
-                                        />
-                                    </li>
-                                )
-                            }
+                        <ul>{
+                            this.state.services.map(service =>
+                                <li className="form-item admin__services">
+                                    <label >{service.name}</label>
+                                    <NumericInput
+                                        name={service.name}
+                                        min={1}
+                                        max={100}
+                                        placeholder="Цена услуги"
+                                        format={this.moneyFormat}
+                                        onChange={(selectedOption) => this.handleServicePriceChange(selectedOption, service.name)}
+                                        required
+                                        autoComplete="off"
+                                    />
+                                </li>
+                            )
+                        }
                         </ul>
                     </fieldset>
                     <input className="form-item forms__button bordered" value="Добавить" type="submit"></input>

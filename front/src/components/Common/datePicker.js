@@ -12,10 +12,6 @@ class DatePickerCusomized extends DatePicker {
     }
 
     handleDayChange(date) {
-        const {handleInputChangeAdmin} = this.props
-        if (typeof handleInputChangeAdmin === 'function'){
-            handleInputChangeAdmin({target: {name: "date", value: date}})
-        }
         this.setState({
             selectedDate: date
         });
@@ -32,6 +28,7 @@ class DatePickerCusomized extends DatePicker {
                 minDate={new Date()}
                 selected={selectedDate}
                 onChange={this.handleDayChange}
+                autoComplete="off"
             />
         )
     }

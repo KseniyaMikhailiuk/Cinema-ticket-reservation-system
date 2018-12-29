@@ -356,3 +356,53 @@ export const fetchHallPlan = (seanceInfo) =>
         })
         return plan;
     })
+
+export const addCinema = (cinemaInfo) =>
+    delay(500)
+    .then(() => {
+        let existedCity = cinemaHallPlans.find(city => city.cityName === cinemaInfo.city);
+        if (!existedCity){
+            existedCity = {
+                cityName: cinemaInfo.city,
+                cinemas: [
+                    {
+                        name: cinemaInfo.cinema,
+                        hallsAmount: cinemaInfo.hallsAmount,
+                        halls: []
+                    }
+                ]
+            }
+            return;
+        }
+        let existedCinema = existedCity.cinemas.find(cinema => cinema.name === cinemaInfo.cicinematy);
+        if (!existedCinema){
+            existedCity.cinemas.push({
+                    name: cinemaInfo.cinema,
+                    hallsAmount: cinemaInfo.hallsAmount,
+                    halls: []
+                })
+            return;
+        }
+    })
+
+export const getFilterOptions = () =>
+    delay(500)
+    .then(() => {
+        let filterOptions = {
+            cities: [],
+            cinemas: [],
+            halls: []
+        };
+        for (let city of cinemaHallPlans) {
+            filterOptions.cities.push({value: city.cityName, label: city.cityName});
+            for (let cinema of city.cinemas){
+                if (cinema.halls.length > 0){
+                    filterOptions.cinemas.push({value: city.cityName, label: cinema.name})
+                    for (let hall of cinema.halls){
+                        filterOptions.halls.push({value: `${cinema.name}, ${city.cityName}`, label: hall.number})
+                    }
+                }
+            }
+        }
+        return filterOptions;
+    })

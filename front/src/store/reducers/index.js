@@ -171,6 +171,13 @@ const isRequestSucceeded = (state = false, action) => {
     }
 }
 
+const isAdmin = (state = false, action) => {
+    switch(action.type){
+        default:
+            return state;
+    }
+}
+
 const cinemaApp = combineReducers ({
     filteredList,
     filterObject,
@@ -181,6 +188,7 @@ const cinemaApp = combineReducers ({
     orderList,
     filterOptions,
     isLoggedIn,
+    isAdmin,
     userInfo
 });
 

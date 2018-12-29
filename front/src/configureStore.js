@@ -27,7 +27,9 @@ const initialState = {
     userInfo: {
         id: 1,
     },
-    isRequestSucceeded: false
+    isRequestSucceeded: false,
+    isAdmin: true,
+    isLoggedIn: true
 }
 
 const configureStore = () => {

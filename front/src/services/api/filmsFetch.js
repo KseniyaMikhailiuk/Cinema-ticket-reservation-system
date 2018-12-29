@@ -291,7 +291,6 @@ export const fetchFilterOptions = () =>
             let filterOptions = {
                 filmNames: [],
                 cities: [],
-                cinemas: [],
                 freeSeats: 0
             };
             for (let film of filmDatabase){
