@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import DatePickerCustomized from '../Common/datePicker'
 import NumericInput from 'react-numeric-input'
 import Select from 'react-select';
+import { stat } from 'fs';
 
 class AddSeanceForm extends Component{
     state = {
@@ -11,7 +12,11 @@ class AddSeanceForm extends Component{
         filmName: "",
         date: new Date(),
         time: "",
-        price: 0,
+        price: {
+            standard: 0,
+            loveseat: 0,
+            comfort: 0
+        },
         services: []
     }
 
@@ -19,10 +24,6 @@ class AddSeanceForm extends Component{
         super(props);
         this.handlePriceChange = this.handlePriceChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleCityChange = this.handleCityChange.bind(this);
-        this.handleCinemaChange = this.handleCinemaChange.bind(this);
-        this.handleFilmNameChange = this.handleFilmNameChange.bind(this);
-        this.handleHallChange = this.handleHallChange.bind(this);
         this.handleTimeChange = this.handleTimeChange.bind(this);
         this.sendInfo = this.sendInfo.bind(this);
         const { filter } = this.props;
@@ -35,15 +36,14 @@ class AddSeanceForm extends Component{
         })
     }
 
-    handleCityChange (selectedOption) {this.handleInputChange("city", selectedOption.label)}
-    handleCinemaChange (selectedOption) {this.handleInputChange("cinema", selectedOption.label)}
-    handleFilmNameChange (selectedOption) {this.handleInputChange("filmName", selectedOption.label)}
-    handleHallChange (selectedOption) {this.handleInputChange("hall", selectedOption.label)}
     handleTimeChange (event) {this.handleInputChange(event.target.name, event.target.value)}
 
-    handlePriceChange(value){
+    handlePriceChange(value, type){
         this.setState({
-            price: value
+            price: {
+                ...this.state.price,
+                [type]: value
+            }
         })
     }
 
@@ -71,7 +71,7 @@ class AddSeanceForm extends Component{
 
     sendInfo (event) {
         event.preventDefault();
-        if (!this.state.city || !this.state.cinema || !this.state.filmName || !this.state.hall){
+        if (this.state.city === "" || this.state.cinema === "" || this.state.filmName === "" || this.state.hall === 0){
             alert('Вы заполнили не все поля')
             return;
         }
@@ -88,7 +88,8 @@ class AddSeanceForm extends Component{
         const { selectedOption } = this.state.services;
         let halls = filterOptions.halls.filter(hall =>
             this.state.city && this.state.cinema &&
-            hall.value.indexOf(this.state.city) !== -1 && hall.value.indexOf(this.state.cinema) !== -1)
+            hall.value.indexOf(this.state.city) !== -1 &&
+            hall.value.indexOf(this.state.cinema) !== -1)
         return(
             <article className="forms admin">
                 <form onSubmit={this.sendInfo}>
@@ -102,7 +103,7 @@ class AddSeanceForm extends Component{
                             options={filterOptions.cities}
                             isSearchable
                             isClearable
-                            onChange={this.handleCityChange}
+                            onChange={(selectedOption) => this.handleInputChange("city", selectedOption.label)}
                             placeholder="Выберите город"
                         />
                         <Select
@@ -111,7 +112,7 @@ class AddSeanceForm extends Component{
                             options={filterOptions.cinemas.filter(cinema => cinema.value === this.state.city || this.state.city)}
                             isSearchable
                             isClearable
-                            onChange={this.handleCinemaChange}
+                            onChange={(selectedOption) => this.handleInputChange("cinema", selectedOption.label)}
                             placeholder="Выберите кинотеатр"
                         />
                         <div className="form-item">
@@ -126,7 +127,7 @@ class AddSeanceForm extends Component{
                             options={filmNames}
                             isSearchable
                             isClearable
-                            onChange={this.handleFilmNameChange}
+                            onChange={(selectedOption) => this.handleInputChange("filmName", selectedOption.label)}
                             placeholder="Выберите фильм"
                         />
                         <Select
@@ -134,7 +135,7 @@ class AddSeanceForm extends Component{
                             className="form-item select"
                             options={halls}
                             isSearchable
-                            onChange={this.handleHallChange}
+                            onChange={(selectedOption) => this.handleInputChange("hall", selectedOption.label)}
                             placeholder="Выберите зал"
                         />
                         <input
@@ -142,15 +143,37 @@ class AddSeanceForm extends Component{
                             className="form-item"
                             type="time"
                             required
-                            onChange={this.handleInputChange}/>
+                            onChange={this.handleTimeChange}/>
                         <NumericInput
-                            name="price"
+                            name="standard"
                             className="form-item"
                             min={1}
                             max={100}
-                            placeholder="Цена билета"
+                            placeholder="Цена standard"
                             format={this.moneyFormat}
-                            onChange={this.handlePriceChange}
+                            onChange={(value) => this.handlePriceChange(value, "standard")}
+                            required
+                            autoComplete="off"
+                        />
+                        <NumericInput
+                            name="loveseats"
+                            className="form-item"
+                            min={1}
+                            max={100}
+                            placeholder="Цена loveseats"
+                            format={this.moneyFormat}
+                            onChange={(value) => this.handlePriceChange(value, "loveseats")}
+                            required
+                            autoComplete="off"
+                        />
+                        <NumericInput
+                            name="comfort"
+                            className="form-item"
+                            min={1}
+                            max={100}
+                            placeholder="Цена comfort"
+                            format={this.moneyFormat}
+                            onChange={(value) => this.handlePriceChange(value, "comfort")}
                             required
                             autoComplete="off"
                         />

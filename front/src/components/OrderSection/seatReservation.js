@@ -23,6 +23,7 @@ const SeatReservation = ({
                 />
             </section>
             <OrderSettings
+                seatsPrice={filmInfo.price}
                 orderInfo={orderInfo}
                 onCancelOrderTicketClick={actions.onCancelOrderTicketClick}
                 onCancelOrderServiceClick={actions.onCancelOrderServiceClick}/>

@@ -18,6 +18,11 @@ for (var k = 0; k < CURRENT_HALLS_AMOUNT; k++){
                 services: services,
                 id: `${i}${j}${k}`,
                 occupiedSeats: [],
+                price: {
+                    loveseat: 20,
+                    standard: 10,
+                    comfort: 15
+                }
             });
         }
     }
@@ -273,7 +278,8 @@ const findSeance = (seanceId) => {
                                 dateTime: seance.dateTime,
                                 seanceId: seanceId,
                                 seatsInfo: seance.occupiedSeats,
-                                services: seance.services
+                                services: seance.services,
+                                price: seance.price
                             }
                         }
                     }
@@ -402,6 +408,7 @@ export const addSeanceToDatabase = (seance) =>
                                     services: seance.services,
                                     id: v4(),
                                     occupiedSeats: [],
+                                    price: seance.price
                                 }]
                             }]
                         }]
@@ -421,6 +428,7 @@ export const addSeanceToDatabase = (seance) =>
                                 services: seance.services,
                                 id: v4(),
                                 occupiedSeats: [],
+                                price: seance.price
                             }]
                         }]
                     };
@@ -437,6 +445,7 @@ export const addSeanceToDatabase = (seance) =>
                             services: seance.services,
                             id: v4(),
                             occupiedSeats: [],
+                            price: seance.price
                         }]
                     };
                     existedCinema.halls.push(existedHall);
@@ -447,6 +456,7 @@ export const addSeanceToDatabase = (seance) =>
                     services: seance.services,
                     id: v4(),
                     occupiedSeats: [],
+                    price: seance.price
                 });
             }
         }

@@ -5,7 +5,8 @@ import v4 from 'uuid'
 const OrderSettings = ({
     orderInfo,
     onCancelOrderTicketClick,
-    onCancelOrderServiceClick
+    onCancelOrderServiceClick,
+    seatsPrice
 }) => {
 
     const submitTicketOrder = () => {
@@ -31,7 +32,7 @@ const OrderSettings = ({
                             <li className="order-list__item">
                                 <div className="ticket-info">
                                     <h1>{`ряд: ${orderItem.line} место: ${orderItem.raw}`}</h1>
-                                    <p>{orderItem.type} {orderItem.price}</p>
+                                    <p>{orderItem.type} {seatsPrice[orderItem.type]}</p>
                                 </div>
                                 <div
                                     className="order-list__cross"

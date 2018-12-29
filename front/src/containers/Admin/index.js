@@ -87,7 +87,6 @@ class Admin extends Component{
 
     render() {
         const {filter, filterOptions, changeFilterObjectItem, isRequestSucceeded} = this.props;
-
         if (isRequestSucceeded){
             return <SuccessMessage path='/Schedule'/>
         }
