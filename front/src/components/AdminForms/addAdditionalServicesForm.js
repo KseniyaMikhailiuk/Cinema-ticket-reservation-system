@@ -48,7 +48,8 @@ class AddAdditionalServicesForm extends Component {
                         <input name="name"
                             placeholder="Введите название"
                             className="form-item admin__form-item"
-                            onChange={this.handleInputChange}/>
+                            onChange={this.handleInputChange}
+                            required/>
                         <NumericInput
                             name="price"
                             className="form-item"

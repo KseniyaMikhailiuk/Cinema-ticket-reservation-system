@@ -1,13 +1,15 @@
 import React, {Component} from 'react'
 import CreatableSelect from 'react-select/lib/Creatable';
 import NumericInput from 'react-numeric-input'
+import AddHallPlan from './addHallPlan';
 
 class AddCinemaForm extends Component {
 
     state = {
         city: "",
         cinema: "",
-        hallsAmount: 0
+        hallsAmount: 0,
+        halls: []
     }
 
     constructor(props) {
@@ -17,6 +19,7 @@ class AddCinemaForm extends Component {
         this.handleCinamaChange = this.handleCinamaChange.bind(this);
         this.handleHallsAmountChange = this.handleHallsAmountChange.bind(this);
         this.sendInfo = this.sendInfo.bind(this);
+        this.addHallToCinema = this.addHallToCinema.bind(this);
     }
 
     handleSelectChange = (targetName, selectedOption) => {
@@ -34,10 +37,14 @@ class AddCinemaForm extends Component {
         this.handleSelectChange("cinema", selectedOption);
     }
 
-    handleHallsAmountChange(value){
+    handleHallsAmountChange (value){
         this.setState({
             hallsAmount: value
         })
+    }
+
+    addHallToCinema (hallPlan) {
+        this.state.halls.push({number: this.state.halls.length, hallPlan: hallPlan});
     }
 
     sendInfo (event) {
@@ -85,8 +92,15 @@ class AddCinemaForm extends Component {
                             required
                             autoComplete="off"
                         />
+                        {
+                            [...Array(this.state.hallsAmount)].map(() =>
+                                <AddHallPlan
+                                    onHallSubmit={this.addHallToCinema}
+                                />
+                            )
+                        }
                     </fieldset>
-                    <input className="form-item forms__button bordered" value="Добавить" type="submit"></input>
+                    <input className="form-item forms__button bordered" value="Добавить кинотеатр" type="submit"></input>
                 </form>
             </article>
         )
