@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import CreatableSelect from 'react-select/lib/Creatable';
 import NumericInput from 'react-numeric-input'
 import AddHallPlan from './addHallPlan';
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 class AddCinemaForm extends Component {
 
@@ -23,18 +25,18 @@ class AddCinemaForm extends Component {
     }
 
     handleSelectChange = (targetName, selectedOption) => {
+        let value = selectedOption ? selectedOption.label : ""
         this.setState({
-            [targetName]: selectedOption
+            [targetName]: value
         });
     }
 
     handleCityChange = (selectedOption) => {
-        this.handleSelectChange("city", selectedOption.label);
-
+        this.handleSelectChange("city", selectedOption);
     }
 
     handleCinamaChange = (selectedOption) => {
-        this.handleSelectChange("cinema", selectedOption.label);
+        this.handleSelectChange("cinema", selectedOption);
     }
 
     handleHallsAmountChange (value){
@@ -64,6 +66,11 @@ class AddCinemaForm extends Component {
 
     sendInfo (event) {
         event.preventDefault();
+        const {city, cinema, hallsAmount, halls} = this.state;
+        if (city === "" || cinema === "" || hallsAmount <= 0 || hallsAmount !== halls.length) {
+            NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
+            return;
+        }
         const { onSubmit } = this.props;
         onSubmit(this.state);
     }
@@ -95,7 +102,6 @@ class AddCinemaForm extends Component {
                             isClearable
                             onChange={this.handleCinamaChange}
                             placeholder="Введите кинотеатр"
-                            required
                         />
                         <NumericInput
                             name="price"
@@ -104,7 +110,6 @@ class AddCinemaForm extends Component {
                             max={10}
                             placeholder="Число залов"
                             onChange={this.handleHallsAmountChange}
-                            required
                             autoComplete="off"
                         />
                         {
@@ -121,6 +126,7 @@ class AddCinemaForm extends Component {
                         type="submit">
                     </input>
                 </form>
+                <NotificationContainer/>
             </article>
         )
     }

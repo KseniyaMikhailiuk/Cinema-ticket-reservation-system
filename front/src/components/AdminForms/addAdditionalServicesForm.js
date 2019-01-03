@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import NumericInput from 'react-numeric-input'
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 class AddAdditionalServicesForm extends Component {
     state = {
@@ -33,6 +35,11 @@ class AddAdditionalServicesForm extends Component {
 
     sendInfo (event) {
         event.preventDefault();
+        const {name, price} = this.state;
+        if (name === "" || price === 0) {
+            NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
+            return;
+        }
         const {onSubmit} = this.props;
         onSubmit(this.state);
     }
@@ -49,7 +56,7 @@ class AddAdditionalServicesForm extends Component {
                             placeholder="Введите название"
                             className="form-item admin__form-item"
                             onChange={this.handleInputChange}
-                            required/>
+                        />
                         <NumericInput
                             name="price"
                             className="form-item"
@@ -58,11 +65,11 @@ class AddAdditionalServicesForm extends Component {
                             placeholder="Цена услуги"
                             format={this.moneyFormat}
                             onChange={this.handlePriceChange}
-                            required
                         />
                     </fieldset>
                     <input className="form-item forms__button bordered" value="Добавить" type="submit"></input>
                 </form>
+                <NotificationContainer/>
             </article>
         )
     }

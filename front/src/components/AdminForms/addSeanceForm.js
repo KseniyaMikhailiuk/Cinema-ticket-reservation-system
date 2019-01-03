@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import DatePickerCustomized from '../Common/datePicker'
 import NumericInput from 'react-numeric-input'
 import Select from 'react-select';
-import { stat } from 'fs';
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 class AddSeanceForm extends Component{
     state = {
@@ -71,8 +72,12 @@ class AddSeanceForm extends Component{
 
     sendInfo (event) {
         event.preventDefault();
-        if (this.state.city === "" || this.state.cinema === "" || this.state.filmName === "" || this.state.hall === 0){
-            alert('Вы заполнили не все поля')
+        const {city, cinema, filmName, hall, time, price} = this.state;
+        if (city === "" || cinema === "" ||
+            filmName === "" || hall === 0 ||
+            time === "" || price.comfort === 0 ||
+            price.loveseat === 0 || price.loveseat === 0){
+            NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
             return;
         }
         const { onSubmit } = this.props;
@@ -142,7 +147,6 @@ class AddSeanceForm extends Component{
                             name="time"
                             className="form-item"
                             type="time"
-                            required
                             onChange={this.handleTimeChange}/>
                         <NumericInput
                             name="standard"
@@ -152,7 +156,6 @@ class AddSeanceForm extends Component{
                             placeholder="Цена standard"
                             format={this.moneyFormat}
                             onChange={(value) => this.handlePriceChange(value, "standard")}
-                            required
                             autoComplete="off"
                         />
                         <NumericInput
@@ -163,7 +166,6 @@ class AddSeanceForm extends Component{
                             placeholder="Цена loveseats"
                             format={this.moneyFormat}
                             onChange={(value) => this.handlePriceChange(value, "loveseats")}
-                            required
                             autoComplete="off"
                         />
                         <NumericInput
@@ -174,7 +176,6 @@ class AddSeanceForm extends Component{
                             placeholder="Цена comfort"
                             format={this.moneyFormat}
                             onChange={(value) => this.handlePriceChange(value, "comfort")}
-                            required
                             autoComplete="off"
                         />
                         <Select
@@ -198,7 +199,6 @@ class AddSeanceForm extends Component{
                                         placeholder="Цена услуги"
                                         format={this.moneyFormat}
                                         onChange={(selectedOption) => this.handleServicePriceChange(selectedOption, service.name)}
-                                        required
                                         autoComplete="off"
                                     />
                                 </li>
@@ -208,6 +208,7 @@ class AddSeanceForm extends Component{
                     </fieldset>
                     <input className="form-item forms__button bordered" value="Добавить" type="submit"></input>
                 </form>
+                <NotificationContainer/>
             </article>
         )
     }

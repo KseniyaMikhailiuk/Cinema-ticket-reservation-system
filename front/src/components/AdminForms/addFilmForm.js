@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
 import '../../CommonStylesheets/form.scss'
 import './addFilmForm.scss'
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import DatePickerCusomized from '../Common/datePicker'
 
 class AddFilmForm extends Component {
     state = {
@@ -25,6 +28,11 @@ class AddFilmForm extends Component {
 
     sendInfo (event) {
         event.preventDefault();
+        const {filmName, filmDescription, filmPoster} = this.state;
+        if (filmName === "" || filmDescription === "" || filmPoster === "") {
+            NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
+            return;
+        }
         const {onSubmit} = this.props;
         onSubmit(this.state);
     }
@@ -42,15 +50,13 @@ class AddFilmForm extends Component {
                             placeholder="Введите название"
                             className="form-item admin__form-item"
                             onChange={this.handleInputChange}
-                            required
                         />
-                        <input
-                            name="filmRelease"
-                            className="form-item admin__form-item"
-                            type="date"
-                            onChange={this.handleInputChange}
-                            required
-                        />
+                        <div className="form-item">
+                            <DatePickerCusomized
+                                selectedDate={this.state.filmRelease}
+                                onFilterClick={(name, value) => this.handleInputChange({target: {name: "filmRelease", value}})}
+                            />
+                        </div>
                         <textarea
                             name="filmDescription"
                             placeholder="Введите описание фильма"
@@ -58,7 +64,6 @@ class AddFilmForm extends Component {
                             rows="10"
                             cols="30"
                             onChange={this.handleInputChange}
-                            required
                         />
                         <input
                             name="filmPoster"
@@ -66,11 +71,11 @@ class AddFilmForm extends Component {
                             placeholder="Выберите постер"
                             type="file"
                             onChange={this.handleInputChange}
-                            required
                         />
                     </fieldset>
                     <input className="form-item forms__button bordered" value="Добавить" type="submit"></input>
                 </form>
+                <NotificationContainer/>
             </article>
         )
     }

@@ -5,6 +5,8 @@ import v4 from 'uuid'
 import Dialog from 'rc-dialog'
 import 'rc-dialog/assets/index.css'
 import Select from 'react-select';
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 class AddHallPlan extends Component{
 
@@ -160,7 +162,7 @@ class AddHallPlan extends Component{
             let buttonText = "";
             this.state.isDisabled ? buttonText = String.fromCharCode(10003) : buttonText = "Добавить зал"
             return (
-                <section>
+                <section className="hall-plan">
                     <svg className="hall-plan__screen-svg-container"
                         preserveAspectRatio="none"
                         viewBox="0 0 500 5"
@@ -230,7 +232,6 @@ class AddHallPlan extends Component{
                     placeholder="Число рядов"
                     onChange={(value) => this.handleInputChange("lines", value)}
                     disabled={this.state.isDisabled}
-                    required
                 />
                 <NumericInput
                     name="raws"
@@ -240,7 +241,6 @@ class AddHallPlan extends Component{
                     placeholder="Число мест"
                     onChange={(value) => this.handleInputChange("raws", value)}
                     disabled={this.state.isDisabled}
-                    required
                 />
                 {
                     this.showHallPlan ()
@@ -248,6 +248,7 @@ class AddHallPlan extends Component{
                 {
                     this.showDialog ()
                 }
+                <NotificationContainer/>
             </section>
         )
     }
