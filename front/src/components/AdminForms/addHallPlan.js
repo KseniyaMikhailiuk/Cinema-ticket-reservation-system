@@ -2,11 +2,12 @@ import React, {Component} from 'react'
 import NumericInput from 'react-numeric-input'
 import seatType from '../Common/seatTypes'
 import v4 from 'uuid'
-import Dialog from 'rc-dialog'
 import 'rc-dialog/assets/index.css'
-import Select from 'react-select';
 import 'react-notifications/lib/notifications.css';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import {NotificationContainer} from 'react-notifications';
+import SeatTypeSelectDialog from './seatTypeSelectDialog'
+import HallPlan from './hallPlan';
+
 
 class AddHallPlan extends Component{
 
@@ -24,6 +25,7 @@ class AddHallPlan extends Component{
     constructor (props) {
         super(props);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSeatTypeSelect = this.handleSeatTypeSelect.bind(this);
         this.sendInfo = this.sendInfo.bind(this);
         this.onSeatSelect = this.onSeatSelect.bind(this);
         this.showDialog =this.showDialog.bind(this);
@@ -119,95 +121,28 @@ class AddHallPlan extends Component{
 
     showDialog (){
         if (this.state.showDialog){
-            var seatTypesForSelect = [];
-            for (let element in seatType){
-                if (this.state.isLastSeat && element === seatType.loveseat.type) {
-                    continue;
-                }
-                seatTypesForSelect.push({value: element, label: element});
-            }
             return (
-                <Dialog
-                    visible={this.state.showDialog}
-                    visible
+                <SeatTypeSelectDialog
                     onClose={this.onClose}
-                    maskAnimation="fade"
-                    animation="zoom"
-                    closable
-                >
-                    <p>Тип места</p>
-                    <Select
-                        name="seatType"
-                        className="select"
-                        options={seatTypesForSelect}
-                        isSearchable
-                        isClearable
-                        onChange={(selectedOption) => this.handleSeatTypeSelect(selectedOption.label)}
-                        placeholder="Выберите тип места"
-                    />
-                    <button
-                        type="button"
-                        className="form-item"
-                        onClick={this.onSeatTypeSubmit}
-                    >
-                        Выбрать
-                    </button>
-                </Dialog>
+                    isVisible={this.state.showDialog}
+                    handleSeatTypeSelect={this.handleSeatTypeSelect}
+                    onSeatTypeSubmit={this.onSeatTypeSubmit}
+                    isLastSeat={this.state.isLastSeat}
+                />
             )
         }
     }
 
     showHallPlan () {
         if (this.state.lines > 0 && this.state.raws > 0) {
-            let buttonText = "";
-            this.state.isDisabled ? buttonText = String.fromCharCode(10003) : buttonText = "Добавить зал"
             return (
-                <section className="hall-plan">
-                    <svg className="hall-plan__screen-svg-container"
-                        preserveAspectRatio="none"
-                        viewBox="0 0 500 5"
-                    >
-                        <rect className="hall-plan__screen"/>
-                    </svg>
-                    {this.state.hallPlan.map(line =>
-                        <section className="hall-plan__line">
-                            {line.map(seat =>{
-                                    let standardSeatWidth = 100 / (this.state.raws * 2 - 1);
-                                    let seatWidth = standardSeatWidth + '%';
-                                    if (seat.type === seatType.loveseat.type) {
-                                        seatWidth = (standardSeatWidth
-                                            * seatType.loveseat.amountOfGuestsOnOneSeat
-                                            + standardSeatWidth) + '%';
-                                    }
-                                    return(
-                                        <svg
-                                            className="hall-plan__seat-svg-container"
-                                            width={seatWidth}
-                                            preserveAspectRatio="none"
-                                            viewBox="0 0 180 180"
-                                            disabled={this.state.isDisabled}
-                                            onClick={() => {if (!this.state.isDisabled)
-                                                this.onSeatSelect(seat.id, seat.raw, line.length)}}
-                                        >
-                                            <rect
-                                                id={seat.id} rx="10"
-                                                ry="10"
-                                                className={`hall-plan__seat ${seat.type}`}
-                                            />
-                                        </svg>
-                                    )
-                                }
-                            )}
-                        </section>
-                    )}
-                    <button
-                        className="form-item forms__button bordered"
-                        onClick={this.sendInfo}
-                        disabled={this.state.isDisabled}
-                    >
-                        {buttonText}
-                    </button>
-                </section>
+                <HallPlan
+                    isDisabled={this.state.isDisabled}
+                    hallPlan={this.state.hallPlan}
+                    onSeatSelect={this.onSeatSelect}
+                    sendInfo={this.sendInfo}
+                    raws={this.state.raws}
+                />
             )
         }
     }
