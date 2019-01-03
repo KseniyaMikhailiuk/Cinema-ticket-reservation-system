@@ -29,22 +29,37 @@ class AddCinemaForm extends Component {
     }
 
     handleCityChange = (selectedOption) => {
-        this.handleSelectChange("city", selectedOption);
+        this.handleSelectChange("city", selectedOption.label);
 
     }
 
     handleCinamaChange = (selectedOption) => {
-        this.handleSelectChange("cinema", selectedOption);
+        this.handleSelectChange("cinema", selectedOption.label);
     }
 
     handleHallsAmountChange (value){
+        if (value < this.state.halls.length){
+            let halls = this.state.halls;
+            halls.length = halls.length - 1;
+            this.setState({
+                halls: halls
+            })
+        }
         this.setState({
             hallsAmount: value
         })
     }
 
     addHallToCinema (hallPlan) {
-        this.state.halls.push({number: this.state.halls.length, hallPlan: hallPlan});
+        this.setState({
+            halls: [
+                ...this.state.halls,
+                {
+                    number: this.state.halls.length + 1,
+                    hallPlan: hallPlan
+                }
+            ]
+        })
     }
 
     sendInfo (event) {
@@ -100,7 +115,11 @@ class AddCinemaForm extends Component {
                             )
                         }
                     </fieldset>
-                    <input className="form-item forms__button bordered" value="Добавить кинотеатр" type="submit"></input>
+                    <input
+                        className="form-item forms__button bordered"
+                        value="Добавить кинотеатр"
+                        type="submit">
+                    </input>
                 </form>
             </article>
         )

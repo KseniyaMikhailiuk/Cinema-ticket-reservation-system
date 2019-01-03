@@ -15,12 +15,14 @@ class AddHallPlan extends Component{
         showDialog: false,
         selectedSeatType: 0,
         selectedSeatId: 0,
-        isLastSeat: 0
+        isLastSeat: 0,
+        isDisabled: false
     }
 
     constructor (props) {
         super(props);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.sendInfo = this.sendInfo.bind(this);
         this.onSeatSelect = this.onSeatSelect.bind(this);
         this.showDialog =this.showDialog.bind(this);
         this.showHallPlan = this.showHallPlan.bind(this);
@@ -34,49 +36,56 @@ class AddHallPlan extends Component{
 
     changeHallPlanLines (value) {
         if (value < this.state.lines) {
-            this.state.hallPlan.length = value;
+            let hallPlan = this.state.hallPlan;
+            hallPlan.length = hallPlan.length - 1;
+            this.setState({
+                hallPlan: hallPlan
+            })
             return;
         }
-        let line = [];
-        for (let i = 0; i < this.state.raws; i++){
-            line.push({
-                id: v4(),
-                type: "standard",
-                raw: i + 1,
-                line: this.state.lines.length
-            })
+        for (let j = this.state.hallPlan.length; j < value; j++){
+            let line = [];
+            for (let i = 0; i < this.state.raws; i++){
+                line.push({
+                    id: v4(),
+                    type: seatType.standard.type,
+                    raw: i + 1,
+                    line: j
+                })
+            }
+            this.state.hallPlan.push(line)
         }
-        this.state.hallPlan.push(line)
     }
 
     changeHallPlanRaws (value) {
         if (value < this.state.raws) {
             this.state.hallPlan.forEach(line => {
-                line.length = line.length - 1;
+                line.length = value
             })
             return;
         }
         for (let i = 0; i < this.state.hallPlan.length; i++){
-            this.state.hallPlan[i].push({
-                id: v4(),
-                type: "standard",
-                raw: this.state.hallPlan[i].length + 1,
-                line: i + 1
-            })
+            for (let j = this.state.raws; j < value; j++) {
+                this.state.hallPlan[i].push({
+                    id: v4(),
+                    type: seatType.standard.type,
+                    raw: j + 1,
+                    line: i + 1
+                })
+            }
         }
     }
 
     handleInputChange (targetName, value) {
-        this.setState({
-            [targetName]: value
-        })
         if (targetName === "lines"){
             this.changeHallPlanLines (value);
         }
         else{
             this.changeHallPlanRaws (value);
         }
-
+        this.setState({
+            [targetName]: value
+        })
     }
 
     onSeatSelect (seatId, raw, lineLength) {
@@ -148,6 +157,8 @@ class AddHallPlan extends Component{
 
     showHallPlan () {
         if (this.state.lines > 0 && this.state.raws > 0) {
+            let buttonText = "";
+            this.state.isDisabled ? buttonText = String.fromCharCode(10003) : buttonText = "Добавить зал"
             return (
                 <section>
                     <svg className="hall-plan__screen-svg-container"
@@ -172,7 +183,9 @@ class AddHallPlan extends Component{
                                             width={seatWidth}
                                             preserveAspectRatio="none"
                                             viewBox="0 0 180 180"
-                                            onClick={() => this.onSeatSelect(seat.id, seat.raw, line.length)}
+                                            disabled={this.state.isDisabled}
+                                            onClick={() => {if (!this.state.isDisabled)
+                                                this.onSeatSelect(seat.id, seat.raw, line.length)}}
                                         >
                                             <rect
                                                 id={seat.id} rx="10"
@@ -185,15 +198,30 @@ class AddHallPlan extends Component{
                             )}
                         </section>
                     )}
+                    <button
+                        className="form-item forms__button bordered"
+                        onClick={this.sendInfo}
+                        disabled={this.state.isDisabled}
+                    >
+                        {buttonText}
+                    </button>
                 </section>
             )
         }
     }
 
-    render () {
+    sendInfo (event) {
+        event.preventDefault();
         const {onHallSubmit} = this.props;
+        onHallSubmit(this.state.hallPlan);
+        this.setState({
+            isDisabled: true,
+        })
+    }
+
+    render () {
         return (
-            <section>
+            <section disabled={this.state.isDisabled}>
                 <NumericInput
                     name="lines"
                     className="form-item"
@@ -201,6 +229,7 @@ class AddHallPlan extends Component{
                     max={25}
                     placeholder="Число рядов"
                     onChange={(value) => this.handleInputChange("lines", value)}
+                    disabled={this.state.isDisabled}
                     required
                 />
                 <NumericInput
@@ -210,14 +239,9 @@ class AddHallPlan extends Component{
                     max={25}
                     placeholder="Число мест"
                     onChange={(value) => this.handleInputChange("raws", value)}
+                    disabled={this.state.isDisabled}
                     required
                 />
-                <button
-                    className="form-item forms__button bordered"
-                    onClick={() => onHallSubmit(this.state.hallPlan)}
-                >
-                    Добавить зал
-                </button>
                 {
                     this.showHallPlan ()
                 }

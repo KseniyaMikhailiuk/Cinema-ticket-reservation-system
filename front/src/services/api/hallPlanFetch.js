@@ -329,10 +329,11 @@ export const addCinema = (cinemaInfo) =>
                     {
                         name: cinemaInfo.cinema,
                         hallsAmount: cinemaInfo.hallsAmount,
-                        halls: []
+                        halls: cinemaInfo.halls,
                     }
                 ]
             }
+            cinemaHallPlans.push(existedCity);
             return;
         }
         let existedCinema = existedCity.cinemas.find(cinema => cinema.name === cinemaInfo.cicinematy);
@@ -340,7 +341,7 @@ export const addCinema = (cinemaInfo) =>
             existedCity.cinemas.push({
                     name: cinemaInfo.cinema,
                     hallsAmount: cinemaInfo.hallsAmount,
-                    halls: []
+                    halls: cinemaInfo.halls,
                 })
             return;
         }
