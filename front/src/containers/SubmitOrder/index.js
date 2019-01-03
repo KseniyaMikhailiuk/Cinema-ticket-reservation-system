@@ -13,10 +13,10 @@ class SubmitOrder extends Component{
     }
 
     totalPrice = () => {
-        const {orderInfo} = this.props;
+        const {orderInfo, filmInfo} = this.props;
         let totalPrice = 0;
         orderInfo.seats.forEach(orderItem => {
-            totalPrice += orderItem.price;
+            totalPrice += filmInfo.price[orderItem.type];
         });
         orderInfo.services.forEach(orderItem => {
             totalPrice += orderItem.price;

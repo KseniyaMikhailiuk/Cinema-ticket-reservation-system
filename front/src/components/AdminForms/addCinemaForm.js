@@ -58,7 +58,7 @@ class AddCinemaForm extends Component {
                 ...this.state.halls,
                 {
                     number: this.state.halls.length + 1,
-                    hallPlan: hallPlan
+                    plan: hallPlan
                 }
             ]
         })
