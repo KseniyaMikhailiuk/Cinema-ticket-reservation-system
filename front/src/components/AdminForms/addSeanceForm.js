@@ -135,7 +135,7 @@ class AddSeanceForm extends Component{
                         <Select
                             name="cinema"
                             className="form-item select"
-                            options={filterOptions.cinemas.filter(cinema => cinema.value === this.state.city || this.state.city)}
+                            options={filterOptions.cinemas.filter(cinema => cinema.value === this.state.city || !this.state.city)}
                             isSearchable
                             isClearable
                             onChange={(selectedOption) => this.handleInputChange("cinema", selectedOption.label)}

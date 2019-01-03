@@ -135,14 +135,24 @@ class AddHallPlan extends Component{
 
     showHallPlan () {
         if (this.state.lines > 0 && this.state.raws > 0) {
+            let buttonText = "";
+            this.state.isDisabled ? buttonText = String.fromCharCode(10003) : buttonText = "Добавить зал"
             return (
-                <HallPlan
-                    isDisabled={this.state.isDisabled}
-                    hallPlan={this.state.hallPlan}
-                    onSeatSelect={this.onSeatSelect}
-                    sendInfo={this.sendInfo}
-                    raws={this.state.raws}
-                />
+                <>
+                    <HallPlan
+                        isDisabled={this.state.isDisabled}
+                        hallPlan={this.state.hallPlan}
+                        onSeatSelect={this.onSeatSelect}
+                        raws={this.state.raws}
+                    />
+                    <button
+                        className="form-item forms__button bordered"
+                        onClick={this.sendInfo}
+                        disabled={this.state.isDisabled}
+                    >
+                        {buttonText}
+                    </button>
+                </>
             )
         }
     }
