@@ -58,12 +58,29 @@ class AddSeanceForm extends Component{
                 services: []
             });
         }
-        for (let service of selectedOptions){
+        let i = 0;
+        while (i < this.state.services.length){
+            if (selectedOptions.find(option => option.value === this.state.services[i].name)){
+                i++;
+                continue;
+            }
+            this.state.services.splice(i, 1);
+        }
+        this.setState({
+            services: this.state.services
+        });
+
+        for (let option of selectedOptions){
+            if (this.state.services.find(service => service.name === option.value)){
+                i++;
+                continue;
+            }
             this.setState({
                 services: [
                     ...this.state.services,
                     {
-                        name: service.value
+                        name: option.value,
+                        price: 0
                     }
                 ]
             });
@@ -72,7 +89,7 @@ class AddSeanceForm extends Component{
 
     sendInfo (event) {
         event.preventDefault();
-        const {city, cinema, filmName, hall, time, price} = this.state;
+        const {city, cinema, filmName, hall, time, price, services} = this.state;
         if (city === "" || cinema === "" ||
             filmName === "" || hall === 0 ||
             time === "" || price.comfort === 0 ||
@@ -80,6 +97,11 @@ class AddSeanceForm extends Component{
             NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
             return;
         }
+        if (services.find(service => service.price === 0)) {
+            NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
+            return;
+        }
+
         const { onSubmit } = this.props;
         onSubmit(this.state);
     }
@@ -165,7 +187,7 @@ class AddSeanceForm extends Component{
                             max={100}
                             placeholder="Цена loveseats"
                             format={this.moneyFormat}
-                            onChange={(value) => this.handlePriceChange(value, "loveseats")}
+                            onChange={(value) => this.handlePriceChange(value, "loveseat")}
                             autoComplete="off"
                         />
                         <NumericInput
