@@ -72,7 +72,6 @@ class AddSeanceForm extends Component{
 
         for (let option of selectedOptions){
             if (this.state.services.find(service => service.name === option.value)){
-                i++;
                 continue;
             }
             this.setState({

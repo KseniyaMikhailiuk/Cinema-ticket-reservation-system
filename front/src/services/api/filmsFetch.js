@@ -392,6 +392,13 @@ export const addSeanceToDatabase = (seance) =>
             hour: seance.time.split(':')[0],
             minute: seance.time.split(':')[1]
         })
+        let seanceInfo = {
+            dateTime: dateTime,
+            services: seance.services,
+            id: v4(),
+            occupiedSeats: [],
+            price: seance.price
+        }
         for (let film of filmDatabase){
             if (film.title === seance.filmName){
                 let existedCity= film.cities.find(city => city.name === seance.city);
@@ -403,13 +410,7 @@ export const addSeanceToDatabase = (seance) =>
                             halls: [{
                                 number: seance.hall,
                                 seatAmount: 50,
-                                schedule: [{
-                                    dateTime: dateTime,
-                                    services: seance.services,
-                                    id: v4(),
-                                    occupiedSeats: [],
-                                    price: seance.price
-                                }]
+                                schedule: [seanceInfo]
                             }]
                         }]
                     };
@@ -423,13 +424,7 @@ export const addSeanceToDatabase = (seance) =>
                         halls: [{
                             number: seance.hall,
                             seatAmount: 50,
-                            schedule: [{
-                                dateTime: dateTime,
-                                services: seance.services,
-                                id: v4(),
-                                occupiedSeats: [],
-                                price: seance.price
-                            }]
+                            schedule: [seanceInfo]
                         }]
                     };
                     existedCity.cinemas.push(existedCinema);
@@ -440,24 +435,12 @@ export const addSeanceToDatabase = (seance) =>
                     existedHall = {
                         number: seance.hall,
                         seatAmount: 50,
-                        schedule: [{
-                            dateTime: dateTime,
-                            services: seance.services,
-                            id: v4(),
-                            occupiedSeats: [],
-                            price: seance.price
-                        }]
+                        schedule: [seanceInfo]
                     };
                     existedCinema.halls.push(existedHall);
                     return;
                 }
-                existedHall.schedule.push({
-                    dateTime: dateTime,
-                    services: seance.services,
-                    id: v4(),
-                    occupiedSeats: [],
-                    price: seance.price
-                });
+                existedHall.schedule.push(seanceInfo);
             }
         }
     })
