@@ -1,3 +1,7 @@
+$color-dark-brown: rgb(31, 31, 31);
+$color-light-violet: rgba(192, 164, 212, 0.616);
+$color-light-pink: rgb(201, 179, 206);
+
 .forms{
     width: 50%;
     min-width: 800px;
@@ -7,11 +11,12 @@
     margin-top: .7vw;
     border: 1px solid black;
     border-radius: 20px;
-    background-color: rgb(31, 31, 31);
+    background-color: $color-dark-brown;
 
     &__fieldset{
         width: 70%;
         color: white;
+        border: none;
     }
     &__text-input{
         width: 19vw;
@@ -21,14 +26,14 @@
         height: 2.5vw;
         transition: .5s;
         margin-bottom: 2vw;
-        background-color: rgb(172, 149, 192);
-        color:rgb(46, 45, 45);
+        background-color: $color-light-violet;
+        color: $color-dark-brown;
         &:hover{
-            background-color: rgb(201, 179, 206);
+            background-color: $color-light-pink
         }
     }
     &__legend{
-        background-color: rgb(31, 31, 31);
+        background-color: $color-dark-brown;
         padding-top: 2vw;
         font-size: 1.5vw;
     }

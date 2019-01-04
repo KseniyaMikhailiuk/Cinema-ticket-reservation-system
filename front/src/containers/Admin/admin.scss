@@ -1,3 +1,6 @@
+$color-dark-chocolate: rgb(46, 45, 45);
+$color-gray: rgb(112, 110, 114);
+
 .admin{
     padding-bottom: 2vw;
     width: 75vw;
@@ -44,7 +47,7 @@
         b{
             box-shadow: none !important;
             i{
-                border-color:  rgb(112, 110, 114) transparent !important;
+                border-color:  $color-gray transparent !important;
             }
         }
     }
@@ -60,7 +63,7 @@
             margin: 0;
         }
         input{
-            background-color: rgb(46, 45, 45);
+            background-color: $color-dark-chocolate;
             border: none;
             font-size: 1.3vw;
             color: white;
@@ -70,7 +73,7 @@
 
 .select{
     div{
-        background-color: rgb(46, 45, 45);
+        background-color: $color-dark-chocolate;
         border: none;
         color: white;
     }

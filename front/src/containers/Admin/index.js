@@ -35,7 +35,7 @@ class Admin extends Component{
         this.addFilmToDatabase = this.addFilmToDatabase.bind(this);
         this.addSeanceToDatabase = this.addSeanceToDatabase.bind(this);
         this.addAdditionalServicesToDatabase = this.addAdditionalServicesToDatabase.bind(this);
-        this.addCinemaToDataBase = this.addCinemaToDataBase.bind(this);
+        this.addCinemaToDatabase = this.addCinemaToDatabase.bind(this);
     }
 
     componentDidMount() {
@@ -84,7 +84,7 @@ class Admin extends Component{
         })
     }
 
-    addCinemaToDataBase (cinemaInfo) {
+    addCinemaToDatabase (cinemaInfo) {
         const {dispatchSuccess} = this.props;
         cinemasInfo.addCinema(cinemaInfo)
         .then(() => {
@@ -118,7 +118,7 @@ class Admin extends Component{
                 />
                 <AddCinemaForm
                     filterOptions={this.state.addCinemaFormFilterOptions}
-                    onSubmit={this.addCinemaToDataBase}
+                    onSubmit={this.addCinemaToDatabase}
                 />
             </section>
         )
