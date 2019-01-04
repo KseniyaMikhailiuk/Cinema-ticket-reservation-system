@@ -45,11 +45,11 @@ class AddCinemaForm extends Component {
             halls.length = halls.length - 1;
             this.setState({
                 halls: halls
-            })
+            });
         }
         this.setState({
             hallsAmount: value
-        })
+        });
     }
 
     addHallToCinema (hallPlan) {
@@ -61,7 +61,7 @@ class AddCinemaForm extends Component {
                     plan: hallPlan
                 }
             ]
-        })
+        });
     }
 
     sendInfo (event) {
@@ -78,8 +78,8 @@ class AddCinemaForm extends Component {
     render() {
         const {filterOptions} = this.props;
         return(
-            <article className="forms admin">
-                <form onSubmit={this.sendInfo}>
+            <>
+                <form className="forms admin" onSubmit={this.sendInfo}>
                     <fieldset>
                         <legend className="form-item forms__legend">
                             Добавить кинотеатр
@@ -127,7 +127,7 @@ class AddCinemaForm extends Component {
                     </input>
                 </form>
                 <NotificationContainer/>
-            </article>
+            </>
         )
     }
 }

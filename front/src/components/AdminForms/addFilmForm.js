@@ -4,6 +4,7 @@ import './addFilmForm.scss'
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import DatePickerCusomized from '../Common/datePicker'
+import moment from 'moment'
 
 class AddFilmForm extends Component {
     state = {
@@ -23,7 +24,7 @@ class AddFilmForm extends Component {
         let target = event.target;
         this.setState({
             [target.name]: target.value
-        })
+        });
     }
 
     sendInfo (event) {
@@ -39,8 +40,8 @@ class AddFilmForm extends Component {
 
     render() {
         return(
-            <article className="forms admin">
-                <form onSubmit={this.sendInfo}>
+            <>
+                <form className="forms admin" onSubmit={this.sendInfo}>
                     <fieldset>
                         <legend className="form-item forms__legend">
                             Добавить фильм
@@ -54,7 +55,7 @@ class AddFilmForm extends Component {
                         <div className="form-item">
                             <DatePickerCusomized
                                 selectedDate={this.state.filmRelease}
-                                onFilterClick={(name, value) => this.handleInputChange({target: {name: "filmRelease", value}})}
+                                onFilterClick={(value) => this.handleInputChange({target: {name: "filmRelease", value}})}
                             />
                         </div>
                         <textarea
@@ -76,7 +77,7 @@ class AddFilmForm extends Component {
                     <input className="form-item forms__button bordered" value="Добавить" type="submit"></input>
                 </form>
                 <NotificationContainer/>
-            </article>
+            </>
         )
     }
 }

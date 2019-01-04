@@ -372,11 +372,13 @@ export const releaseSeat = (info) =>
 export const addFilmToDatabase = (film) =>
     delay(500)
     .then(() => {
+        let formattedDate = moment(film.filmRelease);
+        formattedDate = `${formattedDate.date()} ${formattedDate.month() + 1} ${formattedDate.year()}`
         filmDatabase.push({
             id: v4(),
             title: film.filmName,
             image: film.filmPoster,
-            date: film.filmRelease,
+            date: formattedDate,
             description: film.filmDescription,
             cities: []
         })

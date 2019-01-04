@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import NumericInput from 'react-numeric-input'
-import seatType from '../Common/seatTypes'
+import seatType from '../../Common/seatTypes'
 import v4 from 'uuid'
 import 'rc-dialog/assets/index.css'
 import 'react-notifications/lib/notifications.css';
@@ -44,20 +44,20 @@ class AddHallPlan extends Component{
             hallPlan.length = hallPlan.length - 1;
             this.setState({
                 hallPlan: hallPlan
-            })
+            });
             return;
         }
-        for (let j = this.state.hallPlan.length; j < value; j++){
+        for (let j = this.state.hallPlan.length; j < value; j++) {
             let line = [];
-            for (let i = 0; i < this.state.raws; i++){
+            for (let i = 0; i < this.state.raws; i++) {
                 line.push({
                     id: v4(),
                     type: seatType.standard.type,
                     raw: i + 1,
                     line: j
-                })
+                });
             }
-            this.state.hallPlan.push(line)
+            this.state.hallPlan.push(line);
         }
     }
 
@@ -65,31 +65,31 @@ class AddHallPlan extends Component{
         if (value < this.state.raws) {
             this.state.hallPlan.forEach(line => {
                 line.length = value
-            })
+            });
             return;
         }
-        for (let i = 0; i < this.state.hallPlan.length; i++){
+        for (let i = 0; i < this.state.hallPlan.length; i++) {
             for (let j = this.state.raws; j < value; j++) {
                 this.state.hallPlan[i].push({
                     id: v4(),
                     type: seatType.standard.type,
                     raw: j + 1,
                     line: i + 1
-                })
+                });
             }
         }
     }
 
     handleInputChange (targetName, value) {
-        if (targetName === "lines"){
+        if (targetName === "lines") {
             this.changeHallPlanLines (value);
         }
-        else{
+        else {
             this.changeHallPlanRaws (value);
         }
         this.setState({
             [targetName]: value
-        })
+        });
     }
 
     onSeatSelect (seatId, raw, lineLength) {
@@ -97,13 +97,13 @@ class AddHallPlan extends Component{
             showDialog: true,
             selectedSeatId: seatId,
             isLastSeat: raw === lineLength
-        })
+        });
     }
 
     handleSeatTypeSelect (type) {
         this.setState({
             selectedSeatType: type
-        })
+        });
     }
 
     onSeatTypeSubmit () {
@@ -120,7 +120,7 @@ class AddHallPlan extends Component{
     }
 
     showDialog (){
-        if (this.state.showDialog){
+        if (this.state.showDialog) {
             return (
                 <SeatTypeSelectDialog
                     onClose={this.onClose}
@@ -136,7 +136,7 @@ class AddHallPlan extends Component{
     showHallPlan () {
         if (this.state.lines > 0 && this.state.raws > 0) {
             let buttonText = "";
-            this.state.isDisabled ? buttonText = String.fromCharCode(10003) : buttonText = "Добавить зал"
+            this.state.isDisabled ? buttonText = String.fromCharCode(10003) : buttonText = "Добавить зал";
             return (
                 <>
                     <HallPlan
@@ -163,12 +163,12 @@ class AddHallPlan extends Component{
         onHallSubmit(this.state.hallPlan);
         this.setState({
             isDisabled: true,
-        })
+        });
     }
 
     render () {
         return (
-            <section disabled={this.state.isDisabled}>
+            <form disabled={this.state.isDisabled}>
                 <NumericInput
                     name="lines"
                     className="form-item"
@@ -194,7 +194,7 @@ class AddHallPlan extends Component{
                     this.showDialog ()
                 }
                 <NotificationContainer/>
-            </section>
+            </form>
         )
     }
 }

@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import AddFilmForm from '../../components/AdminForms/addFilmForm'
 import AddSeanceForm from '../../components/AdminForms/addSeanceForm';
 import AddAdditionalServicesForm from '../../components/AdminForms/addAdditionalServicesForm'
-import AddCinemaForm from '../../components/AdminForms/addCinemaForm'
+import AddCinemaForm from '../../components/AdminForms/AddCinemaForm'
 import {getFilterObject, getFilterOptions} from '../../store/reducers';
 import * as actions from '../../store/actions'
 import * as servicesInfo from '../../services/api/addditionalServicesFetch'
@@ -48,7 +48,7 @@ class Admin extends Component{
         })
     }
 
-    componentWillUnmount() {
+    componentWillUnmount () {
         const {clearInfo} = this.props;
         clearInfo();
     }
@@ -87,12 +87,16 @@ class Admin extends Component{
 
     render() {
         const {filter, filterOptions, changeFilterObjectItem, isRequestSucceeded} = this.props;
-        if (isRequestSucceeded){
+        if (isRequestSucceeded) {
             return <SuccessMessage path='/Schedule'/>
         }
         let filmNames = [];
-        filterOptions.filmNames.forEach(filmName => filmNames.push({value: filmName, label: filmName}))
-        return(
+        filterOptions
+            .filmNames
+            .forEach(filmName =>
+                filmNames.push({value: filmName, label: filmName})
+            );
+        return (
             <section>
                 <AddFilmForm onSubmit={this.addFilmToDatabase}/>
                 <AddSeanceForm filter={filter}

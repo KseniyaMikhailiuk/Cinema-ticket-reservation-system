@@ -17,20 +17,20 @@ class AddAdditionalServicesForm extends Component {
     }
 
     moneyFormat = (value) => {
-        return value + ' BYN'
+        return value + ' BYN';
     }
 
     handleInputChange (event) {
         let target = event.target;
         this.setState({
             [target.name]: target.value
-        })
+        });
     }
 
     handlePriceChange(value){
         this.setState({
             price: value
-        })
+        });
     }
 
     sendInfo (event) {
@@ -46,8 +46,8 @@ class AddAdditionalServicesForm extends Component {
 
     render(){
         return (
-            <article className="forms admin">
-                <form onSubmit={this.sendInfo}>
+            <>
+                <form className="forms admin" onSubmit={this.sendInfo}>
                     <fieldset>
                         <legend className="form-item forms__legend">
                             Добавить дополнительные услуги
@@ -70,7 +70,7 @@ class AddAdditionalServicesForm extends Component {
                     <input className="form-item forms__button bordered" value="Добавить" type="submit"></input>
                 </form>
                 <NotificationContainer/>
-            </article>
+            </>
         )
     }
 }

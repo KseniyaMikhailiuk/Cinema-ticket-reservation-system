@@ -1,5 +1,5 @@
 import React from 'react'
-import seatType from '../Common/seatTypes'
+import seatType from '../../Common/seatTypes'
 
 const HallPlan = ({
     isDisabled,
@@ -39,8 +39,11 @@ const HallPlan = ({
                                     preserveAspectRatio="none"
                                     viewBox="0 0 180 180"
                                     disabled={isDisabled}
-                                    onClick={() => {if (!isDisabled)
-                                        onSeatSelect(seat.id, seat.raw, line.length)}}
+                                    onClick={() => {
+                                        if (!isDisabled) {
+                                            onSeatSelect(seat.id, seat.raw, line.length);
+                                        }
+                                    }}
                                 >
                                     <rect
                                         id={seat.id} rx="10"

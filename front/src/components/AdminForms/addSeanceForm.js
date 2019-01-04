@@ -31,15 +31,17 @@ class AddSeanceForm extends Component{
         this.state.city = filter.city;
     }
 
-    handleInputChange(name, value){
+    handleInputChange(name, value) {
         this.setState({
             [name]: value
-        })
+        });
     }
 
-    handleTimeChange (event) {this.handleInputChange(event.target.name, event.target.value)}
+    handleTimeChange (event) {
+        this.handleInputChange(event.target.name, event.target.value);
+    }
 
-    handlePriceChange(value, type){
+    handlePriceChange(value, type) {
         this.setState({
             price: {
                 ...this.state.price,
@@ -48,8 +50,10 @@ class AddSeanceForm extends Component{
         })
     }
 
-    handleServicePriceChange (value, selectedService){
-        this.state.services.find(service => service.name === selectedService).price = value;
+    handleServicePriceChange (value, selectedService) {
+        this.state.services.find(
+            service => service.name === selectedService
+        ).price = value;
     }
 
     handleServicesChange = (selectedOptions) => {
@@ -59,19 +63,20 @@ class AddSeanceForm extends Component{
             });
         }
         let i = 0;
-        while (i < this.state.services.length){
+        while (i < this.state.services.length) {
             if (selectedOptions.find(option => option.value === this.state.services[i].name)){
                 i++;
                 continue;
             }
             this.state.services.splice(i, 1);
         }
+
         this.setState({
             services: this.state.services
         });
 
         for (let option of selectedOptions){
-            if (this.state.services.find(service => service.name === option.value)){
+            if (this.state.services.find(service => service.name === option.value)) {
                 continue;
             }
             this.setState({
@@ -96,6 +101,7 @@ class AddSeanceForm extends Component{
             NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
             return;
         }
+
         if (services.find(service => service.price === 0)) {
             NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
             return;
@@ -106,19 +112,23 @@ class AddSeanceForm extends Component{
     }
 
     moneyFormat(value){
-        return value + ' BYN'
+        return value + ' BYN';
     }
 
     render(){
-        const { filterOptions, filmNames, additionalServices } = this.props
+        const { filterOptions, filmNames, additionalServices } = this.props;
         const { selectedOption } = this.state.services;
-        let halls = filterOptions.halls.filter(hall =>
-            this.state.city && this.state.cinema &&
-            hall.value.indexOf(this.state.city) !== -1 &&
-            hall.value.indexOf(this.state.cinema) !== -1)
+        let halls = filterOptions
+        	.halls
+        	.filter(hall => this.state.city && this.state.cinema &&
+	            hall.value.indexOf(this.state.city) !== -1 &&
+	            hall.value.indexOf(this.state.cinema) !== -1);
+        let cinemas = filterOptions
+        	.cinemas
+        	.filter(cinema => cinema.value === this.state.city || !this.state.city);
         return(
-            <article className="forms admin">
-                <form onSubmit={this.sendInfo}>
+            <>
+                <form className="forms admin" onSubmit={this.sendInfo}>
                     <fieldset>
                         <legend className="form-item forms__legend">
                             Добавить сеанс
@@ -135,7 +145,7 @@ class AddSeanceForm extends Component{
                         <Select
                             name="cinema"
                             className="form-item select"
-                            options={filterOptions.cinemas.filter(cinema => cinema.value === this.state.city || !this.state.city)}
+                            options={cinemas}
                             isSearchable
                             isClearable
                             onChange={(selectedOption) => this.handleInputChange("cinema", selectedOption.label)}
@@ -212,8 +222,9 @@ class AddSeanceForm extends Component{
                         <ul>{
                             this.state.services.map(service =>
                                 <li className="form-item admin__services">
-                                    <label >{service.name}</label>
+                                    <label for={service.name}>{service.name}</label>
                                     <NumericInput
+                                        id={service.name}
                                         name={service.name}
                                         min={1}
                                         max={100}
@@ -230,7 +241,7 @@ class AddSeanceForm extends Component{
                     <input className="form-item forms__button bordered" value="Добавить" type="submit"></input>
                 </form>
                 <NotificationContainer/>
-            </article>
+            </>
         )
     }
 }
