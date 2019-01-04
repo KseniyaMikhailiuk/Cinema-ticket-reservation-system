@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-import CreatableSelect from 'react-select/lib/Creatable';
 import NumericInput from 'react-numeric-input'
 
 import AddHallPlan from './addHallPlan';
@@ -16,27 +15,17 @@ class AddCinemaForm extends Component {
 
     constructor(props) {
         super(props);
-        this.handleSelectChange = this.handleSelectChange.bind(this);
-        this.handleCityChange = this.handleCityChange.bind(this);
-        this.handleCinamaChange = this.handleCinamaChange.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleHallsAmountChange = this.handleHallsAmountChange.bind(this);
         this.sendInfo = this.sendInfo.bind(this);
         this.addHallToCinema = this.addHallToCinema.bind(this);
     }
 
-    handleSelectChange = (targetName, selectedOption) => {
-        let value = selectedOption ? selectedOption.label : ""
+    handleInputChange = (event) => {
+        let target = event.target;
         this.setState({
-            [targetName]: value
+            [target.name]: target.value
         });
-    }
-
-    handleCityChange = (selectedOption) => {
-        this.handleSelectChange("city", selectedOption);
-    }
-
-    handleCinamaChange = (selectedOption) => {
-        this.handleSelectChange("cinema", selectedOption);
     }
 
     handleHallsAmountChange (value){
@@ -76,7 +65,6 @@ class AddCinemaForm extends Component {
     }
 
     render() {
-        const {filterOptions} = this.props;
         return(
             <>
                 <form className="forms admin" onSubmit={this.sendInfo}>
@@ -84,27 +72,20 @@ class AddCinemaForm extends Component {
                         <legend className="form-item forms__legend">
                             Добавить кинотеатр
                         </legend>
-                        <CreatableSelect
-                            name="services"
+                        <input
+                            name="city"
                             className="form-item select"
-                            options={filterOptions.cities}
-                            isSearchable
-                            isClearable
-                            onChange={this.handleCityChange}
+                            onChange={this.handleInputChange}
                             placeholder="Введите город"
-                            required
                         />
-                        <CreatableSelect
-                            name="services"
+                        <input
+                            name="cinema"
                             className="form-item select"
-                            options={filterOptions.cinemas}
-                            isSearchable
-                            isClearable
-                            onChange={this.handleCinamaChange}
-                            placeholder="Введите кинотеатр"
+                            onChange={this.handleInputChange}
+                            placeholder="Введите название кинотеатра"
                         />
                         <NumericInput
-                            name="price"
+                            name="halls"
                             className="form-item"
                             min={1}
                             max={10}

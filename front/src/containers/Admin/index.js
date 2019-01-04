@@ -117,7 +117,6 @@ class Admin extends Component{
                     onSubmit={this.addAdditionalServicesToDatabase}
                 />
                 <AddCinemaForm
-                    filterOptions={this.state.addCinemaFormFilterOptions}
                     onSubmit={this.addCinemaToDatabase}
                 />
             </section>
