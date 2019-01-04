@@ -1,7 +1,10 @@
 import React from 'react'
+
 import CinemaSeanceInfo from './cinemaSeanceInfo'
-import image from '../../images/assets/1.jpg'
+
 import './filmItem.scss'
+
+import image from '../../images/assets/1.jpg'
 
 const FilmItem = ({
     itemInfo

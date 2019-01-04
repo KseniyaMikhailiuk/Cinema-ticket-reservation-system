@@ -1,10 +1,6 @@
 import React, {Component} from 'react'
-import '../../CommonStylesheets/form.scss'
-import './addFilmForm.scss'
-import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import DatePickerCusomized from '../Common/datePicker'
-import moment from 'moment'
 
 class AddFilmForm extends Component {
     state = {

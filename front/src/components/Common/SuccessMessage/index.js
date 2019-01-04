@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import './successMessage.scss'
 import {withRouter} from 'react-router-dom'
+
+import './successMessage.scss'
 
 class SuccessMessage extends Component{
     render(){

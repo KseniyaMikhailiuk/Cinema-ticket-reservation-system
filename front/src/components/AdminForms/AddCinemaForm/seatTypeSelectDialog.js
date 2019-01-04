@@ -1,8 +1,10 @@
 import React from 'react'
-import 'react-notifications/lib/notifications.css';
-import Dialog from 'rc-dialog'
 import Select from 'react-select';
-import seatType from '../../Common/seatTypes'
+import Dialog from 'rc-dialog'
+
+import 'rc-dialog/assets/index.css'
+
+import SeatTypesInfo from '../../Common/seatTypes'
 
 const SeatTypeSelectDialog = ({
     isVisible,
@@ -12,8 +14,8 @@ const SeatTypeSelectDialog = ({
     isLastSeat
 }) => {
     var seatTypesForSelect = [];
-    for (let element in seatType) {
-        if (isLastSeat && element === seatType.loveseat.type) {
+    for (let element in SeatTypesInfo) {
+        if (isLastSeat && element === SeatTypesInfo.loveseat.type) {
             continue;
         }
         seatTypesForSelect.push({value: element, label: element});

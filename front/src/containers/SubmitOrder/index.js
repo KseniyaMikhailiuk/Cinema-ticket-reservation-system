@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+
+import SuccessMessage from '../../components/Common/SuccessMessage'
+
 import {getOrderInfo, getFilmInfo} from '../../store/reducers'
 import * as actions from '../../store/actions'
+
 import './submitOrder.scss'
-import SuccessMessage from '../../components/Common/SuccessMessage'
 
 class SubmitOrder extends Component{
 

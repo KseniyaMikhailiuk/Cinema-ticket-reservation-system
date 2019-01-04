@@ -1,9 +1,13 @@
 import React from 'react';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-import filmImage from '../../images/assets/2.jpg'
-import './carousel.scss'
+
 import carouselItems from './carouselDB'
+
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
+import './carousel.scss'
+
+import filmImage from '../../images/assets/2.jpg'
 
 const FilmCarousel = () => (
     <Carousel className="film-carousel"

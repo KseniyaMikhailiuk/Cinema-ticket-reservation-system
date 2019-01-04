@@ -1,12 +1,15 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router'
-import * as actions from '../../store/actions'
-import {getFilmInfo, getHallPlan, getOrderInfo} from '../../store/reducers'
-import './orderSection.scss'
+
 import FilmInfo from '../../components/OrderSection/filmInfo'
 import SeatReservation from '../../components/OrderSection/seatReservation'
+
+import {getFilmInfo, getHallPlan, getOrderInfo} from '../../store/reducers'
+import * as actions from '../../store/actions'
+
 import '../../CommonStylesheets/orderList.scss'
+import './orderSection.scss'
 
 class TicketOrder extends Component {
     componentDidMount() {

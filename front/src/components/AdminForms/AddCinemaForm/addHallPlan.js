@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
-import NumericInput from 'react-numeric-input'
-import seatType from '../../Common/seatTypes'
-import v4 from 'uuid'
-import 'rc-dialog/assets/index.css'
-import 'react-notifications/lib/notifications.css';
 import {NotificationContainer} from 'react-notifications';
+import NumericInput from 'react-numeric-input'
+import v4 from 'uuid'
+
 import SeatTypeSelectDialog from './seatTypeSelectDialog'
+import SeatTypesInfo from '../../Common/seatTypes'
 import HallPlan from './hallPlan';
 
 
@@ -52,7 +51,7 @@ class AddHallPlan extends Component{
             for (let i = 0; i < this.state.raws; i++) {
                 line.push({
                     id: v4(),
-                    type: seatType.standard.type,
+                    type: SeatTypesInfo.standard.type,
                     raw: i + 1,
                     line: j
                 });
@@ -72,7 +71,7 @@ class AddHallPlan extends Component{
             for (let j = this.state.raws; j < value; j++) {
                 this.state.hallPlan[i].push({
                     id: v4(),
-                    type: seatType.standard.type,
+                    type: SeatTypesInfo.standard.type,
                     raw: j + 1,
                     line: i + 1
                 });
@@ -111,7 +110,7 @@ class AddHallPlan extends Component{
             for (let seat of line){
                 if (seat.id === this.state.selectedSeatId) {
                     seat.type = this.state.selectedSeatType;
-                    if (this.state.selectedSeatType === seatType.loveseat.type){
+                    if (this.state.selectedSeatType === SeatTypesInfo.loveseat.type){
                         line.length = line.length - 1;
                     }
                 }

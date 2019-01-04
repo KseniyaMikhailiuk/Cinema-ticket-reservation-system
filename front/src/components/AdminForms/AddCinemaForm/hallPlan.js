@@ -1,5 +1,5 @@
 import React from 'react'
-import seatType from '../../Common/seatTypes'
+import SeatTypesInfo from '../../Common/seatTypes'
 
 const HallPlan = ({
     isDisabled,
@@ -11,9 +11,9 @@ const HallPlan = ({
     function countSeatWidth (seat) {
         let standardSeatWidth = 100 / (raws * 2 - 1);
         let seatWidth = standardSeatWidth + '%';
-        if (seat.type === seatType.loveseat.type) {
+        if (seat.type === SeatTypesInfo.loveseat.type) {
             seatWidth = (standardSeatWidth
-                * seatType.loveseat.amountOfGuestsOnOneSeat
+                * SeatTypesInfo.loveseat.amountOfGuestsOnOneSeat
                 + standardSeatWidth) + '%';
         }
         return seatWidth;

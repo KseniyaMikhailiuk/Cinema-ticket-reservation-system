@@ -1,16 +1,23 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
+
 import AddFilmForm from '../../components/AdminForms/addFilmForm'
 import AddSeanceForm from '../../components/AdminForms/addSeanceForm';
 import AddAdditionalServicesForm from '../../components/AdminForms/addAdditionalServicesForm'
 import AddCinemaForm from '../../components/AdminForms/AddCinemaForm'
+import SuccessMessage from '../../components/Common/SuccessMessage'
+
 import {getFilterObject, getFilterOptions} from '../../store/reducers';
 import * as actions from '../../store/actions'
+
 import * as servicesInfo from '../../services/api/addditionalServicesFetch'
 import * as filmsInfo from '../../services/api/filmsFetch'
 import * as cinemasInfo from '../../services/api/hallPlanFetch'
-import SuccessMessage from '../../components/Common/SuccessMessage'
+
+import 'react-notifications/lib/notifications.css';
+
+import './admin.scss'
 
 class Admin extends Component{
 

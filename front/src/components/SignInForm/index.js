@@ -1,8 +1,10 @@
 import React from 'react'
-import '../../CommonStylesheets/formItems.scss'
-import '../../CommonStylesheets/form.scss'
+
 import RegistrationForm from './registrationForm'
 import AuthorizationForm from './authorizationForm'
+
+import '../../CommonStylesheets/formItems.scss'
+import '../../CommonStylesheets/form.scss'
 
 const SignInForm = () => {
     return (

@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
-import NumericInput from 'react-numeric-input'
-import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
+import NumericInput from 'react-numeric-input'
 
 class AddAdditionalServicesForm extends Component {
     state = {

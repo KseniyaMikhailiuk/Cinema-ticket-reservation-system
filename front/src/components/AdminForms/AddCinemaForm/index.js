@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 import CreatableSelect from 'react-select/lib/Creatable';
 import NumericInput from 'react-numeric-input'
+
 import AddHallPlan from './addHallPlan';
-import 'react-notifications/lib/notifications.css';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 class AddCinemaForm extends Component {
 

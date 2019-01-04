@@ -1,8 +1,10 @@
 import React from 'react'
+import NumericInput from 'react-numeric-input'
+
+import MainFilterPanel from '../Common/mainFilterPanel'
+
 import '../../CommonStylesheets/formItems.scss'
 import './filterPanel.scss'
-import NumericInput from 'react-numeric-input'
-import MainFilterPanel from '../Common/mainFilterPanel'
 
 const FilterPanel = ({
     filter,

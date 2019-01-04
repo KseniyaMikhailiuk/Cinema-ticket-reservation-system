@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 import DatePickerCustomized from '../Common/datePicker'
 import NumericInput from 'react-numeric-input'
 import Select from 'react-select';
-import 'react-notifications/lib/notifications.css';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 class AddSeanceForm extends Component{
     state = {
