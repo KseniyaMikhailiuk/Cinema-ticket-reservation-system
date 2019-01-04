@@ -50,7 +50,7 @@ class AddHallPlan extends Component{
                         id: v4(),
                         type: SeatTypesInfo.standard.type,
                         raw: i + 1,
-                        line: j
+                        line: j + 1
                     });
                 }
                 hallPlan.push(line);
@@ -74,7 +74,7 @@ class AddHallPlan extends Component{
                         id: v4(),
                         type: SeatTypesInfo.standard.type,
                         raw: j + 1,
-                        line: hallPlan.length
+                        line: hallPlan.length + 1
                     });
                 }
             }
@@ -112,16 +112,26 @@ class AddHallPlan extends Component{
     }
 
     onSeatTypeSubmit () {
+        let hallPlan = [];
         this.state.hallPlan.forEach(line => {
+            let updatedLine = [];
+            let loveseatsAmount = 0;
             for (let seat of line){
-                if (seat.id === this.state.selectedSeatId) {
-                    seat.type = this.state.selectedSeatType;
-                    if (this.state.selectedSeatType === SeatTypesInfo.loveseat.type){
-                        line.length = line.length - 1;
+                let updatedSeat = {...seat};
+                if (updatedSeat.id === this.state.selectedSeatId) {
+                    updatedSeat.type = this.state.selectedSeatType;
+                    if (this.state.selectedSeatType === SeatTypesInfo.loveseat.type) {
+                        loveseatsAmount++;
                     }
                 }
+                updatedLine.push(updatedSeat);
             }
+            updatedLine.length = updatedLine.length - loveseatsAmount;
+            hallPlan.push(updatedLine);
         })
+        this.setState({
+            hallPlan: hallPlan
+        });
     }
 
     showDialog (){

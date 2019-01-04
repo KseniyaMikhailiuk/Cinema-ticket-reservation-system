@@ -64,38 +64,22 @@ class AddSeanceForm extends Component{
     }
 
     handleServicesChange = (selectedOptions) => {
-        if (selectedOptions.length < 1){
-            this.setState({
-                services: []
-            });
-        }
-        let i = 0;
-        while (i < this.state.services.length) {
-            if (selectedOptions.find(option => option.value === this.state.services[i].name)){
-                i++;
-                continue;
+        let services = [];
+        selectedOptions.forEach(option => {
+            let existedService = this.state.services.find(service => service.name === option.value);
+            if (existedService) {
+                services.push(existedService);
             }
-            this.state.services.splice(i, 1);
-        }
-
+            else {
+                services.push({
+                    name: option.value,
+                    price: 0
+                });
+            }
+        })
         this.setState({
-            services: this.state.services
+            services: services
         });
-
-        for (let option of selectedOptions){
-            if (this.state.services.find(service => service.name === option.value)) {
-                continue;
-            }
-            this.setState({
-                services: [
-                    ...this.state.services,
-                    {
-                        name: option.value,
-                        price: 0
-                    }
-                ]
-            });
-        }
     }
 
     sendInfo (event) {
