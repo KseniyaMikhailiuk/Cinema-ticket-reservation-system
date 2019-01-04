@@ -50,9 +50,17 @@ class AddSeanceForm extends Component{
     }
 
     handleServicePriceChange (value, selectedService) {
-        this.state.services.find(
-            service => service.name === selectedService
-        ).price = value;
+        let services = [];
+        this.state.services.forEach(service => {
+            let updatedService = {...service};
+            if (service.name === selectedService) {
+                updatedService.price = value;
+            }
+            services.push(updatedService)
+        })
+        this.setState({
+            services: services
+        });
     }
 
     handleServicesChange = (selectedOptions) => {

@@ -38,45 +38,51 @@ class AddHallPlan extends Component{
     }
 
     changeHallPlanLines (value) {
+        let hallPlan = [...this.state.hallPlan];
         if (value < this.state.lines) {
-            let hallPlan = this.state.hallPlan;
             hallPlan.length = hallPlan.length - 1;
-            this.setState({
-                hallPlan: hallPlan
-            });
-            return;
         }
-        for (let j = this.state.hallPlan.length; j < value; j++) {
-            let line = [];
-            for (let i = 0; i < this.state.raws; i++) {
-                line.push({
-                    id: v4(),
-                    type: SeatTypesInfo.standard.type,
-                    raw: i + 1,
-                    line: j
-                });
+        else{
+            for (let j = this.state.hallPlan.length; j < value; j++) {
+                let line = [];
+                for (let i = 0; i < this.state.raws; i++) {
+                    line.push({
+                        id: v4(),
+                        type: SeatTypesInfo.standard.type,
+                        raw: i + 1,
+                        line: j
+                    });
+                }
+                hallPlan.push(line);
             }
-            this.state.hallPlan.push(line);
         }
+        this.setState({
+            hallPlan: hallPlan
+        });
     }
 
     changeHallPlanRaws (value) {
-        if (value < this.state.raws) {
-            this.state.hallPlan.forEach(line => {
-                line.length = value
-            });
-            return;
-        }
-        for (let i = 0; i < this.state.hallPlan.length; i++) {
-            for (let j = this.state.raws; j < value; j++) {
-                this.state.hallPlan[i].push({
-                    id: v4(),
-                    type: SeatTypesInfo.standard.type,
-                    raw: j + 1,
-                    line: i + 1
-                });
+        let hallPlan = [];
+        this.state.hallPlan.forEach(line => {
+            let updatedLine = [...line];
+            if (value < this.state.raws) {
+                updatedLine.length -= (this.state.raws - value);
             }
-        }
+            else{
+                for (let j = line.length; j < line.length + value - this.state.raws; j++) {
+                    updatedLine.push({
+                        id: v4(),
+                        type: SeatTypesInfo.standard.type,
+                        raw: j + 1,
+                        line: hallPlan.length
+                    });
+                }
+            }
+            hallPlan.push(updatedLine);
+        })
+        this.setState({
+            hallPlan: hallPlan
+        });
     }
 
     handleInputChange (targetName, value) {
