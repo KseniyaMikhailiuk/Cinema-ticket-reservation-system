@@ -1,6 +1,8 @@
 import React from 'react'
-import './itemList.scss'
+
 import NothingFound from './nothingFound'
+
+import './itemList.scss'
 
 const ItemList = ({
     list,
@@ -12,10 +14,10 @@ const ItemList = ({
             <div className="list">
                 {
                     list
-                        .map(item => 
-                            <Item 
+                        .map(item =>
+                            <Item
                                 key={item.id}
-                                itemInfo={item}  
+                                itemInfo={item}
                             />
                         )
                 }

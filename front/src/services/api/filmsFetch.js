@@ -18,6 +18,11 @@ for (var k = 0; k < CURRENT_HALLS_AMOUNT; k++){
                 services: services,
                 id: `${i}${j}${k}`,
                 occupiedSeats: [],
+                price: {
+                    loveseat: 20,
+                    standard: 10,
+                    comfort: 15
+                }
             });
         }
     }
@@ -30,7 +35,7 @@ const filmDatabase = [
         image: "1.jpg",
         title: "lalaland",
         date: "gsgsg",
-        text: "jskjgwkerjgregjegqwreg",
+        description: "jskjgwkerjgregjegqwreg",
         cities: [
             {
                 name: "Минск",
@@ -90,7 +95,7 @@ const filmDatabase = [
         image: "1.jpg",
         title: "котики",
         date: "gsgsg",
-        text: "jskjgwkerjgregjegqwreg",
+        description: "jskjgwkerjgregjegqwreg",
         cities: [
             {
                 name: "Брест",
@@ -180,34 +185,34 @@ const delay = (ms) =>
 
 export const fetchFilmList = (filter) =>
     delay(500)
-    .then(() => {
-        let filteredList = [];
-        filmDatabase
-        .forEach(film => {
-            if (film.title.indexOf(filter.filmName) !== -1 || !filter.filmName){
-                let filteredFilm = {...film};
-                film
-                    .cities
-                    .forEach(city => {
-                        if (city.name === filter.city) {
-                            var filteredCinemas = filterCinemas(city, filter);
-                            if (filteredCinemas.length > 0){
-                                var filteresCities = {
-                                    ...city,
-                                    cinemas: filteredCinemas
-                                };
-                                filteredFilm = {
-                                    ...film,
-                                    cities: filteresCities
+        .then(() => {
+            let filteredList = [];
+            filmDatabase
+            .forEach(film => {
+                if (film.title.indexOf(filter.filmName) !== -1 || !filter.filmName){
+                    let filteredFilm = {...film};
+                    film
+                        .cities
+                        .forEach(city => {
+                            if (city.name === filter.city) {
+                                var filteredCinemas = filterCinemas(city, filter);
+                                if (filteredCinemas.length > 0){
+                                    var filteresCities = {
+                                        ...city,
+                                        cinemas: filteredCinemas
+                                    };
+                                    filteredFilm = {
+                                        ...film,
+                                        cities: filteresCities
+                                    }
+                                    filteredList.push(filteredFilm);
                                 }
-                                filteredList.push(filteredFilm);
                             }
-                        }
-                    });
-            }
-        });
-        return filteredList;
-    })
+                        });
+                }
+            });
+            return filteredList;
+        })
 
 const filterCinemas = (city, filter) => {
     var filteredCinemas = [];
@@ -273,7 +278,8 @@ const findSeance = (seanceId) => {
                                 dateTime: seance.dateTime,
                                 seanceId: seanceId,
                                 seatsInfo: seance.occupiedSeats,
-                                services: seance.services
+                                services: seance.services,
+                                price: seance.price
                             }
                         }
                     }
@@ -298,16 +304,29 @@ export const fetchFilterOptions = () =>
                     let existedCity = filterOptions.cities.find(addedCity => addedCity.name === city.name);
                     if (existedCity){
                         for (let cinema of city.cinemas){
-                            if (existedCity.cinemas.indexOf(cinema.name) === -1){
-                                existedCity.cinemas.push(cinema.name);
+                            let existaedCinema = existedCity.cinemas.find(existedCinema => existedCinema.name === cinema.name);
+                            if (!existaedCinema){
+                                let hallsInfo = [];
+                                for (let hall of cinema.halls){
+                                    hallsInfo.push(hall.number);
+                                }
+                                existedCity.cinemas.push({name: cinema.name, halls: hallsInfo});
+                            }
+                            else{
+                                for (let hall of cinema.halls){
+                                    if (existaedCinema.halls.indexOf(hall.number) === -1){
+                                        existaedCinema.halls.push(hall);
+                                    }
+                                }
                             }
                         }
                     }
                     else{
-                        let cinemaNames = []
+                        let cinemaNames = [];
                         for (let cinema of city.cinemas){
-                            cinemaNames.push(cinema.name)
+                            let hallsInfo = [];
                             for (let hall of cinema.halls){
+                                hallsInfo.push(hall.number);
                                 for (let seance of hall.schedule){
                                     let freeSeats = hall.seatAmount - seance.occupiedSeats.length;
                                     if (freeSeats > filterOptions.freeSeats){
@@ -315,6 +334,7 @@ export const fetchFilterOptions = () =>
                                     }
                                 }
                             }
+                            cinemaNames.push({name: cinema.name, halls: hallsInfo})
                         }
                         filterOptions.cities.push({
                             name: city.name,
@@ -329,22 +349,100 @@ export const fetchFilterOptions = () =>
 
 export const occupySeat = (info) =>
     delay(500)
-    .then(() => {
-        let selectedSeanceSeats = findSeance(info.seanceInfo.seanceId).seatsInfo;
-        selectedSeanceSeats.push({
-            line: info.line,
-            raw: info.raw,
-            dateTime: new Date()
-        });
-    })
+        .then(() => {
+            let selectedSeanceSeats = findSeance(info.seanceInfo.seanceId).seatsInfo;
+            selectedSeanceSeats.push({
+                line: info.line,
+                raw: info.raw,
+                dateTime: new Date()
+            });
+        })
 
 export const releaseSeat = (info) =>
     delay(500)
-    .then(() => {
-        let selectedSeanceSeats = findSeance(info.seanceInfo.seanceId).seatsInfo;
-        for (var i = 0; i < selectedSeanceSeats.length; i++){
-            if (selectedSeanceSeats[i].line === info.line && selectedSeanceSeats[i].raw === info.raw){
-                selectedSeanceSeats.splice(i, 1);
+        .then(() => {
+            let selectedSeanceSeats = findSeance(info.seanceInfo.seanceId).seatsInfo;
+            for (var i = 0; i < selectedSeanceSeats.length; i++){
+                if (selectedSeanceSeats[i].line === info.line && selectedSeanceSeats[i].raw === info.raw){
+                    selectedSeanceSeats.splice(i, 1);
+                }
             }
-        }
-    })
+        })
+
+export const addFilmToDatabase = (film) =>
+    delay(500)
+        .then(() => {
+            let formattedDate = moment(film.filmRelease);
+            formattedDate = `${formattedDate.date()} ${formattedDate.month() + 1} ${formattedDate.year()}`
+            filmDatabase.push({
+                id: v4(),
+                title: film.filmName,
+                image: film.filmPoster,
+                date: formattedDate,
+                description: film.filmDescription,
+                cities: []
+            })
+        })
+
+export const addSeanceToDatabase = (seance) =>
+    delay(500)
+        .then(() => {
+            let dateTime = moment({
+                year: seance.date.getFullYear(),
+                month: seance.date.getMonth(),
+                date: seance.date.getDate(),
+                hour: seance.time.split(':')[0],
+                minute: seance.time.split(':')[1]
+            })
+            let seanceInfo = {
+                dateTime: dateTime,
+                services: seance.services,
+                id: v4(),
+                occupiedSeats: [],
+                price: seance.price
+            }
+            for (let film of filmDatabase){
+                if (film.title === seance.filmName){
+                    let existedCity= film.cities.find(city => city.name === seance.city);
+                    if (!existedCity){
+                        existedCity = {
+                            name: seance.city,
+                            cinemas: [{
+                                name: seance.cinema,
+                                halls: [{
+                                    number: seance.hall,
+                                    seatAmount: 50,
+                                    schedule: [seanceInfo]
+                                }]
+                            }]
+                        };
+                        film.cities.push(existedCity);
+                        return;
+                    }
+                    let existedCinema = existedCity.cinemas.find(cinema => cinema.name === seance.cinema);
+                    if (!existedCinema){
+                        existedCinema = {
+                            name: seance.cinema,
+                            halls: [{
+                                number: seance.hall,
+                                seatAmount: 50,
+                                schedule: [seanceInfo]
+                            }]
+                        };
+                        existedCity.cinemas.push(existedCinema);
+                        return;
+                    }
+                    let existedHall = existedCinema.halls.find(hall => hall.number.toString() === seance.hall);
+                    if (!existedHall){
+                        existedHall = {
+                            number: seance.hall,
+                            seatAmount: 50,
+                            schedule: [seanceInfo]
+                        };
+                        existedCinema.halls.push(existedHall);
+                        return;
+                    }
+                    existedHall.schedule.push(seanceInfo);
+                }
+            }
+        })

@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
+
 import ItemList from '../../components/Common/ItemList/';
 import FilmItem from '../../components/FilmListItem/';
 import FilterPanel from '../../components/FilterPanel';
-import * as actions  from '../../store/actions';
+
 import {getFilteredList, getFilterObject, getFilterOptions} from '../../store/reducers';
+import * as actions  from '../../store/actions';
 
 class Schedule extends Component {
     componentDidMount() {
@@ -19,8 +21,9 @@ class Schedule extends Component {
     }
 
     fetchData() {
-        const {filter, startFilmListFetching} = this.props;
+        const {filter, startFilmListFetching, startFilterOptionsFetching} = this.props;
         startFilmListFetching(filter);
+        startFilterOptionsFetching();
     }
 
     render() {

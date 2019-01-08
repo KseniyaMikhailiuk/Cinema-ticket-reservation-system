@@ -1,5 +1,6 @@
 import React from 'react'
-import seatType from './seatTypes'
+
+import seatType from '../Common/seatTypes'
 
 const HallPlan = ({
     hallPlan,
@@ -26,7 +27,8 @@ const HallPlan = ({
                                         preserveAspectRatio="none"
                                         viewBox="0 0 180 180"
                                     >
-                                        <rect id={seat.id} rx="10" ry="10" className="hall-plan__seat occupied"/>
+                                        <rect id={seat.id} rx="10" ry="10"
+                                            className={`hall-plan__seat occupied ${seat.type}`}/>
                                     </svg>
                                 )
                             }
@@ -38,7 +40,8 @@ const HallPlan = ({
                                     viewBox="0 0 180 180"
                                     onClick={() => onSeatSelect(seat)}
                                 >
-                                    <rect id={seat.id} rx="10" ry="10" className="hall-plan__seat"/>
+                                    <rect id={seat.id} rx="10" ry="10"
+                                        className={`hall-plan__seat ${seat.type}`}/>
                                 </svg>
                             )
                         })
@@ -63,7 +66,7 @@ const HallPlan = ({
             </h3>
             <svg className="hall-plan__screen-svg-container"
                 preserveAspectRatio="none"
-                viewBox="0 0 500"
+                viewBox="0 0 500 5"
             >
                 <rect className="hall-plan__screen"/>
             </svg>

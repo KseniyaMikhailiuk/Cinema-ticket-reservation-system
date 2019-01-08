@@ -11,6 +11,7 @@ const FilmInfo = ({
             <section className="film-info-panel__description">
                 <h1>{filmInfo.filmTitle}</h1>
                 <p>{filmInfo.cinema}</p>
+                <p>{filmInfo.description}</p>
                 <p>
                     {`${filmInfo.dateTime.hour()}:${filmInfo.dateTime.minute()}`}
                     {` ${filmInfo.dateTime.date()}.${filmInfo.dateTime.month()}`}

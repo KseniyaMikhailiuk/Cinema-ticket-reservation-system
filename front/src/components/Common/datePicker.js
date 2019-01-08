@@ -1,5 +1,6 @@
 import React from 'react'
 import DatePicker from 'react-datepicker'
+
 import "react-datepicker/dist/react-datepicker.css";
 
 class DatePickerCusomized extends DatePicker {
@@ -22,10 +23,13 @@ class DatePickerCusomized extends DatePicker {
     render() {
         const {selectedDate} = this.props
         return (
-            <DatePicker className="form-item"
+            <DatePicker
+                name="time"
+                className="form-item"
                 minDate={new Date()}
                 selected={selectedDate}
-                onChange={this.handleDayChange}                         
+                onChange={this.handleDayChange}
+                autoComplete="off"
             />
         )
     }

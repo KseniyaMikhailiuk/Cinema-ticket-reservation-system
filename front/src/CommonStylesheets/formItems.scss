@@ -1,10 +1,13 @@
+$color-dark-chocolate: rgb(46, 45, 45);
+
 .form-item{
     display: block;
-    margin-top: 30px;
-    font-size: 120%;
+    margin-top: 1.5vw;
+    font-size: 1.3vw;
     color: white;
-    background-color: rgb(46, 45, 45);
+    background-color: $color-dark-chocolate;
     border: none;
+    height: 2.5vw;
 }
 .bordered{
     border: 1px solid white;

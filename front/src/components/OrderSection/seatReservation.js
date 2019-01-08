@@ -1,4 +1,5 @@
 import React from 'react'
+
 import HallPlan from './hallPlan'
 import OrderSettings from './orderSettings'
 import AdditionalServices from './additionalServices'
@@ -10,7 +11,7 @@ const SeatReservation = ({
     actions
 }) => {
     return (
-        <sectoin className="order-form">
+        <section className="order-form">
             <section className="order-options">
                 <HallPlan
                     hallPlan={hallPlan}
@@ -23,10 +24,11 @@ const SeatReservation = ({
                 />
             </section>
             <OrderSettings
+                seatsPrice={filmInfo.price}
                 orderInfo={orderInfo}
                 onCancelOrderTicketClick={actions.onCancelOrderTicketClick}
                 onCancelOrderServiceClick={actions.onCancelOrderServiceClick}/>
-        </sectoin>
+        </section>
     )
 }
 

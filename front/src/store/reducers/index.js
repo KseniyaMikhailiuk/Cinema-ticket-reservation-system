@@ -66,6 +66,14 @@ const filterObject = (state = {}, action) => {
                 ...state,
                 [key]: value
             }
+        case 'CLEAR_INFO':
+            return {
+                city: "Минск",
+                cinema: "",
+                date: new Date(),
+                filmName: "",
+                freeSeats: 0
+            }
         default:
             return state;
     }
@@ -163,6 +171,13 @@ const isRequestSucceeded = (state = false, action) => {
     }
 }
 
+const isAdmin = (state = false, action) => {
+    switch(action.type){
+        default:
+            return state;
+    }
+}
+
 const cinemaApp = combineReducers ({
     filteredList,
     filterObject,
@@ -173,6 +188,7 @@ const cinemaApp = combineReducers ({
     orderList,
     filterOptions,
     isLoggedIn,
+    isAdmin,
     userInfo
 });
 

@@ -1,0 +1,80 @@
+$color-dark-chocolate: rgb(46, 45, 45);
+$color-gray: rgb(112, 110, 114);
+
+.admin{
+    padding-bottom: 2vw;
+    width: 75vw;
+    display: block;
+
+    fieldset{
+        width: 70vw;
+        margin: auto;
+    }
+
+    textarea{
+        resize: none;
+        height: 15vw;
+    }
+
+    .form-item{
+        width: 100%;
+    }
+
+    .forms{
+        &__button{
+            width: 50%;
+            margin: auto;
+            margin-top: 2vw;
+        }
+    }
+
+    .react-datepicker__input-container input{
+        margin: 0;
+        height: 2.3vw;
+    }
+
+    .react-numeric-input{
+        margin-top: 1.5vw;
+        margin-right: 4vw;
+        height: 2.5vw;
+        input{
+            height: 100%;
+            margin: 0;
+            width: 100%;
+            border: none !important;
+            font-size: 1.3vw !important;
+        }
+        b{
+            box-shadow: none !important;
+            i{
+                border-color:  $color-gray transparent !important;
+            }
+        }
+    }
+
+    &__services{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        label{
+            width: 30%;
+        }
+        .react-numeric-input{
+            margin: 0;
+        }
+        input{
+            background-color: $color-dark-chocolate;
+            border: none;
+            font-size: 1.3vw;
+            color: white;
+        }
+    }
+}
+
+.select{
+    div{
+        background-color: $color-dark-chocolate;
+        border: none;
+        color: white;
+    }
+}

@@ -16,18 +16,19 @@ export const startFilmListFetching = (filter) => (dispatch) => {
                 })
             }
         )
-        .then(() => {
-            filmsInfo.fetchFilterOptions()
-            .then(
-                response => {
-                    dispatch({
-                        type: 'FETCH_FILTER_OPTIONS_SUCCESS',
-                        response
-                    })
-                }
-            )}
-        )
 };
+
+export const startFilterOptionsFetching = () => (dispatch) =>
+    filmsInfo.fetchFilterOptions()
+        .then(
+            response => {
+                dispatch({
+                    type: 'FETCH_FILTER_OPTIONS_SUCCESS',
+                    response
+                })
+            }
+        )
+
 
 export const changeFilterObjectItem = (key, value) => (dispatch) => {
     return dispatch({
@@ -127,4 +128,10 @@ export const addOrderToDatabase = (orderId, orderInfo, userId) => (dispatch) => 
                 type: 'REQUEST_SUCCEEDED'
             })
         })
+}
+
+export const dispatchSuccess = () => (dispatch) => {
+    dispatch({
+        type: 'REQUEST_SUCCEEDED'
+    })
 }

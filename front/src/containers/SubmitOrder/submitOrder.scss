@@ -1,6 +1,9 @@
+$color-purple: rgb(150, 85, 144);
+$color-dark-chocolate: rgb(83, 69, 82);
+
 .submit-order{
     &__title{
-        color: rgb(172, 149, 172);
+        color: $color-purple
     }
     &__list{
         height: initial;
@@ -14,7 +17,7 @@
     &__button{
         height: 3vw;
         font-size: 2vw;
-        background-color: rgb(109, 88, 107);
+        background-color: $color-dark-chocolate;
         color: white;
     }
 }

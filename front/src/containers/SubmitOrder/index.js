@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+
+import SuccessMessage from '../../components/Common/SuccessMessage'
+
 import {getOrderInfo, getFilmInfo} from '../../store/reducers'
 import * as actions from '../../store/actions'
+
 import './submitOrder.scss'
-import SuccessMessage from '../../components/Common/SuccessMessage'
 
 class SubmitOrder extends Component{
 
@@ -13,10 +16,10 @@ class SubmitOrder extends Component{
     }
 
     totalPrice = () => {
-        const {orderInfo} = this.props;
+        const {orderInfo, filmInfo} = this.props;
         let totalPrice = 0;
         orderInfo.seats.forEach(orderItem => {
-            totalPrice += orderItem.price;
+            totalPrice += filmInfo.price[orderItem.type];
         });
         orderInfo.services.forEach(orderItem => {
             totalPrice += orderItem.price;
@@ -36,7 +39,7 @@ class SubmitOrder extends Component{
         }
 
         if (isRequestSucceeded){
-            return <SuccessMessage/>
+            return <SuccessMessage path='/Schedule'/>
         }
 
         return(
