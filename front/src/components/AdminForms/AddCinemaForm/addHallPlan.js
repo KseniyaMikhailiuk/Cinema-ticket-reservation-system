@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
-import {NotificationContainer} from 'react-notifications';
+import {NotificationContainer} from 'react-notifications'
 import NumericInput from 'react-numeric-input'
-import v4 from 'uuid'
 
 import SeatTypeSelectDialog from './seatTypeSelectDialog'
+import HallPlan from './hallPlan'
 import SeatTypesInfo from '../../Common/seatTypes'
-import HallPlan from './hallPlan';
+import {changeHallPlanLinesAmount, changeHallPlanRawsAmount, changeHallPlanSeatType} from './addHallPlanApi';
 
 
 class AddHallPlan extends Component{
@@ -23,7 +23,6 @@ class AddHallPlan extends Component{
 
     constructor (props) {
         super(props);
-        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSeatTypeSelect = this.handleSeatTypeSelect.bind(this);
         this.sendInfo = this.sendInfo.bind(this);
         this.onSeatSelect = this.onSeatSelect.bind(this);
@@ -37,62 +36,18 @@ class AddHallPlan extends Component{
         };
     }
 
-    changeHallPlanLines (value) {
-        let hallPlan = [...this.state.hallPlan];
-        if (value < this.state.lines) {
-            hallPlan.length = hallPlan.length - 1;
-        }
-        else{
-            for (let j = this.state.hallPlan.length; j < value; j++) {
-                let line = [];
-                for (let i = 0; i < this.state.raws; i++) {
-                    line.push({
-                        id: v4(),
-                        type: SeatTypesInfo.standard.type,
-                        raw: i + 1,
-                        line: j + 1
-                    });
-                }
-                hallPlan.push(line);
-            }
-        }
+    changeHallPlanLines (targetName, value) {
+        const {hallPlan, lines, raws} = this.state;
         this.setState({
-            hallPlan: hallPlan
+            hallPlan: changeHallPlanLinesAmount(value, {hallPlan, lines, raws}),
+            [targetName]: value
         });
     }
 
-    changeHallPlanRaws (value) {
-        let hallPlan = [];
-        this.state.hallPlan.forEach(line => {
-            let updatedLine = [...line];
-            if (value < this.state.raws) {
-                updatedLine.length -= (this.state.raws - value);
-            }
-            else{
-                for (let j = line.length; j < line.length + value - this.state.raws; j++) {
-                    updatedLine.push({
-                        id: v4(),
-                        type: SeatTypesInfo.standard.type,
-                        raw: j + 1,
-                        line: hallPlan.length + 1
-                    });
-                }
-            }
-            hallPlan.push(updatedLine);
-        })
+    changeHallPlanRaws (targetName, value) {
+        const {hallPlan, lines, raws} = this.state;
         this.setState({
-            hallPlan: hallPlan
-        });
-    }
-
-    handleInputChange (targetName, value) {
-        if (targetName === "lines") {
-            this.changeHallPlanLines (value);
-        }
-        else {
-            this.changeHallPlanRaws (value);
-        }
-        this.setState({
+            hallPlan: changeHallPlanRawsAmount(value, {hallPlan, lines, raws}),
             [targetName]: value
         });
     }
@@ -112,25 +67,13 @@ class AddHallPlan extends Component{
     }
 
     onSeatTypeSubmit () {
-        let hallPlan = [];
-        this.state.hallPlan.forEach(line => {
-            let updatedLine = [];
-            let loveseatsAmount = 0;
-            for (let seat of line){
-                let updatedSeat = {...seat};
-                if (updatedSeat.id === this.state.selectedSeatId) {
-                    updatedSeat.type = this.state.selectedSeatType;
-                    if (this.state.selectedSeatType === SeatTypesInfo.loveseat.type) {
-                        loveseatsAmount++;
-                    }
-                }
-                updatedLine.push(updatedSeat);
-            }
-            updatedLine.length = updatedLine.length - loveseatsAmount;
-            hallPlan.push(updatedLine);
-        })
+        const {hallPlan, selectedSeatId, selectedSeatType} = this.state;
         this.setState({
-            hallPlan: hallPlan
+            hallPlan: changeHallPlanSeatType(hallPlan, selectedSeatId, selectedSeatType)
+        });
+        this.onClose();
+        this.setState({
+            selectedSeatType: SeatTypesInfo.standard.type
         });
     }
 
@@ -190,7 +133,7 @@ class AddHallPlan extends Component{
                     min={1}
                     max={25}
                     placeholder="Число рядов"
-                    onChange={(value) => this.handleInputChange("lines", value)}
+                    onChange={(value) => this.changeHallPlanLines("lines", value)}
                     disabled={this.state.isDisabled}
                 />
                 <NumericInput
@@ -199,7 +142,7 @@ class AddHallPlan extends Component{
                     min={1}
                     max={25}
                     placeholder="Число мест"
-                    onChange={(value) => this.handleInputChange("raws", value)}
+                    onChange={(value) => this.changeHallPlanRaws("raws", value)}
                     disabled={this.state.isDisabled}
                 />
                 {
