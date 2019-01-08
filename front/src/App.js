@@ -18,7 +18,7 @@ const App = ({
         <Provider store={store}>
             <BrowserRouter>
                 <React.Fragment>
-                    <Header />
+                    <Header isLoggedIn={isLoggedIn}/>
                         <section className="content">
                             <Switch>
                                 <Route exact path="/" component={Home}/>

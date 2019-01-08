@@ -3,7 +3,9 @@ import {NavLink} from 'react-router-dom'
 
 import './header.scss'
 
-const Header = () => {
+const Header = ({
+    isLoggedIn
+}) => {
     return (
         <nav>
             <p>
@@ -13,7 +15,9 @@ const Header = () => {
                 <li><NavLink to="/Home" activeClassName="selected">Главная</NavLink></li>
                 <li><NavLink to="/Schedule" activeClassName="selected">Афиша</NavLink></li>
                 <li><NavLink to="/Cinemas" activeClassName="selected">Кинотеатры</NavLink></li>
-                <li><NavLink to="/SignIn" activeClassName="selected">Вход</NavLink></li>
+                <li><NavLink to="/SignIn" activeClassName="selected">
+                    {isLoggedIn ? "Выход" : "Войти"}
+                </NavLink></li>
             </ul>
         </nav>
     )
