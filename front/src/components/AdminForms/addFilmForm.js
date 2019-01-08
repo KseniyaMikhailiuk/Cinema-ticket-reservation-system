@@ -26,12 +26,12 @@ class AddFilmForm extends Component {
     sendInfo (event) {
         event.preventDefault();
         const {filmName, filmDescription, filmPoster} = this.state;
-        if (filmName === "" || filmDescription === "" || filmPoster === "") {
-            NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
+        if (filmName && filmDescription && filmPoster) {
+            const {onSubmit} = this.props;
+            onSubmit(this.state);
             return;
         }
-        const {onSubmit} = this.props;
-        onSubmit(this.state);
+        NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
     }
 
     render() {

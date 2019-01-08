@@ -85,21 +85,17 @@ class AddSeanceForm extends Component{
     sendInfo (event) {
         event.preventDefault();
         const {city, cinema, filmName, hall, time, price, services} = this.state;
-        if (city === "" || cinema === "" ||
-            filmName === "" || hall === 0 ||
-            time === "" || price.comfort === 0 ||
-            price.loveseat === 0 || price.loveseat === 0){
-            NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
-            return;
-        }
-
         if (services.find(service => service.price === 0)) {
             NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
             return;
         }
-
-        const { onSubmit } = this.props;
-        onSubmit(this.state);
+        if (city && cinema && filmName && hall && time &&
+            price.comfort && price.loveseat && price.loveseat) {
+            const { onSubmit } = this.props;
+            onSubmit(this.state);
+            return;
+        }
+        NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
     }
 
     moneyFormat(value){

@@ -56,12 +56,12 @@ class AddCinemaForm extends Component {
     sendInfo (event) {
         event.preventDefault();
         const {city, cinema, hallsAmount, halls} = this.state;
-        if (city === "" || cinema === "" || hallsAmount <= 0 || hallsAmount !== halls.length) {
-            NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
+        if (city && cinema && hallsAmount > 0 && hallsAmount === halls.length) {
+            const { onSubmit } = this.props;
+            onSubmit(this.state);
             return;
         }
-        const { onSubmit } = this.props;
-        onSubmit(this.state);
+        NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
     }
 
     render() {
