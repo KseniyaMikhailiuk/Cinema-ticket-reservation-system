@@ -6,6 +6,6 @@ import './main.scss'
 
 const store = configureStore();
 ReactDOM.render(
-    <App store={store}/>, 
+    <App store={store}/>,
     document.getElementById('root')
 );

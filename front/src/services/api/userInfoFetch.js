@@ -6,28 +6,28 @@ var userInfo = [
         name: "Kate",
         surname: "lal",
         email: "kate@gmail.com",
-        password: "123456"
+        password: "1234567"
     },
     {
         id: v4(),
         name: "Anna",
         surname: "qwerty",
         email: "anna@gmail.com",
-        password: "qwerty"
+        password: "qwertyqwe"
     },
     {
         id: v4(),
         name: "Tom",
         surname: "zxcv",
         email: "tom@gmail.com",
-        password: "poiuy"
+        password: "poiuyqwe"
     },
     {
         id: v4(),
         name: "Bob",
         surname: "pampam",
         email: "bob@gmail.com",
-        password: "mnbvc"
+        password: "mnbvcqwe"
     }
 ]
 

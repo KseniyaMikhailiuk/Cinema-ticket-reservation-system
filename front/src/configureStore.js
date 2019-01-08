@@ -28,8 +28,8 @@ const initialState = {
         id: 1,
     },
     isRequestSucceeded: false,
-    isAdmin: true,
-    isLoggedIn: true
+    isAdmin: false,
+    isLoggedIn: false
 }
 
 const configureStore = () => {

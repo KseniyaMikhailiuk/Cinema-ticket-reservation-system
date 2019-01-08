@@ -146,7 +146,7 @@ const filterOptions = (state = {}, action) => {
 
 const isLoggedIn = (state = false, action) => {
     switch(action.type){
-        case 'AUTHORIZATION':
+        case 'AUTHORIZE':
             return true;
         default:
             return state;
@@ -155,6 +155,8 @@ const isLoggedIn = (state = false, action) => {
 
 const userInfo = (state = {}, action) => {
     switch(action.type){
+        case 'AUTHORIZE':
+            return action.userInfo;
         default:
             return state;
     }

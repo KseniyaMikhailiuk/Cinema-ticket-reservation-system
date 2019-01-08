@@ -25,7 +25,7 @@ const App = ({
                                 <Route path='/Cinemas' component={Cinemas}/>
                                 <Route path='/Home' component={Home}/>
                                 <Route path='/Schedule' component={Schedule}/>
-                                <Route path='/SignIn' component={SignIn}/>
+                                <Route path='/SignIn' component={() => <SignIn dispatch={store.dispatch}/>}/>
                                 <Route path='/TicketOrder/:seanceId' component={TicketOrder}/>
                                 <Route path='/SubmitOrder/:orderId' component={SubmitOrder}/>
                                 <Route path='/Admin' render= {() =>
