@@ -42,17 +42,17 @@ class Admin extends Component{
         const {startFilterOptionsFetching} = this.props;
         startFilterOptionsFetching();
         servicesInfo.getAdditionalServices()
-        .then(services => {
-            this.setState({
-                additionalServices: services
-            });
-        })
-        cinemasInfo.getFilterOptions()
-        .then(filterOptions => {
-            this.setState({
-                addCinemaFormFilterOptions: filterOptions
+            .then(services => {
+                this.setState({
+                    additionalServices: services
+                });
             })
-        })
+        cinemasInfo.getFilterOptions()
+            .then(filterOptions => {
+                this.setState({
+                    addCinemaFormFilterOptions: filterOptions
+                })
+            })
     }
 
     componentWillUnmount () {
@@ -63,33 +63,33 @@ class Admin extends Component{
     addFilmToDatabase (filmInfo) {
         const {dispatchSuccess} = this.props;
         filmsInfo.addFilmToDatabase(filmInfo)
-        .then(() => {
-            dispatchSuccess();
-        });
+            .then(() => {
+                dispatchSuccess();
+            });
     }
 
     addSeanceToDatabase (seanceInfo) {
         const {dispatchSuccess} = this.props;
         filmsInfo.addSeanceToDatabase(seanceInfo)
-        .then(() => {
-            dispatchSuccess();
-        });
+            .then(() => {
+                dispatchSuccess();
+            });
     }
 
     addAdditionalServicesToDatabase (serviceInfo) {
         const {dispatchSuccess} = this.props;
         servicesInfo.addAdditionalService(serviceInfo)
-        .then(() => {
-            dispatchSuccess();
-        })
+            .then(() => {
+                dispatchSuccess();
+            })
     }
 
     addCinemaToDatabase (cinemaInfo) {
         const {dispatchSuccess} = this.props;
         cinemasInfo.addCinema(cinemaInfo)
-        .then(() => {
-            dispatchSuccess();
-        })
+            .then(() => {
+                dispatchSuccess();
+            })
     }
 
     render() {

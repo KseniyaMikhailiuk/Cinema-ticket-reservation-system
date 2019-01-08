@@ -6,11 +6,11 @@ const delay = (ms) =>
 
 export const addOrder = (orderInfo, seanceId, userId) =>
     delay(500)
-    .then(() => {
-        usersOrdersDatabase.push({
-            orderId: orderInfo.orderId,
-            seanceId,
-            userId
-        });
-        ordersDatabase.push(orderInfo);
-    })
+        .then(() => {
+            usersOrdersDatabase.push({
+                orderId: orderInfo.orderId,
+                seanceId,
+                userId
+            });
+            ordersDatabase.push(orderInfo);
+        })
