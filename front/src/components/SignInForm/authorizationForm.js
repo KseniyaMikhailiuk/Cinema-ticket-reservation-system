@@ -3,8 +3,6 @@ import Formsy from 'formsy-react';
 
 import ValidatedInput from '../Common/validatedInput'
 
-import settings from '../../services/config/settings.json'
-
 class AuthorizationForm extends Component {
 
     state = {
@@ -22,6 +20,7 @@ class AuthorizationForm extends Component {
     }
 
     render() {
+        const {settings} = this.props;
         return(
             <Formsy
                 onValidSubmit={this.sendInfo}
@@ -46,7 +45,7 @@ class AuthorizationForm extends Component {
                         type="password"
                         placeholder="Пароль"
                         validationError="Не меньше 8 символов"
-                        validations={`minLength:${settings['password_min_length']}`}
+                        validations={`minLength:${settings.password_min_length}`}
                         isInFocus={this.state.isInFocus}
                         required
                     />

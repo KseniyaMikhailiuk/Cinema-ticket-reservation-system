@@ -21,6 +21,7 @@ class RegistrationForm extends Component {
     }
 
     render() {
+        const {settings} = this.props;
         return(
             <Formsy
                 onValidSubmit={this.sendInfo}
@@ -58,7 +59,7 @@ class RegistrationForm extends Component {
                         name="password"
                         type="password"
                         placeholder="Пароль"
-                        validations={`minLength:${settings['password_min_length']}`}
+                        validations={`minLength:${settings.password_min_length}`}
                         validationError="Не меньше 8 символов"
                         isInFocus={this.state.isInFocus}
                         required
