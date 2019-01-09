@@ -3,8 +3,6 @@ import Formsy from 'formsy-react'
 
 import ValidatedInput from '../Common/validatedInput'
 
-import settings from '../../services/config/settings.json'
-
 class RegistrationForm extends Component {
     state = {
         isInFocus: false
