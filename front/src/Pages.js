@@ -11,7 +11,10 @@ import SignIn from './containers/SignIn'
 import TicketOrder from './containers/TicketOrder'
 import SubmitOrder from './containers/SubmitOrder'
 import Admin from './containers/Admin'
+
 import { getAdminStatus, getLoginStatus } from './store/reducers';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 class Page extends Component {
     render() {

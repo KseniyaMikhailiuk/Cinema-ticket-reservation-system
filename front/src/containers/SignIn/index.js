@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify';
-import {connect} from 'react-redux';
+import {toast} from 'react-toastify';
 
 import AuthorizationForm from '../../components/SignInForm/authorizationForm'
 import RegistrationForm from '../../components/SignInForm/registrationForm'
@@ -9,8 +8,6 @@ import RegistrationForm from '../../components/SignInForm/registrationForm'
 import * as userInfo from '../../services/api/userInfoFetch'
 
 import {authorize} from '../../store/actions'
-
-import 'react-toastify/dist/ReactToastify.css';
 
 import '../../CommonStylesheets/formItems.scss'
 import '../../CommonStylesheets/form.scss'
