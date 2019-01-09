@@ -44,7 +44,6 @@ class AuthorizationForm extends Component {
         if (this.state.isInFocus) {
             errors = this.validateInputs();
         }
-        const {isDisabled} = this.props;
         return(
             <form
                 onSubmit={this.sendInfo}
@@ -61,7 +60,6 @@ class AuthorizationForm extends Component {
                         placeholder="E-mail"
                         autoComplete="on"
                         onChange={this.handleInputChange}
-                        disabled={isDisabled}
                     />
                     <input className={`form-item forms__text-input bordered ${errors.password ? "error" : ""}`}
                         name="password"
@@ -69,12 +67,10 @@ class AuthorizationForm extends Component {
                         placeholder="Пароль"
                         autoComplete="off"
                         onChange={this.handleInputChange}
-                        disabled={isDisabled}
                     />
                     <input className="form-item forms__button bordered"
                         type="submit"
                         value="Войти"
-                        disabled={isDisabled}
                     />
                 </fieldset>
             </form>

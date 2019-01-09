@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom'
+import {ToastContainer} from 'react-toastify';
 
-import Header from './components/Common/Header/'
+import Header from './components/Common/Header'
 import Home from './containers/Home'
 import Cinemas from './containers/Cinemas'
 import Schedule from './containers/Schedule'
@@ -17,26 +18,27 @@ class Page extends Component {
         const {isAdmin, isLoggedIn, dispatch} = this.props;
         return(
             <BrowserRouter>
-            <>
-                <Header/>
-                <section className="content">
-                    <Switch>
-                        <Route exact path="/" component={Home}/>
-                        <Route path='/Cinemas' component={Cinemas}/>
-                        <Route path='/Home' component={Home}/>
-                        <Route path='/Schedule' component={Schedule}/>
-                        <Route path='/SignIn' component={() => <SignIn dispatch={dispatch}/>}/>
-                        <Route path='/TicketOrder/:seanceId' component={TicketOrder}/>
-                        <Route path='/SubmitOrder/:orderId' component={SubmitOrder}/>
-                        <Route path='/Admin' render= {() => (
-                            (isLoggedIn && isAdmin) ? (
-                                <Admin/>
-                            ) : (
-                                <Redirect to="/Schedule"/>
-                            )
-                        )}/>
-                    </Switch>
-                </section>
+                <>
+                    <Header/>
+                    <ToastContainer />
+                    <section className="content">
+                        <Switch>
+                            <Route exact path="/" component={Home}/>
+                            <Route path='/Cinemas' component={Cinemas}/>
+                            <Route path='/Home' component={Home}/>
+                            <Route path='/Schedule' component={Schedule}/>
+                            <Route path='/SignIn' component={() => <SignIn dispatch={dispatch}/>}/>
+                            <Route path='/TicketOrder/:seanceId' component={TicketOrder}/>
+                            <Route path='/SubmitOrder/:orderId' component={SubmitOrder}/>
+                            <Route path='/Admin' render= {() => (
+                                (isLoggedIn && isAdmin) ? (
+                                    <Admin/>
+                                ) : (
+                                    <Redirect to="/Schedule"/>
+                                )
+                            )}/>
+                        </Switch>
+                    </section>
                 </>
             </BrowserRouter>
         )

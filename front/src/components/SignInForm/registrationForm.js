@@ -52,7 +52,6 @@ class RegistrationForm extends Component {
         if (this.state.isInFocus) {
             errors = this.validateInputs();
         }
-        const {isDisabled} = this.props;
         return(
             <form
                 onSubmit={this.sendInfo}
@@ -69,7 +68,6 @@ class RegistrationForm extends Component {
                         placeholder="Имя"
                         autoComplete="off"
                         onChange={this.handleInputChange}
-                        disabled={isDisabled}
                     />
                     <input className={`form-item forms__text-input bordered ${errors.surname ? "error" : ""}`}
                         name="surname"
@@ -77,7 +75,6 @@ class RegistrationForm extends Component {
                         placeholder="Фамилия"
                         autoComplete="off"
                         onChange={this.handleInputChange}
-                        disabled={isDisabled}
                     />
                     <input className={`form-item forms__text-input bordered ${errors.email ? "error" : ""}`}
                         name="email"
@@ -85,7 +82,6 @@ class RegistrationForm extends Component {
                         placeholder="E-mail"
                         autoComplete="off"
                         onChange={this.handleInputChange}
-                        disabled={isDisabled}
                     />
                     <input className={`form-item forms__text-input bordered ${errors.password ? "error" : ""}`}
                         name="password"
@@ -93,7 +89,6 @@ class RegistrationForm extends Component {
                         placeholder="Пароль"
                         autoComplete="off"
                         onChange={this.handleInputChange}
-                        disabled={isDisabled}
                     />
                     <input className={`form-item forms__text-input bordered ${errors.submitPassword ? "error" : ""}`}
                         name="submitPassword"
@@ -101,12 +96,10 @@ class RegistrationForm extends Component {
                         placeholder="Повторите пароль"
                         autoComplete="off"
                         onChange={this.handleInputChange}
-                        disabled={isDisabled}
                     />
                     <input className="form-item forms__button bordered"
                         type="submit"
                         value="Зарегистрироваться"
-                        disabled={isDisabled}
                     />
                 </fieldset>
             </form>

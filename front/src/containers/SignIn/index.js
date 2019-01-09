@@ -17,10 +17,6 @@ import '../../CommonStylesheets/form.scss'
 
 class SignIn extends Component {
 
-    state = {
-        isDisabled: false
-    }
-
     constructor (props) {
         super(props);
         this.onAuthorizationSubmit = this.onAuthorizationSubmit.bind(this);
@@ -39,13 +35,9 @@ class SignIn extends Component {
                     return;
                 }
                 toast.success(
-                    'Успех! Кликни, чтобы перейти к расписанию (или мы перейдем за Вас)',
-                    {
-                        autoClose: 15000,
-                        onClose: () => this.props.history.push('/Schedule')
-                    }
+                    `Привет, ${response.userInfo.name}`, {autoClose: 2000}
                 );
-                this.setState({ isDisabled: true});
+                this.props.history.goBack();
                 const {dispatch} = this.props;
                 authorize(response.userInfo, dispatch);
             })
@@ -66,9 +58,8 @@ class SignIn extends Component {
     render() {
         return (
             <section className="forms">
-                <AuthorizationForm onSubmit={this.onAuthorizationSubmit} isDisabled={this.state.isDisabled}/>
-                <RegistrationForm onSubmit={this.onRegistrationSubmit} isDisabled={this.state.isDisabled}/>
-                <ToastContainer />
+                <AuthorizationForm onSubmit={this.onAuthorizationSubmit}/>
+                <RegistrationForm onSubmit={this.onRegistrationSubmit}/>
             </section>
         )
     }
