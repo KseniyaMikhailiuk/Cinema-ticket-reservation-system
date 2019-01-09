@@ -13,16 +13,21 @@ import SubmitOrder from './containers/SubmitOrder'
 import Admin from './containers/Admin'
 
 import { getAdminStatus, getLoginStatus } from './store/reducers';
+import * as actions from './store/actions'
 
 import 'react-toastify/dist/ReactToastify.css';
 
 class Page extends Component {
     render() {
-        const {isAdmin, isLoggedIn, dispatch} = this.props;
+        const {isAdmin, isLoggedIn, authorize, deauthorize} = this.props;
         return(
             <BrowserRouter>
                 <>
-                    <Header/>
+                    <Header
+                        isAdmin={isAdmin}
+                        isLoggedIn={isLoggedIn}
+                        deauthorize={deauthorize}
+                    />
                     <ToastContainer />
                     <section className="content">
                         <Switch>
@@ -30,7 +35,7 @@ class Page extends Component {
                             <Route path='/Cinemas' component={Cinemas}/>
                             <Route path='/Home' component={Home}/>
                             <Route path='/Schedule' component={Schedule}/>
-                            <Route path='/SignIn' component={() => <SignIn dispatch={dispatch}/>}/>
+                            <Route path='/SignIn' component={() => <SignIn authorize={authorize}/>}/>
                             <Route path='/TicketOrder/:seanceId' component={TicketOrder}/>
                             <Route path='/SubmitOrder/:orderId' component={SubmitOrder}/>
                             <Route path='/Admin' render= {() => (
@@ -56,7 +61,8 @@ const mapStateToProps = (state) => {
 }
 
 Page = connect(
-    mapStateToProps
+    mapStateToProps,
+    actions
 )(Page)
 
 export default Page;

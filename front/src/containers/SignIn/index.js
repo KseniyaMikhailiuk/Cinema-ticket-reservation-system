@@ -7,8 +7,6 @@ import RegistrationForm from '../../components/SignInForm/registrationForm'
 
 import * as userInfo from '../../services/api/userInfoFetch'
 
-import {authorize} from '../../store/actions'
-
 import '../../CommonStylesheets/formItems.scss'
 import '../../CommonStylesheets/form.scss'
 
@@ -35,8 +33,8 @@ class SignIn extends Component {
                     `Привет, ${response.userInfo.name}`, {autoClose: 2000}
                 );
                 this.props.history.goBack();
-                const {dispatch} = this.props;
-                authorize(response.userInfo, dispatch);
+                const {authorize} = this.props;
+                authorize(response.userInfo);
             })
     }
 

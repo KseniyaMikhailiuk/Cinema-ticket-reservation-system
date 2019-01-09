@@ -136,7 +136,7 @@ export const dispatchSuccess = () => (dispatch) => {
     })
 }
 
-export const authorize = (userInfo, dispatch) =>
+export const authorize = (userInfo) => (dispatch) =>
     dispatch({
         type: 'AUTHORIZE',
         userInfo: userInfo
