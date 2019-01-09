@@ -25,6 +25,10 @@ export const getFilterOptions = (state) => {
     return state.filterOptions;
 }
 
+export const getLoginStatus = (state) => {
+    return state.isLoggedIn;
+}
+
 const filteredList = (state = [], action) => {
     switch(action.type){
         case 'FETCH_FILM_LIST_SUCCESS':
@@ -148,6 +152,8 @@ const isLoggedIn = (state = false, action) => {
     switch(action.type){
         case 'AUTHORIZE':
             return true;
+        case 'DEAUTHORIZE':
+            return false;
         default:
             return state;
     }
@@ -157,6 +163,8 @@ const userInfo = (state = {}, action) => {
     switch(action.type){
         case 'AUTHORIZE':
             return action.userInfo;
+        case 'DEAUTHORIZE':
+            return {};
         default:
             return state;
     }

@@ -142,3 +142,8 @@ export const authorize = (userInfo, dispatch) =>
         userInfo: userInfo
     })
 
+export const deauthorize = () => (dispatch) => {
+    dispatch({
+        type: 'DEAUTHORIZE'
+    })
+}
