@@ -42,7 +42,7 @@ class SignIn extends Component {
         userInfo.registerUser(userData)
             .then(response => {
                 if (response) {
-                    toast.success('Успех! Теперь пройдие авторизацию', {autoClose: 5000});
+                    toast.success('Успех! Теперь пройдие авторизацию', {autoClose: 2000});
                 }
                 else {
                     toast.warn('Такого пользователя не существует');

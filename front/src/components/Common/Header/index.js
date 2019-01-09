@@ -1,5 +1,9 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux';
 import {NavLink} from 'react-router-dom'
+
+import { getLoginStatus, getAdminStatus } from '../../../store/reducers';
+import * as actions from '../../../store/actions'
 
 import './header.scss'
 
@@ -40,5 +44,18 @@ class Header extends Component {
         )
     }
 }
+
+
+const mapStateTpProps = (state) => {
+    return {
+        isLoggedIn: getLoginStatus(state),
+        isAdmin: getAdminStatus(state)
+    }
+}
+
+Header = connect(
+    mapStateTpProps,
+    actions
+)(Header)
 
 export default Header;

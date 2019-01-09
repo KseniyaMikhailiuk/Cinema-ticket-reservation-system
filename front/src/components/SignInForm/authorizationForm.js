@@ -1,52 +1,28 @@
 import React, {Component} from 'react'
+import Formsy from 'formsy-react';
+
+import ValidatedInput from '../Common/validatedInput'
 
 class AuthorizationForm extends Component {
 
     state = {
-        email: "",
-        password: "",
         isInFocus: false
     }
 
     constructor (props) {
         super (props);
-        this.handleInputChange = this.handleInputChange.bind(this);
         this.sendInfo = this.sendInfo.bind(this);
-        this.validateInputs = this.validateInputs.bind(this);
     }
 
-    handleInputChange (event) {
-        let target = event.target;
-        this.setState({
-            [target.name]: target.value
-        });
-    }
-
-    validateInputs() {
-        return {
-            email: this.state.email.length === 0,
-            password: this.state.password.length < 7,
-        };
-    }
-
-    sendInfo (event) {
-        event.preventDefault();
-        if (this.state.email && this.state.password) {
-            let userData = {...this.state};
-            delete userData.isInFocus;
-            const {onSubmit} = this.props;
-            onSubmit(this.state);
-        }
+    sendInfo (userData) {
+        const {onSubmit} = this.props;
+        onSubmit(userData);
     }
 
     render() {
-        let errors = {};
-        if (this.state.isInFocus) {
-            errors = this.validateInputs();
-        }
         return(
-            <form
-                onSubmit={this.sendInfo}
+            <Formsy
+                onValidSubmit={this.sendInfo}
                 onFocus={() => this.setState({isInFocus: true})}
                 onBlur={() => this.setState({isInFocus: false})}
             >
@@ -54,26 +30,29 @@ class AuthorizationForm extends Component {
                     <legend className="form-item forms__legend">
                         Вход в систему
                     </legend>
-                    <input className={`form-item forms__text-input bordered ${errors.email ? "error" : ""}`}
+                    <ValidatedInput
                         name="email"
-                        type="email"
+                        type="text"
+                        validations="isEmail"
+                        validationError="E-mail должен содержать: '@', '.'"
                         placeholder="E-mail"
-                        autoComplete="on"
-                        onChange={this.handleInputChange}
+                        isInFocus={this.state.isInFocus}
+                        required
                     />
-                    <input className={`form-item forms__text-input bordered ${errors.password ? "error" : ""}`}
+                    <ValidatedInput
                         name="password"
                         type="password"
                         placeholder="Пароль"
-                        autoComplete="off"
-                        onChange={this.handleInputChange}
+                        validationError="Не меньше 8 символов"
+                        isInFocus={this.state.isInFocus}
+                        required
                     />
                     <input className="form-item forms__button bordered"
                         type="submit"
                         value="Войти"
                     />
                 </fieldset>
-            </form>
+            </Formsy>
         )
     }
 }

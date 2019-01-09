@@ -1,60 +1,27 @@
 import React, {Component} from 'react'
+import Formsy from 'formsy-react'
+
+import ValidatedInput from '../Common/validatedInput'
 
 class RegistrationForm extends Component {
     state = {
-        name: "",
-        surname: "",
-        email: "",
-        password: "",
-        submitPassword: "",
         isInFocus: false
     }
 
     constructor (props) {
         super (props);
-        this.handleInputChange = this.handleInputChange.bind(this);
         this.sendInfo = this.sendInfo.bind(this);
-        this.validateInputs = this.validateInputs.bind(this);
     }
 
-    handleInputChange (event) {
-        let target = event.target;
-        this.setState({
-            [target.name]: target.value
-        });
-    }
-
-    validateInputs() {
-        return {
-            name: this.state.name.length === 0,
-            surname: this.state.surname.length === 0,
-            email: this.state.email.length === 0,
-            password: this.state.password.length < 7,
-            submitPassword: this.state.password !== this.state.submitPassword || this.state.password.length < 7,
-        };
-    }
-
-    sendInfo (event) {
-        event.preventDefault();
-        if (this.state.name && this.state.surname &&
-            this.state.email && this.state.password &&
-            this.state.password === this.state.submitPassword) {
-            const {onSubmit} = this.props;
-            let userData = {...this.state};
-            delete userData.submitPassword;
-            delete userData.onFocus;
-            onSubmit(userData);
-        }
+    sendInfo (userData) {
+        const {onSubmit} = this.props;
+        onSubmit(userData);
     }
 
     render() {
-        let errors = {};
-        if (this.state.isInFocus) {
-            errors = this.validateInputs();
-        }
         return(
-            <form
-                onSubmit={this.sendInfo}
+            <Formsy
+                onValidSubmit={this.sendInfo}
                 onFocus={() => this.setState({isInFocus: true})}
                 onBlur={() => this.setState({isInFocus: false})}
             >
@@ -62,47 +29,55 @@ class RegistrationForm extends Component {
                     <legend className="form-item forms__legend">
                         Регистрация
                     </legend>
-                    <input className={`form-item forms__text-input bordered ${errors.name ? "error" : ""}`}
+                    <ValidatedInput
                         name="name"
                         type="text"
+                        validations="isWords"
                         placeholder="Имя"
-                        autoComplete="off"
-                        onChange={this.handleInputChange}
+                        isInFocus={this.state.isInFocus}
+                        required
                     />
-                    <input className={`form-item forms__text-input bordered ${errors.surname ? "error" : ""}`}
+                    <ValidatedInput
                         name="surname"
                         type="text"
+                        validationError="Плохо"
                         placeholder="Фамилия"
-                        autoComplete="off"
-                        onChange={this.handleInputChange}
+                        isInFocus={this.state.isInFocus}
+                        required
                     />
-                    <input className={`form-item forms__text-input bordered ${errors.email ? "error" : ""}`}
+                    <ValidatedInput
                         name="email"
-                        type="email"
+                        type="text"
+                        validations="isEmail"
+                        validationError="E-mail должен содержать: '@', '.'"
                         placeholder="E-mail"
-                        autoComplete="off"
-                        onChange={this.handleInputChange}
+                        isInFocus={this.state.isInFocus}
+                        required
                     />
-                    <input className={`form-item forms__text-input bordered ${errors.password ? "error" : ""}`}
+                    <ValidatedInput
                         name="password"
                         type="password"
                         placeholder="Пароль"
-                        autoComplete="off"
-                        onChange={this.handleInputChange}
+                        validations="minLength:8"
+                        validationError="Не меньше 8 символов"
+                        isInFocus={this.state.isInFocus}
+                        required
                     />
-                    <input className={`form-item forms__text-input bordered ${errors.submitPassword ? "error" : ""}`}
+                    <ValidatedInput
                         name="submitPassword"
                         type="password"
                         placeholder="Повторите пароль"
-                        autoComplete="off"
-                        onChange={this.handleInputChange}
+                        isInFocus={this.state.isInFocus}
+                        validations="equalsField:password"
+                        validationError="Пароль не совпадает"
+                        required
                     />
                     <input className="form-item forms__button bordered"
                         type="submit"
                         value="Зарегистрироваться"
                     />
                 </fieldset>
-            </form>
+            </Formsy>
         )
     }
 }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom'
+import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import {ToastContainer} from 'react-toastify';
 
 import Header from './components/Common/Header'
@@ -11,6 +11,7 @@ import SignIn from './containers/SignIn'
 import TicketOrder from './containers/TicketOrder'
 import SubmitOrder from './containers/SubmitOrder'
 import Admin from './containers/Admin'
+import PrivateRoute from './components/Common/privateRoute'
 
 import { getAdminStatus, getLoginStatus } from './store/reducers';
 import * as actions from './store/actions'
@@ -19,16 +20,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 class Page extends Component {
     render() {
-        const {isAdmin, isLoggedIn, authorize, deauthorize} = this.props;
+        const {isAdmin, authorize} = this.props;
         return(
             <BrowserRouter>
                 <>
-                    <Header
-                        isAdmin={isAdmin}
-                        isLoggedIn={isLoggedIn}
-                        deauthorize={deauthorize}
-                    />
-                    <ToastContainer />
+                    <Header/>
                     <section className="content">
                         <Switch>
                             <Route exact path="/" component={Home}/>
@@ -38,15 +34,10 @@ class Page extends Component {
                             <Route path='/SignIn' component={() => <SignIn authorize={authorize}/>}/>
                             <Route path='/TicketOrder/:seanceId' component={TicketOrder}/>
                             <Route path='/SubmitOrder/:orderId' component={SubmitOrder}/>
-                            <Route path='/Admin' render= {() => (
-                                (isLoggedIn && isAdmin) ? (
-                                    <Admin/>
-                                ) : (
-                                    <Redirect to="/Schedule"/>
-                                )
-                            )}/>
+                            <PrivateRoute path='/Admin' component={Admin} isAllowed={isAdmin} redirectPath='Schedule' exact/>
                         </Switch>
                     </section>
+                    <ToastContainer />
                 </>
             </BrowserRouter>
         )
