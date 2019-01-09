@@ -29,6 +29,10 @@ export const getLoginStatus = (state) => {
     return state.isLoggedIn;
 }
 
+export const getAdminStatus = (state) => {
+    return state.isAdmin;
+}
+
 const filteredList = (state = [], action) => {
     switch(action.type){
         case 'FETCH_FILM_LIST_SUCCESS':
@@ -183,6 +187,10 @@ const isRequestSucceeded = (state = false, action) => {
 
 const isAdmin = (state = false, action) => {
     switch(action.type){
+        case 'AUTHORIZE':
+            return action.userInfo.isAdmin;
+        case 'DEAUTHORIZE':
+            return false;
         default:
             return state;
     }

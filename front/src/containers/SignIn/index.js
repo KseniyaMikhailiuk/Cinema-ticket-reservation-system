@@ -47,7 +47,7 @@ class SignIn extends Component {
                 );
                 this.setState({ isDisabled: true});
                 const {dispatch} = this.props;
-                authorize(userData, dispatch);
+                authorize(response.userInfo, dispatch);
             })
     }
 

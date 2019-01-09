@@ -3,13 +3,24 @@ import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 
 import * as actions from '../../../store/actions'
-import {getLoginStatus} from '../../../store/reducers'
+import {getLoginStatus, getAdminStatus} from '../../../store/reducers'
 
 import './header.scss'
 
 class Header extends Component {
+
+    displayAdminSettings (isAdmin) {
+        if (isAdmin) {
+            return (
+                <li><NavLink to="/Admin" activeClassName="selected">
+                    Настройки
+                </NavLink></li>
+            )
+        }
+    }
+
     render() {
-        const {isLoggedIn, deauthorize} = this.props;
+        const {isLoggedIn, isAdmin, deauthorize} = this.props;
         return (
             <nav>
                 <p>
@@ -19,13 +30,17 @@ class Header extends Component {
                     <li><NavLink to="/Home" activeClassName="selected">Главная</NavLink></li>
                     <li><NavLink to="/Schedule" activeClassName="selected">Афиша</NavLink></li>
                     <li><NavLink to="/Cinemas" activeClassName="selected">Кинотеатры</NavLink></li>
-                    {isLoggedIn ?
+                    {
+						isLoggedIn ?
                         <li><a onClick={deauthorize} >
                             Выход
                         </a></li> :
                         <li><NavLink to="/SignIn" activeClassName="selected">
                             Войти
                         </NavLink></li>
+                    }
+                    {
+                        this.displayAdminSettings(isAdmin)
                     }
                 </ul>
             </nav>
@@ -35,7 +50,8 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
     return{
-        isLoggedIn: getLoginStatus(state)
+        isLoggedIn: getLoginStatus(state),
+        isAdmin: getAdminStatus(state)
     }
 }
 
