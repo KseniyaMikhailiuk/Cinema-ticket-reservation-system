@@ -61,16 +61,11 @@ export const authorizeUser = (userData) =>
     delay(500)
         .then(() => {
             let response = {
-                isExistedUser: false,
-                isCorrectPassword: false,
-                userInfo: {},
                 isAdmin: false
             }
             let existedUser = userInfo.find(user => user.email === userData.email);
             if (existedUser) {
-                response.isExistedUser = true;
                 if (existedUser.password === userData.password) {
-                    response.isCorrectPassword = true;
                     response.userInfo = { ...existedUser};
                     response.userInfo.isAdmin = checkIfAdmin(userData);
                     delete response.userInfo.password;

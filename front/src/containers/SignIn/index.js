@@ -21,12 +21,8 @@ class SignIn extends Component {
     onAuthorizationSubmit (userData) {
         userInfo.authorizeUser(userData)
             .then(response => {
-                if (!response.isExistedUser) {
-                    toast.error('Такого пользователя не существует');
-                    return;
-                }
-                if (!response.isCorrectPassword) {
-                    toast.error('Неправильный пароль');
+                if (!response.userInfo) {
+                    toast.error('Неправильный логин или пароль');
                     return;
                 }
                 toast.success(
@@ -45,7 +41,7 @@ class SignIn extends Component {
                     toast.success('Успех! Теперь пройдие авторизацию', {autoClose: 2000});
                 }
                 else {
-                    toast.warn('Такого пользователя не существует');
+                    toast.warn('Ошибка. Пройдите регистрацию еще раз');
                 }
             })
     }

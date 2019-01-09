@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
-import {NavLink} from 'react-router-dom'
+import {NavLink, withRouter} from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
 
 import { getLoginStatus, getAdminStatus } from '../../../store/reducers';
 import * as actions from '../../../store/actions'
@@ -8,6 +9,17 @@ import * as actions from '../../../store/actions'
 import './header.scss'
 
 class Header extends Component {
+    constructor (props) {
+        super(props);
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onClick () {
+        const {deauthorize} = this.props;
+        this.props.history.push('/Schedule');
+        deauthorize();
+    }
+
     render() {
         const {isLoggedIn, isAdmin, deauthorize} = this.props;
         return (
@@ -22,16 +34,20 @@ class Header extends Component {
                     {
                         isLoggedIn ? (
                             isAdmin ? (
-                                <><li><NavLink to="/Admin" activeClassName="selected">
-                                    Настройки
-                                </NavLink></li>
-                                <li><a onClick={deauthorize} >
-                                    Выход
-                                </a></li></>
+                                <>
+                                    <li>
+                                        <NavLink to="/Admin" activeClassName="selected">Настройки</NavLink>
+                                    </li>
+                                    <li>
+                                        <a onClick={this.onClick}>Выход</a>
+                                    </li>
+                                </>
                             ) : (
-                                <li><a onClick={deauthorize} >
-                                    Выход
-                                </a></li>
+                                <li>
+                                    <a onClick={this.onClick}>
+                                        Выход
+                                    </a>
+                                </li>
                             )
                         ) : (
                             <li><NavLink to="/SignIn" activeClassName="selected">
@@ -53,9 +69,9 @@ const mapStateTpProps = (state) => {
     }
 }
 
-Header = connect(
+Header = withRouter(connect(
     mapStateTpProps,
     actions
-)(Header)
+)(Header))
 
 export default Header;
