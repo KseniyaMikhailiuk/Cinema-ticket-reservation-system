@@ -3,6 +3,8 @@ import Formsy from 'formsy-react'
 
 import ValidatedInput from '../Common/validatedInput'
 
+import settings from '../../services/config/settings.json'
+
 class RegistrationForm extends Component {
     state = {
         isInFocus: false
@@ -32,7 +34,6 @@ class RegistrationForm extends Component {
                     <ValidatedInput
                         name="name"
                         type="text"
-                        validations="isWords"
                         placeholder="Имя"
                         isInFocus={this.state.isInFocus}
                         required
@@ -40,7 +41,6 @@ class RegistrationForm extends Component {
                     <ValidatedInput
                         name="surname"
                         type="text"
-                        validationError="Плохо"
                         placeholder="Фамилия"
                         isInFocus={this.state.isInFocus}
                         required
@@ -58,7 +58,7 @@ class RegistrationForm extends Component {
                         name="password"
                         type="password"
                         placeholder="Пароль"
-                        validations="minLength:8"
+                        validations={`minLength:${settings['password_min_length']}`}
                         validationError="Не меньше 8 символов"
                         isInFocus={this.state.isInFocus}
                         required
