@@ -9,11 +9,13 @@ class PrivateLoggedInUserRoute extends Component {
         const {component: Component, isLoggedIn, ...rest} = this.props;
         return (
             <Route {...rest} render={() =>
-                isLoggedIn ? (
-                    <Component/>
-                ) : (
-                    <Redirect to='/SignIn'/>
-                )
+                isLoggedIn
+                    ? (
+                        <Component/>
+                    )
+                    : (
+                        <Redirect to='/SignIn'/>
+                    )
             }/>
         )
     }

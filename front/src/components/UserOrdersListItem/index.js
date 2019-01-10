@@ -17,28 +17,28 @@ const UserOrdersListItem = ({
                         {
                             itemInfo
                                 .orderInfo
-                                    .seats
-                                    .map(orderItem =>
-                                        <li className="order-list__item">
-                                            <div className="ticket-info">
-                                                <h1>{`ряд: ${orderItem.line} место: ${orderItem.raw}`}</h1>
-                                                <p>{orderItem.type} {itemInfo.seanceInfo.price[orderItem.type]}</p>
-                                            </div>
-                                        </li>
-                                    )
+                                .seats
+                                .map(orderItem =>
+                                    <li className="order-list__item">
+                                        <div className="ticket-info">
+                                            <h1>{`ряд: ${orderItem.line} место: ${orderItem.raw}`}</h1>
+                                            <p>{orderItem.type} {itemInfo.seanceInfo.price[orderItem.type]}</p>
+                                        </div>
+                                    </li>
+                                )
                         }
                         {
                             itemInfo
                                 .orderInfo
-                                    .services
-                                    .map(orderItem =>
-                                        <li className="order-list__item">
-                                            <div className="ticket-info">
-                                                <h1>{orderItem.name}</h1>
-                                                <p>{orderItem.price}</p>
-                                            </div>
-                                        </li>
-                                    )
+                                .services
+                                .map(orderItem =>
+                                    <li className="order-list__item">
+                                        <div className="ticket-info">
+                                            <h1>{orderItem.name}</h1>
+                                            <p>{orderItem.price}</p>
+                                        </div>
+                                    </li>
+                                )
                         }
                     </ul>
                 </section>
