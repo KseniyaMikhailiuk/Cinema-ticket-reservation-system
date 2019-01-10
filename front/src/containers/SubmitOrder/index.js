@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 import SuccessMessage from '../../components/Common/SuccessMessage'
@@ -85,9 +86,9 @@ const mapStateToProps = (state, {match}) => {
     }
 }
 
-SubmitOrder = connect(
+SubmitOrder = withRouter(connect(
     mapStateToProps,
     actions
-)(SubmitOrder)
+)(SubmitOrder))
 
 export default SubmitOrder;

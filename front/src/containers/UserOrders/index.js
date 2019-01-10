@@ -4,7 +4,7 @@ import momemt from 'moment'
 import ItemList from '../../components/Common/ItemList'
 import UserOrdersListItem from '../../components/UserOrdersListItem'
 
-import * as ordersInfo from '../../services/api/usersOrdersFetch'
+import * as ordersInfo from '../../services/api/usersOrdersInfoFetch'
 
 class UserOrders extends Component {
 
