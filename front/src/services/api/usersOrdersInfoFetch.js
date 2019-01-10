@@ -1,3 +1,5 @@
+import * as seancesInfo from './filmsFetch'
+
 const usersOrdersDatabase = []
 const ordersDatabase = []
 
@@ -13,4 +15,15 @@ export const addOrder = (orderInfo, seanceId, userId) =>
                 userId
             });
             ordersDatabase.push(orderInfo);
+        })
+
+export const getOrders = (userId) =>
+    delay(500)
+        .then(() => {
+            let userOrders = usersOrdersDatabase.filter(orders => orders.userId === userId);
+            seancesInfo.fetchOrdersInfo(userOrders)
+                .then(response => {
+
+                    return response
+                })
         })

@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import momemt from 'moment'
 
 import ItemList from '../../components/Common/ItemList'
+import UserOrdersListItem from '../../components/UserOrdersListItem'
 
-import * as ordersInfo from '../../services/api/userOrdersFetch'
+import * as ordersInfo from '../../services/api/usersOrdersFetch'
 
 class UserOrders extends Component {
 
@@ -60,7 +61,7 @@ class UserOrders extends Component {
                 />
                 <ItemList
                     list={orders[filter.value]}
-                    itemType={FilmItem}
+                    itemType={UserOrdersListItem}
                 />
             </article>
         )

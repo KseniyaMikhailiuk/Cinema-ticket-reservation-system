@@ -2,16 +2,6 @@ $color-purple: rgb(137, 98, 155);
 $color-dark-brown: rgb(31, 31, 31);
 
 .film-item{
-    margin: 1% 0 1% 0;
-    padding: 3%;
-    display: flex;
-    background-color: $color-dark-brown;
-    color: whitesmoke;
-    border: 1px;
-    border-style: solid;
-    border-radius: 20px;
-    border-color: $color-purple;
-
     &__description{
         width: 70%;
         h1, h3, p{

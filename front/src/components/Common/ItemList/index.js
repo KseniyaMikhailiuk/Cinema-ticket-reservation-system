@@ -3,6 +3,7 @@ import React from 'react'
 import NothingFound from './nothingFound'
 
 import './itemList.scss'
+import '../../../CommonStylesheets/listItems.scss'
 
 const ItemList = ({
     list,
