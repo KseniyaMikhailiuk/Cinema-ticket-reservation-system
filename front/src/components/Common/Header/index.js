@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import {NavLink, withRouter} from 'react-router-dom'
-import { Redirect } from 'react-router-dom';
 
-import { getLoginStatus, getAdminStatus } from '../../../store/reducers';
+import { getLoginStatus, getAdminStatus } from '../../../store/stateGetters';
 import * as actions from '../../../store/actions'
 
 import './header.scss'
@@ -21,7 +20,7 @@ class Header extends Component {
     }
 
     render() {
-        const {isLoggedIn, isAdmin, deauthorize} = this.props;
+        const {isLoggedIn, isAdmin} = this.props;
         return (
             <nav>
                 <p>

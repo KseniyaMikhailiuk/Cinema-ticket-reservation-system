@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import SuccessMessage from '../../components/Common/SuccessMessage'
 
-import {getOrderInfo, getFilmInfo} from '../../store/reducers'
+import {getOrderInfo, getFilmInfo} from '../../store/stateGetters'
 import * as actions from '../../store/actions'
 
 import './submitOrder.scss'

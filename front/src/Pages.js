@@ -13,14 +13,14 @@ import SubmitOrder from './containers/SubmitOrder'
 import Admin from './containers/Admin'
 import PrivateAdminRoute from './components/Common/privateAdminRoute'
 
-import { getAdminStatus, getLoginStatus } from './store/reducers';
+import { getAdminStatus, getLoginStatus } from './store/stateGetters';
 import * as actions from './store/actions'
 
 import 'react-toastify/dist/ReactToastify.css';
 
 class Page extends Component {
     render() {
-        const {isAdmin, authorize} = this.props;
+        const {authorize} = this.props;
         return(
             <BrowserRouter>
                 <>

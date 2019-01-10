@@ -8,7 +8,7 @@ import AddAdditionalServicesForm from '../../components/AdminForms/addAdditional
 import AddCinemaForm from '../../components/AdminForms/AddCinemaForm'
 import SuccessMessage from '../../components/Common/SuccessMessage'
 
-import {getFilterObject, getFilterOptions} from '../../store/reducers';
+import {getFilterObject, getFilterOptions} from '../../store/stateGetters';
 import * as actions from '../../store/actions'
 
 import * as servicesInfo from '../../services/api/additionalServicesFetch'

@@ -5,7 +5,7 @@ import {withRouter} from 'react-router'
 import FilmInfo from '../../components/OrderSection/filmInfo'
 import SeatReservation from '../../components/OrderSection/seatReservation'
 
-import {getFilmInfo, getHallPlan, getOrderInfo} from '../../store/reducers'
+import {getFilmInfo, getHallPlan, getOrderInfo} from '../../store/stateGetters'
 import * as actions from '../../store/actions'
 
 import '../../CommonStylesheets/orderList.scss'

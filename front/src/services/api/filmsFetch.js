@@ -262,6 +262,17 @@ export const fetchFilmInfo = (seanceId) =>
             return findSeance(seanceId);
         })
 
+export const fetchOrdersInfo = (userOrdersIds) =>
+    delay(500)
+        .then(() => {
+            let seancesInfo = [];
+            userOrdersIds
+                .forEach(orderId =>
+                    seancesInfo.push(findSeance(orderId))
+                );
+            return seancesInfo;
+        })
+
 const findSeance = (seanceId) => {
     for (let film of filmDatabase){
         for (let city of film.cities){
