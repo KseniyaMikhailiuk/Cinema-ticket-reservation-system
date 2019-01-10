@@ -135,3 +135,15 @@ export const dispatchSuccess = () => (dispatch) => {
         type: 'REQUEST_SUCCEEDED'
     })
 }
+
+export const authorize = (userInfo) => (dispatch) =>
+    dispatch({
+        type: 'AUTHORIZE',
+        userInfo: userInfo
+    })
+
+export const deauthorize = () => (dispatch) => {
+    dispatch({
+        type: 'DEAUTHORIZE'
+    })
+}

@@ -1,49 +1,85 @@
-import React from 'react'
+import React, {Component} from 'react'
+import Formsy from 'formsy-react'
 
-const RegistrationForm = () => {
-    return(
-        <form>
-            <fieldset className="forms__fieldset">
-                <legend className="form-item forms__legend">
-                    Регистрация
-                </legend>
-                <input className="form-item forms__text-input bordered"
-                    type="text"
-                    placeholder=" Имя"
-                    autoComplete="on"
-                    required
-                />
-                <input className="form-item forms__text-input bordered"
-                    type="text"
-                    placeholder=" Фамилия"
-                    autoComplete="on"
-                    required
-                />
-                <input className="form-item forms__text-input bordered"
-                    type="email"
-                    placeholder=" E-mail"
-                    autoComplete="on"
-                    required
-                />
-                <input className="form-item forms__text-input bordered"
-                    type="password"
-                    placeholder=" Пароль"
-                    autoComplete="off"
-                    required
-                />
-                <input className="form-item forms__text-input bordered"
-                    type="password"
-                    placeholder=" Повторите пароль"
-                    autoComplete="off"
-                    required
-                />
-                <input className="form-item forms__button bordered"
-                    type="submit"
-                    value="Зарегистрироваться"
-                />
-            </fieldset>
-        </form>
-    )
+import ValidatedInput from '../Common/validatedInput'
+
+class RegistrationForm extends Component {
+    state = {
+        isInFocus: false
+    }
+
+    constructor (props) {
+        super (props);
+        this.sendInfo = this.sendInfo.bind(this);
+    }
+
+    sendInfo (userData) {
+        const {onSubmit} = this.props;
+        onSubmit(userData);
+    }
+
+    render() {
+        const {settings} = this.props;
+        return(
+            <Formsy
+                onValidSubmit={this.sendInfo}
+                onFocus={() => this.setState({isInFocus: true})}
+                onBlur={() => this.setState({isInFocus: false})}
+            >
+                <fieldset className="forms__fieldset">
+                    <legend className="form-item forms__legend">
+                        Регистрация
+                    </legend>
+                    <ValidatedInput
+                        name="name"
+                        type="text"
+                        placeholder="Имя"
+                        isInFocus={this.state.isInFocus}
+                        required
+                    />
+                    <ValidatedInput
+                        name="surname"
+                        type="text"
+                        placeholder="Фамилия"
+                        isInFocus={this.state.isInFocus}
+                        required
+                    />
+                    <ValidatedInput
+                        name="email"
+                        type="text"
+                        validations="isEmail"
+                        validationError="E-mail должен быть валидным"
+                        placeholder="E-mail"
+                        isInFocus={this.state.isInFocus}
+                        required
+                    />
+                    <ValidatedInput
+                        name="password"
+                        type="password"
+                        placeholder="Пароль"
+                        validations={`minLength:${settings.password_min_length}`}
+                        validationError={`Не меньше ${settings.password_min_length} символов`}
+                        isInFocus={this.state.isInFocus}
+                        required
+                    />
+                    <ValidatedInput
+                        name="submitPassword"
+                        type="password"
+                        placeholder="Повторите пароль"
+                        isInFocus={this.state.isInFocus}
+                        validations="equalsField:password"
+                        validationError="Пароль не совпадает"
+                        required
+                    />
+                    <input className="form-item forms__button bordered"
+                        type="submit"
+                        value="Зарегистрироваться"
+                    />
+                </fieldset>
+            </Formsy>
+        )
+    }
 }
 
 export default RegistrationForm;
+

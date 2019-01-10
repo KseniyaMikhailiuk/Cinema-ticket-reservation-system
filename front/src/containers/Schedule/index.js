@@ -6,7 +6,7 @@ import ItemList from '../../components/Common/ItemList/';
 import FilmItem from '../../components/FilmListItem/';
 import FilterPanel from '../../components/FilterPanel';
 
-import {getFilteredList, getFilterObject, getFilterOptions} from '../../store/reducers';
+import {getFilteredList, getFilterObject, getFilterOptions} from '../../store/stateGetters';
 import * as actions  from '../../store/actions';
 
 class Schedule extends Component {
@@ -29,7 +29,7 @@ class Schedule extends Component {
     render() {
         const {filmList, changeFilterObjectItem, filter, filterOptions} = this.props;
         return (
-            <section className="shedule-page">
+            <section className="schedule-page">
                 <FilterPanel filter={filter} filterOptions={filterOptions} onFilterClick={changeFilterObjectItem}/>
                 <ItemList
                     list={filmList}

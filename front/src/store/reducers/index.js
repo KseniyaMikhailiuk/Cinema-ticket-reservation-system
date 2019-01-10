@@ -1,30 +1,6 @@
 import { combineReducers } from 'redux';
 import moment from 'moment'
 
-export const getFilteredList = (state) => {
-    return state.filteredList;
-}
-
-export const getFilterObject = (state) => {
-    return state.filterObject
-}
-
-export const getFilmInfo = (state) => {
-    return state.selectedFilmInfo;
-}
-
-export const getHallPlan = (state) => {
-    return state.hallPlan
-}
-
-export const getOrderInfo = (state) => {
-    return state.orderList;
-}
-
-export const getFilterOptions = (state) => {
-    return state.filterOptions;
-}
-
 const filteredList = (state = [], action) => {
     switch(action.type){
         case 'FETCH_FILM_LIST_SUCCESS':
@@ -146,8 +122,10 @@ const filterOptions = (state = {}, action) => {
 
 const isLoggedIn = (state = false, action) => {
     switch(action.type){
-        case 'AUTHORIZATION':
+        case 'AUTHORIZE':
             return true;
+        case 'DEAUTHORIZE':
+            return false;
         default:
             return state;
     }
@@ -155,6 +133,10 @@ const isLoggedIn = (state = false, action) => {
 
 const userInfo = (state = {}, action) => {
     switch(action.type){
+        case 'AUTHORIZE':
+            return action.userInfo;
+        case 'DEAUTHORIZE':
+            return {};
         default:
             return state;
     }
@@ -173,6 +155,10 @@ const isRequestSucceeded = (state = false, action) => {
 
 const isAdmin = (state = false, action) => {
     switch(action.type){
+        case 'AUTHORIZE':
+            return action.userInfo.isAdmin;
+        case 'DEAUTHORIZE':
+            return false;
         default:
             return state;
     }
