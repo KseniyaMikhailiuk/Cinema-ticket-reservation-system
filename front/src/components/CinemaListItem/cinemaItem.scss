@@ -1,14 +1,4 @@
 .cinema-item{
-    margin: 3%;
-    padding: 5%;
-    display: flex;
-    background-color: rgb(31, 31, 31); 
-    color: rgb(230, 224, 224);
-    border: 1px;
-    border-style: solid;
-    border-radius: 10px;
-    border-color: rgb(137, 98, 155);
-
     &__image{
         width:40%;
     }

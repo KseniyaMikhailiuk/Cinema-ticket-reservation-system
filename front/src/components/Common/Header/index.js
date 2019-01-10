@@ -42,11 +42,16 @@ class Header extends Component {
                                     </li>
                                 </>
                             ) : (
-                                <li>
-                                    <a onClick={this.onClick}>
-                                        Выход
-                                    </a>
-                                </li>
+                                <>
+                                    <li>
+                                        <NavLink to="/MyOrders" activeClassName="selected">Мои заказы</NavLink>
+                                    </li>
+                                    <li>
+                                        <a onClick={this.onClick}>
+                                            Выход
+                                        </a>
+                                    </li>
+                                </>
                             )
                         ) : (
                             <li><NavLink to="/SignIn" activeClassName="selected">

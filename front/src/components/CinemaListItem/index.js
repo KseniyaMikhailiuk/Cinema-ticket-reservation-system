@@ -6,7 +6,7 @@ const CinemaItem = ({
     itemInfo
 }) => {
     return (
-        <article className="cinema-item">
+        <article className="list-item">
             <img src="" alt="" className="cinema-item__image"></img>
             <section className="cinema-item__description">
                 {itemInfo.text}

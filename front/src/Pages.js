@@ -11,7 +11,9 @@ import SignIn from './containers/SignIn'
 import TicketOrder from './containers/TicketOrder'
 import SubmitOrder from './containers/SubmitOrder'
 import Admin from './containers/Admin'
-import PrivateAdminRoute from './components/Common/privateAdminRoute'
+import UserOrders from './containers/UserOrders'
+import PrivateAdminRoute from './components/PrivateRoutes/privateAdminRoute'
+import PrivateLoggedInUserRoute from './components/PrivateRoutes/privateLoggedInUserRoute'
 
 import { getAdminStatus, getLoginStatus } from './store/stateGetters';
 import * as actions from './store/actions'
@@ -33,8 +35,9 @@ class Page extends Component {
                             <Route path='/Schedule' component={Schedule}/>
                             <Route path='/SignIn' component={() => <SignIn authorize={authorize}/>}/>
                             <Route path='/TicketOrder/:seanceId' component={TicketOrder}/>
-                            <Route path='/SubmitOrder/:orderId' component={SubmitOrder}/>
                             <PrivateAdminRoute path='/Admin' component={Admin} exact/>
+                            <PrivateLoggedInUserRoute path='/SubmitOrder/:orderId' component={SubmitOrder} exact/>
+                            <PrivateLoggedInUserRoute path='/MyOrders' component={UserOrders} exact/>
                         </Switch>
                     </section>
                     <ToastContainer />

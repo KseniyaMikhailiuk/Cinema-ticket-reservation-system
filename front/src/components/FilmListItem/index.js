@@ -11,7 +11,7 @@ const FilmItem = ({
 }) => {
     var chosenCity = itemInfo.cities
     return (
-        <article className="film-item">
+        <article className="list-item">
             <section className="film-item__image-container">
                 <img src={image} alt="" className="film-item__image"/>
             </section>

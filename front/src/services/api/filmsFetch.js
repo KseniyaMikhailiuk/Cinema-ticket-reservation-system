@@ -267,8 +267,12 @@ export const fetchOrdersInfo = (userOrdersIds) =>
         .then(() => {
             let seancesInfo = [];
             userOrdersIds
-                .forEach(orderId =>
-                    seancesInfo.push(findSeance(orderId))
+                .forEach(orderItem =>
+                    seancesInfo.push({
+                        seanceInfo: findSeance(orderItem.seanceId),
+                        orderInfo: orderItem.orderInfo,
+                        id: orderItem.orderId
+                    })
                 );
             return seancesInfo;
         })

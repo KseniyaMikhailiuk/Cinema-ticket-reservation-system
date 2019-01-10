@@ -9,11 +9,13 @@ class PrivateAdminRoute extends Component {
         const {component: Component, isAdmin, ...rest} = this.props;
         return (
             <Route {...rest} render={() =>
-                isAdmin ? (
-                    <Component/>
-                ) : (
-                    <Redirect to='/'/>
-                )
+                isAdmin
+                    ? (
+                        <Component/>
+                    )
+                    : (
+                        <Redirect to='/'/>
+                    )
             }/>
         )
     }

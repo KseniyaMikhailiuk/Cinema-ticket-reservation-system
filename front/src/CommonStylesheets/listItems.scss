@@ -1,0 +1,12 @@
+$color-purple: rgb(137, 98, 155);
+$color-dark-brown: rgb(31, 31, 31);
+
+.list-item{
+    margin: 1% 0 1% 0;
+    padding: 3%;
+    display: flex;
+    background-color: $color-dark-brown;
+    color: whitesmoke;
+    border: 1px solid $color-purple;
+    border-radius: 20px;
+}

@@ -1,6 +1,6 @@
 import * as filmsInfo from '../../services/api/filmsFetch'
 import * as cinemaHallPlans from '../../services/api/hallPlanFetch'
-import * as orderInfoFetch from '../../services/api/orderInfoFetch'
+import * as orderInfoFetch from '../../services/api/usersOrdersInfoFetch'
 
 export const startFilmListFetching = (filter) => (dispatch) => {
     dispatch({
