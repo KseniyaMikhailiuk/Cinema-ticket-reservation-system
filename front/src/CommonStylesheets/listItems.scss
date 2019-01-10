@@ -7,8 +7,6 @@ $color-dark-brown: rgb(31, 31, 31);
     display: flex;
     background-color: $color-dark-brown;
     color: whitesmoke;
-    border: 1px;
-    border-style: solid;
+    border: 1px solid $color-purple;
     border-radius: 20px;
-    border-color: $color-purple;
 }
