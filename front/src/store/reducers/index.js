@@ -164,6 +164,15 @@ const isAdmin = (state = false, action) => {
     }
 }
 
+const previousPath = (state = "", action) => {
+    switch(action.type){
+        case 'CHANGE_PATH':
+            return action.pathname;
+        default:
+            return state;
+    }
+}
+
 const cinemaApp = combineReducers ({
     filteredList,
     filterObject,
@@ -175,7 +184,8 @@ const cinemaApp = combineReducers ({
     filterOptions,
     isLoggedIn,
     isAdmin,
-    userInfo
+    userInfo,
+    previousPath
 });
 
 export default cinemaApp;

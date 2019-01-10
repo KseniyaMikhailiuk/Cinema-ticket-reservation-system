@@ -3,7 +3,7 @@ export const getFilteredList = (state) => {
 }
 
 export const getFilterObject = (state) => {
-    return state.filterObject
+    return state.filterObject;
 }
 
 export const getFilmInfo = (state) => {
@@ -11,7 +11,7 @@ export const getFilmInfo = (state) => {
 }
 
 export const getHallPlan = (state) => {
-    return state.hallPlan
+    return state.hallPlan;
 }
 
 export const getOrderInfo = (state) => {
@@ -32,4 +32,7 @@ export const getAdminStatus = (state) => {
 
 export const getUserInfo = (state) => {
     return state.userInfo;
+}
+export const getPreviousPath = (state) => {
+    return state.previousPath;
 }

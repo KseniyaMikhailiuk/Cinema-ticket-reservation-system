@@ -147,3 +147,10 @@ export const deauthorize = () => (dispatch) => {
         type: 'DEAUTHORIZE'
     })
 }
+
+export const savePreviousPath = (pathname) => (dispatch) => {
+    dispatch({
+        type: 'CHANGE_PATH',
+        pathname: pathname
+    })
+}

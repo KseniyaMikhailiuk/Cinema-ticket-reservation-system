@@ -5,16 +5,20 @@ import {withRouter} from 'react-router'
 import FilmInfo from '../../components/OrderSection/filmInfo'
 import SeatReservation from '../../components/OrderSection/seatReservation'
 
-import {getFilmInfo, getHallPlan, getOrderInfo} from '../../store/stateGetters'
+import {getFilmInfo, getHallPlan, getOrderInfo, getPreviousPath, getLoginStatus} from '../../store/stateGetters'
 import * as actions from '../../store/actions'
 
 import '../../CommonStylesheets/orderList.scss'
 import './orderSection.scss'
 
 class TicketOrder extends Component {
+
     componentDidMount() {
         const {startFilmInfoFetching, seanceId, clearInfo} = this.props;
-        clearInfo();
+        const {previousPath, isLoggedIn} = this.props;
+        if (!previousPath === '/SignIn' || !isLoggedIn) {
+            clearInfo();
+        }
         startFilmInfoFetching(seanceId);
     }
 
@@ -81,7 +85,9 @@ const mapStateToTicketOrderProps = (state, {match}) => {
         seanceId: match.params.seanceId,
         filmInfo: getFilmInfo(state),
         hallPlan: getHallPlan(state),
-        orderInfo: getOrderInfo(state)
+        orderInfo: getOrderInfo(state),
+        previousPath: getPreviousPath(state),
+        isLoggedIn: getLoginStatus(state)
     }
 }
 

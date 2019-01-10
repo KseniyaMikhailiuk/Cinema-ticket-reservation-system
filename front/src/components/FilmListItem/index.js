@@ -18,7 +18,7 @@ const FilmItem = ({
             <section className="film-item__description">
                 <h1>{itemInfo.title}</h1>
                 <h3>{itemInfo.date}</h3>
-                <p>{itemInfo.text} </p>
+                <p>{itemInfo.description} </p>
                 <section className="film-item__timetable">
                 {
                     chosenCity
