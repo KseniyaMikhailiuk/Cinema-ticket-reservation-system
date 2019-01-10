@@ -44,7 +44,7 @@ class Header extends Component {
                             ) : (
                                 <>
                                     <li>
-                                        <NavLink to="/MyOrders" activeClassName="selected">Настройки</NavLink>
+                                        <NavLink to="/MyOrders" activeClassName="selected">Мои заказы</NavLink>
                                     </li>
                                     <li>
                                         <a onClick={this.onClick}>

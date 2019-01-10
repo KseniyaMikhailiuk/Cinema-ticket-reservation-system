@@ -1,22 +1,23 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux';
 import momemt from 'moment'
+import Select from 'react-select'
 
 import ItemList from '../../components/Common/ItemList'
 import UserOrdersListItem from '../../components/UserOrdersListItem'
+import NothingFound from '../../components/Common/nothingFound';
 
 import * as ordersInfo from '../../services/api/usersOrdersInfoFetch'
+import {getUserInfo} from '../../store/stateGetters'
+
+import './userOrders.scss'
 
 class UserOrders extends Component {
 
     state = {
-        orders: {
-            all: [],
-            previous: [],
-            next: []
-        },
         filter: {
-            label: "",
-            value: ""
+            label: "all",
+            value: "all"
         }
     }
 
@@ -32,14 +33,14 @@ class UserOrders extends Component {
     }
 
     componentDidMount () {
-        ordersInfo.getOrders(userId)
+        const {userInfo} = this.props;
+        ordersInfo.getOrders(userInfo.id)
             .then(response =>
                 this.setState({
                     orders: {
-                        ...orders,
                         all: response,
-                        previous: response.filter(seance => seance.dateTime < momemt()),
-                        next: response.filter(seance => seance.dateTime < momemt())
+                        previous: response.filter(order => order.seanceInfo.dateTime < momemt()),
+                        next: response.filter(order => order.seanceInfo.dateTime > momemt())
                     }
                 })
             );
@@ -47,25 +48,42 @@ class UserOrders extends Component {
 
     render () {
         const {orders, filter} = this.state;
+        let options = [
+            {value: "all", label: "Все"},
+            {value: "previous", label: "Предыдущие"},
+            {value: "next", label: "Будущие"},
+        ]
+
         return (
-            <article>
+            <article className="user-orders-page">
                 <Select
                     name="orderFilter"
                     className="form-item select"
-                    options={filter}
+                    options={options}
                     isSearchable
                     isClearable
-                    value={this.state.filter.label}
                     onChange={this.handleInputChange}
-                    placeholder="Фильтр"
                 />
-                <ItemList
-                    list={orders[filter.value]}
-                    itemType={UserOrdersListItem}
-                />
+                {orders ?
+                    <ItemList
+                        list={orders[filter.value]}
+                        itemType={UserOrdersListItem}
+                    /> :
+                    <NothingFound />
+                }
             </article>
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        userInfo: getUserInfo(state)
+    }
+}
+
+UserOrders = connect(
+    mapStateToProps
+)(UserOrders);
 
 export default UserOrders;

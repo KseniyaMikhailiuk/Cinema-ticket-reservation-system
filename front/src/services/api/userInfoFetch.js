@@ -9,11 +9,11 @@ var usersInfo = [
         password: "1234567"
     },
     {
-        id: v4(),
+        id: 1,
         name: "Anna",
         surname: "qwerty",
         email: "anna@gmail.com",
-        password: "qwertyqwe"
+        password: "anna@gmail.com"
     },
     {
         id: v4(),

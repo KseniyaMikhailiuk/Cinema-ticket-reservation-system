@@ -4,16 +4,36 @@ import {connect} from 'react-redux'
 
 import SuccessMessage from '../../components/Common/SuccessMessage'
 
-import {getOrderInfo, getFilmInfo} from '../../store/stateGetters'
+import {getOrderInfo, getFilmInfo, getUserInfo} from '../../store/stateGetters'
 import * as actions from '../../store/actions'
+
+import * as ordersInfo from '../../services/api/usersOrdersInfoFetch'
 
 import './submitOrder.scss'
 
 class SubmitOrder extends Component{
 
+    state = {
+        isRequestSucceeded: false
+    }
+
+    constructor (props) {
+        super(props);
+        this.addOrderToDatabase = this.addOrderToDatabase.bind(this);
+    }
+
     componentWillUnmount(){
         const {clearInfo} = this.props;
         clearInfo();
+    }
+
+    addOrderToDatabase (orderInfo, orderId, seanceId, userId) {
+        ordersInfo.addOrder(orderInfo, orderId, seanceId, userId)
+            .then(() => {
+                this.setState({
+                    isRequestSucceeded: true
+                })
+            })
     }
 
     totalPrice = () => {
@@ -29,7 +49,7 @@ class SubmitOrder extends Component{
     }
 
     render() {
-        const {orderInfo, addOrderToDatabase, orderId, filmInfo, userId, isRequestSucceeded} = this.props;
+        const {orderInfo, orderId, filmInfo, userInfo} = this.props;
 
         if (orderInfo.seats.length <= 0){
             return(
@@ -39,7 +59,7 @@ class SubmitOrder extends Component{
             )
         }
 
-        if (isRequestSucceeded){
+        if (this.state.isRequestSucceeded){
             return <SuccessMessage path='/Schedule'/>
         }
 
@@ -69,7 +89,7 @@ class SubmitOrder extends Component{
                     className="submit-order__button bordered"
                     type="button"
                     value="Купить"
-                    onClick={() => addOrderToDatabase({...orderInfo, orderId}, filmInfo.seanceId, userId)}
+                    onClick={() => this.addOrderToDatabase(orderInfo, orderId, filmInfo.seanceId, userInfo.id)}
                 />
             </div>
         )
@@ -81,8 +101,7 @@ const mapStateToProps = (state, {match}) => {
         orderInfo: getOrderInfo(state),
         orderId: match.params.orderId,
         filmInfo: getFilmInfo(state),
-        userId: state.userInfo.id,
-        isRequestSucceeded: state.isRequestSucceeded
+        userInfo: getUserInfo(state)
     }
 }
 

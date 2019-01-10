@@ -11,6 +11,7 @@ import SignIn from './containers/SignIn'
 import TicketOrder from './containers/TicketOrder'
 import SubmitOrder from './containers/SubmitOrder'
 import Admin from './containers/Admin'
+import UserOrders from './containers/UserOrders'
 import PrivateAdminRoute from './components/PrivateRoutes/privateAdminRoute'
 import PrivateLoggedInUserRoute from './components/PrivateRoutes/privateLoggedInUserRoute'
 
@@ -36,7 +37,7 @@ class Page extends Component {
                             <Route path='/TicketOrder/:seanceId' component={TicketOrder}/>
                             <PrivateAdminRoute path='/Admin' component={Admin} exact/>
                             <PrivateLoggedInUserRoute path='/SubmitOrder/:orderId' component={SubmitOrder} exact/>
-                            <PrivateLoggedInUserRoute path='/MyOrders' component={SubmitOrder} exact/>
+                            <PrivateLoggedInUserRoute path='/MyOrders' component={UserOrders} exact/>
                         </Switch>
                     </section>
                     <ToastContainer />

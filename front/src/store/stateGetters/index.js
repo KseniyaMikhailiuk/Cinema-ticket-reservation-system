@@ -29,3 +29,7 @@ export const getLoginStatus = (state) => {
 export const getAdminStatus = (state) => {
     return state.isAdmin;
 }
+
+export const getUserInfo = (state) => {
+    return state.userInfo;
+}
