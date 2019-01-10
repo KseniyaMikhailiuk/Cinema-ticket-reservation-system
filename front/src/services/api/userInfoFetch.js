@@ -1,6 +1,6 @@
 import v4 from 'uuid'
 
-var userInfo = [
+var usersInfo = [
     {
         id: v4(),
         name: "Kate",
@@ -38,7 +38,7 @@ var userInfo = [
     }
 ]
 
-export default userInfo;
+export default usersInfo;
 
 const delay = (ms) =>
     new Promise(resolve => setTimeout(resolve, ms));
@@ -46,32 +46,33 @@ const delay = (ms) =>
 export const registerUser = (userData) =>
     delay(500)
         .then(() => {
-            let existedUser = userInfo.find(user => user.email === userData.email);
+            let existedUser = usersInfo.find(user => user.email === userData.email);
             if (!existedUser) {
-                userInfo.push({
+                let newUser = {
                     id: v4(),
-                    ...userData
-                });
-                return true;
+                    ...userData,
+                    isAdmin: false
+                };
+                usersInfo.push(newUser);
+                return newUser;
             }
-            return false;
+            return {};
         })
 
 export const authorizeUser = (userData) =>
     delay(500)
         .then(() => {
-            let response = {
-                isAdmin: false
-            }
-            let existedUser = userInfo.find(user => user.email === userData.email);
+            let existedUser = usersInfo.find(user => user.email === userData.email);
             if (existedUser) {
                 if (existedUser.password === userData.password) {
-                    response.userInfo = { ...existedUser};
-                    response.userInfo.isAdmin = checkIfAdmin(userData);
-                    delete response.userInfo.password;
+                    let userInfo = {
+                        isAdmin: false
+                    };
+                    userInfo = { ...existedUser};
+                    userInfo.isAdmin = checkIfAdmin(userData);
+                    return userInfo;
                 }
             }
-            return response;
         })
 
 const checkIfAdmin = (userData) => {

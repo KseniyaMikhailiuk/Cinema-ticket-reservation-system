@@ -22,16 +22,16 @@ class SignIn extends Component {
     onAuthorizationSubmit (userData) {
         userInfo.authorizeUser(userData)
             .then(response => {
-                if (!response.userInfo) {
+                if (!response) {
                     toast.error('Неправильный логин или пароль');
                     return;
                 }
                 toast.success(
-                    `Привет, ${response.userInfo.name}`, {autoClose: 2000}
+                    `Привет, ${response.name}`, {autoClose: 2000}
                 );
                 this.props.history.goBack();
                 const {authorize} = this.props;
-                authorize(response.userInfo);
+                authorize(response);
             })
     }
 
@@ -39,10 +39,15 @@ class SignIn extends Component {
         userInfo.registerUser(userData)
             .then(response => {
                 if (response) {
-                    toast.success('Успех! Теперь пройдие авторизацию', {autoClose: 2000});
+                    toast.success(
+                        `Привет, ${response.name}`, {autoClose: 2000}
+                    );
+                    this.props.history.goBack();
+                    const {authorize} = this.props;
+                    authorize(response);
                 }
                 else {
-                    toast.warn('Ошибка. Пройдите регистрацию еще раз');
+                    toast.warn('Такой E-mail уже существует');
                 }
             })
     }

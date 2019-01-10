@@ -48,7 +48,7 @@ class RegistrationForm extends Component {
                         name="email"
                         type="text"
                         validations="isEmail"
-                        validationError="E-mail должен содержать: '@', '.'"
+                        validationError="E-mail должен быть валидным"
                         placeholder="E-mail"
                         isInFocus={this.state.isInFocus}
                         required
@@ -58,7 +58,7 @@ class RegistrationForm extends Component {
                         type="password"
                         placeholder="Пароль"
                         validations={`minLength:${settings.password_min_length}`}
-                        validationError="Не меньше 8 символов"
+                        validationError={`Не меньше ${settings.password_min_length} символов`}
                         isInFocus={this.state.isInFocus}
                         required
                     />

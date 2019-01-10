@@ -35,7 +35,7 @@ class AuthorizationForm extends Component {
                         name="email"
                         type="text"
                         validations="isEmail"
-                        validationError="E-mail должен содержать: '@', '.'"
+                        validationError="E-mail должен быть валидным"
                         placeholder="E-mail"
                         isInFocus={this.state.isInFocus}
                         required
@@ -44,8 +44,8 @@ class AuthorizationForm extends Component {
                         name="password"
                         type="password"
                         placeholder="Пароль"
-                        validationError="Не меньше 8 символов"
                         validations={`minLength:${settings.password_min_length}`}
+                        validationError={`Не меньше ${settings.password_min_length} символов`}
                         isInFocus={this.state.isInFocus}
                         required
                     />
