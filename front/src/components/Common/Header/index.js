@@ -13,6 +13,11 @@ class Header extends Component {
         this.onClick = this.onClick.bind(this);
     }
 
+    componentDidMount() {
+        const {savePreviousPath} = this.props;
+        this.props.history.listen((location, action) => savePreviousPath(location.pathname));
+    }
+
     onClick () {
         const {deauthorize} = this.props;
         this.props.history.push('/Schedule');
