@@ -1,0 +1,81 @@
+{
+    "cinemas": "Cinemas",
+    "mainPage": "Main",
+    "schedule": "What's on",
+    "logIn": "Log in",
+    "signOut": "Log out",
+    "settings": "Settings",
+    "myOrders": "My orders",
+
+    "Ops": "Oooops",
+    "notAllFieldsAreFilled":  "All fields are required",
+    "nothingFound": "Nothing found",
+
+    "addCinema": "Add cinema",
+    "addFilm": "Add film",
+    "addSeance": "Add seance",
+    "addHall": "Add hall",
+    "addAdditionalServices": "Add additional services",
+    "add": "Add",
+    "okButton": "Ok",
+
+    "enterCityName": "Enter city name",
+    "enterFilmName": "Enter film name",
+    "enterCinemaName": "Enter cinema name",
+    "enterFilmDescription": "Enter film description",
+    "enterName": "Enter film name",
+
+    "hallsNumber": "Number of halls",
+    "numberOfRaws": "Number of raws",
+    "numberOfSeats": "Number of seats",
+    "seats": "Free seats",
+    "free": " free",
+
+    "selectCity": "Select city",
+    "selectCinema": "Select cinema",
+    "selectFilm": "Select film",
+    "selectHall": "Select hall",
+    "selectSeatType": "Select seat type",
+    "selectAdditionalServices": "Select additional services",
+    "selectPoster": "Select poster",
+    "selectSeat": "Select seat",
+    "select": "Select",
+
+    "priceStandard": "Price of 'standard'",
+    "priceLoveseats": "Price of 'loveseats'",
+    "priceComfort": "Price of 'comfort'",
+    "servicePrice": "Price of service",
+
+    "additionalServices": "Additional services",
+    "myTickets": "My tickets",
+    "line": "line",
+    "seat": "seat",
+    "price": "price",
+
+    "logInTitle": "Log in",
+    "email": "E-mail",
+    "emailErrorMessage": "Please, provide a valid e-mail",
+    "password": "Password",
+    "notLess": "Not less then",
+    "symbols": "symbols",
+
+    "signUpTitle": "Sign up",
+    "name": "Name",
+    "surname": "Surname",
+    "submitPassword": "Submit password",
+    "submitPasswordErrorMessage": "Passwords do not match",
+    "signUp": "Sign up",
+
+    "incorectLoginOrPasswordMessage": "Incorrect login or password",
+    "emailExistsMessage": "This email already exists",
+    "hello": "Hello",
+
+    "orderEmptyMessage": "Order list is empty",
+    "yourOrder": "Your order list",
+    "totalPrice": "Total price",
+    "buyButton": "Buy now",
+
+    "all": "All",
+    "previous": "Previous",
+    "next": "Next"
+}

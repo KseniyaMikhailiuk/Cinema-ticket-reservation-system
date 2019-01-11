@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import {NavLink, withRouter} from 'react-router-dom'
+import {withNamespaces} from 'react-i18next'
 
 import { getLoginStatus, getAdminStatus } from '../../../store/stateGetters';
 import * as actions from '../../../store/actions'
@@ -25,42 +26,42 @@ class Header extends Component {
     }
 
     render() {
-        const {isLoggedIn, isAdmin} = this.props;
+        const {isLoggedIn, isAdmin, t} = this.props;
         return (
             <nav>
                 <p>
                     VELVET SCREEN
                 </p>
                 <ul>
-                    <li><NavLink to="/Home" activeClassName="selected">Главная</NavLink></li>
-                    <li><NavLink to="/Schedule" activeClassName="selected">Афиша</NavLink></li>
-                    <li><NavLink to="/Cinemas" activeClassName="selected">Кинотеатры</NavLink></li>
+                    <li><NavLink to="/Home" activeClassName="selected">{t('mainPage')}</NavLink></li>
+                    <li><NavLink to="/Schedule" activeClassName="selected">{t('schedule')}</NavLink></li>
+                    <li><NavLink to="/Cinemas" activeClassName="selected">{t('cinemas')}</NavLink></li>
                     {
                         isLoggedIn ? (
                             isAdmin ? (
                                 <>
                                     <li>
-                                        <NavLink to="/Admin" activeClassName="selected">Настройки</NavLink>
+                                        <NavLink to="/Admin" activeClassName="selected">{t('settings')}</NavLink>
                                     </li>
                                     <li>
-                                        <a onClick={this.onClick}>Выход</a>
+                                        <a onClick={this.onClick}>{t('signOut')}</a>
                                     </li>
                                 </>
                             ) : (
                                 <>
                                     <li>
-                                        <NavLink to="/MyOrders" activeClassName="selected">Мои заказы</NavLink>
+                                        <NavLink to="/MyOrders" activeClassName="selected">{t('myOrders')}</NavLink>
                                     </li>
                                     <li>
                                         <a onClick={this.onClick}>
-                                            Выход
+                                            {t('signOut')}
                                         </a>
                                     </li>
                                 </>
                             )
                         ) : (
                             <li><NavLink to="/SignIn" activeClassName="selected">
-                                Войти
+                                {t('logIn')}
                             </NavLink></li>
                         )
                     }
@@ -83,4 +84,4 @@ Header = withRouter(connect(
     actions
 )(Header))
 
-export default Header;
+export default withNamespaces()(Header);

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
+import {withNamespaces} from 'react-i18next'
 
 import SuccessMessage from '../../components/Common/SuccessMessage'
 
@@ -49,12 +50,12 @@ class SubmitOrder extends Component{
     }
 
     render() {
-        const {orderInfo, orderId, filmInfo, userInfo} = this.props;
+        const {orderInfo, orderId, filmInfo, userInfo, t} = this.props;
 
         if (orderInfo.seats.length <= 0){
             return(
                 <div className="order-list__title submit-order__title">
-                    Ваш заказ пуст
+                    {t('orderEmptyMessage')}
                 </div>
             )
         }
@@ -66,13 +67,13 @@ class SubmitOrder extends Component{
         return(
             <div className="order-list submit-order">
                 <h1 className="order-list__title submit-order__title">
-                    Ваш заказ
+                    {t('yourOrder')}
                 </h1>
                 <ul className="order-list__list submit-order__list">
                     {orderInfo.seats.map(seat =>
                         <li className="submit-order__list-item">
-                            <h1>{`ряд: ${seat.line} место: ${seat.raw}`}</h1>
-                            <p>{seat.type} {seat.price}</p>
+                            <h1>{`${t('line')}: ${seat.line} ${t('seat')}: ${seat.raw}`}</h1>
+                            <p>{seat.type} {t('price')}: {filmInfo.price[seat.type]}</p>
                         </li>
                     )}
                     {orderInfo.services.map(service =>
@@ -83,12 +84,12 @@ class SubmitOrder extends Component{
                     )}
                 </ul>
                 <h1 className="order-list__title submit-order__title">
-                    {`Общая сумма заказа: ${this.totalPrice()}`}
+                    {`${t('totalPrice')}: ${this.totalPrice()}`}
                 </h1>
                 <input
                     className="submit-order__button bordered"
                     type="button"
-                    value="Купить"
+                    value={t('buyButton')}
                     onClick={() => this.addOrderToDatabase(orderInfo, orderId, filmInfo.seanceId, userInfo.id)}
                 />
             </div>
@@ -110,4 +111,4 @@ SubmitOrder = withRouter(connect(
     actions
 )(SubmitOrder))
 
-export default SubmitOrder;
+export default withNamespaces()(SubmitOrder);

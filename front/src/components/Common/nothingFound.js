@@ -1,10 +1,13 @@
 import React from 'react'
+import {withNamespaces} from 'react-i18next'
 
-const NothingFound = () => {
+const NothingFound = ({
+    t
+}) => {
     return (
         <article className="nothing-found">
-            <h1>По вашему запросу ничего не найдено</h1>
+            <h1>{t('nothingFound')}</h1>
         </article>
     )
 }
-export default NothingFound
+export default withNamespaces()(NothingFound)

@@ -1,14 +1,16 @@
 import React from 'react'
 import v4 from 'uuid'
+import {withNamespaces} from 'react-i18next'
 
 const AdditionalServices = ({
     additionalServicesList,
-    onServiceClick
+    onServiceClick,
+    t
 }) => {
     return (
         <section className="additional-services">
             <h3>
-                Дополнительные услуги
+                {t('additionalServices')}
             </h3>
             <ul className="additional-services__panel">
                 {
@@ -23,4 +25,4 @@ const AdditionalServices = ({
     )
 }
 
-export default AdditionalServices;
+export default withNamespaces()(AdditionalServices);

@@ -1,6 +1,7 @@
 import React from 'react'
 import Select from 'react-select';
 import Dialog from 'rc-dialog'
+import {withNamespaces} from 'react-i18next'
 
 import 'rc-dialog/assets/index.css'
 
@@ -20,6 +21,7 @@ const SeatTypeSelectDialog = ({
         }
         seatTypesForSelect.push({value: element, label: element});
     }
+    const {t} = this.props;
     return (
         <Dialog
             visible={isVisible}
@@ -37,17 +39,17 @@ const SeatTypeSelectDialog = ({
                 isSearchable
                 isClearable
                 onChange={(selectedOption) => handleSeatTypeSelect(selectedOption.label)}
-                placeholder="Выберите тип места"
+                placeholder={t('selectSeatType')}
             />
             <button
                 type="button"
                 className="form-item"
                 onClick={onSeatTypeSubmit}
             >
-                Выбрать
+                {t('select')}
             </button>
         </Dialog>
     )
 }
 
-export default SeatTypeSelectDialog;
+export default withNamespaces()(SeatTypeSelectDialog);

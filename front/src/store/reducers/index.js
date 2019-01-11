@@ -173,6 +173,15 @@ const previousPath = (state = "", action) => {
     }
 }
 
+const language = (state = "ru", action) => {
+    switch(action.type){
+        case 'CHANGE_LANGUAGE':
+            return action.language;
+        default:
+            return state;
+    }
+}
+
 const cinemaApp = combineReducers ({
     filteredList,
     filterObject,
@@ -185,7 +194,8 @@ const cinemaApp = combineReducers ({
     isLoggedIn,
     isAdmin,
     userInfo,
-    previousPath
+    previousPath,
+    language
 });
 
 export default cinemaApp;

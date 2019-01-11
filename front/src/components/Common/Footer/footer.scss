@@ -1,7 +1,20 @@
+$color-dark-chocolate: rgb(46, 45, 45);
+
 .footer{
     width: 100%;
     height: 40px;
-    background-color: rgb(31, 31, 31); 
+    background-color: rgb(31, 31, 31);
     position: fixed;
     bottom: 0px;
+    border-top: 0.5px white solid;
+    display: flex;
+    justify-content: flex-end;
+
+    &__select{
+        width: 5vw;
+        div{
+            background-color: $color-dark-chocolate;
+            color: white;
+        }
+    }
 }

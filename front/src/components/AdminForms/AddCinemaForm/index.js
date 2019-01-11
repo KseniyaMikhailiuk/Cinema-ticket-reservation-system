@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import NumericInput from 'react-numeric-input'
+import {withNamespaces} from 'react-i18next'
 
 import AddHallPlan from './addHallPlan';
 
@@ -54,6 +55,7 @@ class AddCinemaForm extends Component {
     }
 
     sendInfo (event) {
+        const {t} = this.props;
         event.preventDefault();
         const {city, cinema, hallsAmount, halls} = this.state;
         if (city && cinema && hallsAmount > 0 && hallsAmount === halls.length) {
@@ -61,35 +63,36 @@ class AddCinemaForm extends Component {
             onSubmit(this.state);
             return;
         }
-        NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
+        NotificationManager.warning(t('notAllFieldsAreFilled'), t('Ops'), 5000);
     }
 
     render() {
+        const {t} = this.props;
         return(
             <>
                 <form className="forms admin" onSubmit={this.sendInfo}>
                     <fieldset>
                         <legend className="form-item forms__legend">
-                            Добавить кинотеатр
+                            {t('addCinema')}
                         </legend>
                         <input
                             name="city"
                             className="form-item select"
                             onChange={this.handleInputChange}
-                            placeholder="Введите город"
+                            placeholder={t('enterCityName')}
                         />
                         <input
                             name="cinema"
                             className="form-item select"
                             onChange={this.handleInputChange}
-                            placeholder="Введите название кинотеатра"
+                            placeholder={t('enterCinemaName')}
                         />
                         <NumericInput
                             name="halls"
                             className="form-item"
                             min={1}
                             max={10}
-                            placeholder="Число залов"
+                            placeholder={t('hallsNumber')}
                             onChange={this.handleHallsAmountChange}
                             autoComplete="off"
                         />
@@ -103,7 +106,7 @@ class AddCinemaForm extends Component {
                     </fieldset>
                     <input
                         className="form-item forms__button bordered"
-                        value="Добавить кинотеатр"
+                        value={t('addCinema')}
                         type="submit">
                     </input>
                 </form>
@@ -113,4 +116,4 @@ class AddCinemaForm extends Component {
     }
 }
 
-export default AddCinemaForm;
+export default withNamespaces()(AddCinemaForm);

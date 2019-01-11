@@ -1,11 +1,13 @@
 import React from 'react'
+import {withNamespaces} from 'react-i18next'
 
 import seatType from '../Common/seatTypes'
 
 const HallPlan = ({
     hallPlan,
     seatsInfo,
-    onSeatSelect
+    onSeatSelect,
+    t
 }) => {
     const displaySeatLine = (seatLine, standardSeatWidth) => {
         return (
@@ -62,7 +64,7 @@ const HallPlan = ({
     return (
         <div className="hall-plan">
             <h3>
-                Выберите место
+                {t('selectSeat')}
             </h3>
             <svg className="hall-plan__screen-svg-container"
                 preserveAspectRatio="none"
@@ -82,4 +84,4 @@ const HallPlan = ({
     )
 }
 
-export default HallPlan;
+export default withNamespaces()(HallPlan);

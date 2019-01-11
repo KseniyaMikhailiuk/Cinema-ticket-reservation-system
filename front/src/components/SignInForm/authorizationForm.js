@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Formsy from 'formsy-react';
+import {withNamespaces} from 'react-i18next'
 
 import ValidatedInput from '../Common/validatedInput'
 
@@ -20,7 +21,7 @@ class AuthorizationForm extends Component {
     }
 
     render() {
-        const {settings} = this.props;
+        const {settings, t} = this.props;
         return(
             <Formsy
                 onValidSubmit={this.sendInfo}
@@ -29,29 +30,29 @@ class AuthorizationForm extends Component {
             >
                 <fieldset className="forms__fieldset">
                     <legend className="form-item forms__legend">
-                        Вход в систему
+                        {t('logInTitle')}
                     </legend>
                     <ValidatedInput
                         name="email"
                         type="text"
                         validations="isEmail"
-                        validationError="E-mail должен быть валидным"
-                        placeholder="E-mail"
+                        validationError={t('emailErrorMessage')}
+                        placeholder={t('email')}
                         isInFocus={this.state.isInFocus}
                         required
                     />
                     <ValidatedInput
                         name="password"
                         type="password"
-                        placeholder="Пароль"
+                        placeholder={t('password')}
                         validations={`minLength:${settings.password_min_length}`}
-                        validationError={`Не меньше ${settings.password_min_length} символов`}
+                        validationError={`${t('notLess')} ${settings.password_min_length} ${t('symbols')}`}
                         isInFocus={this.state.isInFocus}
                         required
                     />
                     <input className="form-item forms__button bordered"
                         type="submit"
-                        value="Войти"
+                        value={t('logIn')}
                     />
                 </fieldset>
             </Formsy>
@@ -59,4 +60,4 @@ class AuthorizationForm extends Component {
     }
 }
 
-export default AuthorizationForm;
+export default withNamespaces()(AuthorizationForm);

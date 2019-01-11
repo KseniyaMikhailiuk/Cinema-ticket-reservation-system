@@ -12,6 +12,7 @@ import TicketOrder from './containers/TicketOrder'
 import SubmitOrder from './containers/SubmitOrder'
 import Admin from './containers/Admin'
 import UserOrders from './containers/UserOrders'
+import Footer from './components/Common/Footer'
 import PrivateAdminRoute from './components/PrivateRoutes/privateAdminRoute'
 import PrivateLoggedInUserRoute from './components/PrivateRoutes/privateLoggedInUserRoute'
 
@@ -40,6 +41,7 @@ class Page extends Component {
                             <PrivateLoggedInUserRoute path='/MyOrders' component={UserOrders} exact/>
                         </Switch>
                     </section>
+                    <Footer/>
                     <ToastContainer />
                 </>
             </BrowserRouter>

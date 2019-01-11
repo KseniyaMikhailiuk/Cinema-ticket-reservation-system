@@ -29,7 +29,8 @@ const initialState = {
     },
     isRequestSucceeded: false,
     isAdmin: false,
-    isLoggedIn: false
+    isLoggedIn: false,
+    language: "ru"
 }
 
 const configureStore = () => {

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {NotificationContainer} from 'react-notifications'
 import NumericInput from 'react-numeric-input'
+import {withNamespaces} from 'react-i18next'
 
 import SeatTypeSelectDialog from './seatTypeSelectDialog'
 import HallPlan from './hallPlan'
@@ -92,9 +93,10 @@ class AddHallPlan extends Component{
     }
 
     showHallPlan () {
+        const {t} = this.props;
         if (this.state.lines > 0 && this.state.raws > 0) {
             let buttonText = "";
-            this.state.isDisabled ? buttonText = String.fromCharCode(10003) : buttonText = "Добавить зал";
+            this.state.isDisabled ? buttonText = String.fromCharCode(10003) : buttonText = t('addHall');
             return (
                 <>
                     <HallPlan
@@ -125,6 +127,7 @@ class AddHallPlan extends Component{
     }
 
     render () {
+        const {t} = this.props;
         return (
             <form disabled={this.state.isDisabled}>
                 <NumericInput
@@ -132,7 +135,7 @@ class AddHallPlan extends Component{
                     className="form-item"
                     min={1}
                     max={25}
-                    placeholder="Число рядов"
+                    placeholder={t('numberOfRaws')}
                     onChange={(value) => this.changeHallPlanLines("lines", value)}
                     disabled={this.state.isDisabled}
                 />
@@ -141,7 +144,7 @@ class AddHallPlan extends Component{
                     className="form-item"
                     min={1}
                     max={25}
-                    placeholder="Число мест"
+                    placeholder={t('numberOfSeats')}
                     onChange={(value) => this.changeHallPlanRaws("raws", value)}
                     disabled={this.state.isDisabled}
                 />
@@ -157,4 +160,4 @@ class AddHallPlan extends Component{
     }
 }
 
-export default AddHallPlan;
+export default withNamespaces()(AddHallPlan);

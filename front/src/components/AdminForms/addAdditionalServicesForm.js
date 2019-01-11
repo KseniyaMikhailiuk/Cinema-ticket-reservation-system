@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import NumericInput from 'react-numeric-input'
+import {withNamespaces} from 'react-i18next'
 
 class AddAdditionalServicesForm extends Component {
     state = {
@@ -33,6 +34,7 @@ class AddAdditionalServicesForm extends Component {
     }
 
     sendInfo (event) {
+        const {t} = this.props;
         event.preventDefault();
         const {name, price} = this.state;
         if (name && price) {
@@ -40,19 +42,20 @@ class AddAdditionalServicesForm extends Component {
             onSubmit(this.state);
             return;
         }
-        NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
+        NotificationManager.warning(t('notAllFieldsAreFilled'), t('Ops'), 5000);
     }
 
     render(){
+        const {t} = this.props;
         return (
             <>
                 <form className="forms admin" onSubmit={this.sendInfo}>
                     <fieldset>
                         <legend className="form-item forms__legend">
-                            Добавить дополнительные услуги
+                            {t('addAdditionalServices')}
                         </legend>
                         <input name="name"
-                            placeholder="Введите название"
+                            placeholder={t('enterName')}
                             className="form-item admin__form-item"
                             onChange={this.handleInputChange}
                         />
@@ -61,12 +64,12 @@ class AddAdditionalServicesForm extends Component {
                             className="form-item"
                             min={1}
                             max={100}
-                            placeholder="Цена услуги"
+                            placeholder={t('servicePrice')}
                             format={this.moneyFormat}
                             onChange={this.handlePriceChange}
                         />
                     </fieldset>
-                    <input className="form-item forms__button bordered" value="Добавить" type="submit"></input>
+                    <input className="form-item forms__button bordered" value={t('add')} type="submit"></input>
                 </form>
                 <NotificationContainer/>
             </>
@@ -74,4 +77,4 @@ class AddAdditionalServicesForm extends Component {
     }
 }
 
-export default AddAdditionalServicesForm;
+export default withNamespaces()(AddAdditionalServicesForm);

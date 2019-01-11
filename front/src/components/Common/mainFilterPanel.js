@@ -1,4 +1,5 @@
 import React from 'react'
+import {withNamespaces} from 'react-i18next'
 
 import DatePickerCustomized from './datePicker'
 
@@ -6,7 +7,8 @@ const MainFilterPanel = ({
     filter,
     filterOptions,
     onFilterClick,
-    handleInputChangeAdmin
+    handleInputChangeAdmin,
+    t
 }) => {
     const handleInputChange = (event) => {
         onFilterClick(event.target.list.id, event.target.value);
@@ -21,7 +23,7 @@ const MainFilterPanel = ({
                 name="city"
                 className="form-item"
                 list="city"
-                placeholder="Выберите город"
+                placeholder={t('selectCity')}
                 value={filter.city}
                 onChange={handleInputChange}
                 required/>
@@ -39,7 +41,7 @@ const MainFilterPanel = ({
                 name="cinema"
                 className="form-item"
                 list="cinema"
-                placeholder="Выберите кинотеатр"
+                placeholder={t('selectCinema')}
                 onChange={handleInputChange}
                 required/>
             <datalist id="cinema">
@@ -66,7 +68,7 @@ const MainFilterPanel = ({
                 name="filmName"
                 className="form-item"
                 list="filmName"
-                placeholder="Выберите фильм"
+                placeholder={t('selectFilm')}
                 onChange={handleInputChange}
                 required/>
             <datalist id="filmName">
@@ -82,4 +84,4 @@ const MainFilterPanel = ({
     )
 }
 
-export default MainFilterPanel;
+export default withNamespaces()(MainFilterPanel);

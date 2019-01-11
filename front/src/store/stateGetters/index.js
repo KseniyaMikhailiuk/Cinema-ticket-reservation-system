@@ -33,6 +33,12 @@ export const getAdminStatus = (state) => {
 export const getUserInfo = (state) => {
     return state.userInfo;
 }
+
 export const getPreviousPath = (state) => {
     return state.previousPath;
 }
+
+export const getLanguage = (state) => {
+    return state.language;
+}
+

@@ -11,7 +11,7 @@ const usersOrdersDatabase = [
                 {
                     line: 1,
                     raw: 2,
-                    type: 'loveseats',
+                    type: 'loveseat',
                     price: 20
                 },
                 {
