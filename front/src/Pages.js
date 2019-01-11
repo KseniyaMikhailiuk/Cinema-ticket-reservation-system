@@ -12,11 +12,14 @@ import TicketOrder from './containers/TicketOrder'
 import SubmitOrder from './containers/SubmitOrder'
 import Admin from './containers/Admin'
 import UserOrders from './containers/UserOrders'
+import Footer from './components/Common/Footer'
 import PrivateAdminRoute from './components/PrivateRoutes/privateAdminRoute'
 import PrivateLoggedInUserRoute from './components/PrivateRoutes/privateLoggedInUserRoute'
 
 import { getAdminStatus, getLoginStatus } from './store/stateGetters';
 import * as actions from './store/actions'
+
+import './i18n'
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -40,6 +43,7 @@ class Page extends Component {
                             <PrivateLoggedInUserRoute path='/MyOrders' component={UserOrders} exact/>
                         </Switch>
                     </section>
+                    <Footer/>
                     <ToastContainer />
                 </>
             </BrowserRouter>
@@ -50,7 +54,7 @@ class Page extends Component {
 const mapStateToProps = (state) => {
     return {
         isAdmin: getAdminStatus(state),
-        isLoggedIn: getLoginStatus(state)
+        isLoggedIn: getLoginStatus(state),
     }
 }
 

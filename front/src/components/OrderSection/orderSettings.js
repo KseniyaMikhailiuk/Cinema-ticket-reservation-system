@@ -1,12 +1,14 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
 import v4 from 'uuid'
+import {withNamespaces} from 'react-i18next'
 
 const OrderSettings = ({
     orderInfo,
     onCancelOrderTicketClick,
     onCancelOrderServiceClick,
-    seatsPrice
+    seatsPrice,
+    t
 }) => {
 
     const submitTicketOrder = () => {
@@ -14,7 +16,7 @@ const OrderSettings = ({
             return(
                 <div className="order-list__submit-button">
                     <NavLink to={`/SubmitOrder/${v4()}`}>
-                        Готово
+                        {t('okButton')}
                     </NavLink>
                 </div>
             )
@@ -23,7 +25,7 @@ const OrderSettings = ({
 
     return (
         <section className="order-list">
-            <h1 className="order-list__title">Мои билеты</h1>
+            <h1 className="order-list__title">{t('myTickets')}</h1>
             <ul className="order-list__list">
                 {
                     orderInfo
@@ -31,8 +33,8 @@ const OrderSettings = ({
                         .map(orderItem =>
                             <li className="order-list__item">
                                 <div className="ticket-info">
-                                    <h1>{`ряд: ${orderItem.line} место: ${orderItem.raw}`}</h1>
-                                    <p>{orderItem.type} {seatsPrice[orderItem.type]}</p>
+                                    <h1>{`${t('line')}: ${orderItem.line} ${t('seat')}: ${orderItem.raw}`}</h1>
+                                    <p>{orderItem.type} {t('price')}:{seatsPrice[orderItem.type]}</p>
                                 </div>
                                 <div
                                     className="order-list__cross"
@@ -67,4 +69,4 @@ const OrderSettings = ({
     )
 }
 
-export default OrderSettings;
+export default withNamespaces()(OrderSettings);

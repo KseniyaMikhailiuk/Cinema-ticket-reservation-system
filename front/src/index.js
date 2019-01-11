@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+
 import configureStore from './configureStore'
+
+import App from './App';
+
 import './main.scss'
 
 const store = configureStore();

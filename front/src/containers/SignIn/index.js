@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import {toast} from 'react-toastify';
+import {withNamespaces} from 'react-i18next'
 
 import AuthorizationForm from '../../components/SignInForm/authorizationForm'
 import RegistrationForm from '../../components/SignInForm/registrationForm'
@@ -20,14 +21,15 @@ class SignIn extends Component {
     }
 
     onAuthorizationSubmit (userData) {
+        const {t} = this.props;
         userInfo.authorizeUser(userData)
             .then(response => {
                 if (!response) {
-                    toast.error('Неправильный логин или пароль');
+                    toast.error(t('incorectLoginOrPasswordMessage'));
                     return;
                 }
                 toast.success(
-                    `Привет, ${response.name}`, {autoClose: 2000}
+                    `${t('hello')}, ${response.name}`, {autoClose: 2000}
                 );
                 this.props.history.goBack();
                 const {authorize} = this.props;
@@ -36,18 +38,19 @@ class SignIn extends Component {
     }
 
     onRegistrationSubmit (userData) {
+        const {t} = this.props;
         userInfo.registerUser(userData)
             .then(response => {
                 if (response) {
                     toast.success(
-                        `Привет, ${response.name}`, {autoClose: 2000}
+                        `${t('hello')}, ${response.name}`, {autoClose: 2000}
                     );
                     this.props.history.goBack();
                     const {authorize} = this.props;
                     authorize(response);
                 }
                 else {
-                    toast.warn('Такой E-mail уже существует');
+                    toast.warn(t('emailExistsMessage'));
                 }
             })
     }
@@ -64,4 +67,4 @@ class SignIn extends Component {
 
 SignIn = withRouter(SignIn);
 
-export default SignIn;
+export default withNamespaces()(SignIn);

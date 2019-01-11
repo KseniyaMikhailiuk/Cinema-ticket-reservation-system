@@ -1,9 +1,10 @@
 import React from 'react'
+import {withNamespaces} from 'react-i18next'
 
 const UserOrdersListItem = ({
-    itemInfo
+    itemInfo,
+    t
 }) => {
-    console.log(itemInfo)
     return(
         <article className="list-item">
             <section className="film-item__image-container">
@@ -21,8 +22,8 @@ const UserOrdersListItem = ({
                                 .map(orderItem =>
                                     <li className="order-list__item">
                                         <div className="ticket-info">
-                                            <h1>{`ряд: ${orderItem.line} место: ${orderItem.raw}`}</h1>
-                                            <p>{orderItem.type} {itemInfo.seanceInfo.price[orderItem.type]}</p>
+                                            <h1>{`${t('line')}: ${orderItem.line} ${t('seat')}: ${orderItem.raw}`}</h1>
+                                            <p>{orderItem.type} {t('price')}: {itemInfo.seanceInfo.price[orderItem.type]}</p>
                                         </div>
                                     </li>
                                 )
@@ -47,4 +48,4 @@ const UserOrdersListItem = ({
     )
 }
 
-export default UserOrdersListItem;
+export default withNamespaces()(UserOrdersListItem);

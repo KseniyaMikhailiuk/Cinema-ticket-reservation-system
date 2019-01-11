@@ -1,0 +1,81 @@
+{
+    "cinemas": "Кинотеатры",
+    "mainPage": "Главная",
+    "schedule": "Афиша",
+    "logIn": "Войти",
+    "signOut": "Выход",
+    "settings": "Настройки",
+    "myOrders": "Мои заказы",
+
+    "Ops": "Упс",
+    "notAllFieldsAreFilled":  "Вы заполнили не все поля",
+    "nothingFound": "По вашему запросу ничего не найдено",
+
+    "addCinema": "Добавить кинотеатр",
+    "addFilm": "Добавить фильм",
+    "addSeance": "Добавить сеанс",
+    "addHall": "Добавить зал",
+    "addAdditionalServices": "Добавить дополнительные услуги",
+    "add": "Добавить",
+    "okButton": "Готово",
+
+    "enterCityName": "Введите название города",
+    "enterFilmName": "Введите название фильма",
+    "enterCinemaName": "Введите название кинотеатра",
+    "enterFilmDescription": "Введите описание фильма",
+    "enterName": "Введите название",
+
+    "hallsNumber": "Число залов",
+    "numberOfRaws": "Число рядов",
+    "numberOfSeats": "Число мест",
+    "seats": "Места",
+    "free": " свободно",
+
+    "selectCity": "Выберите город",
+    "selectCinema": "Выберите кинотеатр",
+    "selectFilm": "Выберите фильм",
+    "selectHall": "Выберите зал",
+    "selectSeatType": "Выберите тип места",
+    "selectAdditionalServices": "Выберите доп услуги",
+    "selectPoster": "Выберите постер",
+    "selectSeat": "Выберите место",
+    "select": "Выбрать",
+
+    "priceStandard": "Цена standard",
+    "priceLoveseats": "Цена loveseats",
+    "priceComfort": "Цена comfort",
+    "servicePrice": "Цена услуги",
+
+    "additionalServices": "Дополнительные услуги",
+    "myTickets": "Мои билеты",
+    "line": "ряд",
+    "seat": "место",
+    "price": "price",
+
+    "logInTitle": "Вход в систему",
+    "email": "E-mail",
+    "emailErrorMessage": "E-mail должен быть валидным",
+    "password": "Пароль",
+    "notLess": "Не меньше",
+    "symbols": "символов",
+
+    "signUpTitle": "Регистрация",
+    "name": "Имя",
+    "surname": "Фамилия",
+    "submitPassword": "Повторите пароль",
+    "submitPasswordErrorMessage": "Пароль не совпадает",
+    "signUp": "Зарегистрироваться",
+
+    "incorectLoginOrPasswordMessage": "Неправильный логин или пароль",
+    "emailExistsMessage": "Такой E-mail уже существует",
+    "hello": "Привет",
+
+    "orderEmptyMessage": "Ваш заказ пуст",
+    "yourOrder": "Ваш заказ",
+    "totalPrice": "Общая сумма заказа",
+    "buyButton": "Купить",
+
+    "all": "Все",
+    "previous": "Предыдущие",
+    "next": "Будущие"
+}

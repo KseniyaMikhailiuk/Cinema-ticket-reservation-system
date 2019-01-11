@@ -3,6 +3,7 @@ import cinemaApp from './store/reducers'
 import thunk from 'redux-thunk'
 import moment from 'moment'
 
+
 const initialState = {
     filterObject: {
         city: "Минск",

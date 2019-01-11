@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import DatePickerCusomized from '../Common/datePicker'
+import {withNamespaces} from 'react-i18next'
 
 class AddFilmForm extends Component {
     state = {
@@ -24,6 +25,7 @@ class AddFilmForm extends Component {
     }
 
     sendInfo (event) {
+        const {t} = this.props;
         event.preventDefault();
         const {filmName, filmDescription, filmPoster} = this.state;
         if (filmName && filmDescription && filmPoster) {
@@ -31,20 +33,21 @@ class AddFilmForm extends Component {
             onSubmit(this.state);
             return;
         }
-        NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
+        NotificationManager.warning(t('notAllFieldsAreFilled'), t('Ops'), 5000);
     }
 
     render() {
+        const {t} = this.props;
         return(
             <>
                 <form className="forms admin" onSubmit={this.sendInfo}>
                     <fieldset>
                         <legend className="form-item forms__legend">
-                            Добавить фильм
+                            {t('addFilm')}
                         </legend>
                         <input
                             name="filmName"
-                            placeholder="Введите название"
+                            placeholder={t('enterFilmName')}
                             className="form-item admin__form-item"
                             onChange={this.handleInputChange}
                         />
@@ -56,7 +59,7 @@ class AddFilmForm extends Component {
                         </div>
                         <textarea
                             name="filmDescription"
-                            placeholder="Введите описание фильма"
+                            placeholder={t('enterFilmDescription')}
                             className="form-item admin__form-item"
                             rows="10"
                             cols="30"
@@ -65,16 +68,16 @@ class AddFilmForm extends Component {
                         <input
                             name="filmPoster"
                             className="form-item admin__form-item"
-                            placeholder="Выберите постер"
+                            placeholder={t('selectPoster')}
                             type="file"
                             onChange={this.handleInputChange}
                         />
                     </fieldset>
-                    <input className="form-item forms__button bordered" value="Добавить" type="submit"></input>
+                    <input className="form-item forms__button bordered" value={t('add')} type="submit"></input>
                 </form>
                 <NotificationContainer/>
             </>
         )
     }
 }
-export default AddFilmForm;
+export default withNamespaces()(AddFilmForm);

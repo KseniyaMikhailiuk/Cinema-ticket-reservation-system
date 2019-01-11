@@ -3,6 +3,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import DatePickerCustomized from '../Common/datePicker'
 import NumericInput from 'react-numeric-input'
 import Select from 'react-select';
+import {withNamespaces} from 'react-i18next'
 
 class AddSeanceForm extends Component{
     state = {
@@ -83,10 +84,11 @@ class AddSeanceForm extends Component{
     }
 
     sendInfo (event) {
+        const {t} = this.props;
         event.preventDefault();
         const {city, cinema, filmName, hall, time, price, services} = this.state;
         if (services.find(service => service.price === 0)) {
-            NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
+            NotificationManager.warning(t('notAllFieldsAreFilled'), t('Ops'), 5000);
             return;
         }
         if (city && cinema && filmName && hall && time &&
@@ -95,7 +97,7 @@ class AddSeanceForm extends Component{
             onSubmit(this.state);
             return;
         }
-        NotificationManager.warning('Вы заполнили не все поля', 'Упс', 5000);
+        NotificationManager.warning(t('notAllFieldsAreFilled'), t('Ops'), 5000);
     }
 
     moneyFormat(value){
@@ -103,7 +105,7 @@ class AddSeanceForm extends Component{
     }
 
     render(){
-        const { filterOptions, filmNames, additionalServices } = this.props;
+        const { filterOptions, filmNames, additionalServices, t } = this.props;
         const { selectedOption } = this.state.services;
         let halls = filterOptions
         	.halls
@@ -118,7 +120,7 @@ class AddSeanceForm extends Component{
                 <form className="forms admin" onSubmit={this.sendInfo}>
                     <fieldset>
                         <legend className="form-item forms__legend">
-                            Добавить сеанс
+                            {t('addSeance')}
                         </legend>
                         <Select
                             name="city"
@@ -127,7 +129,7 @@ class AddSeanceForm extends Component{
                             isSearchable
                             isClearable
                             onChange={(selectedOption) => this.handleInputChange("city", selectedOption.label)}
-                            placeholder="Выберите город"
+                            placeholder={t('selectCity')}
                         />
                         <Select
                             name="cinema"
@@ -136,7 +138,7 @@ class AddSeanceForm extends Component{
                             isSearchable
                             isClearable
                             onChange={(selectedOption) => this.handleInputChange("cinema", selectedOption.label)}
-                            placeholder="Выберите кинотеатр"
+                            placeholder={t('selectCinema')}
                         />
                         <div className="form-item">
                             <DatePickerCustomized
@@ -151,7 +153,7 @@ class AddSeanceForm extends Component{
                             isSearchable
                             isClearable
                             onChange={(selectedOption) => this.handleInputChange("filmName", selectedOption.label)}
-                            placeholder="Выберите фильм"
+                            placeholder={t('selectFilm')}
                         />
                         <Select
                             name="hall"
@@ -159,7 +161,7 @@ class AddSeanceForm extends Component{
                             options={halls}
                             isSearchable
                             onChange={(selectedOption) => this.handleInputChange("hall", selectedOption.label)}
-                            placeholder="Выберите зал"
+                            placeholder={t('selectHall')}
                         />
                         <input
                             name="time"
@@ -169,9 +171,8 @@ class AddSeanceForm extends Component{
                         <NumericInput
                             name="standard"
                             className="form-item"
-                            min={1}
-                            max={100}
-                            placeholder="Цена standard"
+                            min={0}
+                            placeholder={t('priceStandard')}
                             format={this.moneyFormat}
                             onChange={(value) => this.handlePriceChange(value, "standard")}
                             autoComplete="off"
@@ -179,9 +180,8 @@ class AddSeanceForm extends Component{
                         <NumericInput
                             name="loveseats"
                             className="form-item"
-                            min={1}
-                            max={100}
-                            placeholder="Цена loveseats"
+                            min={0}
+                            placeholder={t('priceLoveseats')}
                             format={this.moneyFormat}
                             onChange={(value) => this.handlePriceChange(value, "loveseat")}
                             autoComplete="off"
@@ -189,9 +189,8 @@ class AddSeanceForm extends Component{
                         <NumericInput
                             name="comfort"
                             className="form-item"
-                            min={1}
-                            max={100}
-                            placeholder="Цена comfort"
+                            min={0}
+                            placeholder={t('priceComfort')}
                             format={this.moneyFormat}
                             onChange={(value) => this.handlePriceChange(value, "comfort")}
                             autoComplete="off"
@@ -204,7 +203,7 @@ class AddSeanceForm extends Component{
                             isSearchable
                             value={selectedOption}
                             onChange={this.handleServicesChange}
-                            placeholder="Выберите доп услуги"
+                            placeholder={t('selectAdditionalServices')}
                         />
                         <ul>{
                             this.state.services.map(service =>
@@ -214,10 +213,10 @@ class AddSeanceForm extends Component{
                                         id={service.name}
                                         name={service.name}
                                         min={1}
-                                        max={100}
-                                        placeholder="Цена услуги"
+                                        placeholder={t('servicePrice')}
                                         format={this.moneyFormat}
-                                        onChange={(selectedOption) => this.handleServicePriceChange(selectedOption, service.name)}
+                                        onChange={(selectedOption) =>
+                                            this.handleServicePriceChange(selectedOption, service.name)}
                                         autoComplete="off"
                                     />
                                 </li>
@@ -225,11 +224,11 @@ class AddSeanceForm extends Component{
                         }
                         </ul>
                     </fieldset>
-                    <input className="form-item forms__button bordered" value="Добавить" type="submit"></input>
+                    <input className="form-item forms__button bordered" value={t('add')} type="submit"></input>
                 </form>
                 <NotificationContainer/>
             </>
         )
     }
 }
-export default AddSeanceForm;
+export default withNamespaces()(AddSeanceForm);

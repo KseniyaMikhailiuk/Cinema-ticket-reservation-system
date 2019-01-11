@@ -1,5 +1,6 @@
 import React from 'react'
 import NumericInput from 'react-numeric-input'
+import {withNamespaces} from 'react-i18next'
 
 import MainFilterPanel from '../Common/mainFilterPanel'
 
@@ -9,14 +10,15 @@ import './filterPanel.scss'
 const FilterPanel = ({
     filter,
     filterOptions,
-    onFilterClick
+    onFilterClick,
+    t
 }) => {
     const handleFreeSeatsSelect = (value) => {
         onFilterClick("freeSeats", value)
     }
 
     const freeSeatsFormat = (amount) => {
-        return amount + ' свободно'
+        return `${amount} ${t('free')}`
     }
 
     return (
@@ -32,7 +34,7 @@ const FilterPanel = ({
                 className="form-item"
                 min={1}
                 max={100}
-                placeholder="Места"
+                placeholder={t('seats')}
                 format={freeSeatsFormat}
                 onChange={valueAsNumber =>
                     handleFreeSeatsSelect(
@@ -44,4 +46,4 @@ const FilterPanel = ({
     )
 }
 
-export default FilterPanel;
+export default withNamespaces()(FilterPanel);
