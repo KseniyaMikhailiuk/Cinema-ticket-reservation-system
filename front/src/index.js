@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import configureStore from './configureStore'
-import './i18n'
 
 import App from './App';
 

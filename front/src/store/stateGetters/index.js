@@ -38,7 +38,3 @@ export const getPreviousPath = (state) => {
     return state.previousPath;
 }
 
-export const getLanguage = (state) => {
-    return state.language;
-}
-

@@ -1,13 +1,15 @@
 import React, {Component} from 'react'
 import Select from 'react-select'
 import {connect} from 'react-redux'
-
-import * as actions from '../../../store/actions'
-import {getLanguage} from '../../../store/stateGetters'
+import i18n from '../../../i18n';
 
 import './footer.scss'
 
 class Footer extends Component{
+
+    state = {
+        language: i18n.language
+    }
 
     constructor (props) {
         super(props);
@@ -15,20 +17,20 @@ class Footer extends Component{
     }
 
     handleSelectChange (selectedOption) {
-        const {changeLanguage} = this.props;
-        changeLanguage(selectedOption.value);
+        i18n.changeLanguage(selectedOption.value);
+        this.setState({
+            language: i18n.language
+        })
     }
 
     render () {
-        const {language} = this.props;
-        console.log(language)
         let languages = [{value: "en", label: "en"}, {value: "ru", label: "ru"}];
         return (
             <div className="footer">
                 <Select
                     className="footer__select"
                     options={languages}
-                    value={{value: language, label: language}}
+                    value={{value: this.state.language, label: this.state.language}}
                     onChange={this.handleSelectChange}
                     menuPlacement = "top"
                 />
@@ -36,16 +38,5 @@ class Footer extends Component{
         )
     }
 }
-
-const mapStateToProps = (state) => {
-    return {
-        language: getLanguage(state)
-    }
-}
-
-Footer = connect(
-    mapStateToProps,
-    actions
-)(Footer)
 
 export default Footer;

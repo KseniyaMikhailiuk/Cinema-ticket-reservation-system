@@ -19,6 +19,8 @@ import PrivateLoggedInUserRoute from './components/PrivateRoutes/privateLoggedIn
 import { getAdminStatus, getLoginStatus } from './store/stateGetters';
 import * as actions from './store/actions'
 
+import './i18n'
+
 import 'react-toastify/dist/ReactToastify.css';
 
 class Page extends Component {
@@ -52,7 +54,7 @@ class Page extends Component {
 const mapStateToProps = (state) => {
     return {
         isAdmin: getAdminStatus(state),
-        isLoggedIn: getLoginStatus(state)
+        isLoggedIn: getLoginStatus(state),
     }
 }
 
