@@ -12,7 +12,8 @@ const SeatTypeSelectDialog = ({
     onClose,
     handleSeatTypeSelect,
     onSeatTypeSubmit,
-    isLastSeat
+    isLastSeat,
+    t
 }) => {
     var seatTypesForSelect = [];
     for (let element in SeatTypesInfo) {
@@ -21,7 +22,6 @@ const SeatTypeSelectDialog = ({
         }
         seatTypesForSelect.push({value: element, label: element});
     }
-    const {t} = this.props;
     return (
         <Dialog
             visible={isVisible}

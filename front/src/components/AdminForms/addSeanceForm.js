@@ -171,8 +171,7 @@ class AddSeanceForm extends Component{
                         <NumericInput
                             name="standard"
                             className="form-item"
-                            min={1}
-                            max={100}
+                            min={0}
                             placeholder={t('priceStandard')}
                             format={this.moneyFormat}
                             onChange={(value) => this.handlePriceChange(value, "standard")}
@@ -181,8 +180,7 @@ class AddSeanceForm extends Component{
                         <NumericInput
                             name="loveseats"
                             className="form-item"
-                            min={1}
-                            max={100}
+                            min={0}
                             placeholder={t('priceLoveseats')}
                             format={this.moneyFormat}
                             onChange={(value) => this.handlePriceChange(value, "loveseat")}
@@ -191,8 +189,7 @@ class AddSeanceForm extends Component{
                         <NumericInput
                             name="comfort"
                             className="form-item"
-                            min={1}
-                            max={100}
+                            min={0}
                             placeholder={t('priceComfort')}
                             format={this.moneyFormat}
                             onChange={(value) => this.handlePriceChange(value, "comfort")}
@@ -216,7 +213,6 @@ class AddSeanceForm extends Component{
                                         id={service.name}
                                         name={service.name}
                                         min={1}
-                                        max={100}
                                         placeholder={t('servicePrice')}
                                         format={this.moneyFormat}
                                         onChange={(selectedOption) =>

@@ -3,6 +3,7 @@ import cinemaApp from './store/reducers'
 import thunk from 'redux-thunk'
 import moment from 'moment'
 
+
 const initialState = {
     filterObject: {
         city: "Минск",
@@ -29,8 +30,7 @@ const initialState = {
     },
     isRequestSucceeded: false,
     isAdmin: false,
-    isLoggedIn: false,
-    language: "ru"
+    isLoggedIn: false
 }
 
 const configureStore = () => {

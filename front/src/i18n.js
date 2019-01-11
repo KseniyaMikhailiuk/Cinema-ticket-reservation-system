@@ -5,6 +5,8 @@ import detector from "i18next-browser-languagedetector";
 import translationEN from './services/locales/en/translation.json';
 import translationRU from './services/locales/ru/translation.json';
 
+import settings from './services/config/settings.json'
+
 const resources = {
     en: {
         translation: translationEN
@@ -20,8 +22,8 @@ i18n
     .use(reactI18nextModule)
     .init({
         resources,
-        lng: "ru",
-        fallbackLng: "ru",
+        lng: settings.language,
+        fallbackLng: settings.language,
         keySeparator: false,
 
         interpolation: {

@@ -15,15 +15,15 @@ const CinemaSeanceInfo = ({
                         .halls
                         .map(hall =>
                             hall
-                            .schedule
-                            .map(seance =>
-                                <NavLink className="bordered"
-                                    to={`/TicketOrder/${seance.id}`}
-                                    key={seance.id}
-                                >
-                                    {`${seance.dateTime.hour()} : ${seance.dateTime.minute()}`}
-                                </NavLink>
-                            )
+                                .schedule
+                                .map(seance =>
+                                    <NavLink className="bordered"
+                                        to={`/TicketOrder/${seance.id}`}
+                                        key={seance.id}
+                                    >
+                                        {`${seance.dateTime.hour()} : ${seance.dateTime.minute()}`}
+                                    </NavLink>
+                                )
                         )
                 }
             </section>

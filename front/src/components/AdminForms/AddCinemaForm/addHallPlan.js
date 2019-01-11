@@ -134,7 +134,6 @@ class AddHallPlan extends Component{
                     name="lines"
                     className="form-item"
                     min={1}
-                    max={25}
                     placeholder={t('numberOfRaws')}
                     onChange={(value) => this.changeHallPlanLines("lines", value)}
                     disabled={this.state.isDisabled}
@@ -143,7 +142,6 @@ class AddHallPlan extends Component{
                     name="raws"
                     className="form-item"
                     min={1}
-                    max={25}
                     placeholder={t('numberOfSeats')}
                     onChange={(value) => this.changeHallPlanRaws("raws", value)}
                     disabled={this.state.isDisabled}

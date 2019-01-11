@@ -91,7 +91,6 @@ class AddCinemaForm extends Component {
                             name="halls"
                             className="form-item"
                             min={1}
-                            max={10}
                             placeholder={t('hallsNumber')}
                             onChange={this.handleHallsAmountChange}
                             autoComplete="off"
