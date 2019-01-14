@@ -5,6 +5,7 @@
     [IsSelected] BIT NOT NULL,
     [IsOccupied] BIT NOT NULL,
     [UserId]     INT NOT NULL,
+    [SelectionDatetime] DATETIME NOT NULL, 
     CONSTRAINT [PK_OccupiedSeats_Id] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_OccupiedSeats_SeanceId_Seances_Id] FOREIGN KEY ([SeanceId]) REFERENCES [dbo].[Seances] ([Id]),
     CONSTRAINT [FK_OccupiedSeats_SeatId_Seats_Id] FOREIGN KEY ([SeatId]) REFERENCES [dbo].[Seats] ([Id]),
