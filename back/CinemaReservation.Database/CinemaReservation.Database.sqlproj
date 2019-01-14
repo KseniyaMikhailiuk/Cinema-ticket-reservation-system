@@ -4,17 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>CinemaReservationSystem.Database</Name>
+    <Name>CinemaReservation.Database</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
-    <ProjectGuid>{edca475f-cbda-4f44-9a90-490a7e866a0f}</ProjectGuid>
+    <ProjectGuid>{22fa86a7-46c6-4ed6-8466-1e4462e8a12a}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>CinemaReservationSystem</RootNamespace>
-    <AssemblyName>CinemaReservationSystem</AssemblyName>
-    <ModelCollation>1049,CI</ModelCollation>
+    <RootNamespace>CinemaReservation.Database</RootNamespace>
+    <AssemblyName>CinemaReservation.Database</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -23,9 +23,6 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
-    <DefaultCollation>Cyrillic_General_CI_AS</DefaultCollation>
-    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
-    <TargetDatabase>CinemaReservationSystem.Database</TargetDatabase>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -60,22 +57,5 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="dbo\" />
-    <Folder Include="dbo\Tables\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Build Include="dbo\Tables\cinemas.sql" />
-    <Build Include="dbo\Tables\cities.sql" />
-    <Build Include="dbo\Tables\seats.sql" />
-    <Build Include="dbo\Tables\films.sql" />
-    <Build Include="dbo\Tables\services.sql" />
-    <Build Include="dbo\Tables\seanceAdditionalServices.sql" />
-    <Build Include="dbo\Tables\occupiedSeats.sql" />
-    <Build Include="dbo\Tables\halls.sql" />
-    <Build Include="dbo\Tables\seances.sql" />
-    <Build Include="dbo\Tables\usersOrders.sql" />
-    <Build Include="dbo\Tables\orderedServices.sql" />
-    <Build Include="dbo\Tables\users.sql" />
-    <Build Include="dbo\Tables\orderedSeats.sql" />
   </ItemGroup>
 </Project>
