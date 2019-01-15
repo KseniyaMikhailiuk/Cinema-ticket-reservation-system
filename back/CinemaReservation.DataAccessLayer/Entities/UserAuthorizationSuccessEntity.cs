@@ -1,22 +1,22 @@
-﻿namespace CinemaReservation.BusinessLayer.Models
+﻿namespace CinemaReservation.DataAccessLayer.Entities
 {
-    public class RegistrationModel
+    public class UserAuthorizationSuccessEntity
     {
-        public RegistrationModel(
+        public UserAuthorizationSuccessEntity(
+            int id,
             string name,
             string surname,
-            string email,
-            string password
+            string email
         )
         {
+            Id = id;
             Name = name;
             Surname = surname;
             Email = email;
-            Password = password;
         }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
     }
 }

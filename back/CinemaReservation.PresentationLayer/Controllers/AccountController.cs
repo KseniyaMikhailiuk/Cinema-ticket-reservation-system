@@ -25,7 +25,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
                 registrationRequest.Surname,
                 registrationRequest.Email,
                 registrationRequest.Password);
-            await _accountService.CreateUser(registrationModel);
+            await _accountService.RegisterUser(registrationModel);
         }
     }
 }

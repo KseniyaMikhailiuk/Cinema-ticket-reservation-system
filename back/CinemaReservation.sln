@@ -5,11 +5,14 @@ VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CinemaReservation.Database", "CinemaReservation.Database\CinemaReservation.Database.sqlproj", "{22FA86A7-46C6-4ED6-8466-1E4462E8A12A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaReservation.PresentationLayer", "CinemaReservation.PresentationLayer\CinemaReservation.PresentationLayer.csproj", "{8D0A6299-8B0A-4C99-B475-FD5220BAD66F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaReservation.PresentationLayer", "CinemaReservation.PresentationLayer\CinemaReservation.PresentationLayer.csproj", "{8D0A6299-8B0A-4C99-B475-FD5220BAD66F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaReservation.DataAccessLayer", "CinemaReservation.DataAccessLayer\CinemaReservation.DataAccessLayer.csproj", "{A374597D-1C38-44EC-89C4-2375F2DCB96B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaReservation.DataAccessLayer", "CinemaReservation.DataAccessLayer\CinemaReservation.DataAccessLayer.csproj", "{A374597D-1C38-44EC-89C4-2375F2DCB96B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{22FA86A7-46C6-4ED6-8466-1E4462E8A12A} = {22FA86A7-46C6-4ED6-8466-1E4462E8A12A}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaReservation.BusinessLayer", "CinemaReservation.BusinessLayer\CinemaReservation.BusinessLayer.csproj", "{4322D80D-72DE-4CBF-92B5-81A3BA253D87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaReservation.BusinessLayer", "CinemaReservation.BusinessLayer\CinemaReservation.BusinessLayer.csproj", "{4322D80D-72DE-4CBF-92B5-81A3BA253D87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

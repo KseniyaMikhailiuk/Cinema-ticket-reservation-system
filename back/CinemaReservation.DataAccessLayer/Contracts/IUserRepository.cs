@@ -3,10 +3,10 @@ using CinemaReservation.DataAccessLayer.Entities;
 
 namespace CinemaReservation.DataAccessLayer.Contracts
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
-        Task<AuthorizationResponse> Create(RegistrationRequest registrationRequest);
-        Task<AuthorizationResponse> GetById(int id);
-        Task<AuthorizationResponse> GetByEmail(string email);
+        Task<int> Create(UserRegistrationEntity registrationRequest);
+        Task<UserAuthorizationSuccessEntity> GetById(int id);
+        Task<UserAuthorizationSuccessEntity> GetByEmail(string email);
     }
 }
