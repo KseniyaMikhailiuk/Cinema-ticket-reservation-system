@@ -7,6 +7,10 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CinemaReservation.Database"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaReservation.PresentationLayer", "CinemaReservation.PresentationLayer\CinemaReservation.PresentationLayer.csproj", "{8D0A6299-8B0A-4C99-B475-FD5220BAD66F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaReservation.DataAccessLayer", "CinemaReservation.DataAccessLayer\CinemaReservation.DataAccessLayer.csproj", "{A374597D-1C38-44EC-89C4-2375F2DCB96B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaReservation.BusinessLayer", "CinemaReservation.BusinessLayer\CinemaReservation.BusinessLayer.csproj", "{4322D80D-72DE-4CBF-92B5-81A3BA253D87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +27,14 @@ Global
 		{8D0A6299-8B0A-4C99-B475-FD5220BAD66F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D0A6299-8B0A-4C99-B475-FD5220BAD66F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D0A6299-8B0A-4C99-B475-FD5220BAD66F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A374597D-1C38-44EC-89C4-2375F2DCB96B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A374597D-1C38-44EC-89C4-2375F2DCB96B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A374597D-1C38-44EC-89C4-2375F2DCB96B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A374597D-1C38-44EC-89C4-2375F2DCB96B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4322D80D-72DE-4CBF-92B5-81A3BA253D87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4322D80D-72DE-4CBF-92B5-81A3BA253D87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4322D80D-72DE-4CBF-92B5-81A3BA253D87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4322D80D-72DE-4CBF-92B5-81A3BA253D87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
