@@ -10,7 +10,8 @@
 );
 
 
+
+
 GO
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Films_Title]
-    ON [dbo].[Films]([Title] ASC);
+
 
