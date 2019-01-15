@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
-using CinemaReservation.DataAccessLayer.Models;
+using CinemaReservation.DataAccessLayer.Entities;
 
 namespace CinemaReservation.DataAccessLayer.Contracts
 {
     interface IUserRepository
     {
-        void Create(RegistrationRequest registrationRequest);
-        Task<AuthorizationResponse> FindById(int id);
-        Task<AuthorizationResponse> FindByEmail(string email);
+        Task<AuthorizationResponse> Create(RegistrationRequest registrationRequest);
+        Task<AuthorizationResponse> GetById(int id);
+        Task<AuthorizationResponse> GetByEmail(string email);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace CinemaReservation.DataAccessLayer.Models
+﻿namespace CinemaReservation.DataAccessLayer.Entities
 {
     class AuthorizationResponse
     {
