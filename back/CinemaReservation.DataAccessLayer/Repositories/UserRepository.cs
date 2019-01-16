@@ -37,17 +37,5 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                 );
             }
         }
-
-        public async Task<UserEntity> GetById(int id)
-        {
-            using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
-            {
-                return await dbConnection.QuerySingleOrDefaultAsync<UserEntity>(
-                    "GetUserById",
-                    new { Id = id },
-                    commandType: CommandType.StoredProcedure
-                );
-            }
-        }
     }
 }

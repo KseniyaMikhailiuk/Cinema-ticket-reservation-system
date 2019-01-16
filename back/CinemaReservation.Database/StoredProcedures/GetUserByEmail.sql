@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[GetUserByEmail]
-	@Email nvarchar
+	@Email nvarchar(255)
 AS
-	SELECT *
-	FROM Users
+	SELECT Id, Name, Surname, Email, PasswordHash, Salt, IsAdmin
+	FROM [dbo].[Users]
 	WHERE Email=@Email

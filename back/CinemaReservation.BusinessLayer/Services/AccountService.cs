@@ -13,19 +13,20 @@ namespace CinemaReservation.BusinessLayer.Services
     public class AccountService: IAccountService
     {
         private readonly IUserRepository _userRepository;
+        private readonly ISecurityService _securityService = new SecurityService();
 
         public AccountService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
-        public async Task<AuthorizationResponseModel> RegisterUser(RegistrationModel registrationRequest)
+        public async Task<AuthorizationResponseModel> RegisterUser(RegistrationModel registrationModel)
         {
             var isAdmin = false;
-            var password = GetPasswordHashAndSalt(registrationRequest.Password);
+            var password = _securityService.GetPasswordHashAndSalt(registrationModel.Password);
             UserRegistrationEntity userRegistrationEntity = new UserRegistrationEntity(
-                registrationRequest.Name,
-                registrationRequest.Surname,
-                registrationRequest.Email,
+                registrationModel.Name,
+                registrationModel.Surname,
+                registrationModel.Email,
                 password.passwordHash,
                 password.salt,
                 isAdmin
@@ -33,18 +34,18 @@ namespace CinemaReservation.BusinessLayer.Services
             int userId = await _userRepository.Create(userRegistrationEntity);
             AuthorizationResponseModel response = new AuthorizationResponseModel(
                 userId,
-                registrationRequest.Name,
-                registrationRequest.Surname,
-                registrationRequest.Email,
+                registrationModel.Name,
+                registrationModel.Surname,
+                registrationModel.Email,
                 isAdmin
             );
             return response;
         }
 
-        public async Task<AuthorizationResponseModel> AuthorizeUser(LoginModel loginRequest)
+        public async Task<AuthorizationResponseModel> AuthorizeUser(LoginModel loginModel)
         {
-            UserEntity userEntity = await _userRepository.GetByEmail(loginRequest.Email);
-            if (IsCorrectPassword(userEntity.PasswordHash, userEntity.Salt, loginRequest.Password))
+            UserEntity userEntity = await _userRepository.GetByEmail(loginModel.Email);
+            if (_securityService.IsCorrectPassword(userEntity.PasswordHash, userEntity.Salt, loginModel.Password))
             {
                 return new AuthorizationResponseModel(
                     userEntity.Id,
@@ -55,34 +56,6 @@ namespace CinemaReservation.BusinessLayer.Services
                 );
             }
             return null;
-        }
-
-        private static bool IsCorrectPassword(byte[] passwordHash, byte[] salt, string passwordToCheck)
-        {
-            byte[] passwordToCheckHash = GetHash(passwordToCheck, salt);
-            return passwordHash.SequenceEqual(passwordToCheckHash);
-        }
-
-        private static (byte[] passwordHash, byte[] salt) GetPasswordHashAndSalt(string password)
-        {
-            byte[] salt = new byte[128 / 8];
-            using (var randNumberGenerator = RandomNumberGenerator.Create())
-            {
-                randNumberGenerator.GetBytes(salt);
-            }
-            byte[] passwordHash = GetHash(password, salt);
-            return (passwordHash: passwordHash, salt: salt);
-        }
-
-        private static byte[] GetHash(string password, byte[] salt)
-        {
-            return KeyDerivation.Pbkdf2(
-                password: password,
-                salt: salt,
-                prf: KeyDerivationPrf.HMACSHA1,
-                iterationCount: 10000,
-                numBytesRequested: 256 / 8
-            );
         }
     }
 }

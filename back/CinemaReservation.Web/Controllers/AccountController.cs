@@ -42,7 +42,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
                     response.IsAdmin
                 ));
             }
-            return CreatedAtAction("register", null); ;
+            return Forbid();
         }
 
         [HttpPost("login")]
@@ -64,7 +64,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
                     response.Email,
                     response.IsAdmin));
             }
-            return null;
+            return Unauthorized();
         }
     }
 }

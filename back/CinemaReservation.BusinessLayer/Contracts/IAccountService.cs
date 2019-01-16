@@ -5,7 +5,7 @@ namespace CinemaReservation.BusinessLayer.Contracts
 {
     public interface IAccountService
     {
-        Task<AuthorizationResponseModel> RegisterUser(RegistrationModel registrationRequest);
-        Task<AuthorizationResponseModel> AuthorizeUser(LoginModel loginRequest);
+        Task<AuthorizationResponseModel> RegisterUser(RegistrationModel registrationModel);
+        Task<AuthorizationResponseModel> AuthorizeUser(LoginModel loginModel);
     }
 }
