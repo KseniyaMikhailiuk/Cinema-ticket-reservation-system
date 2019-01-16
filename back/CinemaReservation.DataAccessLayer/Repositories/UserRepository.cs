@@ -18,9 +18,9 @@ namespace CinemaReservation.DataAccessLayer.Repositories
         public async Task<int> Create(UserRegistrationEntity registrationRequest)
         {
             using(IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString)){
-                string storedProcedure = "CreateUser";
                 return await dbConnection.ExecuteScalarAsync<int>(
-                    storedProcedure,
+                    "CreateUser",
+                    registrationRequest,
                     commandType: CommandType.StoredProcedure
                 );
             }
@@ -30,9 +30,8 @@ namespace CinemaReservation.DataAccessLayer.Repositories
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
-                string storedProcedure = "GetUserByEmail";
                 return await dbConnection.QuerySingleOrDefaultAsync<UserEntity>(
-                    storedProcedure,
+                    "GetUserByEmail",
                     new { Email = email },
                     commandType: CommandType.StoredProcedure
                 );
@@ -43,9 +42,8 @@ namespace CinemaReservation.DataAccessLayer.Repositories
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
-                string storedProcedure = "GetUserById";
                 return await dbConnection.QuerySingleOrDefaultAsync<UserEntity>(
-                    storedProcedure,
+                    "GetUserById",
                     new { Id = id },
                     commandType: CommandType.StoredProcedure
                 );

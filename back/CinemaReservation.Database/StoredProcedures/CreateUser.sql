@@ -1,11 +1,11 @@
 ﻿CREATE PROCEDURE [dbo].[CreateUser]
-	@Name nvarchar,
-	@Surname nvarchar,
-	@Email nvarchar,
+	@Name nvarchar(255),
+	@Surname nvarchar(255),
+	@Email nvarchar(255),
 	@PasswordHash binary(256),
-	@Salt binary(64)
+	@Salt binary(128),
+	@IsAdmin bit
 AS
-	INSERT INTO Users (Name, Surname, Email, PasswordHash, Salt)
-	VALUES (@Name, @Surname, @Email, @PasswordHash, @Salt)
-RETURN
-	SELECT Id FROM Users WHERE Email = @Email
+	INSERT INTO [dbo].[Users] (Name, Surname, Email, PasswordHash, Salt, IsAdmin)
+	VALUES (@Name, @Surname, @Email, @PasswordHash, @Salt, @IsAdmin)
+	SELECT SCOPE_IDENTITY()

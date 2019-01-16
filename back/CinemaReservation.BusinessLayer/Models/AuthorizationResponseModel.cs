@@ -10,7 +10,7 @@
             bool isAdmin
         )
         {
-            Id = Id;
+            Id = id;
             Name = name;
             Surname = surname;
             Email = email;

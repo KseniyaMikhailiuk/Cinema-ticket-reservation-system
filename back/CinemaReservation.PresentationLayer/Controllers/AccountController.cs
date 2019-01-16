@@ -20,12 +20,6 @@ namespace CinemaReservation.PresentationLayer.Controllers
             _accountService = new AccountService(new UserRepository(new DalSettings(configuration)));
         }
 
-        // GET: api/<controller>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
 
         [HttpPost("register")]
         public async Task<IActionResult> PostUserAccount(RegistrationRequest registrationRequest)
@@ -41,7 +35,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
 
             if (response != null)
             {
-                return CreatedAtAction("register", new AuthorizationResponse(
+                return Ok(new AuthorizationResponse(
                     response.Id,
                     response.Name,
                     response.Surname,

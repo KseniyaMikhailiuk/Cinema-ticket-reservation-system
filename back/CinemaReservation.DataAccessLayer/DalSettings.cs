@@ -9,7 +9,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
         public DalSettings(IConfiguration configuration)
         {
             _configuration = configuration;
-            ConnectionString = _configuration.GetConnectionString("DefaultConnection");
+            ConnectionString = _configuration.GetSection("ConnectionString:DefaultConnection").Value;
         }
         public string ConnectionString { get; set; }
     }
