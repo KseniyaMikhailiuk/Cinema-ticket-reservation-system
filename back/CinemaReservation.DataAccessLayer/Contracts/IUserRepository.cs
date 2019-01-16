@@ -6,7 +6,7 @@ namespace CinemaReservation.DataAccessLayer.Contracts
     public interface IUserRepository
     {
         Task<int> Create(UserRegistrationEntity registrationRequest);
-        Task<UserAuthorizationSuccessEntity> GetById(int id);
-        Task<UserAuthorizationSuccessEntity> GetByEmail(string email);
+        Task<UserEntity> GetById(int id);
+        Task<UserEntity> GetByEmail(string email);
     }
 }

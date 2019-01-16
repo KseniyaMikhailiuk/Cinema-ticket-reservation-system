@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using CinemaReservation.PresentationLayer.Models;
+using CinemaReservation.DataAccessLayer.Repositories;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.BusinessLayer.Services;
 using CinemaReservation.BusinessLayer.Contracts;
+using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 
 namespace CinemaReservation.PresentationLayer.Controllers
 {
@@ -12,13 +15,20 @@ namespace CinemaReservation.PresentationLayer.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
-        public AccountController()
+        public AccountController(IConfiguration configuration)
         {
-            _accountService = new AccountService();
+            _accountService = new AccountService(new UserRepository(new DalSettings(configuration)));
+        }
+
+        // GET: api/<controller>
+        [HttpGet]
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "value1", "value2" };
         }
 
         [HttpPost("register")]
-        public async Task<AuthorizationResponse> PostUserAccount(RegistrationRequest registrationRequest)
+        public async Task<IActionResult> PostUserAccount(RegistrationRequest registrationRequest)
         {
             RegistrationModel registrationModel = new RegistrationModel(
                 registrationRequest.Name,
@@ -31,13 +41,15 @@ namespace CinemaReservation.PresentationLayer.Controllers
 
             if (response != null)
             {
-                return new AuthorizationResponse(
+                return CreatedAtAction("register", new AuthorizationResponse(
                     response.Id,
                     response.Name,
                     response.Surname,
-                    response.Email
-                );
+                    response.Email,
+                    response.IsAdmin
+                ));
             }
+            return CreatedAtAction("register", null); ;
         }
     }
 }

@@ -20,20 +20,23 @@ namespace CinemaReservation.BusinessLayer.Services
         }
         public async Task<AuthorizationResponseModel> RegisterUser(RegistrationModel registrationRequest)
         {
+            var isAdmin = false;
             var password = GetPasswordHashAndSalt(registrationRequest.Password);
             UserRegistrationEntity userRegistrationEntity = new UserRegistrationEntity(
                 registrationRequest.Name,
                 registrationRequest.Surname,
                 registrationRequest.Email,
                 password.passwordHash,
-                password.salt
+                password.salt,
+                isAdmin
             );
             int userId = await _userRepository.Create(userRegistrationEntity);
             AuthorizationResponseModel response = new AuthorizationResponseModel(
                 userId,
                 registrationRequest.Name,
                 registrationRequest.Surname,
-                registrationRequest.Email
+                registrationRequest.Email,
+                isAdmin
             );
             return response;
         }
@@ -47,7 +50,8 @@ namespace CinemaReservation.BusinessLayer.Services
                     userEntity.Id,
                     userEntity.Name,
                     userEntity.Surname,
-                    userEntity.Email
+                    userEntity.Email,
+                    userEntity.IsAdmin
                 );
             }
             return null;

@@ -8,7 +8,8 @@
             string surname,
             string email,
             byte[] passwordHash,
-            byte[] salt
+            byte[] salt,
+            bool isAdmin
         )
         {
             Id = id;
@@ -17,6 +18,7 @@
             Email = email;
             PasswordHash = passwordHash;
             Salt = salt;
+            IsAdmin = isAdmin;
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -24,5 +26,6 @@
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] Salt { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

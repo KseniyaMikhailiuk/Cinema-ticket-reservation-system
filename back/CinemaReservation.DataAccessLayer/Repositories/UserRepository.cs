@@ -7,13 +7,13 @@ using CinemaReservation.DataAccessLayer.Entities;
 
 namespace CinemaReservation.DataAccessLayer.Repositories
 {
-    class UserRepository: IUserRepository
+    public class UserRepository: IUserRepository
     {
         private readonly IDalSettings _settings;
 
-        public UserRepository(IDalSettings settings)
+        public UserRepository(IDalSettings dalSettings)
         {
-            _settings = settings;
+            _settings = dalSettings;
         }
         public async Task<int> Create(UserRegistrationEntity registrationRequest)
         {
