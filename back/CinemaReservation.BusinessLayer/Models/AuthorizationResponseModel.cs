@@ -1,8 +1,8 @@
 ﻿namespace CinemaReservation.BusinessLayer.Models
 {
-    public class AuthorizationResponse
+    public class AuthorizationResponseModel
     {
-        public AuthorizationResponse(
+        public AuthorizationResponseModel(
             int id,
             string name,
             string surname,

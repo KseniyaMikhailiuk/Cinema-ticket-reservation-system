@@ -17,15 +17,27 @@ namespace CinemaReservation.PresentationLayer.Controllers
             _accountService = new AccountService();
         }
 
-        [HttpPost]
-        public async Task<ActionResult<RegistrationRequest>> PostUserAccount(RegistrationRequest registrationRequest)
+        [HttpPost("register")]
+        public async Task<AuthorizationResponse> PostUserAccount(RegistrationRequest registrationRequest)
         {
             RegistrationModel registrationModel = new RegistrationModel(
                 registrationRequest.Name,
                 registrationRequest.Surname,
                 registrationRequest.Email,
-                registrationRequest.Password);
-            await _accountService.RegisterUser(registrationModel);
+                registrationRequest.Password
+            );
+
+            var response = await _accountService.RegisterUser(registrationModel);
+
+            if (response != null)
+            {
+                return new AuthorizationResponse(
+                    response.Id,
+                    response.Name,
+                    response.Surname,
+                    response.Email
+                );
+            }
         }
     }
 }

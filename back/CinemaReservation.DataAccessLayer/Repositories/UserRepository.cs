@@ -19,39 +19,36 @@ namespace CinemaReservation.DataAccessLayer.Repositories
         {
             using(IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString)){
                 string storedProcedure = "CreateUser";
-                var response = await dbConnection.ExecuteScalarAsync<int>(
+                return await dbConnection.ExecuteScalarAsync<int>(
                     storedProcedure,
                     commandType: CommandType.StoredProcedure
                 );
-                return response;
             }
         }
 
-        public async Task<UserAuthorizationSuccessEntity> GetByEmail(string email)
+        public async Task<UserEntity> GetByEmail(string email)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
                 string storedProcedure = "GetUserByEmail";
-                var response = await dbConnection.QuerySingleOrDefaultAsync<UserAuthorizationSuccessEntity>(
+                return await dbConnection.QuerySingleOrDefaultAsync<UserEntity>(
                     storedProcedure,
                     new { Email = email },
                     commandType: CommandType.StoredProcedure
                 );
-                return response;
             }
         }
 
-        public async Task<UserAuthorizationSuccessEntity> GetById(int id)
+        public async Task<UserEntity> GetById(int id)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
                 string storedProcedure = "GetUserById";
-                var response = await dbConnection.QuerySingleOrDefaultAsync<UserAuthorizationSuccessEntity>(
+                return await dbConnection.QuerySingleOrDefaultAsync<UserEntity>(
                     storedProcedure,
                     new { Id = id },
                     commandType: CommandType.StoredProcedure
                 );
-                return response;
             }
         }
     }
