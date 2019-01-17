@@ -17,7 +17,7 @@ namespace CinemaReservation.BusinessLayer.Services
         public PasswordHashAndSalt GetPasswordHashAndSalt(string password)
         {
             byte[] salt = new byte[64];
-            using (var randNumberGenerator = RandomNumberGenerator.Create())
+            using (RandomNumberGenerator randNumberGenerator = RandomNumberGenerator.Create())
             {
                 randNumberGenerator.GetBytes(salt);
             }
