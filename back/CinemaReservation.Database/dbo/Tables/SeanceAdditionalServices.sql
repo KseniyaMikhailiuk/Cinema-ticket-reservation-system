@@ -8,8 +8,6 @@
     CONSTRAINT [FK_SeanceAdditionalServices_ServiceId_Services_Id] FOREIGN KEY ([ServiceId]) REFERENCES [dbo].[Services] ([Id])
 );
 
-
 GO
 CREATE UNIQUE NONCLUSTERED INDEX [IX_SeanceAdditionalServices_SeanceId_ServiceId]
     ON [dbo].[SeanceAdditionalServices]([SeanceId] ASC, [ServiceId] ASC);
-

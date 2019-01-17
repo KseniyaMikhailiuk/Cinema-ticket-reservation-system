@@ -1,12 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Security.Cryptography;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+﻿using System.Threading.Tasks;
 using CinemaReservation.DataAccessLayer.Entities;
 using CinemaReservation.DataAccessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.BusinessLayer.Contracts;
-using System.Linq;
 
 namespace CinemaReservation.BusinessLayer.Services
 {
@@ -20,26 +16,27 @@ namespace CinemaReservation.BusinessLayer.Services
             _userRepository = userRepository;
             _securityService = securityService;
         }
-        public async Task<AuthorizationResponseModel> RegisterUser(RegistrationModel registrationModel)
+
+        public async Task<AuthorizationResponseModel> RegisterUserAsync(RegistrationModel registrationModel)
         {
-            if (_userRepository.GetByEmail(registrationModel.Email) != null)
+            if (await _userRepository.GetByEmailAsync(registrationModel.Email) != null)
             {
                 return null;
             }
 
-            var isAdmin = false;
-            var password = _securityService.GetPasswordHashAndSalt(registrationModel.Password);
+            bool isAdmin = false;
+            PasswordHashAndSalt passwordHashAndSalt = _securityService.GetPasswordHashAndSalt(registrationModel.Password);
             UserRegistrationEntity userRegistrationEntity = new UserRegistrationEntity(
                 registrationModel.Name,
                 registrationModel.Surname,
                 registrationModel.Email,
-                password.passwordHash,
-                password.salt,
+                passwordHashAndSalt.PasswordHash,
+                passwordHashAndSalt.Salt,
                 isAdmin
             );
 
-            int userId = await _userRepository.Create(userRegistrationEntity);
-            AuthorizationResponseModel response = new AuthorizationResponseModel(
+            int userId = await _userRepository.UpsertAsync(userRegistrationEntity);
+            AuthorizationResponseModel result = new AuthorizationResponseModel(
                 userId,
                 registrationModel.Name,
                 registrationModel.Surname,
@@ -47,18 +44,18 @@ namespace CinemaReservation.BusinessLayer.Services
                 isAdmin
             );
 
-            return response;
+            return result;
         }
 
-        public async Task<AuthorizationResponseModel> AuthorizeUser(LoginModel loginModel)
+        public async Task<AuthorizationResponseModel> AuthorizeUserAsync(LoginModel loginModel)
         {
-            UserEntity userEntity = await _userRepository.GetByEmail(loginModel.Email);
+            UserEntity userEntity = await _userRepository.GetByEmailAsync(loginModel.Email);
             if (userEntity == null)
             {
                 return null;
             }
 
-            if (_securityService.IsCorrectPassword(userEntity.PasswordHash, userEntity.Salt, loginModel.Password))
+            if (_securityService.CheckPasswordCorrectness(userEntity.PasswordHash, userEntity.Salt, loginModel.Password))
             {
                 return new AuthorizationResponseModel(
                     userEntity.Id,

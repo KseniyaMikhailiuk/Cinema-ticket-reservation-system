@@ -4,8 +4,6 @@
     CONSTRAINT [PK_SeatTypes_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
-
 GO
 CREATE UNIQUE NONCLUSTERED INDEX [IX_SeatTypes_Type]
     ON [dbo].[SeatTypes]([Type] ASC);
-

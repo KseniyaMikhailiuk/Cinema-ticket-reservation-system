@@ -9,9 +9,4 @@
     CONSTRAINT [PK_Films_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
-
-
-
 GO
-
-

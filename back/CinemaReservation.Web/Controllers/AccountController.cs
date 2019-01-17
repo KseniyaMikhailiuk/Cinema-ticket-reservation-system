@@ -11,18 +11,18 @@ namespace CinemaReservation.PresentationLayer.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
+
         public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
         }
 
-
         [HttpPost("register")]
-        public async Task<IActionResult> PostUserAccount(RegistrationRequest registrationRequest)
+        public async Task<IActionResult> Register(RegistrationRequest registrationRequest)
         {
             if (registrationRequest == null)
             {
-                return StatusCode(400);
+                return BadRequest();
             }
 
             RegistrationModel registrationModel = new RegistrationModel(
@@ -32,7 +32,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
                 registrationRequest.Password
             );
 
-            var response = await _accountService.RegisterUser(registrationModel);
+            AuthorizationResponseModel response = await _accountService.RegisterUserAsync(registrationModel);
 
             if (response != null)
             {
@@ -45,11 +45,11 @@ namespace CinemaReservation.PresentationLayer.Controllers
                 ));
             }
 
-            return StatusCode(400);
+            return BadRequest("User exists");
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> LoginUser(LoginRequest loginRequest)
+        public async Task<IActionResult> Login(LoginRequest loginRequest)
         {
             if (loginRequest == null)
             {
@@ -61,7 +61,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
                 loginRequest.Password
             );
 
-            var response = await _accountService.AuthorizeUser(loginModel);
+            AuthorizationResponseModel response = await _accountService.AuthorizeUserAsync(loginModel);
 
             if (response != null)
             {
@@ -72,6 +72,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
                     response.Email,
                     response.IsAdmin));
             }
+
             return Unauthorized();
         }
     }

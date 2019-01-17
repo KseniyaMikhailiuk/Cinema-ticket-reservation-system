@@ -3,4 +3,4 @@
 AS
 	SELECT Id, Name, Surname, Email, PasswordHash, Salt, IsAdmin
 	FROM [dbo].[Users]
-	WHERE Email=@Email
+	WHERE Email = @Email

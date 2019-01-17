@@ -2,14 +2,16 @@
 {
     public class LoginModel
     {
+        public string Email { get; }
+        public string Password { get; }
+
         public LoginModel(
             string email,
-            string password)
+            string password
+        )
         {
             Email = email;
             Password = password;
         }
-        public string Email { get; set; }
-        public string Password { get; set; }
     }
 }

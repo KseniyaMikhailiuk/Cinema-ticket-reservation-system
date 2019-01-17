@@ -8,13 +8,13 @@ namespace CinemaReservation.BusinessLayer.Services
 {
     public class SecurityService: ISecurityService
     {
-        public bool IsCorrectPassword(byte[] passwordHash, byte[] salt, string passwordToCheck)
+        public bool CheckPasswordCorrectness(byte[] passwordHash, byte[] salt, string passwordToCheck)
         {
             byte[] passwordToCheckHash = GetHash(passwordToCheck, salt);
             return passwordHash.SequenceEqual(passwordToCheckHash);
         }
 
-        public (byte[] passwordHash, byte[] salt) GetPasswordHashAndSalt(string password)
+        public PasswordHashAndSalt GetPasswordHashAndSalt(string password)
         {
             byte[] salt = new byte[64];
             using (var randNumberGenerator = RandomNumberGenerator.Create())
@@ -22,7 +22,7 @@ namespace CinemaReservation.BusinessLayer.Services
                 randNumberGenerator.GetBytes(salt);
             }
             byte[] passwordHash = GetHash(password, salt);
-            return (passwordHash: passwordHash, salt: salt);
+            return new PasswordHashAndSalt(passwordHash, salt);
         }
 
         public byte[] GetHash(string password, byte[] salt)

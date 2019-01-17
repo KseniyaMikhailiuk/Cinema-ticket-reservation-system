@@ -2,6 +2,14 @@
 {
     public class UserEntity
     {
+        public int Id { get; set; }
+        public string Name { get; }
+        public string Surname { get; }
+        public string Email { get; }
+        public byte[] PasswordHash { get; }
+        public byte[] Salt { get; }
+        public bool IsAdmin { get; }
+
         public UserEntity(
             int id,
             string name,
@@ -20,12 +28,5 @@
             Salt = salt;
             IsAdmin = isAdmin;
         }
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Email { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] Salt { get; set; }
-        public bool IsAdmin { get; set; }
     }
 }
