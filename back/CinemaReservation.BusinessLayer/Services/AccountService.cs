@@ -13,11 +13,12 @@ namespace CinemaReservation.BusinessLayer.Services
     public class AccountService: IAccountService
     {
         private readonly IUserRepository _userRepository;
-        private readonly ISecurityService _securityService = new SecurityService();
+        private readonly ISecurityService _securityService;
 
-        public AccountService(IUserRepository userRepository)
+        public AccountService(IUserRepository userRepository, ISecurityService securityService)
         {
             _userRepository = userRepository;
+            _securityService = securityService;
         }
         public async Task<AuthorizationResponseModel> RegisterUser(RegistrationModel registrationModel)
         {

@@ -14,9 +14,9 @@ namespace CinemaReservation.PresentationLayer.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
-        public AccountController(IConfiguration configuration)
+        public AccountController(IAccountService accountService)
         {
-            _accountService = new AccountService(new UserRepository(new DalSettings(configuration)));
+            _accountService = accountService;
         }
 
 
