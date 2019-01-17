@@ -15,16 +15,16 @@
             string name,
             string surname,
             string email,
-            bool isAdmin,
-            ResultStatus resultStatus
+            ResultStatus resultStatus,
+            bool isAdmin
         )
         {
             Id = id;
             Name = name;
             Surname = surname;
             Email = email;
-            IsAdmin = isAdmin;
             ResultStatus = resultStatus;
+            IsAdmin = isAdmin;
         }
 
         public AuthorizationResultModel(

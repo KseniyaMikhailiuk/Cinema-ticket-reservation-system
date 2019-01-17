@@ -28,26 +28,22 @@ namespace CinemaReservation.BusinessLayer.Services
 
             PasswordHashAndSalt passwordHashAndSalt = _securityService.GetPasswordHashAndSalt(registrationModel.Password);
             UserEntity userEntity = new UserEntity(
-                id: -1,
-                name: registrationModel.Name,
-                surname: registrationModel.Surname,
-                email: registrationModel.Email,
-                passwordHash: passwordHashAndSalt.PasswordHash,
-                salt: passwordHashAndSalt.Salt,
-                isAdmin: false
+                registrationModel.Name,
+                registrationModel.Surname,
+                registrationModel.Email,
+                passwordHashAndSalt.PasswordHash,
+                passwordHashAndSalt.Salt
             );
 
-            await _userRepository.UpsertAsync(userEntity);
-
-            userEntity = await _userRepository.GetByEmailAsync(registrationModel.Email);
+            int userId = await _userRepository.UpsertAsync(userEntity);
 
             return new AuthorizationResultModel(
-                userEntity.Id,
-                userEntity.Name,
-                userEntity.Surname,
-                userEntity.Email,
-                userEntity.IsAdmin,
-                ResultStatus.Ok
+                userId,
+                registrationModel.Name,
+                registrationModel.Surname,
+                registrationModel.Email,
+                ResultStatus.Ok,
+                false
             );
         }
 
@@ -68,8 +64,8 @@ namespace CinemaReservation.BusinessLayer.Services
                     userEntity.Name,
                     userEntity.Surname,
                     userEntity.Email,
-                    userEntity.IsAdmin,
-                    ResultStatus.Ok
+                    ResultStatus.Ok,
+                    userEntity.IsAdmin
                 );
             }
 

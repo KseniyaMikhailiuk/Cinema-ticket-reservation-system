@@ -5,7 +5,7 @@
     [Email]        NVARCHAR (255) NOT NULL,
     [PasswordHash] BINARY (256)   NOT NULL,
     [Salt]         BINARY (64)    NOT NULL,
-    [IsAdmin]      BIT            NOT NULL,
+    [IsAdmin]      BIT            NOT NULL DEFAULT 0,
     CONSTRAINT [PK_Users_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

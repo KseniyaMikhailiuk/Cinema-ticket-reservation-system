@@ -69,6 +69,11 @@ namespace CinemaReservation.PresentationLayer.Controllers
                 ));
             }
 
+            if (result.ResultStatus == ResultStatus.IncorrectLoginData)
+            {
+                return Unauthorized("Incorrect login data");
+            }
+
             return Unauthorized();
         }
     }
