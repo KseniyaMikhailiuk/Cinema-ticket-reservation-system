@@ -44,7 +44,7 @@ namespace CinemaReservation.BusinessLayer.Services
                 registrationModel.Surname,
                 registrationModel.Email,
                 RegistrationResultStatus.Ok,
-                false
+                isAdmin: false
             );
         }
 
