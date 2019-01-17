@@ -18,13 +18,8 @@ namespace CinemaReservation.PresentationLayer.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegistrationRequest registrationRequest)
+        public async Task<IActionResult> RegisterAsync(RegistrationRequest registrationRequest)
         {
-            if (registrationRequest == null)
-            {
-                return BadRequest();
-            }
-
             RegistrationModel registrationModel = new RegistrationModel(
                 registrationRequest.Name,
                 registrationRequest.Surname,
@@ -32,45 +27,46 @@ namespace CinemaReservation.PresentationLayer.Controllers
                 registrationRequest.Password
             );
 
-            AuthorizationResponseModel response = await _accountService.RegisterUserAsync(registrationModel);
+            AuthorizationResultModel result = await _accountService.RegisterUserAsync(registrationModel);
 
-            if (response != null)
+            if (result.ResultStatus == ResultStatus.Ok)
             {
                 return Ok(new AuthorizationResponse(
-                    response.Id,
-                    response.Name,
-                    response.Surname,
-                    response.Email,
-                    response.IsAdmin
+                    result.Id,
+                    result.Name,
+                    result.Surname,
+                    result.Email,
+                    result.IsAdmin
                 ));
             }
 
-            return BadRequest("User exists");
+            if (result.ResultStatus == ResultStatus.UserExists)
+            {
+                return BadRequest("User exists");
+            }
+
+            return BadRequest();
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginRequest loginRequest)
+        public async Task<IActionResult> LoginAsync(LoginRequest loginRequest)
         {
-            if (loginRequest == null)
-            {
-                return StatusCode(400);
-            }
-
             LoginModel loginModel = new LoginModel(
                 loginRequest.Email,
                 loginRequest.Password
             );
 
-            AuthorizationResponseModel response = await _accountService.AuthorizeUserAsync(loginModel);
+            AuthorizationResultModel result = await _accountService.AuthorizeUserAsync(loginModel);
 
-            if (response != null)
+            if (result.ResultStatus == ResultStatus.Ok)
             {
                 return Ok(new AuthorizationResponse(
-                    response.Id,
-                    response.Name,
-                    response.Surname,
-                    response.Email,
-                    response.IsAdmin));
+                    result.Id,
+                    result.Name,
+                    result.Surname,
+                    result.Email,
+                    result.IsAdmin
+                ));
             }
 
             return Unauthorized();

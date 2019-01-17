@@ -11,16 +11,19 @@ namespace CinemaReservation.DataAccessLayer.Repositories
     {
         private readonly IDalSettings _settings;
 
+
         public UserRepository(IDalSettings dalSettings)
         {
             _settings = dalSettings;
         }
-        public async Task<int> UpsertAsync(UserRegistrationEntity registrationRequest)
+
+
+        public async Task<int> UpsertAsync(UserEntity userEntity)
         {
             using(IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString)){
                 return await dbConnection.ExecuteScalarAsync<int>(
-                    "CreateUser",
-                    registrationRequest,
+                    "UpsertUser",
+                    userEntity,
                     commandType: CommandType.StoredProcedure
                 );
             }

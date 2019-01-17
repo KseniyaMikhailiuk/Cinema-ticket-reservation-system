@@ -1,8 +1,15 @@
-﻿namespace CinemaReservation.PresentationLayer.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CinemaReservation.PresentationLayer.Models
 {
     public class LoginRequest
     {
+        [Required]
+        [EmailAddress]
         public string Email { get; }
+
+        [Required]
+        [MinLength(8)]
         public string Password { get; }
 
         public LoginRequest(
