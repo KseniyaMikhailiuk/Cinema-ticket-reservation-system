@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using CinemaReservation.PresentationLayer.Models;
-using CinemaReservation.DataAccessLayer.Repositories;
 using CinemaReservation.BusinessLayer.Models;
-using CinemaReservation.BusinessLayer.Services;
 using CinemaReservation.BusinessLayer.Contracts;
-using Microsoft.Extensions.Configuration;
 
 namespace CinemaReservation.PresentationLayer.Controllers
 {
@@ -23,6 +20,11 @@ namespace CinemaReservation.PresentationLayer.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> PostUserAccount(RegistrationRequest registrationRequest)
         {
+            if (registrationRequest == null)
+            {
+                return StatusCode(400);
+            }
+
             RegistrationModel registrationModel = new RegistrationModel(
                 registrationRequest.Name,
                 registrationRequest.Surname,
@@ -42,12 +44,18 @@ namespace CinemaReservation.PresentationLayer.Controllers
                     response.IsAdmin
                 ));
             }
-            return Forbid();
+
+            return StatusCode(400);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> LoginUser(LoginRequest loginRequest)
         {
+            if (loginRequest == null)
+            {
+                return StatusCode(400);
+            }
+
             LoginModel loginModel = new LoginModel(
                 loginRequest.Email,
                 loginRequest.Password

@@ -22,6 +22,11 @@ namespace CinemaReservation.BusinessLayer.Services
         }
         public async Task<AuthorizationResponseModel> RegisterUser(RegistrationModel registrationModel)
         {
+            if (_userRepository.GetByEmail(registrationModel.Email) != null)
+            {
+                return null;
+            }
+
             var isAdmin = false;
             var password = _securityService.GetPasswordHashAndSalt(registrationModel.Password);
             UserRegistrationEntity userRegistrationEntity = new UserRegistrationEntity(
@@ -32,6 +37,7 @@ namespace CinemaReservation.BusinessLayer.Services
                 password.salt,
                 isAdmin
             );
+
             int userId = await _userRepository.Create(userRegistrationEntity);
             AuthorizationResponseModel response = new AuthorizationResponseModel(
                 userId,
@@ -40,12 +46,18 @@ namespace CinemaReservation.BusinessLayer.Services
                 registrationModel.Email,
                 isAdmin
             );
+
             return response;
         }
 
         public async Task<AuthorizationResponseModel> AuthorizeUser(LoginModel loginModel)
         {
             UserEntity userEntity = await _userRepository.GetByEmail(loginModel.Email);
+            if (userEntity == null)
+            {
+                return null;
+            }
+
             if (_securityService.IsCorrectPassword(userEntity.PasswordHash, userEntity.Salt, loginModel.Password))
             {
                 return new AuthorizationResponseModel(
@@ -56,6 +68,7 @@ namespace CinemaReservation.BusinessLayer.Services
                     userEntity.IsAdmin
                 );
             }
+
             return null;
         }
     }
