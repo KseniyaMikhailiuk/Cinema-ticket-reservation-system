@@ -5,7 +5,7 @@ namespace CinemaReservation.DataAccessLayer.Contracts
 {
     public interface IUserRepository
     {
-        Task<int> UpsertAsync(UserEntity userEntity);
-        Task<UserEntity> GetByEmailAsync(string email);
+        Task<int> UpsertUserAsync(UserEntity userEntity);
+        Task<UserEntity> GetUserByEmailAsync(string email);
     }
 }

@@ -10,22 +10,21 @@ namespace CinemaReservation.BusinessLayer.Services
     {
         public bool CheckPasswordCorrectness(byte[] passwordHash, byte[] salt, string passwordToCheck)
         {
-            byte[] passwordToCheckHash = GetHash(passwordToCheck, salt);
+            byte[] passwordToCheckHash = GetPasswordHash(passwordToCheck, salt);
             return passwordHash.SequenceEqual(passwordToCheckHash);
         }
 
-        public PasswordHashAndSalt GetPasswordHashAndSalt(string password)
+        public byte[] GetSalt()
         {
             byte[] salt = new byte[64];
             using (RandomNumberGenerator randNumberGenerator = RandomNumberGenerator.Create())
             {
                 randNumberGenerator.GetBytes(salt);
             }
-            byte[] passwordHash = GetHash(password, salt);
-            return new PasswordHashAndSalt(passwordHash, salt);
+            return salt;
         }
 
-        public byte[] GetHash(string password, byte[] salt)
+        public byte[] GetPasswordHash(string password, byte[] salt)
         {
             return KeyDerivation.Pbkdf2(
                 password: password,

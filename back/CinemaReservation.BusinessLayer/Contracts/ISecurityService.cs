@@ -4,8 +4,8 @@ namespace CinemaReservation.BusinessLayer.Contracts
 {
     public interface ISecurityService
     {
-        byte[] GetHash(string password, byte[] salt);
-        PasswordHashAndSalt GetPasswordHashAndSalt(string password);
+        byte[] GetPasswordHash(string password, byte[] salt);
+        byte[] GetSalt();
         bool CheckPasswordCorrectness(byte[] passwordHash, byte[] salt, string passwordToCheck);
     }
 }

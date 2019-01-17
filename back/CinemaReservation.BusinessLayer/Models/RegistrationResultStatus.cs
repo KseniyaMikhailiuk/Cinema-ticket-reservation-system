@@ -4,10 +4,9 @@ using System.Text;
 
 namespace CinemaReservation.BusinessLayer.Models
 {
-    public enum ResultStatus
+    public enum RegistrationResultStatus
     {
-        UserExists,
         Ok,
-        IncorrectLoginData
+        UserExists
     }
 }

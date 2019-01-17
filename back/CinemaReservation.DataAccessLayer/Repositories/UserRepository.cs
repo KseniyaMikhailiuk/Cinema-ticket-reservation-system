@@ -18,7 +18,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
         }
 
 
-        public async Task<int> UpsertAsync(UserEntity userEntity)
+        public async Task<int> UpsertUserAsync(UserEntity userEntity)
         {
             using(IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString)){
                 return await dbConnection.ExecuteScalarAsync<int>(
@@ -29,7 +29,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             }
         }
 
-        public async Task<UserEntity> GetByEmailAsync(string email)
+        public async Task<UserEntity> GetUserByEmailAsync(string email)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {

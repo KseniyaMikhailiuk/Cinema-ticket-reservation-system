@@ -27,9 +27,9 @@ namespace CinemaReservation.PresentationLayer.Controllers
                 registrationRequest.Password
             );
 
-            AuthorizationResultModel result = await _accountService.RegisterUserAsync(registrationModel);
+            RegistrationResultModel result = await _accountService.RegisterUserAsync(registrationModel);
 
-            if (result.ResultStatus == ResultStatus.Ok)
+            if (result.ResultStatus == RegistrationResultStatus.Ok)
             {
                 return Ok(new AuthorizationResponse(
                     result.Id,
@@ -40,12 +40,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
                 ));
             }
 
-            if (result.ResultStatus == ResultStatus.UserExists)
-            {
-                return BadRequest("User exists");
-            }
-
-            return BadRequest();
+            return BadRequest("User exists");
         }
 
         [HttpPost("login")]
@@ -58,7 +53,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
 
             AuthorizationResultModel result = await _accountService.AuthorizeUserAsync(loginModel);
 
-            if (result.ResultStatus == ResultStatus.Ok)
+            if (result.ResultStatus == AuthorizationResultStatus.Ok)
             {
                 return Ok(new AuthorizationResponse(
                     result.Id,
@@ -69,12 +64,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
                 ));
             }
 
-            if (result.ResultStatus == ResultStatus.IncorrectLoginData)
-            {
-                return Unauthorized("Incorrect login data");
-            }
-
-            return Unauthorized();
+            return Unauthorized("Incorrect login data");
         }
     }
 }
