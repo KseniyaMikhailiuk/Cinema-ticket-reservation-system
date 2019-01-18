@@ -1,7 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using CinemaReservation.PresentationLayer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication;
 using System;

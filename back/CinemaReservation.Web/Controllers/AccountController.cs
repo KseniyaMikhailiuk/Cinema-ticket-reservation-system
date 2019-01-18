@@ -1,10 +1,6 @@
 ﻿using System.Threading.Tasks;
-using System.Security.Claims;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
-using CinemaReservation.PresentationLayer.Models;
+using CinemaReservation.Web.Models;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.Web;

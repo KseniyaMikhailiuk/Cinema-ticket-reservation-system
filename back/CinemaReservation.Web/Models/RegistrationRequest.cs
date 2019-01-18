@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CinemaReservation.PresentationLayer.Models
+namespace CinemaReservation.Web.Models
 {
     public class RegistrationRequest
     {
