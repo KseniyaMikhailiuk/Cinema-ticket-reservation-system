@@ -1,8 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using System.Security.Claims;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using CinemaReservation.PresentationLayer.Models;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.BusinessLayer.Contracts;
+using CinemaReservation.Web;
 
 namespace CinemaReservation.PresentationLayer.Controllers
 {
@@ -11,11 +16,14 @@ namespace CinemaReservation.PresentationLayer.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
+        private readonly IdentityService _identityHelper;
+
 
         public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
         }
+
 
         [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync(RegistrationRequest registrationRequest)
@@ -31,13 +39,17 @@ namespace CinemaReservation.PresentationLayer.Controllers
 
             if (result.ResultStatus == RegistrationResultStatus.Ok)
             {
-                return Ok(new AuthorizationResponse(
+                AuthorizationResponse authorizationResponse = new AuthorizationResponse(
                     result.Id,
                     result.Name,
                     result.Surname,
                     result.Email,
                     result.IsAdmin
-                ));
+                );
+
+                await _identityHelper.SetCookiesAsync(HttpContext, authorizationResponse);
+
+                return Ok(authorizationResponse);
             }
 
             return BadRequest("User exists");
@@ -55,16 +67,28 @@ namespace CinemaReservation.PresentationLayer.Controllers
 
             if (result.ResultStatus == AuthorizationResultStatus.Ok)
             {
-                return Ok(new AuthorizationResponse(
+                AuthorizationResponse authorizationResponse = new AuthorizationResponse(
                     result.Id,
                     result.Name,
                     result.Surname,
                     result.Email,
                     result.IsAdmin
-                ));
+                );
+
+                await _identityHelper.SetCookiesAsync(HttpContext, authorizationResponse);
+
+                return Ok(authorizationResponse);
             }
 
             return Unauthorized("Incorrect login data");
+        }
+
+        [HttpPost("logout")]
+        public async Task<IActionResult> LogoutAsync()
+        {
+            await _identityHelper.RemoveCookiesAsync(HttpContext);
+
+            return Ok("User unauthorized successfully");
         }
     }
 }

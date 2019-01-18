@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using CinemaReservation.DataAccessLayer;
 using CinemaReservation.BusinessLayer;
 
@@ -22,6 +23,9 @@ namespace CinemaReservation.Web
         {
             DalServices.AddServices(services);
             BlServices.AddServices(services);
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -47,6 +51,8 @@ namespace CinemaReservation.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
