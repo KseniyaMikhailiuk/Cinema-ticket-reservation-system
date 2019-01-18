@@ -8,8 +8,6 @@
     CONSTRAINT [FK_SeanceSeatPrice_SeatTypeId_SeatTypes_Id] FOREIGN KEY ([SeatTypeId]) REFERENCES [dbo].[SeatTypes] ([Id])
 );
 
-
 GO
 CREATE UNIQUE NONCLUSTERED INDEX [IX_SeanceSeatPrice_SeanceId_SeatTypeId]
     ON [dbo].[SeanceSeatPrice]([SeanceId] ASC, [SeatTypeId] ASC);
-

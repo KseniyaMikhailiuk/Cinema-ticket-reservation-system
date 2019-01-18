@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Serilog" Version="2.8.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\CinemaReservation.BusinessLayer\CinemaReservation.BusinessLayer.csproj" />
+    <ProjectReference Include="..\CinemaReservation.DataAccessLayer\CinemaReservation.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\CinemaReservation.Database\CinemaReservation.Database.sqlproj" />
+  </ItemGroup>
+
+</Project>

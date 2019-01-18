@@ -8,9 +8,4 @@
     CONSTRAINT [FK_Seances_HallId_Halls_Id] FOREIGN KEY ([HallId]) REFERENCES [dbo].[Halls] ([Id])
 );
 
-
-
-
 GO
-
-

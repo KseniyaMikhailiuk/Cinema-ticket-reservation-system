@@ -4,10 +4,6 @@
     CONSTRAINT [PK_Services_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
-
-
-
 GO
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Services_Name]
     ON [dbo].[Services]([Name] ASC);
-

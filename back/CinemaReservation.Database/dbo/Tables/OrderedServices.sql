@@ -8,4 +8,3 @@
     CONSTRAINT [FK_OrderedServices_ServiceId_Services_Id] FOREIGN KEY ([ServiceId]) REFERENCES [dbo].[Services] ([Id]),
     CONSTRAINT [FK_OrderedServices_UserId_Users_Id] FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users] ([Id])
 );
-

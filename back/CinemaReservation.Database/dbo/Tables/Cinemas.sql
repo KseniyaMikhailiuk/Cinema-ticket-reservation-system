@@ -6,8 +6,6 @@
     CONSTRAINT [FK_Cinemas_CityId_Cities_Id] FOREIGN KEY ([CityId]) REFERENCES [dbo].[Cities] ([Id])
 );
 
-
 GO
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Cinemas_Name_CityId]
     ON [dbo].[Cinemas]([Name] ASC, [CityId] ASC);
-

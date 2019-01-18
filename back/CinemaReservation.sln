@@ -5,6 +5,15 @@ VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CinemaReservation.Database", "CinemaReservation.Database\CinemaReservation.Database.sqlproj", "{22FA86A7-46C6-4ED6-8466-1E4462E8A12A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaReservation.DataAccessLayer", "CinemaReservation.DataAccessLayer\CinemaReservation.DataAccessLayer.csproj", "{A374597D-1C38-44EC-89C4-2375F2DCB96B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{22FA86A7-46C6-4ED6-8466-1E4462E8A12A} = {22FA86A7-46C6-4ED6-8466-1E4462E8A12A}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaReservation.BusinessLayer", "CinemaReservation.BusinessLayer\CinemaReservation.BusinessLayer.csproj", "{4322D80D-72DE-4CBF-92B5-81A3BA253D87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaReservation.Web", "CinemaReservation.Web\CinemaReservation.Web.csproj", "{15D5A4E5-5872-4C56-AA29-2489E3D3624C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +26,18 @@ Global
 		{22FA86A7-46C6-4ED6-8466-1E4462E8A12A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22FA86A7-46C6-4ED6-8466-1E4462E8A12A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{22FA86A7-46C6-4ED6-8466-1E4462E8A12A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{A374597D-1C38-44EC-89C4-2375F2DCB96B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A374597D-1C38-44EC-89C4-2375F2DCB96B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A374597D-1C38-44EC-89C4-2375F2DCB96B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A374597D-1C38-44EC-89C4-2375F2DCB96B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4322D80D-72DE-4CBF-92B5-81A3BA253D87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4322D80D-72DE-4CBF-92B5-81A3BA253D87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4322D80D-72DE-4CBF-92B5-81A3BA253D87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4322D80D-72DE-4CBF-92B5-81A3BA253D87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15D5A4E5-5872-4C56-AA29-2489E3D3624C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15D5A4E5-5872-4C56-AA29-2489E3D3624C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15D5A4E5-5872-4C56-AA29-2489E3D3624C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15D5A4E5-5872-4C56-AA29-2489E3D3624C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
