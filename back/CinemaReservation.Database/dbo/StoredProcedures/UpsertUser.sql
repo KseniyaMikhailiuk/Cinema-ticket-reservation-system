@@ -3,8 +3,8 @@
 	@Name nvarchar(255),
 	@Surname nvarchar(255),
 	@Email nvarchar(255),
-	@PasswordHash binary(256),
-	@Salt binary(128),
+	@PasswordHash binary(64),
+	@Salt binary(64),
 	@IsAdmin bit
 AS
 BEGIN
