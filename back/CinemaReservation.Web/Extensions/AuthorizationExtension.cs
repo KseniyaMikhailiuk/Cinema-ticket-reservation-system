@@ -9,17 +9,22 @@ using CinemaReservation.Web.Models;
 
 namespace CinemaReservation.Web
 {
-    public class IdentityService
+    public static class AuthorizationExtension
     {
+        private const int EXPIRES_MONTH_AMOUNT = 1;
 
-        private int EXPIRES_MONTH_AMOUNT = 1;
-
-        public async Task SetCookiesAsync(HttpContext httpContext, AuthorizationResponse authorizationResponse)
+        public static async Task SignInAsync(this HttpContext httpContext, AuthorizationResponse authorizationResponse)
         {
+            List<Claim> claims = new List<Claim>()
+                {
+                    new Claim(ClaimTypes.Email, authorizationResponse.Email),
+                    new Claim(ClaimTypes.Role, authorizationResponse.IsAdmin ? UserRoles.Admin.ToString() : UserRoles.User.ToString())
+                };
+
             await httpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(
-                    GetAuthorizationClaims(authorizationResponse)
+                    new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme)
                 ),
                 new AuthenticationProperties
                 {
@@ -29,23 +34,11 @@ namespace CinemaReservation.Web
             );
         }
 
-        public async Task RemoveCookiesAsync(HttpContext httpContext)
+        public static async Task SignOutAsync(this HttpContext httpContext)
         {
             await httpContext.SignOutAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme
             );
-        }
-
-
-        private static ClaimsIdentity GetAuthorizationClaims(AuthorizationResponse authorizationResponse)
-        {
-            List<Claim> claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.Email, authorizationResponse.Email),
-                new Claim(ClaimTypes.Role, authorizationResponse.IsAdmin ? UserRoles.Admin : UserRoles.User)
-            };
-
-            return new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
         }
     }
 }

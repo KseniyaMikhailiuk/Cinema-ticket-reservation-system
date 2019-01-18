@@ -12,7 +12,6 @@ namespace CinemaReservation.PresentationLayer.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
-        private readonly IdentityService _identityHelper;
 
 
         public AccountController(IAccountService accountService)
@@ -43,7 +42,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
                     result.IsAdmin
                 );
 
-                await _identityHelper.SetCookiesAsync(HttpContext, authorizationResponse);
+                await HttpContext.SignInAsync(authorizationResponse);
 
                 return Ok(authorizationResponse);
             }
@@ -71,7 +70,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
                     result.IsAdmin
                 );
 
-                await _identityHelper.SetCookiesAsync(HttpContext, authorizationResponse);
+                await HttpContext.SignInAsync(authorizationResponse);
 
                 return Ok(authorizationResponse);
             }
@@ -82,7 +81,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
         [HttpPost("logout")]
         public async Task<IActionResult> LogoutAsync()
         {
-            await _identityHelper.RemoveCookiesAsync(HttpContext);
+            await HttpContext.SignOutAsync();
 
             return Ok("User unauthorized successfully");
         }
