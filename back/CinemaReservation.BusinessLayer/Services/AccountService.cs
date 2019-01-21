@@ -76,11 +76,11 @@ namespace CinemaReservation.BusinessLayer.Services
             );
         }
 
-        public async Task<GetUserInfoResultModel> GetUserInfoAsync(int id)
+        public async Task<UserModel> GetUserAsync(int id)
         {
             UserEntity userEntity = await _userRepository.GetUserByIdAsync(id);
 
-            return new GetUserInfoResultModel(
+            return new UserModel(
                 userEntity.Id,
                 userEntity.Name,
                 userEntity.Surname,

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CinemaReservation.BusinessLayer.Models
+﻿namespace CinemaReservation.Web.Models
 {
-    public class GetUserInfoResultModel
+    public class UserResponse
     {
         public int Id { get; }
         public string Name { get; }
@@ -12,7 +8,7 @@ namespace CinemaReservation.BusinessLayer.Models
         public string Email { get; }
         public bool IsAdmin { get; }
 
-        public GetUserInfoResultModel(
+        public UserResponse(
             int id,
             string name,
             string surname,

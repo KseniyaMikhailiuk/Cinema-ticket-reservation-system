@@ -95,15 +95,15 @@ namespace CinemaReservation.PresentationLayer.Controllers
                 .User
                 .Claims
                 .FirstOrDefault(x =>
-                    x.Type == ClaimTypes.PrimarySid
+                    x.Type == ClaimTypes.NameIdentifier
                 )
                 ?.Value;
 
             int userId = int.Parse(userIdStringPresentation);
 
-            GetUserInfoResultModel result = await _accountService.GetUserInfoAsync(userId);
+            UserModel result = await _accountService.GetUserAsync(userId);
 
-            return Ok(new GetUserInfoResponse(
+            return Ok(new UserResponse(
                 result.Id,
                 result.Name,
                 result.Surname,
