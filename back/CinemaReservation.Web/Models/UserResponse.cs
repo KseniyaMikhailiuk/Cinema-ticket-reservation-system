@@ -1,20 +1,18 @@
-﻿namespace CinemaReservation.BusinessLayer.Models
+﻿namespace CinemaReservation.Web.Models
 {
-    public class AuthorizationResultModel
+    public class UserResponse
     {
         public int Id { get; }
         public string Name { get; }
         public string Surname { get; }
         public string Email { get; }
         public bool IsAdmin { get; }
-        public AuthorizationResultStatus ResultStatus { get; }
 
-        public AuthorizationResultModel(
+        public UserResponse(
             int id,
             string name,
             string surname,
             string email,
-            AuthorizationResultStatus resultStatus,
             bool isAdmin
         )
         {
@@ -22,15 +20,7 @@
             Name = name;
             Surname = surname;
             Email = email;
-            ResultStatus = resultStatus;
             IsAdmin = isAdmin;
-        }
-
-        public AuthorizationResultModel(
-            AuthorizationResultStatus resultStatus
-        )
-        {
-            ResultStatus = resultStatus;
         }
     }
 }

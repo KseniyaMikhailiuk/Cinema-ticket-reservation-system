@@ -7,7 +7,6 @@
         public string Surname { get; }
         public string Email { get; }
         public bool IsAdmin { get; }
-        public bool HasErorMessage { get; }
         public RegistrationResultStatus ResultStatus { get; }
 
         public RegistrationResultModel(

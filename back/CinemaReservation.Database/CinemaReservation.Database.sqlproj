@@ -79,6 +79,7 @@
     <Build Include="dbo\Tables\SeanceSeatPrice.sql" />
     <Build Include="dbo\StoredProcedures\UpsertUser.sql" />
     <Build Include="dbo\StoredProcedures\GetUserByEmail.sql" />
+    <Build Include="dbo\StoredProcedures\GetUserById.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="CinemaReservation.Database.refactorlog" />

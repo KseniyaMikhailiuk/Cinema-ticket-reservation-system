@@ -75,5 +75,18 @@ namespace CinemaReservation.BusinessLayer.Services
                 AuthorizationResultStatus.IncorrectLoginData
             );
         }
+
+        public async Task<UserModel> GetUserAsync(int id)
+        {
+            UserEntity userEntity = await _userRepository.GetUserByIdAsync(id);
+
+            return new UserModel(
+                userEntity.Id,
+                userEntity.Name,
+                userEntity.Surname,
+                userEntity.Email,
+                userEntity.IsAdmin
+            );
+        }
     }
 }
