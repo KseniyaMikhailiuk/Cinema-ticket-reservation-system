@@ -76,22 +76,25 @@ namespace CinemaReservation.BusinessLayer.Services
             );
         }
 
-        public async Task<UserModel> GetUserInfoAsync(int id)
+        public async Task<UserInfoModel> GetUserInfoAsync(int id)
         {
             UserEntity userEntity = await _userRepository.GetUserByIdAsync(id);
 
             if (userEntity != null)
             {
-                return new UserModel(
+                return new UserInfoModel(
                     userEntity.Id,
                     userEntity.Name,
                     userEntity.Surname,
                     userEntity.Email,
-                    userEntity.IsAdmin
+                    userEntity.IsAdmin,
+                    GetUserInfoResultStatus.Ok
                 );
             }
 
-            return null;
+            return new UserInfoModel(
+                GetUserInfoResultStatus.IncorrectId
+            );
         }
     }
 }
