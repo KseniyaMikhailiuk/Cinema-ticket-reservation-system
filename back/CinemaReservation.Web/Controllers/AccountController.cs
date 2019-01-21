@@ -88,8 +88,8 @@ namespace CinemaReservation.PresentationLayer.Controllers
             return Ok("User unauthorized successfully");
         }
 
-        [HttpGet("getUserInfo")]
-        public async Task<IActionResult> GetUserInfoAsync()
+        [HttpGet("getUser")]
+        public async Task<IActionResult> GetUserAsync()
         {
             string userIdStringPresentation = HttpContext
                 .User
