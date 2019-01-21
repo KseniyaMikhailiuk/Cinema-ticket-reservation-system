@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CinemaReservation.Web.Models
 {
-    public class UserInfoResponse
+    public class GetUserInfoResponse
     {
         public int Id { get; }
         public string Name { get; }
@@ -13,7 +13,7 @@ namespace CinemaReservation.Web.Models
         public string Email { get; }
         public bool IsAdmin { get; }
 
-        public UserInfoResponse(
+        public GetUserInfoResponse(
             int id,
             string name,
             string surname,

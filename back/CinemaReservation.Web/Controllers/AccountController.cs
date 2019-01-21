@@ -103,7 +103,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
 
             GetUserInfoResultModel result = await _accountService.GetUserInfoAsync(userId);
 
-            return Ok(new UserInfoResponse(
+            return Ok(new GetUserInfoResponse(
                 result.Id,
                 result.Name,
                 result.Surname,
