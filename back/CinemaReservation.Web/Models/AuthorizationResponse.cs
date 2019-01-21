@@ -1,5 +1,5 @@
 ﻿
-namespace CinemaReservation.PresentationLayer.Models
+namespace CinemaReservation.Web.Models
 {
     public class AuthorizationResponse
     {
