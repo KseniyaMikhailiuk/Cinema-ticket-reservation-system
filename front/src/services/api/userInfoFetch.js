@@ -41,3 +41,20 @@ export const authorizeUser = (userData) =>
     .then(data =>
         data
     )
+
+export const getUser = () =>
+    fetch(
+        "./api/account/getUser",
+        {
+            method: 'get',
+            headers: {
+                "Content-type": "application/json"
+            }
+        }
+    )
+    .then(res =>
+        res.json()
+    )
+    .then(data =>
+        data
+    )
