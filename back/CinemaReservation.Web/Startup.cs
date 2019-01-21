@@ -25,31 +25,38 @@ namespace CinemaReservation.Web
             DalServices.AddServices(services);
             BlServices.AddServices(services);
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            })
-                .AddCookie(options =>
-                {
-                    options.Events = new CookieAuthenticationEvents
+            services
+                .AddAuthentication(options =>
                     {
-                        OnRedirectToLogin = context =>
+                        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                        options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    }
+                )
+                .AddCookie(options =>
+                    {
+                        options.Events = new CookieAuthenticationEvents
                         {
-                            context.Response.StatusCode = 401;
-                            return Task.CompletedTask;
-                        }
-                    };
-                });
+                            OnRedirectToLogin = context =>
+                            {
+                                context.Response.StatusCode = 401;
+                                return Task.CompletedTask;
+                            }
+                        };
+                    }
+                );
 
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            services
+                .Configure<CookiePolicyOptions>(options =>
+                    {
+                        options.CheckConsentNeeded = context => true;
+                        options.MinimumSameSitePolicy = SameSiteMode.None;
+                    }
+                );
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services
+                .AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -69,12 +76,14 @@ namespace CinemaReservation.Web
 
             app.UseAuthentication();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app
+                .UseMvc(routes =>
+                    {
+                        routes.MapRoute(
+                            name: "default",
+                            template: "{controller=Home}/{action=Index}/{id?}");
+                    }
+                );
         }
     }
 }
