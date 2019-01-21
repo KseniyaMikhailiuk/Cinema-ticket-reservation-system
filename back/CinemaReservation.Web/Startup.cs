@@ -34,7 +34,7 @@ namespace CinemaReservation.Web
                 {
                     options.Events = new CookieAuthenticationEvents
                     {
-                        OnRedirectToAccessDenied = context =>
+                        OnRedirectToLogin = context =>
                         {
                             context.Response.StatusCode = 401;
                             return Task.CompletedTask;
