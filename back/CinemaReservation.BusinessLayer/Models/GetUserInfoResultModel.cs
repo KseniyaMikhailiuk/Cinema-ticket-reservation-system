@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CinemaReservation.BusinessLayer.Models
 {
-    public class UserInfoModel
+    public class GetUserInfoResultModel
     {
         public int Id { get; }
         public string Name { get; }
@@ -12,7 +12,7 @@ namespace CinemaReservation.BusinessLayer.Models
         public string Email { get; }
         public bool IsAdmin { get; }
 
-        public UserInfoModel(
+        public GetUserInfoResultModel(
             int id,
             string name,
             string surname,

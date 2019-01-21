@@ -101,7 +101,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
 
             int userId = int.Parse(userIdStringPresentation);
 
-            UserInfoModel result = await _accountService.GetUserInfoAsync(userId);
+            GetUserInfoResultModel result = await _accountService.GetUserInfoAsync(userId);
 
             return Ok(new UserInfoResponse(
                 result.Id,

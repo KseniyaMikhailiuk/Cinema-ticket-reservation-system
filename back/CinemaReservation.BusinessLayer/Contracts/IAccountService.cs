@@ -7,6 +7,6 @@ namespace CinemaReservation.BusinessLayer.Contracts
     {
         Task<RegistrationResultModel> RegisterUserAsync(RegistrationModel registrationModel);
         Task<AuthorizationResultModel> AuthorizeUserAsync(LoginModel loginModel);
-        Task<UserInfoModel> GetUserInfoAsync(int id);
+        Task<GetUserInfoResultModel> GetUserInfoAsync(int id);
     }
 }
