@@ -91,7 +91,13 @@ namespace CinemaReservation.PresentationLayer.Controllers
         [HttpGet("getUserInfo")]
         public async Task<IActionResult> GetUserInfoAsync()
         {
-            string userIdStringPresentation = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.PrimarySid)?.Value;
+            string userIdStringPresentation = HttpContext
+                .User
+                .Claims
+                .FirstOrDefault(x =>
+                    x.Type == ClaimTypes.PrimarySid
+                )
+                ?.Value;
 
             if (int.TryParse(userIdStringPresentation, out int userId))
             {
