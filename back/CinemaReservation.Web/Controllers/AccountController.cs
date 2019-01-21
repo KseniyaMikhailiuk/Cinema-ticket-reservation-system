@@ -99,25 +99,17 @@ namespace CinemaReservation.PresentationLayer.Controllers
                 )
                 ?.Value;
 
-            if (int.TryParse(userIdStringPresentation, out int userId))
-            {
-                UserInfoModel result = await _accountService.GetUserInfoAsync(userId);
+            int userId = int.Parse(userIdStringPresentation);
 
-                if (result.ResultStatus == GetUserInfoResultStatus.Ok)
-                {
-                    return Ok(new UserInfoResponse(
-                        result.Id,
-                        result.Name,
-                        result.Surname,
-                        result.Email,
-                        result.IsAdmin
-                    ));
-                }
+            UserInfoModel result = await _accountService.GetUserInfoAsync(userId);
 
-                return BadRequest("Incorrect id");
-            }
-
-            return BadRequest("Cookie error");
+            return Ok(new UserInfoResponse(
+                result.Id,
+                result.Name,
+                result.Surname,
+                result.Email,
+                result.IsAdmin
+            ));
         }
     }
 }

@@ -11,15 +11,13 @@ namespace CinemaReservation.BusinessLayer.Models
         public string Surname { get; }
         public string Email { get; }
         public bool IsAdmin { get; }
-        public GetUserInfoResultStatus ResultStatus { get; }
 
         public UserInfoModel(
             int id,
             string name,
             string surname,
             string email,
-            bool isAdmin,
-            GetUserInfoResultStatus resultStatus
+            bool isAdmin
         )
         {
             Id = id;
@@ -27,14 +25,6 @@ namespace CinemaReservation.BusinessLayer.Models
             Surname = surname;
             Email = email;
             IsAdmin = isAdmin;
-            ResultStatus = resultStatus;
-        }
-
-        public UserInfoModel(
-            GetUserInfoResultStatus resultStatus
-        )
-        {
-            ResultStatus = resultStatus;
         }
     }
 }

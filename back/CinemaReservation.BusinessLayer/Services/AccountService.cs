@@ -80,20 +80,12 @@ namespace CinemaReservation.BusinessLayer.Services
         {
             UserEntity userEntity = await _userRepository.GetUserByIdAsync(id);
 
-            if (userEntity != null)
-            {
-                return new UserInfoModel(
-                    userEntity.Id,
-                    userEntity.Name,
-                    userEntity.Surname,
-                    userEntity.Email,
-                    userEntity.IsAdmin,
-                    GetUserInfoResultStatus.Ok
-                );
-            }
-
             return new UserInfoModel(
-                GetUserInfoResultStatus.IncorrectId
+                userEntity.Id,
+                userEntity.Name,
+                userEntity.Surname,
+                userEntity.Email,
+                userEntity.IsAdmin
             );
         }
     }
