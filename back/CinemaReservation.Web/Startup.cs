@@ -56,7 +56,7 @@ namespace CinemaReservation.Web
             services
                 .AddSpaStaticFiles(configuration =>
                     {
-                        configuration.RootPath = "../../front/build";
+                        configuration.RootPath = Configuration.GetSection("SpaRootPath").Value;
                     }
                 );
 
@@ -97,7 +97,7 @@ namespace CinemaReservation.Web
             app
                 .UseSpa(spa =>
                     {
-                        spa.Options.SourcePath = "../../front/build";
+                        spa.Options.SourcePath = Configuration.GetSection("SpaRootPath").Value;
                     }
                 );
         }
