@@ -17,7 +17,7 @@ namespace CinemaReservation.Web
         {
             List<Claim> claims = new List<Claim>()
                 {
-                    new Claim(ClaimTypes.Email, authorizationResponse.Email),
+                    new Claim(ClaimTypes.PrimarySid, authorizationResponse.Id.ToString()),
                     new Claim(ClaimTypes.Role, authorizationResponse.IsAdmin ? UserRoles.Admin.ToString() : UserRoles.User.ToString())
                 };
 

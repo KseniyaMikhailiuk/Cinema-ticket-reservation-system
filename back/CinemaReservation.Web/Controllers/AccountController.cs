@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CinemaReservation.Web.Models;
 using CinemaReservation.BusinessLayer.Models;
@@ -84,6 +86,27 @@ namespace CinemaReservation.PresentationLayer.Controllers
             await HttpContext.SignOutAsync();
 
             return Ok("User unauthorized successfully");
+        }
+
+        [HttpGet("getUserInfo")]
+        public async Task<IActionResult> GetUserInfoAsync()
+        {
+            string userIdStringPresentation = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.PrimarySid)?.Value;
+
+            if (int.TryParse(userIdStringPresentation, out int userId))
+            {
+                UserModel result = await _accountService.GetUserInfoAsync(userId);
+
+                return Ok(new UserInfoResponse(
+                    result.Id,
+                    result.Name,
+                    result.Surname,
+                    result.Email,
+                    result.IsAdmin
+                ));
+            }
+
+            return BadRequest("Cookie error");
         }
     }
 }
