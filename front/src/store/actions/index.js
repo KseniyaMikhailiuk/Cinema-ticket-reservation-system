@@ -1,6 +1,7 @@
 import * as filmsInfo from '../../services/api/filmsFetch'
 import * as cinemaHallPlans from '../../services/api/hallPlanFetch'
 import * as orderInfoFetch from '../../services/api/usersOrdersInfoFetch'
+import * as userInfoFetch from '../../services/api/userInfoFetch'
 
 export const startFilmListFetching = (filter) => (dispatch) => {
     dispatch({
@@ -143,9 +144,12 @@ export const authorize = (userInfo) => (dispatch) =>
     })
 
 export const deauthorize = () => (dispatch) => {
-    dispatch({
-        type: 'DEAUTHORIZE'
-    })
+    return userInfoFetch.deauthorizeUser()
+        .then(() => {
+            dispatch({
+                type: 'DEAUTHORIZE'
+            })
+        })
 }
 
 export const savePreviousPath = (pathname) => (dispatch) => {
@@ -153,4 +157,14 @@ export const savePreviousPath = (pathname) => (dispatch) => {
         type: 'CHANGE_PATH',
         pathname: pathname
     })
+}
+
+export const preloadInitialState = (dispatch) => {
+    return userInfoFetch.getUser()
+        .then(userInfo => {
+            dispatch({
+                type: 'PRELOAD_USER_INITIAL_STATE',
+                userInfo: userInfo
+            })
+        })
 }

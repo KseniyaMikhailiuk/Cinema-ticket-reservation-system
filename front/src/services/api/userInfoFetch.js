@@ -42,6 +42,14 @@ export const authorizeUser = (userData) =>
         data
     )
 
+export const deauthorizeUser = () =>
+    fetch(
+        "./api/account/logout",
+        {
+            method: 'post',
+        }
+    )
+
 export const getUser = () =>
     fetch(
         "./api/account/getUser",

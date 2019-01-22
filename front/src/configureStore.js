@@ -1,5 +1,6 @@
 import {createStore, applyMiddleware} from 'redux'
 import cinemaApp from './store/reducers'
+import {preloadInitialState} from './store/actions'
 import thunk from 'redux-thunk'
 import moment from 'moment'
 
@@ -36,6 +37,7 @@ const initialState = {
 const configureStore = () => {
     const middlewares = [thunk];
     const store = createStore(cinemaApp, initialState, applyMiddleware(...middlewares));
+    preloadInitialState(store.dispatch);
     return store;
 }
 

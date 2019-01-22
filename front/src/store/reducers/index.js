@@ -126,6 +126,8 @@ const isLoggedIn = (state = false, action) => {
             return true;
         case 'DEAUTHORIZE':
             return false;
+        case 'PRELOAD_USER_INITIAL_STATE':
+            return action.userInfo ? true : false
         default:
             return state;
     }
@@ -137,6 +139,8 @@ const userInfo = (state = {}, action) => {
             return action.userInfo;
         case 'DEAUTHORIZE':
             return {};
+        case 'PRELOAD_USER_INITIAL_STATE':
+            return action.userInfo
         default:
             return state;
     }
@@ -159,6 +163,8 @@ const isAdmin = (state = false, action) => {
             return action.userInfo.isAdmin;
         case 'DEAUTHORIZE':
             return false;
+        case 'PRELOAD_USER_INITIAL_STATE':
+            return action.userInfo.isAdmin;
         default:
             return state;
     }
