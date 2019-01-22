@@ -29,6 +29,7 @@ const initialState = {
     userInfo: {
         id: 1,
     },
+    isLoading: false,
     isRequestSucceeded: false,
     isAdmin: false,
     isLoggedIn: false

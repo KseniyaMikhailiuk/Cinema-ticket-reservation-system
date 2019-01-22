@@ -10,19 +10,6 @@ const filteredList = (state = [], action) => {
     }
 }
 
-const isDataRequested = (state = false, action) => {
-    switch(action.type){
-        case 'FETCH_FILM_INFO_REQUEST':
-        case 'FETCH_FILM_LIST_REQUEST':
-            return true;
-        case 'FETCH_FILM_INFO_SUCCESS':
-        case 'FETCH_FILM_LIST_SUCCESS':
-            return false;
-        default:
-            return state;
-    }
-}
-
 const hallPlan = (state = [], action) => {
     switch(action.type){
         case 'FETCH_HALL_INFO_SUCCESS':
@@ -157,6 +144,17 @@ const isRequestSucceeded = (state = false, action) => {
     }
 }
 
+const isLoading = (state = false, action) => {
+    switch(action.type){
+        case 'DATA_LOADING_STARTED':
+            return true;
+        case 'DATA_LOADING_FINISHED':
+            return false;
+        default:
+            return state;
+    }
+}
+
 const isAdmin = (state = false, action) => {
     switch(action.type){
         case 'AUTHORIZE':
@@ -182,7 +180,7 @@ const previousPath = (state = "", action) => {
 const cinemaApp = combineReducers ({
     filteredList,
     filterObject,
-    isDataRequested,
+    isLoading,
     isRequestSucceeded,
     selectedFilmInfo,
     hallPlan,

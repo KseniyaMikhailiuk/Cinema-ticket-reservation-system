@@ -160,11 +160,21 @@ export const savePreviousPath = (pathname) => (dispatch) => {
 }
 
 export const preloadInitialState = (dispatch) => {
+    dispatch({
+        type: 'DATA_LOADING_STARTED'
+    })
+
     return userInfoFetch.getUser()
         .then(userInfo => {
+            if (userInfo) {
+                dispatch({
+                    type: 'PRELOAD_USER_INITIAL_STATE',
+                    userInfo: userInfo
+                })
+            }
+
             dispatch({
-                type: 'PRELOAD_USER_INITIAL_STATE',
-                userInfo: userInfo
+                type: 'DATA_LOADING_FINISHED'
             })
         })
 }

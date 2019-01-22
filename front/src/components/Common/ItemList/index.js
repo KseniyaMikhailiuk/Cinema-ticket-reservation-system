@@ -1,6 +1,5 @@
 import React from 'react'
-
-import NothingFound from '../nothingFound'
+import Loader from 'react-loader'
 
 import './itemList.scss'
 import '../../../CommonStylesheets/listItems.scss'
@@ -10,26 +9,20 @@ const ItemList = ({
     itemType
 }) => {
     const Item = itemType;
-    if (list.length > 0) {
-        return (
+    return (
+        <Loader loaded={list.length > 0}>
             <div className="list">
                 {
                     list
                         .map(item =>
                             <Item
                                 key={item.id}
-                                itemInfo={item}
+                            itemInfo={item}
                             />
-                        )
+                    )
                 }
             </div>
-        )
-    }
-    else{
-        return (
-            <NothingFound />
-        )
-    }
-
+        </Loader>
+    )
 }
 export default ItemList;

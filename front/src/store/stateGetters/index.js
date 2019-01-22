@@ -38,3 +38,7 @@ export const getPreviousPath = (state) => {
     return state.previousPath;
 }
 
+export const getLoadingStatus = (state) => {
+    return state.isLoading;
+}
+

@@ -14,13 +14,16 @@ export const registerUser = (userData) =>
             }
         )
     })
-    .then(response =>
-        response.ok
-        ? response.json()
-        : false)
-    .then(data =>
-        data
-    )
+        .then(response =>
+            response.ok
+            ? response.json()
+            : false)
+        .then(data =>
+            data
+        )
+        .catch(error => {
+            console.log(error);
+        })
 
 export const authorizeUser = (userData) =>
     fetch(
@@ -43,6 +46,9 @@ export const authorizeUser = (userData) =>
         .then(data =>
             data
         )
+        .catch(error => {
+            console.log(error);
+        })
 
 export const deauthorizeUser = () =>
     fetch(
@@ -68,3 +74,6 @@ export const getUser = () =>
         .then(data =>
             data
         )
+        .catch(error => {
+            console.log(error);
+        })
