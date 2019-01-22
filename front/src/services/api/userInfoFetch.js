@@ -14,9 +14,10 @@ export const registerUser = (userData) =>
             }
         )
     })
-    .then(res =>
-        res.json()
-    )
+    .then(response =>
+        response.ok
+        ? response.json()
+        : false)
     .then(data =>
         data
     )
@@ -35,9 +36,10 @@ export const authorizeUser = (userData) =>
             })
         }
     )
-        .then(res =>
-            res.json()
-        )
+        .then(response =>
+            response.ok
+            ? response.json()
+            : false)
         .then(data =>
             data
         )
@@ -60,8 +62,8 @@ export const getUser = () =>
             }
         }
     )
-        .then(res =>
-            res.json()
+        .then(response =>
+            response.json()
         )
         .then(data =>
             data
