@@ -92,7 +92,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
         [Authorize]
         public async Task<IActionResult> GetUserAsync()
         {
-            int userId = AuthorizationExtension.GetUserId(HttpContext);
+            int userId = HttpContext.GetUserId();
 
             UserModel result = await _accountService.GetUserAsync(userId);
 
