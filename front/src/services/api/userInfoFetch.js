@@ -23,7 +23,7 @@ export const registerUser = (userData) =>
         )
         .catch(error => {
             console.log(error);
-            throw new Error();
+            throw error;
         })
 
 export const authorizeUser = (userData) =>
@@ -49,7 +49,7 @@ export const authorizeUser = (userData) =>
         )
         .catch(error => {
             console.log(error);
-            throw new Error();
+            throw error;
         })
 
 export const deauthorizeUser = () =>
@@ -61,7 +61,7 @@ export const deauthorizeUser = () =>
     )
         .catch(error => {
             console.log(error);
-            throw new Error();
+            throw error;
         })
 
 export const getUser = () =>
@@ -83,5 +83,5 @@ export const getUser = () =>
         )
         .catch(error => {
             console.log(error);
-            throw new Error();
+            throw error;
         })

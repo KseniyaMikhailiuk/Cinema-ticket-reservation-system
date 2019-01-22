@@ -1,11 +1,10 @@
-﻿using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CinemaReservation.Web.Models;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.Web;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CinemaReservation.PresentationLayer.Controllers
 {
@@ -81,6 +80,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
         }
 
         [HttpPost("logout")]
+        [Authorize]
         public async Task<IActionResult> LogoutAsync()
         {
             await HttpContext.SignOutAsync();
@@ -89,22 +89,10 @@ namespace CinemaReservation.PresentationLayer.Controllers
         }
 
         [HttpGet("getUser")]
+        [Authorize]
         public async Task<IActionResult> GetUserAsync()
         {
-            string userIdStringPresentation = HttpContext
-                .User
-                .Claims
-                .FirstOrDefault(x =>
-                    x.Type == ClaimTypes.NameIdentifier
-                )
-                ?.Value;
-
-            if (userIdStringPresentation == null)
-            {
-                return Unauthorized();
-            }
-
-            int userId = int.Parse(userIdStringPresentation);
+            int userId = AuthorizationExtension.GetUserId(HttpContext);
 
             UserModel result = await _accountService.GetUserAsync(userId);
 
