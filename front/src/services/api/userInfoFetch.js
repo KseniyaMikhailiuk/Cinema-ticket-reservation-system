@@ -23,6 +23,7 @@ export const registerUser = (userData) =>
         )
         .catch(error => {
             console.log(error);
+            throw new Error();
         })
 
 export const authorizeUser = (userData) =>
@@ -48,6 +49,7 @@ export const authorizeUser = (userData) =>
         )
         .catch(error => {
             console.log(error);
+            throw new Error();
         })
 
 export const deauthorizeUser = () =>
@@ -57,6 +59,10 @@ export const deauthorizeUser = () =>
             method: 'post',
         }
     )
+        .catch(error => {
+            console.log(error);
+            throw new Error();
+        })
 
 export const getUser = () =>
     fetch(
@@ -69,11 +75,13 @@ export const getUser = () =>
         }
     )
         .then(response =>
-            response.json()
-        )
+            response.ok
+            ? response.json()
+            : false)
         .then(data =>
             data
         )
         .catch(error => {
             console.log(error);
+            throw new Error();
         })

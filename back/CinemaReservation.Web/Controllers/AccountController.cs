@@ -99,6 +99,11 @@ namespace CinemaReservation.PresentationLayer.Controllers
                 )
                 ?.Value;
 
+            if (userIdStringPresentation == null)
+            {
+                return Unauthorized();
+            }
+
             int userId = int.Parse(userIdStringPresentation);
 
             UserModel result = await _accountService.GetUserAsync(userId);
