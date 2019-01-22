@@ -35,12 +35,12 @@ export const authorizeUser = (userData) =>
             })
         }
     )
-    .then(res =>
-        res.json()
-    )
-    .then(data =>
-        data
-    )
+        .then(res =>
+            res.json()
+        )
+        .then(data =>
+            data
+        )
 
 export const deauthorizeUser = () =>
     fetch(
@@ -60,9 +60,9 @@ export const getUser = () =>
             }
         }
     )
-    .then(res =>
-        res.json()
-    )
-    .then(data =>
-        data
-    )
+        .then(res =>
+            res.json()
+        )
+        .then(data =>
+            data
+        )
