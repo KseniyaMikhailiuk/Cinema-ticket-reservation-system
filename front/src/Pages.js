@@ -17,8 +17,8 @@ import Footer from './components/Common/Footer'
 import PrivateAdminRoute from './components/PrivateRoutes/privateAdminRoute'
 import PrivateLoggedInUserRoute from './components/PrivateRoutes/privateLoggedInUserRoute'
 
-import { getLoginStatus } from './store/stateGetters';
 import * as actions from './store/actions'
+import {getLoadingStatus} from './store/stateGetters'
 
 import './i18n'
 
@@ -56,7 +56,7 @@ class Page extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isLoading: getLoginStatus(state)
+        isLoading: getLoadingStatus(state)
     }
 }
 

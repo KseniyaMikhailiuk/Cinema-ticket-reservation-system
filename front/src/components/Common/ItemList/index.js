@@ -17,7 +17,7 @@ const ItemList = ({
                         .map(item =>
                             <Item
                                 key={item.id}
-                            itemInfo={item}
+                                itemInfo={item}
                             />
                     )
                 }

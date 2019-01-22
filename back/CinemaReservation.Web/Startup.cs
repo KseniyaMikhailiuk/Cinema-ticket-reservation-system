@@ -60,8 +60,6 @@ namespace CinemaReservation.Web
                     }
                 );
 
-            services.AddSpaPrerenderer();
-
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -79,7 +77,6 @@ namespace CinemaReservation.Web
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseCookiePolicy();
 
