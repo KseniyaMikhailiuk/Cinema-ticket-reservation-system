@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using System;
 using System.Threading.Tasks;
 using CinemaReservation.Web.Models;
+using System.Linq;
 
 namespace CinemaReservation.Web
 {
@@ -39,6 +40,19 @@ namespace CinemaReservation.Web
             await httpContext.SignOutAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme
             );
+        }
+
+        public static int GetUserId(this HttpContext httpContext)
+        {
+            string userIdStringPresentation = httpContext
+                .User
+                .Claims
+                .FirstOrDefault(x =>
+                    x.Type == ClaimTypes.NameIdentifier
+                )
+                ?.Value;
+
+            return int.Parse(userIdStringPresentation);
         }
     }
 }

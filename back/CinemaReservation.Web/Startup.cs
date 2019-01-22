@@ -53,6 +53,12 @@ namespace CinemaReservation.Web
                     }
                 );
 
+            services
+                .AddSpaStaticFiles(configuration =>
+                    {
+                        configuration.RootPath = Configuration.GetSection("SpaRootPath").Value;
+                    }
+                );
 
             services
                 .AddMvc()
@@ -71,7 +77,7 @@ namespace CinemaReservation.Web
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
             app.UseCookiePolicy();
 
             app.UseAuthentication();
@@ -82,6 +88,13 @@ namespace CinemaReservation.Web
                         routes.MapRoute(
                             name: "default",
                             template: "{controller=Home}/{action=Index}/{id?}");
+                    }
+                );
+
+            app
+                .UseSpa(spa =>
+                    {
+                        spa.Options.SourcePath = Configuration.GetSection("SpaRootPath").Value;
                     }
                 );
         }
