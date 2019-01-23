@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import NumericInput from 'react-numeric-input'
 import {withNamespaces} from 'react-i18next'
+import CreatableSelect from 'react-select'
 
 import AddHallPlan from './addHallPlan';
 
@@ -67,7 +68,7 @@ class AddCinemaForm extends Component {
     }
 
     render() {
-        const {t} = this.props;
+        const {t, cityOptions} = this.props;
         return(
             <>
                 <form className="forms admin" onSubmit={this.sendInfo}>
@@ -75,12 +76,21 @@ class AddCinemaForm extends Component {
                         <legend className="form-item forms__legend">
                             {t('addCinema')}
                         </legend>
-                        <input
+                        <CreatableSelect
+                            name="cinema"
+                            className="form-item select"
+                            options={cityOptions}
+                            isSearchable
+                            isClearable
+                            onChange={(selectedOption) => this.handleInputChange({target: {value: selectedOption, name: "city"}})}
+                            placeholder={t('enterCityName')}
+                        />
+                        {/* <input
                             name="city"
                             className="form-item select"
                             onChange={this.handleInputChange}
                             placeholder={t('enterCityName')}
-                        />
+                        /> */}
                         <input
                             name="cinema"
                             className="form-item select"

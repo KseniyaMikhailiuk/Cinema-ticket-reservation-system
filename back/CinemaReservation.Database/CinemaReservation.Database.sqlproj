@@ -80,6 +80,9 @@
     <Build Include="dbo\StoredProcedures\UpsertUser.sql" />
     <Build Include="dbo\StoredProcedures\GetUserByEmail.sql" />
     <Build Include="dbo\StoredProcedures\GetUserById.sql" />
+    <Build Include="dbo\StoredProcedures\AddCinema.sql" />
+    <Build Include="dbo\StoredProcedures\AddHall.sql" />
+    <Build Include="dbo\StoredProcedures\AddHallPlan.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="CinemaReservation.Database.refactorlog" />
