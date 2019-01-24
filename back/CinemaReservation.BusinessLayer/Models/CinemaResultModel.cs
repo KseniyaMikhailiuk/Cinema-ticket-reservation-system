@@ -1,34 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CinemaReservation.BusinessLayer.Models
+﻿namespace CinemaReservation.BusinessLayer.Models
 {
     public class CinemaResultModel
     {
         public string Name { get; }
         public string City { get; }
         public int Id { get; }
-        public AddCinemaResultStatus AddCinemaResultStatus { get; }
+        public UpsertCinemaResultStatus UpsertCinemaResultStatus { get; }
 
         public CinemaResultModel(
             string name,
             string city,
             int id,
-            AddCinemaResultStatus addCinemaResultStatus
+            UpsertCinemaResultStatus upsertCinemaResultStatus
         )
         {
             Name = name;
             City = city;
             Id = id;
-            AddCinemaResultStatus = addCinemaResultStatus;
+            UpsertCinemaResultStatus = upsertCinemaResultStatus;
         }
 
         public CinemaResultModel(
-            AddCinemaResultStatus addCinemaResultStatus
+            UpsertCinemaResultStatus upsertCinemaResultStatus
         )
         {
-            AddCinemaResultStatus = addCinemaResultStatus;
+            UpsertCinemaResultStatus = upsertCinemaResultStatus;
         }
     }
 }

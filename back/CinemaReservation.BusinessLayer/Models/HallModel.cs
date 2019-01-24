@@ -2,8 +2,8 @@
 {
     public class HallModel
     {
-        public string Name { get; }
         public int Id { get; }
+        public string Name { get; }
 
         public HallModel(
             string name,

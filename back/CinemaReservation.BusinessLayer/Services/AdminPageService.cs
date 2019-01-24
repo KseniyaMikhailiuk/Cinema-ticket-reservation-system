@@ -22,7 +22,7 @@ namespace CinemaReservation.BusinessLayer.Services
         {
             try
             {
-                int cinemaId = await _adminPageRepository.UpsertCinemaAsync(
+                CinemaEntity cinemaEntity = await _adminPageRepository.UpsertCinemaAsync(
                     new CinemaEntity(
                         cinemaModel.Name,
                         cinemaModel.City
@@ -32,43 +32,43 @@ namespace CinemaReservation.BusinessLayer.Services
                 return new CinemaResultModel(
                     cinemaModel.Name,
                     cinemaModel.City,
-                    cinemaId,
-                    AddCinemaResultStatus.Ok
+                    cinemaEntity.Id,
+                    UpsertCinemaResultStatus.Ok
                 );
             }
             catch
             {
-                return new CinemaResultModel(AddCinemaResultStatus.CityCinemaCombinationExists);
+                return new CinemaResultModel(UpsertCinemaResultStatus.CityCinemaCombinationExists);
             }
         }
 
         public async Task<CinemaResultModel> EditCinemaAsync(CinemaModel cinemaModel)
         {
-            try
-            {
-                int cinemaId = await _adminPageRepository.UpsertCinemaAsync(
-                    new CinemaEntity(
-                        cinemaModel.Id,
-                        cinemaModel.Name,
-                        cinemaModel.City
-                    )
-                );
 
+            CinemaEntity cinemaEntity = await _adminPageRepository.UpsertCinemaAsync(
+                new CinemaEntity(
+                    cinemaModel.Id,
+                    cinemaModel.Name,
+                    cinemaModel.City
+                )
+            );
+
+            if (cinemaEntity.OperationResultStatus == OperationResultStatus.Ok)
+            {
                 return new CinemaResultModel(
                     cinemaModel.Name,
                     cinemaModel.City,
-                    cinemaId,
-                    AddCinemaResultStatus.Ok
+                    cinemaEntity.Id,
+                    UpsertCinemaResultStatus.Ok
                 );
             }
-            catch
-            {
-                return new CinemaResultModel(AddCinemaResultStatus.CityCinemaCombinationExists);
-            }
+
+            return new CinemaResultModel(
+                UpsertCinemaResultStatus.CityCinemaCombinationExists
+            );
         }
 
-
-        public async Task<bool> AddHallsAsync(HallsModel hallsModel)
+        public async Task<UpsertHallResultStatus> AddHallsAsync(HallsModel hallsModel)
         {
             foreach (HallModel hall in hallsModel.Halls)
             {
@@ -76,12 +76,17 @@ namespace CinemaReservation.BusinessLayer.Services
                     .Seats
                     .FindAll(seat => seat.HallId == hall.Id);
 
-                int hallId = await _adminPageRepository.UpsertHallAsync(
+                HallEntity hallEntity = await _adminPageRepository.UpsertHallAsync(
                     new HallEntity(
                         hall.Name,
                         hallsModel.CinemaId
                     )
                 );
+
+                if (hallEntity.OperationResultStatus == OperationResultStatus.UniqueIndexError)
+                {
+                    return UpsertHallResultStatus.HallCinemaCombinationExists;
+                }
 
                 List<SeatEntity> seatEntities = new List<SeatEntity>();
 
@@ -92,7 +97,7 @@ namespace CinemaReservation.BusinessLayer.Services
                             seat.Type,
                             seat.Raw,
                             seat.Line,
-                            hallId
+                            hallEntity.Id
                         )
                     );
                 }
@@ -100,10 +105,10 @@ namespace CinemaReservation.BusinessLayer.Services
                 await _adminPageRepository.AddHallPlanAsync(seatEntities);
             }
 
-            return true;
+            return UpsertHallResultStatus.Ok;
         }
 
-        public async Task<bool> EditHallsAsync(HallsModel hallsModel)
+        public async Task<UpsertHallResultStatus> EditHallsAsync(HallsModel hallsModel)
         {
             foreach (HallModel hall in hallsModel.Halls)
             {
@@ -111,7 +116,7 @@ namespace CinemaReservation.BusinessLayer.Services
                     .Seats
                     .FindAll(seat => seat.HallId == hall.Id);
 
-                int hallId = await _adminPageRepository.UpsertHallAsync(
+                HallEntity hallEntity = await _adminPageRepository.UpsertHallAsync(
                     new HallEntity(
                         hall.Id,
                         hall.Name,
@@ -119,6 +124,11 @@ namespace CinemaReservation.BusinessLayer.Services
                     )
                 );
 
+                if (hallEntity.OperationResultStatus == OperationResultStatus.UniqueIndexError)
+                {
+                    return UpsertHallResultStatus.HallCinemaCombinationExists;
+                }
+
                 List<SeatEntity> seatEntities = new List<SeatEntity>();
 
                 foreach (SeatModel seat in hallSeats)
@@ -128,15 +138,17 @@ namespace CinemaReservation.BusinessLayer.Services
                             seat.Type,
                             seat.Raw,
                             seat.Line,
-                            hallId
+                            hallEntity.Id
                         )
                     );
                 }
-                await _adminPageRepository.RemoveHallPlanAsync(hallId);
+
+                await _adminPageRepository.RemoveHallPlanAsync(hallEntity.Id);
+
                 await _adminPageRepository.AddHallPlanAsync(seatEntities);
             }
 
-            return true;
+            return UpsertHallResultStatus.Ok;
         }
     }
 }

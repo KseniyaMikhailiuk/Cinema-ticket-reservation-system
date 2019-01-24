@@ -5,8 +5,6 @@ using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
 using System.Collections.Generic;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace CinemaReservation.Web.Controllers
 {
     [Route("api/[controller]")]
@@ -32,7 +30,7 @@ namespace CinemaReservation.Web.Controllers
                 )
             );
 
-            if (cinemaResultModel.AddCinemaResultStatus == AddCinemaResultStatus.Ok)
+            if (cinemaResultModel.UpsertCinemaResultStatus == UpsertCinemaResultStatus.Ok)
             {
                 return Ok(
                     cinemaResultModel.Id
@@ -53,7 +51,7 @@ namespace CinemaReservation.Web.Controllers
                 )
             );
 
-            if (cinemaResultModel.AddCinemaResultStatus == AddCinemaResultStatus.Ok)
+            if (cinemaResultModel.UpsertCinemaResultStatus == UpsertCinemaResultStatus.Ok)
             {
                 return Ok(
                     cinemaResultModel.Id
@@ -88,7 +86,7 @@ namespace CinemaReservation.Web.Controllers
                 ));
             }
 
-            await _adminPageService.AddHallsAsync(
+            UpsertHallResultStatus resultStatus = await _adminPageService.AddHallsAsync(
                 new HallsModel(
                     halls,
                     seats,
@@ -96,7 +94,12 @@ namespace CinemaReservation.Web.Controllers
                 )
             );
 
-            return Conflict("Cinema exists");
+            if (resultStatus == UpsertHallResultStatus.Ok)
+            {
+                return Ok("Halls are modified");
+            }
+
+            return Conflict("Hall exists");
         }
 
         [HttpPut("edithalls")]
@@ -125,7 +128,7 @@ namespace CinemaReservation.Web.Controllers
                 ));
             }
 
-            await _adminPageService.EditHallsAsync(
+            UpsertHallResultStatus resultStatus = await _adminPageService.EditHallsAsync(
                 new HallsModel(
                     halls,
                     seats,
@@ -133,7 +136,12 @@ namespace CinemaReservation.Web.Controllers
                 )
             );
 
-            return Conflict("Cinema exists");
+            if(resultStatus == UpsertHallResultStatus.Ok)
+            {
+                return Ok("Halls are modified");
+            }
+
+            return Conflict("Hall exists");
         }
 
     }
