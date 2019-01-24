@@ -18,24 +18,24 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             _settings = dalSettings;
         }
 
-        public async Task<int> AddCinemaAsync(CinemaEntity cinemaEntity)
+        public async Task<int> UpsertCinemaAsync(CinemaEntity cinemaEntity)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
                 return await dbConnection.QuerySingleOrDefaultAsync<int>(
-                    "AddCinema",
+                    "UpsertCinema",
                     cinemaEntity,
                     commandType: CommandType.StoredProcedure
                 );
             }
         }
 
-        public async Task<int> AddHallAsync(HallEntity hallEntity)
+        public async Task<int> UpsertHallAsync(HallEntity hallEntity)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
                 return await dbConnection.QuerySingleOrDefaultAsync<int>(
-                    "AddHall",
+                    "UpsertHall",
                     hallEntity,
                     commandType: CommandType.StoredProcedure
                 );
@@ -47,8 +47,20 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
                 await dbConnection.ExecuteAsync(
-                    "AddHallPlan",
+                    "AddSeats",
                     seats,
+                    commandType: CommandType.StoredProcedure
+                );
+            }
+        }
+
+        public async Task RemoveHallPlanAsync(int hallId)
+        {
+            using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+            {
+                await dbConnection.ExecuteAsync(
+                    "RemoveSeats",
+                    new { HallId = hallId },
                     commandType: CommandType.StoredProcedure
                 );
             }

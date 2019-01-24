@@ -6,8 +6,9 @@ namespace CinemaReservation.DataAccessLayer.Contracts
 {
     public interface IAdminPageRepository
     {
-        Task<int> AddCinemaAsync(CinemaEntity cinemaEntity);
-        Task<int> AddHallAsync(HallEntity cinemaEntity);
+        Task<int> UpsertCinemaAsync(CinemaEntity cinemaEntity);
+        Task<int> UpsertHallAsync(HallEntity cinemaEntity);
         Task AddHallPlanAsync(List<SeatEntity> cinemaEntity);
+        Task RemoveHallPlanAsync(int hallId);
     }
 }

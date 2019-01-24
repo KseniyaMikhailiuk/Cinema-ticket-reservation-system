@@ -1,12 +1,12 @@
 ﻿namespace CinemaReservation.Web.Models
 {
-    public class AddHallsRequest
+    public class UpsertHallsRequest
     {
         public Hall[] Halls { get; }
         public Seat[] Seats { get; }
         public int CinemaId { get; }
 
-        public AddHallsRequest(
+        public UpsertHallsRequest(
             Hall[] halls,
             Seat[] seats,
             int cinemaId

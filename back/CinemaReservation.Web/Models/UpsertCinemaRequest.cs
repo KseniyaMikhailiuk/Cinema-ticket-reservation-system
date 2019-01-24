@@ -1,15 +1,18 @@
 ﻿namespace CinemaReservation.Web.Models
 {
-    public class AddCinemaRequest
+    public class UpsertCinemaRequest
     {
+        public int Id { get; }
         public string Name { get; }
         public string City { get; }
 
-        public AddCinemaRequest(
+        public UpsertCinemaRequest(
+            int id,
             string city,
             string name
         )
         {
+            Id = id;
             Name = name;
             City = city;
         }

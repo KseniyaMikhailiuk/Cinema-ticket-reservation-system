@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CinemaReservation.DataAccessLayer.Entities
+﻿namespace CinemaReservation.DataAccessLayer.Entities
 {
     public class SeatEntity
     {
-        public string Type { get; }
+        public string SeatType { get; }
         public int Raw { get; }
         public int Line { get; }
         public int HallId { get; }
@@ -18,7 +14,7 @@ namespace CinemaReservation.DataAccessLayer.Entities
             int hallId
         )
         {
-            Type = type;
+            SeatType = type;
             Raw = raw;
             Line = line;
             HallId = hallId;
@@ -30,7 +26,7 @@ namespace CinemaReservation.DataAccessLayer.Entities
             int line
         )
         {
-            Type = type;
+            SeatType = type;
             Raw = raw;
             Line = line;
         }

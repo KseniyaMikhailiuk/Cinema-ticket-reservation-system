@@ -22,8 +22,33 @@ namespace CinemaReservation.BusinessLayer.Services
         {
             try
             {
-                int cinemaId = await _adminPageRepository.AddCinemaAsync(
+                int cinemaId = await _adminPageRepository.UpsertCinemaAsync(
                     new CinemaEntity(
+                        cinemaModel.Name,
+                        cinemaModel.City
+                    )
+                );
+
+                return new CinemaResultModel(
+                    cinemaModel.Name,
+                    cinemaModel.City,
+                    cinemaId,
+                    AddCinemaResultStatus.Ok
+                );
+            }
+            catch
+            {
+                return new CinemaResultModel(AddCinemaResultStatus.CityCinemaCombinationExists);
+            }
+        }
+
+        public async Task<CinemaResultModel> EditCinemaAsync(CinemaModel cinemaModel)
+        {
+            try
+            {
+                int cinemaId = await _adminPageRepository.UpsertCinemaAsync(
+                    new CinemaEntity(
+                        cinemaModel.Id,
                         cinemaModel.Name,
                         cinemaModel.City
                     )
@@ -51,7 +76,7 @@ namespace CinemaReservation.BusinessLayer.Services
                     .Seats
                     .FindAll(seat => seat.HallId == hall.Id);
 
-                int hallId = await _adminPageRepository.AddHallAsync(
+                int hallId = await _adminPageRepository.UpsertHallAsync(
                     new HallEntity(
                         hall.Name,
                         hallsModel.CinemaId
@@ -72,6 +97,42 @@ namespace CinemaReservation.BusinessLayer.Services
                     );
                 }
 
+                await _adminPageRepository.AddHallPlanAsync(seatEntities);
+            }
+
+            return true;
+        }
+
+        public async Task<bool> EditHallsAsync(HallsModel hallsModel)
+        {
+            foreach (HallModel hall in hallsModel.Halls)
+            {
+                List<SeatModel> hallSeats = hallsModel
+                    .Seats
+                    .FindAll(seat => seat.HallId == hall.Id);
+
+                int hallId = await _adminPageRepository.UpsertHallAsync(
+                    new HallEntity(
+                        hall.Id,
+                        hall.Name,
+                        hallsModel.CinemaId
+                    )
+                );
+
+                List<SeatEntity> seatEntities = new List<SeatEntity>();
+
+                foreach (SeatModel seat in hallSeats)
+                {
+                    seatEntities.Add(
+                        new SeatEntity(
+                            seat.Type,
+                            seat.Raw,
+                            seat.Line,
+                            hallId
+                        )
+                    );
+                }
+                await _adminPageRepository.RemoveHallPlanAsync(hallId);
                 await _adminPageRepository.AddHallPlanAsync(seatEntities);
             }
 

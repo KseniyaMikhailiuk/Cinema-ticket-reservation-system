@@ -23,7 +23,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPost("addcinema")]
-        public async Task<IActionResult> AddCinemaAsync(AddCinemaRequest addCinemaRequest)
+        public async Task<IActionResult> AddCinemaAsync(UpsertCinemaRequest addCinemaRequest)
         {
             CinemaResultModel cinemaResultModel = await _adminPageService.AddCinemaAsync(
                 new CinemaModel(
@@ -42,10 +42,30 @@ namespace CinemaReservation.Web.Controllers
             return Conflict("Cinema exists");
         }
 
-        [HttpPost("addhalls")]
-        public async Task<IActionResult> AddHallsAsync(AddHallsRequest addHallsRequest)
+        [HttpPut("editcinema")]
+        public async Task<IActionResult> EditCinemaAsync(UpsertCinemaRequest editCinemaRequest)
         {
+            CinemaResultModel cinemaResultModel = await _adminPageService.EditCinemaAsync(
+                new CinemaModel(
+                    editCinemaRequest.Id,
+                    editCinemaRequest.Name,
+                    editCinemaRequest.City
+                )
+            );
 
+            if (cinemaResultModel.AddCinemaResultStatus == AddCinemaResultStatus.Ok)
+            {
+                return Ok(
+                    cinemaResultModel.Id
+                );
+            }
+
+            return Conflict("Cinema exists");
+        }
+
+        [HttpPost("addhalls")]
+        public async Task<IActionResult> AddHallsAsync(UpsertHallsRequest addHallsRequest)
+        {
             List<HallModel> halls = new List<HallModel>();
 
             foreach (Hall hall in addHallsRequest.Halls)
@@ -78,5 +98,43 @@ namespace CinemaReservation.Web.Controllers
 
             return Conflict("Cinema exists");
         }
+
+        [HttpPut("edithalls")]
+        public async Task<IActionResult> EditHallsAsync(UpsertHallsRequest addHallsRequest)
+        {
+
+            List<HallModel> halls = new List<HallModel>();
+
+            foreach (Hall hall in addHallsRequest.Halls)
+            {
+                halls.Add(new HallModel(
+                    hall.Name,
+                    hall.Id
+                ));
+            }
+
+            List<SeatModel> seats = new List<SeatModel>();
+
+            foreach (Seat seat in addHallsRequest.Seats)
+            {
+                seats.Add(new SeatModel(
+                    seat.Type,
+                    seat.Raw,
+                    seat.Line,
+                    seat.HallId
+                ));
+            }
+
+            await _adminPageService.EditHallsAsync(
+                new HallsModel(
+                    halls,
+                    seats,
+                    addHallsRequest.CinemaId
+                )
+            );
+
+            return Conflict("Cinema exists");
+        }
+
     }
 }
