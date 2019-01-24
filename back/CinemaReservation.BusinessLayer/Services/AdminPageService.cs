@@ -20,15 +20,15 @@ namespace CinemaReservation.BusinessLayer.Services
 
         public async Task<CinemaResultModel> AddCinemaAsync(CinemaModel cinemaModel)
         {
-            try
-            {
-                CinemaEntity cinemaEntity = await _adminPageRepository.UpsertCinemaAsync(
-                    new CinemaEntity(
-                        cinemaModel.Name,
-                        cinemaModel.City
-                    )
-                );
+            CinemaResultEntity cinemaEntity = await _adminPageRepository.UpsertCinemaAsync(
+                new CinemaEntity(
+                    cinemaModel.Name,
+                    cinemaModel.City
+                )
+            );
 
+            if (cinemaEntity.OperationResultStatus == OperationResultStatus.Ok)
+            {
                 return new CinemaResultModel(
                     cinemaModel.Name,
                     cinemaModel.City,
@@ -36,16 +36,14 @@ namespace CinemaReservation.BusinessLayer.Services
                     UpsertCinemaResultStatus.Ok
                 );
             }
-            catch
-            {
-                return new CinemaResultModel(UpsertCinemaResultStatus.CityCinemaCombinationExists);
-            }
+
+            return new CinemaResultModel(UpsertCinemaResultStatus.CityCinemaCombinationExists);
         }
 
         public async Task<CinemaResultModel> EditCinemaAsync(CinemaModel cinemaModel)
         {
 
-            CinemaEntity cinemaEntity = await _adminPageRepository.UpsertCinemaAsync(
+            CinemaResultEntity cinemaEntity = await _adminPageRepository.UpsertCinemaAsync(
                 new CinemaEntity(
                     cinemaModel.Id,
                     cinemaModel.Name,
@@ -76,7 +74,7 @@ namespace CinemaReservation.BusinessLayer.Services
                     .Seats
                     .FindAll(seat => seat.HallId == hall.Id);
 
-                HallEntity hallEntity = await _adminPageRepository.UpsertHallAsync(
+                HallResultEntity hallEntity = await _adminPageRepository.UpsertHallAsync(
                     new HallEntity(
                         hall.Name,
                         hallsModel.CinemaId
@@ -116,7 +114,7 @@ namespace CinemaReservation.BusinessLayer.Services
                     .Seats
                     .FindAll(seat => seat.HallId == hall.Id);
 
-                HallEntity hallEntity = await _adminPageRepository.UpsertHallAsync(
+                HallResultEntity hallEntity = await _adminPageRepository.UpsertHallAsync(
                     new HallEntity(
                         hall.Id,
                         hall.Name,

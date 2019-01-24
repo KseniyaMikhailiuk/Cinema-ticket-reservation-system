@@ -9,7 +9,6 @@ namespace CinemaReservation.DataAccessLayer.Entities
         public int Id { get; }
         public string Name { get; }
         public string City { get; }
-        public OperationResultStatus OperationResultStatus { get; }
 
         public CinemaEntity(
             int id,
@@ -29,22 +28,6 @@ namespace CinemaReservation.DataAccessLayer.Entities
         {
             Name = name;
             City = city;
-        }
-
-        public CinemaEntity(
-            int id,
-            OperationResultStatus operationResultStatus
-        )
-        {
-            Id = id;
-            OperationResultStatus = operationResultStatus;
-        }
-
-        public CinemaEntity(
-            OperationResultStatus operationResultStatus
-        )
-        {
-            OperationResultStatus = operationResultStatus;
         }
     }
 }

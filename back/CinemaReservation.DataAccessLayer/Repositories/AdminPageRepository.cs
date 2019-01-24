@@ -18,7 +18,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             _settings = dalSettings;
         }
 
-        public async Task<CinemaEntity> UpsertCinemaAsync(CinemaEntity cinemaEntity)
+        public async Task<CinemaResultEntity> UpsertCinemaAsync(CinemaEntity cinemaEntity)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
@@ -29,16 +29,16 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                         cinemaEntity,
                         commandType: CommandType.StoredProcedure
                     );
-                    return new CinemaEntity(cinemaId, OperationResultStatus.Ok);
+                    return new CinemaResultEntity(cinemaId, OperationResultStatus.Ok);
                 }
                 catch
                 {
-                    return new CinemaEntity(OperationResultStatus.UniqueIndexError);
+                    return new CinemaResultEntity(OperationResultStatus.UniqueIndexError);
                 }
             }
         }
 
-        public async Task<HallEntity> UpsertHallAsync(HallEntity hallEntity)
+        public async Task<HallResultEntity> UpsertHallAsync(HallEntity hallEntity)
         {
             try
             {
@@ -50,12 +50,12 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                         commandType: CommandType.StoredProcedure
                     );
 
-                    return new HallEntity(hallId, OperationResultStatus.Ok);
+                    return new HallResultEntity(hallId, OperationResultStatus.Ok);
                 }
             }
             catch
             {
-                return new HallEntity(OperationResultStatus.UniqueIndexError);
+                return new HallResultEntity(OperationResultStatus.UniqueIndexError);
             }
         }
 
