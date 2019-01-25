@@ -16,12 +16,13 @@ class DatePickerCusomized extends DatePicker {
         this.setState({
             selectedDate: date
         });
-        const {onFilterClick} = this.props;
-        onFilterClick("date", date);
+        const {onFilterClick, target} = this.props;
+        console.log(target)
+        onFilterClick(target, date);
     }
 
     render() {
-        const {selectedDate} = this.props
+        const {selectedDate} = this.state
         return (
             <DatePicker
                 name="time"

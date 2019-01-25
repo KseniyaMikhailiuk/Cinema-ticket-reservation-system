@@ -6,9 +6,11 @@ namespace CinemaReservation.DataAccessLayer.Contracts
 {
     public interface IAdminPageRepository
     {
-        Task<CinemaResultEntity> UpsertCinemaAsync(CinemaEntity cinemaEntity);
-        Task<HallResultEntity> UpsertHallAsync(HallEntity cinemaEntity);
-        Task<OperationResultStatus> AddHallPlanAsync(List<SeatEntity> cinemaEntity);
-        Task<OperationResultStatus> RemoveHallPlanAsync(int hallId);
+        Task<AddOperationResultEntity> UpsertCinemaAsync(CinemaEntity cinemaEntity);
+        Task<AddOperationResultEntity> UpsertHallAsync(HallEntity cinemaEntity);
+        Task<AddOperationResultStatus> AddHallPlanAsync(List<SeatEntity> cinemaEntity);
+        Task<AddOperationResultStatus> RemoveHallPlanAsync(int hallId);
+        Task<AddOperationResultEntity> UpsertFilmAsync(FilmEntity filmEntity);
+        Task<AddOperationResultEntity> UpsertFilmPosterAsync(FilmPosterEntity filmPosterEntity);
     }
 }

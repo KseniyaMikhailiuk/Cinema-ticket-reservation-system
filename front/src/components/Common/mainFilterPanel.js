@@ -61,6 +61,7 @@ const MainFilterPanel = ({
                 <DatePickerCustomized
                     selectedDate={filter.date}
                     onFilterClick={onFilterClick}
+                    target="date"
                 />
             </div>
 

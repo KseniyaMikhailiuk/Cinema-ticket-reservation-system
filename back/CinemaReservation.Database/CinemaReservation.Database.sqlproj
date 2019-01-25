@@ -84,6 +84,8 @@
     <Build Include="dbo\StoredProcedures\AddSeats.sql" />
     <Build Include="dbo\StoredProcedures\UpsertCinema.sql" />
     <Build Include="dbo\StoredProcedures\RemoveSeats.sql" />
+    <Build Include="dbo\StoredProcedures\UpsertFilm.sql" />
+    <Build Include="dbo\StoredProcedures\InsertFilmPoster.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="CinemaReservation.Database.refactorlog" />

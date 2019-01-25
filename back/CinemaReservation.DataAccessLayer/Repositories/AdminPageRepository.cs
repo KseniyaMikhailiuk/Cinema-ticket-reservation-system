@@ -8,7 +8,7 @@ using Dapper;
 
 namespace CinemaReservation.DataAccessLayer.Repositories
 {
-    class AdminPageRepository: IAdminPageRepository
+    class AdminPageRepository : IAdminPageRepository
     {
         private readonly IDalSettings _settings;
 
@@ -18,7 +18,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             _settings = dalSettings;
         }
 
-        public async Task<CinemaResultEntity> UpsertCinemaAsync(CinemaEntity cinemaEntity)
+        public async Task<AddOperationResultEntity> UpsertCinemaAsync(CinemaEntity cinemaEntity)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
@@ -29,16 +29,16 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                         cinemaEntity,
                         commandType: CommandType.StoredProcedure
                     );
-                    return new CinemaResultEntity(cinemaId, OperationResultStatus.Ok);
+                    return new AddOperationResultEntity(cinemaId, AddOperationResultStatus.Ok);
                 }
                 catch
                 {
-                    return new CinemaResultEntity(OperationResultStatus.UniqueIndexError);
+                    return new AddOperationResultEntity(AddOperationResultStatus.UniqueIndexError);
                 }
             }
         }
 
-        public async Task<HallResultEntity> UpsertHallAsync(HallEntity hallEntity)
+        public async Task<AddOperationResultEntity> UpsertHallAsync(HallEntity hallEntity)
         {
             try
             {
@@ -50,16 +50,16 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                         commandType: CommandType.StoredProcedure
                     );
 
-                    return new HallResultEntity(hallId, OperationResultStatus.Ok);
+                    return new AddOperationResultEntity(hallId, AddOperationResultStatus.Ok);
                 }
             }
             catch
             {
-                return new HallResultEntity(OperationResultStatus.UniqueIndexError);
+                return new AddOperationResultEntity(AddOperationResultStatus.UniqueIndexError);
             }
         }
 
-        public async Task<OperationResultStatus> AddHallPlanAsync(List<SeatEntity> seats)
+        public async Task<AddOperationResultStatus> AddHallPlanAsync(List<SeatEntity> seats)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
@@ -69,11 +69,11 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                     commandType: CommandType.StoredProcedure
                 );
 
-                return OperationResultStatus.Ok;
+                return AddOperationResultStatus.Ok;
             }
         }
 
-        public async Task<OperationResultStatus> RemoveHallPlanAsync(int hallId)
+        public async Task<AddOperationResultStatus> RemoveHallPlanAsync(int hallId)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
@@ -83,8 +83,42 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                     commandType: CommandType.StoredProcedure
                 );
 
-                return OperationResultStatus.Ok;
+                return AddOperationResultStatus.Ok;
             }
         }
+
+        public async Task<AddOperationResultEntity> UpsertFilmAsync(FilmEntity filmEntity)
+        {
+            using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+            {
+                int filmId = await dbConnection.QuerySingleOrDefaultAsync<int>(
+                    "UpsertFilm",
+                    filmEntity,
+                    commandType: CommandType.StoredProcedure
+                );
+
+                return new AddOperationResultEntity(
+                    filmId,
+                    AddOperationResultStatus.Ok
+                );
+            }
+        }
+        public async Task<AddOperationResultEntity> UpsertFilmPosterAsync(FilmPosterEntity filmPosterEntity)
+        {
+            using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+            {
+                int filmId = await dbConnection.QuerySingleOrDefaultAsync<int>(
+                    "InsertFilmPoster",
+                    filmPosterEntity,
+                    commandType: CommandType.StoredProcedure
+                );
+
+                return new AddOperationResultEntity(
+                    filmId,
+                    AddOperationResultStatus.Ok
+                );
+            }
+        }
+
     }
 }

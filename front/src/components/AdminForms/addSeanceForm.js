@@ -144,6 +144,7 @@ class AddSeanceForm extends Component{
                             <DatePickerCustomized
                                 selectedDate={this.state.date}
                                 onFilterClick={this.handleInputChange}
+                                target = "date"
                             />
                         </div>
                         <Select

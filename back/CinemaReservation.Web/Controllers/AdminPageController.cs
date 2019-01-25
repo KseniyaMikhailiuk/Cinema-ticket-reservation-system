@@ -30,7 +30,7 @@ namespace CinemaReservation.Web.Controllers
                 )
             );
 
-            if (cinemaResultModel.UpsertCinemaResultStatus == UpsertCinemaResultStatus.Ok)
+            if (cinemaResultModel.UpsertCinemaResultStatus == UpsertItemResultStatus.Ok)
             {
                 return Ok(
                     cinemaResultModel.Id
@@ -51,7 +51,7 @@ namespace CinemaReservation.Web.Controllers
                 )
             );
 
-            if (cinemaResultModel.UpsertCinemaResultStatus == UpsertCinemaResultStatus.Ok)
+            if (cinemaResultModel.UpsertCinemaResultStatus == UpsertItemResultStatus.Ok)
             {
                 return Ok(
                     cinemaResultModel.Id
@@ -86,7 +86,7 @@ namespace CinemaReservation.Web.Controllers
                 ));
             }
 
-            UpsertHallResultStatus resultStatus = await _adminPageService.AddHallsAsync(
+            UpsertItemResultStatus resultStatus = await _adminPageService.AddHallsAsync(
                 new HallsModel(
                     halls,
                     seats,
@@ -94,7 +94,7 @@ namespace CinemaReservation.Web.Controllers
                 )
             );
 
-            if (resultStatus == UpsertHallResultStatus.Ok)
+            if (resultStatus == UpsertItemResultStatus.Ok)
             {
                 return Ok("Halls are added");
             }
@@ -128,7 +128,7 @@ namespace CinemaReservation.Web.Controllers
                 ));
             }
 
-            UpsertHallResultStatus resultStatus = await _adminPageService.EditHallsAsync(
+            UpsertItemResultStatus resultStatus = await _adminPageService.EditHallsAsync(
                 new HallsModel(
                     halls,
                     seats,
@@ -136,7 +136,7 @@ namespace CinemaReservation.Web.Controllers
                 )
             );
 
-            if(resultStatus == UpsertHallResultStatus.Ok)
+            if(resultStatus == UpsertItemResultStatus.Ok)
             {
                 return Ok("Halls are modified");
             }
@@ -144,5 +144,41 @@ namespace CinemaReservation.Web.Controllers
             return Conflict("Hall exists");
         }
 
+        [HttpPost("addfilm")]
+        public async Task<IActionResult> AddFilmAsync(UpsertFilmRequest upsertFilmRequest)
+        {
+            FilmModel filmModel = new FilmModel(
+                upsertFilmRequest.Title,
+                upsertFilmRequest.Release,
+                upsertFilmRequest.Description,
+                upsertFilmRequest.StartShowingDate,
+                upsertFilmRequest.FinishShowingDate
+            );
+
+            UpsertItemResultStatus resultStatus = await _adminPageService.AddFilmAsync(filmModel);
+
+            if (resultStatus == UpsertItemResultStatus.Ok)
+            {
+                return Ok();
+            }
+
+            return Conflict();
+        }
+
+        [HttpPost("addposter")]
+        public async Task<IActionResult> AddPosterAsync(AddImageRequest addImageRequest)
+        {
+            UpsertItemResultStatus resultStatus = await _adminPageService.AddFilmPosterAsync(new ImageModel(
+                addImageRequest.TargetId,
+                addImageRequest.FormFile
+            ));
+
+            if (resultStatus == UpsertItemResultStatus.Ok)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
     }
 }

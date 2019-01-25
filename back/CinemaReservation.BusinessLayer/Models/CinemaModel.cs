@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CinemaReservation.BusinessLayer.Models
+﻿namespace CinemaReservation.BusinessLayer.Models
 {
     public class CinemaModel
     {

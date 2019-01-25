@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Films] (
     [Id]                INT              IDENTITY (1, 1) NOT NULL,
     [Title]             NVARCHAR (50)    NOT NULL,
-    [PosterImageId]     UNIQUEIDENTIFIER NOT NULL,
+    [PosterImageId]     UNIQUEIDENTIFIER NULL,
     [ReleaseDate]       DATE             NOT NULL,
     [Description]       NVARCHAR (MAX)   NOT NULL,
     [StartShowingDate]  DATE             NOT NULL,

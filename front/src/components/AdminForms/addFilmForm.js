@@ -8,12 +8,16 @@ class AddFilmForm extends Component {
         filmName: "",
         filmRelease: new Date(),
         filmDescription: "",
-        filmPoster: ""
+        filmPoster: new FormData(),
+        startShowingDate: new Date(),
+        finishShowingDate: new Date()
     }
 
     constructor(props) {
         super(props);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleFileInput = this.handleFileInput.bind(this);
+        this.handleTimeInputChange = this.handleTimeInputChange.bind(this);
         this.sendInfo = this.sendInfo.bind(this);
     }
 
@@ -22,6 +26,20 @@ class AddFilmForm extends Component {
         this.setState({
             [target.name]: target.value
         });
+    }
+
+    handleTimeInputChange(name, value) {
+        this.setState({
+            [name]: value
+        });
+    }
+
+    handleFileInput(event) {
+        var formData = new FormData();
+        formData.append('poster', event.target.files[0], event.target.files[0].name);
+        this.setState({
+            filmPoster: formData
+        })
     }
 
     sendInfo (event) {
@@ -40,7 +58,10 @@ class AddFilmForm extends Component {
         const {t} = this.props;
         return(
             <>
-                <form className="forms admin" onSubmit={this.sendInfo}>
+                <form
+                    className="forms admin" onSubmit={this.sendInfo}
+                    enctype="multipart/form-data"
+                >
                     <fieldset>
                         <legend className="form-item forms__legend">
                             {t('addFilm')}
@@ -54,7 +75,8 @@ class AddFilmForm extends Component {
                         <div className="form-item">
                             <DatePickerCusomized
                                 selectedDate={this.state.filmRelease}
-                                onFilterClick={(value) => this.handleInputChange({target: {name: "filmRelease", value}})}
+                                onFilterClick={this.handleTimeInputChange}
+                                target="filmRelease"
                             />
                         </div>
                         <textarea
@@ -70,8 +92,22 @@ class AddFilmForm extends Component {
                             className="form-item admin__form-item"
                             placeholder={t('selectPoster')}
                             type="file"
-                            onChange={this.handleInputChange}
+                            onChange={this.handleFileInput}
                         />
+                        <div className="form-item">
+                            <DatePickerCusomized
+                                selectedDate={this.state.startShowingDate}
+                                onFilterClick={this.handleTimeInputChange}
+                                target="startShowingDate"
+                        />
+                        </div>
+                        <div className="form-item">
+                            <DatePickerCusomized
+                                selectedDate={this.state.finishShowingDate}
+                                onFilterClick={this.handleTimeInputChange}
+                                target="finishShowingDate"
+                            />
+                        </div>
                     </fieldset>
                     <input className="form-item forms__button bordered" value={t('add')} type="submit"></input>
                 </form>

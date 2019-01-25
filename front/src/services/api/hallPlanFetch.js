@@ -319,58 +319,70 @@ export const fetchHallPlan = (seanceInfo) =>
         })
 
 export const addCinema = (cinemaInfo) =>
-fetch(
-    "./api/adminpage/addcinema",
-    {
-        method: 'post',
-        headers: {
-            "Content-type": "application/json"
-        },
-        body: JSON.stringify({
-            Name: cinemaInfo.cinema,
-            City: cinemaInfo.city
-        })
-    }
-)
-    .then(response =>
-        response.ok
-        ? response.json()
-        : false)
-    .then(response => {
-        let halls = [];
-        let seats = [];
-        let hallId = 0;
-        cinemaInfo.halls.forEach(hall => {
-            halls.push({
-                Name: hall.name,
-                Id: hallId
+    fetch(
+        "./api/adminpage/addcinema",
+        {
+            method: 'post',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                Name: cinemaInfo.cinema,
+                City: cinemaInfo.city
             })
-            hall.plan.forEach(line => {
-                line.forEach(seat => {
-                    delete seat.id;
-                    seats.push({
-                        ...seat,
-                        hallId: hallId
-                    });
+        }
+    )
+        .then(response =>
+            response.ok
+            ? response.json()
+            : false)
+        .then(response => {
+            let halls = [];
+            let seats = [];
+            let hallId = 0;
+            cinemaInfo.halls.forEach(hall => {
+                halls.push({
+                    Name: hall.name,
+                    Id: hallId
                 })
+                hall.plan.forEach(line => {
+                    line.forEach(seat => {
+                        delete seat.id;
+                        seats.push({
+                            ...seat,
+                            hallId: hallId
+                        });
+                    })
+                })
+                hallId++;
             })
-            hallId++;
+            return fetch(
+                "./api/adminpage/addhalls",
+                {
+                    method: 'post',
+                    headers: {
+                        "Content-type": "application/json",
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        Halls: halls,
+                        Seats: seats,
+                        CinemaId: response
+                    })
+                }
+            )
+            .then(response =>
+                response.ok
+                ? response.json()
+                : false)
+            .then(data =>
+                data
+            )
+            .catch(error => {
+                console.log(error);
+                throw error;
+            })
         })
-        return fetch(
-            "./api/adminpage/addhalls",
-            {
-                method: 'post',
-                headers: {
-                    "Content-type": "application/json",
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    Halls: halls,
-                    Seats: seats,
-                    CinemaId: response
-                })
-            }
-        )
         .then(response =>
             response.ok
             ? response.json()
@@ -382,18 +394,6 @@ fetch(
             console.log(error);
             throw error;
         })
-    })
-    .then(response =>
-        response.ok
-        ? response.json()
-        : false)
-    .then(data =>
-        data
-    )
-    .catch(error => {
-        console.log(error);
-        throw error;
-    })
 
 
 export const getFilterOptions = () =>

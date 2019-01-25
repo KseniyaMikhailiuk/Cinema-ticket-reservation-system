@@ -1,8 +1,8 @@
 ﻿namespace CinemaReservation.BusinessLayer.Models
 {
-    public enum UpsertHallResultStatus
+    public enum UpsertItemResultStatus
     {
         Ok,
-        HallCinemaCombinationExists
+        Conflict
     }
 }

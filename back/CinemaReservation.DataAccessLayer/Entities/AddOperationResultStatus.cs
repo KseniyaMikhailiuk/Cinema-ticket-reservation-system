@@ -1,6 +1,6 @@
 ﻿namespace CinemaReservation.DataAccessLayer.Entities
 {
-    public enum OperationResultStatus
+    public enum AddOperationResultStatus
     {
         Ok,
         UniqueIndexError

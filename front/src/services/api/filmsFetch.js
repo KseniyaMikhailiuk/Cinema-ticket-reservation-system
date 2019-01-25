@@ -385,19 +385,75 @@ export const releaseSeat = (info) =>
         })
 
 export const addFilmToDatabase = (film) =>
-    delay(500)
-        .then(() => {
-            let formattedDate = moment(film.filmRelease);
-            formattedDate = `${formattedDate.date()} ${formattedDate.month() + 1} ${formattedDate.year()}`
-            filmDatabase.push({
-                id: v4(),
-                title: film.filmName,
-                image: film.filmPoster,
-                date: formattedDate,
-                description: film.filmDescription,
-                cities: []
+    fetch(
+        "./api/adminpage/addfilm",
+        {
+            method: 'post',
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                Title: film.filmName,
+                Poster: film.filmPoster,
+                Release: film.filmRelease,
+                Description: film.filmDescription,
+                StartShowingDate: film.startShowingDate,
+                FinishShowingDate: film.finishShowingDate
+            })
+        }
+    )
+        .then(response =>
+            response.ok
+            ? response.json()
+            : false)
+        .then(response => {
+            return fetch(
+                "./api/adminpage/addposter",
+                {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        TargetId: response,
+                        FormFile: film.filmPoster
+                    })
+                }
+            )
+            .then(response =>
+                response.ok
+                ? response.json()
+                : false)
+            .then(data =>
+                data
+            )
+            .catch(error => {
+                console.log(error);
+                throw error;
             })
         })
+            .then(data =>
+                data
+            )
+            .catch(error => {
+                console.log(error);
+                throw error;
+            })
+
+    // delay(500)
+    //     .then(() => {
+    //         let formattedDate = moment(film.filmRelease);
+    //         formattedDate = `${formattedDate.date()} ${formattedDate.month() + 1} ${formattedDate.year()}`
+    //         filmDatabase.push({
+    //             id: v4(),
+    //             title: film.filmName,
+    //             image: film.filmPoster,
+    //             date: formattedDate,
+    //             description: film.filmDescription,
+    //             cities: []
+    //         })
+    //     })
 
 export const addSeanceToDatabase = (seance) =>
     delay(500)
