@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import NumericInput from 'react-numeric-input'
 import {withNamespaces} from 'react-i18next'
-import CreatableSelect from 'react-select'
 
 import AddHallPlan from './addHallPlan';
 
@@ -43,12 +42,12 @@ class AddCinemaForm extends Component {
         });
     }
 
-    addHallToCinema (hallPlan) {
+    addHallToCinema (hallPlan, hallName) {
         this.setState({
             halls: [
                 ...this.state.halls,
                 {
-                    number: this.state.halls.length + 1,
+                    name: hallName,
                     plan: hallPlan
                 }
             ]
@@ -68,7 +67,7 @@ class AddCinemaForm extends Component {
     }
 
     render() {
-        const {t, cityOptions} = this.props;
+        const {t} = this.props;
         return(
             <>
                 <form className="forms admin" onSubmit={this.sendInfo}>
@@ -76,21 +75,12 @@ class AddCinemaForm extends Component {
                         <legend className="form-item forms__legend">
                             {t('addCinema')}
                         </legend>
-                        <CreatableSelect
-                            name="cinema"
-                            className="form-item select"
-                            options={cityOptions}
-                            isSearchable
-                            isClearable
-                            onChange={(selectedOption) => this.handleInputChange({target: {value: selectedOption, name: "city"}})}
-                            placeholder={t('enterCityName')}
-                        />
-                        {/* <input
+                        <input
                             name="city"
                             className="form-item select"
                             onChange={this.handleInputChange}
                             placeholder={t('enterCityName')}
-                        /> */}
+                        />
                         <input
                             name="cinema"
                             className="form-item select"

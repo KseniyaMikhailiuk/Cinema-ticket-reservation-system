@@ -96,7 +96,7 @@ namespace CinemaReservation.Web.Controllers
 
             if (resultStatus == UpsertHallResultStatus.Ok)
             {
-                return Ok("Halls are modified");
+                return Ok("Halls are added");
             }
 
             return Conflict("Hall exists");

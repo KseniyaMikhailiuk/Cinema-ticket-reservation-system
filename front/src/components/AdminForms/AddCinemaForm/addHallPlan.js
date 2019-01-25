@@ -15,6 +15,7 @@ class AddHallPlan extends Component{
         lines: 0,
         raws: 0,
         hallPlan: [],
+        hallName: "",
         showDialog: false,
         selectedSeatType: 0,
         selectedSeatId: 0,
@@ -29,6 +30,7 @@ class AddHallPlan extends Component{
         this.onSeatSelect = this.onSeatSelect.bind(this);
         this.showDialog =this.showDialog.bind(this);
         this.showHallPlan = this.showHallPlan.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.changeHallPlanLines = this.changeHallPlanLines.bind(this);
         this.changeHallPlanRaws = this.changeHallPlanRaws.bind(this);
         this.onSeatTypeSubmit = this.onSeatTypeSubmit.bind(this);
@@ -117,10 +119,17 @@ class AddHallPlan extends Component{
         }
     }
 
+    handleInputChange (event) {
+        let target = event.target;
+        this.setState({
+            [target.name]: target.value
+        });
+    }
+
     sendInfo (event) {
         event.preventDefault();
         const {onHallSubmit} = this.props;
-        onHallSubmit(this.state.hallPlan);
+        onHallSubmit(this.state.hallPlan, this.state.hallName);
         this.setState({
             isDisabled: true,
         });
@@ -130,6 +139,13 @@ class AddHallPlan extends Component{
         const {t} = this.props;
         return (
             <form disabled={this.state.isDisabled}>
+                <input
+                    name="hallName"
+                    className="form-item select"
+                    onChange={this.handleInputChange}
+                    placeholder={t('enterHallName')}
+                    required
+                />
                 <NumericInput
                     name="lines"
                     className="form-item"

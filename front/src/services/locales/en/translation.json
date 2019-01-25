@@ -24,6 +24,7 @@
     "enterCinemaName": "Enter cinema name",
     "enterFilmDescription": "Enter film description",
     "enterName": "Enter film name",
+    "enterHallName": "Enter hall name",
 
     "hallsNumber": "Number of halls",
     "numberOfRaws": "Number of raws",
