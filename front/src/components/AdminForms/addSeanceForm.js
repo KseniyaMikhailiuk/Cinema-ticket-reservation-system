@@ -4,6 +4,9 @@ import DatePickerCustomized from '../Common/datePicker'
 import NumericInput from 'react-numeric-input'
 import Select from 'react-select';
 import {withNamespaces} from 'react-i18next'
+import DatePicker from 'react-datepicker'
+
+import "react-datepicker/dist/react-datepicker.css";
 
 class AddSeanceForm extends Component{
     state = {
@@ -12,7 +15,6 @@ class AddSeanceForm extends Component{
         hall: 0,
         filmName: "",
         date: new Date(),
-        time: "",
         price: {
             standard: 0,
             loveseat: 0,
@@ -144,7 +146,8 @@ class AddSeanceForm extends Component{
                             <DatePickerCustomized
                                 selectedDate={this.state.date}
                                 onFilterClick={this.handleInputChange}
-                                target = "date"
+                                target="date"
+                                showTimeSelect={true}
                             />
                         </div>
                         <Select
@@ -164,11 +167,6 @@ class AddSeanceForm extends Component{
                             onChange={(selectedOption) => this.handleInputChange("hall", selectedOption.label)}
                             placeholder={t('selectHall')}
                         />
-                        <input
-                            name="time"
-                            className="form-item"
-                            type="time"
-                            onChange={this.handleTimeChange}/>
                         <NumericInput
                             name="standard"
                             className="form-item"

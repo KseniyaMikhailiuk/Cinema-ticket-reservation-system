@@ -26,7 +26,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                 {
                     await dbConnection.QuerySingleOrDefaultAsync<int>(
                         "UpsertHall",
-                        hallEntity,
+                        seanceEntity,
                         commandType: CommandType.StoredProcedure
                     );
                 }

@@ -1,11 +1,16 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-import DatePickerCusomized from '../Common/datePicker'
-import {withNamespaces} from 'react-i18next'
+import DatePickerCusomized from '../Common/datePicker';
+import {withNamespaces} from 'react-i18next';
+import TimePicker from 'rc-time-picker';
+import moment from 'moment';
+
+import 'rc-time-picker/assets/index.css';
 
 class AddFilmForm extends Component {
     state = {
         filmName: "",
+        filmDuration: "",
         filmRelease: new Date(),
         filmDescription: "",
         filmPoster: new FormData(),
@@ -77,6 +82,13 @@ class AddFilmForm extends Component {
                                 target="filmRelease"
                             />
                         </div>
+                        <TimePicker
+                            name="filmDuration"
+                            className="form-item"
+                            defaultValue={moment()}
+                            onChange={(value) => this.handleTimeInputChange("filmDuration", value)}
+                            showSecond={false}
+                        />
                         <textarea
                             name="filmDescription"
                             placeholder={t('enterFilmDescription')}
@@ -97,7 +109,7 @@ class AddFilmForm extends Component {
                                 selectedDate={this.state.startShowingDate}
                                 onFilterClick={this.handleTimeInputChange}
                                 target="startShowingDate"
-                        />
+                            />
                         </div>
                         <div className="form-item">
                             <DatePickerCusomized

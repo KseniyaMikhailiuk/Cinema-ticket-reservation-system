@@ -20,35 +20,39 @@ namespace CinemaReservation.Web.Controllers
             _seanceService = seanceService;
         }
 
-        public async Task<IActionResult> AddSeance(AddSeanceRequest addSeanceRequest)
-        {
-            List<ServiceModel> services = new List<ServiceModel>();
+        //public async Task<IActionResult> AddSeance(AddSeanceRequest addSeanceRequest)
+        //{
+        //    List<ServiceModel> services = new List<ServiceModel>();
 
-            foreach(Service service in addSeanceRequest.Services)
-            {
-                services.Add(new ServiceModel(
-                    service.Id,
-                    service.Price
-                ));
-            }
+        //    foreach(Service service in addSeanceRequest.Services)
+        //    {
+        //        services.Add(new ServiceModel(
+        //            service.Id,
+        //            service.Price
+        //        ));
+        //    }
 
-            List<SeatPriceModel> seatPrices = new List<SeatPriceModel>();
+        //    List<SeatPriceModel> seatPrices = new List<SeatPriceModel>();
 
-            foreach (SeatPrice seatPrice in addSeanceRequest.SeatPrices)
-            {
-                seatPrices.Add(new SeatPriceModel(
-                    seatPrice.Price,
-                    seatPrice.SeatTypeId
-                ));
-            }
+        //    foreach (SeatPrice seatPrice in addSeanceRequest.SeatPrices)
+        //    {
+        //        seatPrices.Add(new SeatPriceModel(
+        //            seatPrice.Price,
+        //            seatPrice.SeatTypeId
+        //        ));
+        //    }
 
-            SeanceModel seanceModel = new SeanceModel(
-                addSeanceRequest.DateTime,
-                addSeanceRequest.FilmId,
-                addSeanceRequest.HallId,
-                services,
-                seatPrices
-            );
-        }
+        //    SeanceModel seanceModel = new SeanceModel(
+        //        addSeanceRequest.DateTime,
+        //        addSeanceRequest.FilmId,
+        //        addSeanceRequest.HallId,
+        //        services,
+        //        seatPrices
+        //    );
+
+
+
+        //    await _seanceService.AddSeance(seanceModel);
+        //}
     }
 }

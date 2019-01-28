@@ -17,22 +17,41 @@ class DatePickerCusomized extends DatePicker {
             selectedDate: date
         });
         const {onFilterClick, target} = this.props;
-        console.log(target)
         onFilterClick(target, date);
     }
 
     render() {
-        const {selectedDate} = this.state
-        return (
-            <DatePicker
-                name="time"
-                className="form-item"
-                minDate={new Date()}
-                selected={selectedDate}
-                onChange={this.handleDayChange}
-                autoComplete="off"
-            />
-        )
+        const {selectedDate} = this.state;
+        const {showTimeSelect} = this.props;
+        {
+            if (showTimeSelect){
+                return (
+                    <DatePicker
+                        name="time"
+                        className="form-item"
+                        minDate={new Date()}
+                        selected={selectedDate}
+                        onChange={this.handleDayChange}
+                        autoComplete="off"
+                        showTimeSelect={showTimeSelect}
+                        timeFormat="HH:mm"
+                        timeIntervals={5}
+                        dateFormat="MMMM d, yyyy h:mm aa"
+                        timeCaption="time"
+                    />
+                )
+            }
+            return (
+                <DatePicker
+                    name="time"
+                    className="form-item"
+                    minDate={new Date()}
+                    selected={selectedDate}
+                    onChange={this.handleDayChange}
+                    autoComplete="off"
+                />
+            )
+        }
     }
 }
 
