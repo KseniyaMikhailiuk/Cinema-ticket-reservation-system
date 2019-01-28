@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
-using Microsoft.AspNetCore.Http;
 
 namespace CinemaReservation.Web.Controllers
 {
@@ -47,7 +47,7 @@ namespace CinemaReservation.Web.Controllers
             int filmId = int.Parse(addPosterRequest["FilmId"]);
             IFormFile formFile = addPosterRequest.Files.GetFile("FilmPoster");
 
-            UpsertItemResultStatus resultStatus = await _filmService.AddFilmPosterAsync(new ImageModel(
+            UpsertItemResultStatus resultStatus = await _filmService.AddFilmPosterAsync(new FilmPosterModel(
                 filmId,
                 formFile
             ));

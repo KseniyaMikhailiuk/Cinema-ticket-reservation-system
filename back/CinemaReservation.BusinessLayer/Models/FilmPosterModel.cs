@@ -2,17 +2,17 @@
 
 namespace CinemaReservation.BusinessLayer.Models
 {
-    public class ImageModel
+    public class FilmPosterModel
     {
-        public int TargetId { get; }
+        public int FilmId { get; }
         public IFormFile FormFile { get; }
 
-        public ImageModel(
+        public FilmPosterModel(
             int targetId,
             IFormFile formFile
         )
         {
-            TargetId = targetId;
+            FilmId = targetId;
             FormFile = formFile;
         }
     }

@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.DataAccessLayer.Contracts;
 using CinemaReservation.DataAccessLayer.Entities;
-using Microsoft.Extensions.Configuration;
 
 namespace CinemaReservation.BusinessLayer.Services
 {
@@ -45,10 +46,14 @@ namespace CinemaReservation.BusinessLayer.Services
             return new UpsertItemResultStatusAndId(UpsertItemResultStatus.Conflict);
         }
 
-        public async Task<UpsertItemResultStatus> AddFilmPosterAsync(ImageModel imageModel)
+        public async Task<UpsertItemResultStatus> AddFilmPosterAsync(FilmPosterModel imageModel)
         {
             string posterUniqueId = Guid.NewGuid().ToString();
-            string path = _configuration.GetSection("ImagesPath:FilmPosters").Value + "/" + posterUniqueId;
+            string fileName = imageModel.FormFile.FileName;
+            string path = _configuration.GetSection("ImagesPath:FilmPosters").Value
+                + "/"
+                + posterUniqueId
+                + fileName.Substring(fileName.IndexOf("."));
 
             if (imageModel.FormFile != null && imageModel.FormFile.Length > 0)
             {
@@ -60,7 +65,7 @@ namespace CinemaReservation.BusinessLayer.Services
 
             AddOperationResultEntity resultEntity = await _filmRepository.InsertFilmPosterAsync(
                 new FilmPosterEntity(
-                    imageModel.TargetId,
+                    imageModel.FilmId,
                     posterUniqueId
                 )
             );
