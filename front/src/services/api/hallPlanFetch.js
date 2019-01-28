@@ -320,7 +320,7 @@ export const fetchHallPlan = (seanceInfo) =>
 
 export const addCinema = (cinemaInfo) =>
     fetch(
-        "./api/adminpage/addcinema",
+        "./api/cinema/addcinema",
         {
             method: 'post',
             headers: {
@@ -357,7 +357,7 @@ export const addCinema = (cinemaInfo) =>
                 hallId++;
             })
             return fetch(
-                "./api/adminpage/addhalls",
+                "./api/halls/addhalls",
                 {
                     method: 'post',
                     headers: {

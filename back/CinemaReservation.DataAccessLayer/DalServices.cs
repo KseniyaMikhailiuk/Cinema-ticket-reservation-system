@@ -10,7 +10,9 @@ namespace CinemaReservation.DataAccessLayer
         {
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IDalSettings, DalSettings>();
-            services.AddSingleton<IAdminPageRepository, AdminPageRepository>();
+            services.AddSingleton<IFilmRepository, FilmRepository>();
+            services.AddSingleton<IHallRepository, HallRepository>();
+            services.AddSingleton<ICinemaRepository, CinemaRepository>();
         }
     }
 }

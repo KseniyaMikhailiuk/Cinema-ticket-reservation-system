@@ -386,7 +386,7 @@ export const releaseSeat = (info) =>
 
 export const addFilmToDatabase = (film) =>
     fetch(
-        "./api/adminpage/addfilm",
+        "./api/film/addfilm",
         {
             method: 'post',
             headers: {
@@ -412,7 +412,7 @@ export const addFilmToDatabase = (film) =>
             formData.append("FilmPoster", film.filmPoster);
             formData.append("FilmId", response);
             return fetch(
-                "./api/adminpage/addposter",
+                "./api/film/addposter",
                 {
                     method: 'post',
                     headers: {
