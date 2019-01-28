@@ -4,6 +4,7 @@ using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace CinemaReservation.Web.Controllers
 {
@@ -155,30 +156,33 @@ namespace CinemaReservation.Web.Controllers
                 upsertFilmRequest.FinishShowingDate
             );
 
-            UpsertItemResultStatus resultStatus = await _adminPageService.AddFilmAsync(filmModel);
+            FilmResultModel result = await _adminPageService.AddFilmAsync(filmModel);
 
-            if (resultStatus == UpsertItemResultStatus.Ok)
+            if (result.UpsertFilmResultStatus == UpsertItemResultStatus.Ok)
             {
-                return Ok();
+                return Ok(result.Id);
             }
 
-            return Conflict();
+            return Conflict("conflict");
         }
 
         [HttpPost("addposter")]
-        public async Task<IActionResult> AddPosterAsync(AddImageRequest addImageRequest)
+        public async Task<IActionResult> AddPosterAsync(IFormCollection addPosterRequest)
         {
+            int filmId = int.Parse(addPosterRequest["FilmId"]);
+            IFormFile formFile = addPosterRequest.Files.GetFile("FilmPoster");
+
             UpsertItemResultStatus resultStatus = await _adminPageService.AddFilmPosterAsync(new ImageModel(
-                addImageRequest.TargetId,
-                addImageRequest.FormFile
+                filmId,
+                formFile
             ));
 
             if (resultStatus == UpsertItemResultStatus.Ok)
             {
-                return Ok();
+                return Ok("Film added");
             }
 
-            return BadRequest();
+            return BadRequest("Error");
         }
     }
 }

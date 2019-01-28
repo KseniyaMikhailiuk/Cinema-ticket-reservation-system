@@ -3,7 +3,7 @@
     public class FilmResultModel
     {
         public int Id { get; }
-        UpsertItemResultStatus UpsertFilmResultStatus { get; }
+        public UpsertItemResultStatus UpsertFilmResultStatus { get; }
 
         public FilmResultModel(
             int id,
@@ -11,6 +11,13 @@
         )
         {
             Id = id;
+            UpsertFilmResultStatus = upsertFilmResultStatus;
+        }
+
+        public FilmResultModel(
+            UpsertItemResultStatus upsertFilmResultStatus
+        )
+        {
             UpsertFilmResultStatus = upsertFilmResultStatus;
         }
     }

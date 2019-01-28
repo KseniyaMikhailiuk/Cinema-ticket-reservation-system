@@ -35,10 +35,8 @@ class AddFilmForm extends Component {
     }
 
     handleFileInput(event) {
-        var formData = new FormData();
-        formData.append('poster', event.target.files[0], event.target.files[0].name);
         this.setState({
-            filmPoster: formData
+            filmPoster: event.target.files[0]
         })
     }
 

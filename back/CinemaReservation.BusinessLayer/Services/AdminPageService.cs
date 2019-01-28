@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using CinemaReservation.BusinessLayer.Contracts;
@@ -149,7 +150,7 @@ namespace CinemaReservation.BusinessLayer.Services
             return UpsertItemResultStatus.Ok;
         }
 
-        public async Task<UpsertItemResultStatus> AddFilmAsync(FilmModel filmModel)
+        public async Task<FilmResultModel> AddFilmAsync(FilmModel filmModel)
         {
             AddOperationResultEntity filmResultEntity = await  _adminPageRepository.UpsertFilmAsync(new FilmEntity(
                 filmModel.Title,
@@ -161,16 +162,19 @@ namespace CinemaReservation.BusinessLayer.Services
 
             if (filmResultEntity.OperationResultStatus == AddOperationResultStatus.Ok)
             {
-                return UpsertItemResultStatus.Ok;
+                return new FilmResultModel(
+                    filmResultEntity.Id,
+                    UpsertItemResultStatus.Ok
+                );
             }
 
-            return UpsertItemResultStatus.Conflict;
+            return new FilmResultModel(UpsertItemResultStatus.Conflict);
         }
 
         public async Task<UpsertItemResultStatus> AddFilmPosterAsync(ImageModel imageModel)
         {
-            string posterUniqueId = Path.GetTempFileName();
-            string path = _configuration.GetSection("ImagesPath:FilmPosters").Value + posterUniqueId;
+            string posterUniqueId = Guid.NewGuid().ToString();
+            string path = _configuration.GetSection("ImagesPath:FilmPosters").Value + "/" + posterUniqueId;
 
             if (imageModel.FormFile != null && imageModel.FormFile.Length > 0)
             {

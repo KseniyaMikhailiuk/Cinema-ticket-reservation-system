@@ -390,7 +390,8 @@ export const addFilmToDatabase = (film) =>
         {
             method: 'post',
             headers: {
-                "Content-type": "application/json"
+                "Content-type": "application/json",
+                'Accept': 'application/json'
             },
             body: JSON.stringify({
                 Title: film.filmName,
@@ -407,18 +408,17 @@ export const addFilmToDatabase = (film) =>
             ? response.json()
             : false)
         .then(response => {
+            let formData = new FormData();
+            formData.append("FilmPoster", film.filmPoster);
+            formData.append("FilmId", response);
             return fetch(
                 "./api/adminpage/addposter",
                 {
                     method: 'post',
                     headers: {
-                        'Content-Type': 'multipart/form-data',
-                        'Accept': 'application/json'
+                        "Accept": "application/json"
                     },
-                    body: JSON.stringify({
-                        TargetId: response,
-                        FormFile: film.filmPoster
-                    })
+                    body: formData
                 }
             )
             .then(response =>
@@ -433,6 +433,10 @@ export const addFilmToDatabase = (film) =>
                 throw error;
             })
         })
+            .then(response =>
+                response.ok
+                ? response.json()
+                : false)
             .then(data =>
                 data
             )
@@ -440,20 +444,6 @@ export const addFilmToDatabase = (film) =>
                 console.log(error);
                 throw error;
             })
-
-    // delay(500)
-    //     .then(() => {
-    //         let formattedDate = moment(film.filmRelease);
-    //         formattedDate = `${formattedDate.date()} ${formattedDate.month() + 1} ${formattedDate.year()}`
-    //         filmDatabase.push({
-    //             id: v4(),
-    //             title: film.filmName,
-    //             image: film.filmPoster,
-    //             date: formattedDate,
-    //             description: film.filmDescription,
-    //             cities: []
-    //         })
-    //     })
 
 export const addSeanceToDatabase = (seance) =>
     delay(500)

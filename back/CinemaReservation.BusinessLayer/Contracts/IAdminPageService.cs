@@ -9,7 +9,7 @@ namespace CinemaReservation.BusinessLayer.Contracts
         Task<CinemaResultModel> EditCinemaAsync(CinemaModel cityModel);
         Task<UpsertItemResultStatus> AddHallsAsync(HallsModel hallsModel);
         Task<UpsertItemResultStatus> EditHallsAsync(HallsModel hallsModel);
-        Task<UpsertItemResultStatus> AddFilmAsync(FilmModel filmModel);
+        Task<FilmResultModel> AddFilmAsync(FilmModel filmModel);
         Task<UpsertItemResultStatus> AddFilmPosterAsync(ImageModel imageModel);
     }
 }
