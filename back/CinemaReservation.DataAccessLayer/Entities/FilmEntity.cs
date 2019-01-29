@@ -10,6 +10,7 @@ namespace CinemaReservation.DataAccessLayer.Entities
         public string Description { get; }
         public DateTime StartShowingDate { get; }
         public DateTime FinishShowingDate { get; }
+        public TimeSpan FilmDuration { get; }
 
 
         public FilmEntity(
@@ -17,7 +18,8 @@ namespace CinemaReservation.DataAccessLayer.Entities
             DateTime release,
             string description,
             DateTime startShowingDate,
-            DateTime finishShowingDate
+            DateTime finishShowingDate,
+            TimeSpan filmDuration
         )
         {
             Title = title;
@@ -25,6 +27,7 @@ namespace CinemaReservation.DataAccessLayer.Entities
             Description = description;
             StartShowingDate = startShowingDate;
             FinishShowingDate = finishShowingDate;
+            FilmDuration = filmDuration;
         }
 
         public FilmEntity(
@@ -33,7 +36,8 @@ namespace CinemaReservation.DataAccessLayer.Entities
             DateTime release,
             string description,
             DateTime startShowingDate,
-            DateTime finishShowingDate
+            DateTime finishShowingDate,
+            TimeSpan filmDuration
         )
         {
             Id = id;
@@ -42,6 +46,7 @@ namespace CinemaReservation.DataAccessLayer.Entities
             Description = description;
             StartShowingDate = startShowingDate;
             FinishShowingDate = finishShowingDate;
+            FilmDuration = filmDuration;
         }
     }
 }

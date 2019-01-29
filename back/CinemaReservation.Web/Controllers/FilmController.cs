@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
+using System;
 
 namespace CinemaReservation.Web.Controllers
 {
@@ -28,7 +29,12 @@ namespace CinemaReservation.Web.Controllers
                 upsertFilmRequest.Release,
                 upsertFilmRequest.Description,
                 upsertFilmRequest.StartShowingDate,
-                upsertFilmRequest.FinishShowingDate
+                upsertFilmRequest.FinishShowingDate,
+                new TimeSpan(
+                    upsertFilmRequest.FilmDuration.Hours,
+                    upsertFilmRequest.FilmDuration.Minutes,
+                    0
+                )
             );
 
             UpsertItemResultStatusAndId result = await _filmService.AddFilmAsync(filmModel);

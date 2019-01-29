@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +31,8 @@ namespace CinemaReservation.BusinessLayer.Services
                 filmModel.Release,
                 filmModel.Description,
                 filmModel.StartShowingDate,
-                filmModel.FinishShowingDate
+                filmModel.FinishShowingDate,
+                filmModel.FilmDuration
             ));
 
             if (resultEntity.OperationResultStatus == AddOperationResultStatus.Ok)

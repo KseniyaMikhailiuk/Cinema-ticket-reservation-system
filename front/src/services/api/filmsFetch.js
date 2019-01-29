@@ -399,7 +399,11 @@ export const addFilmToDatabase = (film) =>
                 Release: film.filmRelease,
                 Description: film.filmDescription,
                 StartShowingDate: film.startShowingDate,
-                FinishShowingDate: film.finishShowingDate
+                FinishShowingDate: film.finishShowingDate,
+                FilmDuration: {
+                    Hours: film.filmDuration.hours(),
+                    Minutes: film.filmDuration.minutes()
+                }
             })
         }
     )

@@ -10,6 +10,7 @@ namespace CinemaReservation.BusinessLayer.Models
         public string Description { get; }
         public DateTime StartShowingDate { get; }
         public DateTime FinishShowingDate { get; }
+        public TimeSpan FilmDuration { get; }
 
 
         public FilmModel(
@@ -17,7 +18,8 @@ namespace CinemaReservation.BusinessLayer.Models
             DateTime release,
             string description,
             DateTime startShowingDate,
-            DateTime finishShowingDate
+            DateTime finishShowingDate,
+            TimeSpan filmDuration
         )
         {
             Title = title;
@@ -25,6 +27,7 @@ namespace CinemaReservation.BusinessLayer.Models
             Description = description;
             StartShowingDate = startShowingDate;
             FinishShowingDate = finishShowingDate;
+            FilmDuration = filmDuration;
         }
 
         public FilmModel(
@@ -33,7 +36,8 @@ namespace CinemaReservation.BusinessLayer.Models
             DateTime release,
             string description,
             DateTime startShowingDate,
-            DateTime finishShowingDate
+            DateTime finishShowingDate,
+            TimeSpan filmDuration
         )
         {
             Id = id;
@@ -42,6 +46,7 @@ namespace CinemaReservation.BusinessLayer.Models
             Description = description;
             StartShowingDate = startShowingDate;
             FinishShowingDate = finishShowingDate;
+            FilmDuration = filmDuration;
         }
     }
 }

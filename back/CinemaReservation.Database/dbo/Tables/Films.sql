@@ -6,6 +6,7 @@
     [Description]       NVARCHAR (MAX)   NOT NULL,
     [StartShowingDate]  DATE             NOT NULL,
     [FinishShowingDate] DATE             NOT NULL,
+    [FilmDuration] TIME NOT NULL, 
     CONSTRAINT [PK_Films_Id] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
