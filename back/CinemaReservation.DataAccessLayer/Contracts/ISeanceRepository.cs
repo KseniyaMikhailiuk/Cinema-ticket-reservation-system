@@ -5,6 +5,6 @@ namespace CinemaReservation.DataAccessLayer.Contracts
 {
     public interface ISeanceRepository
     {
-        Task UpsertSeance(SeanceEntity seanceEntity);
+        Task<AddOperationResultStatus> UpsertSeanceAsync(SeanceEntity seanceEntity);
     }
 }

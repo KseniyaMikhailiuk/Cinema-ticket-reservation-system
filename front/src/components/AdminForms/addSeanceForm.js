@@ -106,17 +106,36 @@ class AddSeanceForm extends Component{
         return value + ' BYN';
     }
 
+    prepareFilterOptions(list){
+        list
+            .forEach(item => {
+                item = {
+                    label: item.name,
+                    value: {
+                        id: item.id,
+                        parentId: item.parentId
+                    }
+                }
+            })
+        console.log(list)
+        return list;
+    }
+
     render(){
         const { filterOptions, filmNames, additionalServices, t } = this.props;
-        const { selectedOption } = this.state.services;
-        let halls = filterOptions
-        	.halls
-        	.filter(hall => this.state.city && this.state.cinema &&
-	            hall.value.indexOf(this.state.city) !== -1 &&
-	            hall.value.indexOf(this.state.cinema) !== -1);
-        let cinemas = filterOptions
-        	.cinemas
-        	.filter(cinema => cinema.value === this.state.city || !this.state.city);
+        const { selectedOption } = this.state.services
+        for(var propName in filterOptions) {
+            filterOptions[propName] = this.prepareFilterOptions(filterOptions[propName]);
+        }
+
+        // let halls = filterOptions
+        //     .halls
+        //     .filter(hall => this.state.city && this.state.cinema &&
+        //         hall.value.indexOf(this.state.city) !== -1 &&
+        //         hall.value.indexOf(this.state.cinema) !== -1);
+        // let cinemas = filterOptions
+        //     .cinemas
+        //     .filter(cinema => cinema.value === this.state.city || !this.state.city);
         return(
             <>
                 <form className="forms admin" onSubmit={this.sendInfo}>
@@ -136,7 +155,7 @@ class AddSeanceForm extends Component{
                         <Select
                             name="cinema"
                             className="form-item select"
-                            options={cinemas}
+                            options={filterOptions.cinemas}
                             isSearchable
                             isClearable
                             onChange={(selectedOption) => this.handleInputChange("cinema", selectedOption.label)}
@@ -162,7 +181,7 @@ class AddSeanceForm extends Component{
                         <Select
                             name="hall"
                             className="form-item select"
-                            options={halls}
+                            options={filterOptions.halls}
                             isSearchable
                             onChange={(selectedOption) => this.handleInputChange("hall", selectedOption.label)}
                             placeholder={t('selectHall')}

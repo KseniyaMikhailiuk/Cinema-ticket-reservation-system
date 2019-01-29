@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CinemaReservation.DataAccessLayer.Entities
+﻿namespace CinemaReservation.DataAccessLayer.Entities
 {
     public class AddOperationResultEntity
     {

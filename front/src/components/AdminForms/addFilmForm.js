@@ -10,7 +10,7 @@ import 'rc-time-picker/assets/index.css';
 class AddFilmForm extends Component {
     state = {
         filmName: "",
-        filmDuration: "",
+        filmDuration: moment(),
         filmRelease: new Date(),
         filmDescription: "",
         filmPoster: new FormData(),

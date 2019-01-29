@@ -1,14 +1,29 @@
 ﻿using System.Threading.Tasks;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
+using CinemaReservation.DataAccessLayer.Contracts;
+using CinemaReservation.DataAccessLayer.Entities;
 
 namespace CinemaReservation.BusinessLayer.Services
 {
     public class SeanceService: ISeanceService
     {
-        public async Task AddSeance(SeanceModel seanceModel)
-        {
+        private ISeanceRepository _seanceRepository;
 
+        public SeanceService(
+            ISeanceRepository seanceRepository
+        )
+        {
+            _seanceRepository = seanceRepository;
+        }
+
+        public async Task AddSeanceAsync(SeanceModel seanceModel)
+        {
+            AddOperationResultStatus resultStatus = await _seanceRepository.UpsertSeanceAsync(new SeanceEntity(
+                seanceModel.DateTime,
+                seanceModel.FilmId,
+                seanceModel.HallId
+            ));
         }
     }
 }

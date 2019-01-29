@@ -397,23 +397,49 @@ export const addCinema = (cinemaInfo) =>
 
 
 export const getFilterOptions = () =>
-    delay(500)
-        .then(() => {
-            let filterOptions = {
-                cities: [],
-                cinemas: [],
-                halls: []
-            };
-            for (let city of cinemaHallPlans) {
-                filterOptions.cities.push({value: city.cityName, label: city.cityName});
-                for (let cinema of city.cinemas){
-                    if (cinema.halls.length > 0){
-                        filterOptions.cinemas.push({value: city.cityName, label: cinema.name})
-                        for (let hall of cinema.halls){
-                            filterOptions.halls.push({value: `${cinema.name}, ${city.cityName}`, label: hall.number})
-                        }
-                    }
-                }
+    fetch(
+        "./api/adminpage/getCinemaFilterOptions",
+        {
+            method: 'get',
+            headers: {
+                "Content-type": "application/json",
+                'Accept': 'application/json'
             }
+        }
+    )
+        .then(response =>
+            response.ok
+            ? response.json()
+            : false)
+        .then(data => {
+            let filterOptions = {
+                cities: data.cities,
+                cinemas: data.cinemas,
+                halls: data.halls
+            };
             return filterOptions;
         })
+        .catch(error => {
+            console.log(error);
+            throw error;
+        })
+    // delay(500)
+    //     .then(() => {
+    //         let filterOptions = {
+    //             cities: [],
+    //             cinemas: [],
+    //             halls: []
+    //         };
+    //         for (let city of cinemaHallPlans) {
+    //             filterOptions.cities.push({value: city.cityName, label: city.cityName});
+    //             for (let cinema of city.cinemas){
+    //                 if (cinema.halls.length > 0){
+    //                     filterOptions.cinemas.push({value: city.cityName, label: cinema.name})
+    //                     for (let hall of cinema.halls){
+    //                         filterOptions.halls.push({value: `${cinema.name}, ${city.cityName}`, label: hall.number})
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //         return filterOptions;
+    //     })

@@ -19,9 +19,9 @@ namespace CinemaReservation.DataAccessLayer.Repositories
 
         public async Task<AddOperationResultEntity> UpsertCinemaAsync(CinemaEntity cinemaEntity)
         {
-            using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+            try
             {
-                try
+                using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
                 {
                     int cinemaId = await dbConnection.QuerySingleOrDefaultAsync<int>(
                         "UpsertCinema",
@@ -30,10 +30,10 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                     );
                     return new AddOperationResultEntity(cinemaId, AddOperationResultStatus.Ok);
                 }
-                catch
-                {
-                    return new AddOperationResultEntity(AddOperationResultStatus.UniqueIndexError);
-                }
+            }
+            catch
+            {
+                return new AddOperationResultEntity(AddOperationResultStatus.UniqueIndexError);
             }
         }
     }
