@@ -4,10 +4,12 @@ using CinemaReservation.DataAccessLayer.Entities;
 
 namespace CinemaReservation.DataAccessLayer.Contracts
 {
-    public interface IAdminPageRepository
+    public interface IFilterListRepository
     {
         Task<List<NameIdEntity>> GetUniqueCitiesAsync();
         Task<List<NameIdEntity>> GetUniqueCinemasAsync();
         Task<List<NameIdEntity>> GetUniqueHallsAsync();
+        Task<List<NameIdEntity>> GetFilmOptionsAsync();
+
     }
 }

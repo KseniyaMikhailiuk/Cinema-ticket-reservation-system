@@ -8,21 +8,21 @@ using Microsoft.AspNetCore.Mvc;
 namespace CinemaReservation.Web.Controllers
 {
     [Route("api/[controller]")]
-    public class AdminPageController : Controller
+    public class FilterListController : Controller
     {
-        private IAdminPageService _adminPageService;
+        private IFilterListService _filterListService;
 
-        public AdminPageController(
-            IAdminPageService adminPageService
+        public FilterListController(
+            IFilterListService adminPageService
         )
         {
-            _adminPageService = adminPageService;
+            _filterListService = adminPageService;
         }
 
         [HttpGet("getCinemaFilterOptions")]
         public async Task<IActionResult> GetCinemaFilterOptions()
         {
-            CinemaFilterOptionsModel result = await _adminPageService.GetCinemaFilterOptionsAsync();
+            CinemaFilterOptionsModel result = await _filterListService.GetCinemaOptionsAsync();
 
             CinemaFilterOptionsResponse response = new CinemaFilterOptionsResponse(
                 ModelListToResponseList(result.Cities).ToArray(),
@@ -32,6 +32,15 @@ namespace CinemaReservation.Web.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("getFilmOptions")]
+        public async Task<IActionResult> GetFilmOptions()
+        {
+            List<FilterOptionModel> result = await _filterListService.GetFilmOptionsAsync();
+
+            return Ok(result);
+        }
+
 
         private List<FilterOptionItem> ModelListToResponseList(List<FilterOptionModel> modelList)
         {

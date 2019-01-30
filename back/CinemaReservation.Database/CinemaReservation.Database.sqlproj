@@ -90,6 +90,7 @@
     <Build Include="dbo\StoredProcedures\GetUniqueCities.sql" />
     <Build Include="dbo\StoredProcedures\GetUniqueCinemas.sql" />
     <Build Include="dbo\StoredProcedures\GetUniqueHalls.sql" />
+    <Build Include="dbo\StoredProcedures\GetFilmOptions.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="CinemaReservation.Database.refactorlog" />

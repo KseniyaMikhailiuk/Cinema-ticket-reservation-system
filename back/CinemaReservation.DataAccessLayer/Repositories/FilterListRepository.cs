@@ -8,12 +8,12 @@ using Dapper;
 
 namespace CinemaReservation.DataAccessLayer.Repositories
 {
-    class AdminPageRepository : IAdminPageRepository
+    class FilterListRepository : IFilterListRepository
     {
         private readonly IDalSettings _settings;
 
 
-        public AdminPageRepository(IDalSettings dalSettings)
+        public FilterListRepository(IDalSettings dalSettings)
         {
             _settings = dalSettings;
         }
@@ -50,6 +50,18 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             {
                 List<NameIdEntity> nameIdEntity = (List<NameIdEntity>)await dbConnection.QueryAsync<NameIdEntity>(
                     "GetUniqueHalls",
+                    commandType: CommandType.StoredProcedure
+                );
+
+                return nameIdEntity;
+            }
+        }
+        public async Task<List<NameIdEntity>> GetFilmOptionsAsync()
+        {
+            using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+            {
+                List<NameIdEntity> nameIdEntity = (List<NameIdEntity>)await dbConnection.QueryAsync<NameIdEntity>(
+                    "GetFilmOptions",
                     commandType: CommandType.StoredProcedure
                 );
 

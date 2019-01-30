@@ -398,7 +398,7 @@ export const addCinema = (cinemaInfo) =>
 
 export const getFilterOptions = () =>
     fetch(
-        "./api/adminpage/getCinemaFilterOptions",
+        "./api/filterlist/getCinemaFilterOptions",
         {
             method: 'get',
             headers: {
@@ -423,23 +423,3 @@ export const getFilterOptions = () =>
             console.log(error);
             throw error;
         })
-    // delay(500)
-    //     .then(() => {
-    //         let filterOptions = {
-    //             cities: [],
-    //             cinemas: [],
-    //             halls: []
-    //         };
-    //         for (let city of cinemaHallPlans) {
-    //             filterOptions.cities.push({value: city.cityName, label: city.cityName});
-    //             for (let cinema of city.cinemas){
-    //                 if (cinema.halls.length > 0){
-    //                     filterOptions.cinemas.push({value: city.cityName, label: cinema.name})
-    //                     for (let hall of cinema.halls){
-    //                         filterOptions.halls.push({value: `${cinema.name}, ${city.cityName}`, label: hall.number})
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //         return filterOptions;
-    //     })

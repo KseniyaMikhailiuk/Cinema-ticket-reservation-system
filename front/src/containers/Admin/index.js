@@ -8,7 +8,7 @@ import AddAdditionalServicesForm from '../../components/AdminForms/addAdditional
 import AddCinemaForm from '../../components/AdminForms/AddCinemaForm'
 import SuccessMessage from '../../components/Common/SuccessMessage'
 
-import {getFilterObject, getFilterOptions} from '../../store/stateGetters';
+import {getFilterObject} from '../../store/stateGetters';
 import * as actions from '../../store/actions'
 
 import * as servicesInfo from '../../services/api/additionalServicesFetch'
@@ -27,7 +27,8 @@ class Admin extends Component{
             cinemas: [],
             cities: [],
             halls: []
-        }
+        },
+        addSeanceFormFilmOptions: []
     }
 
     constructor(props){
@@ -51,6 +52,12 @@ class Admin extends Component{
             .then(filterOptions => {
                 this.setState({
                     addCinemaFormFilterOptions: filterOptions
+                })
+            })
+        filmsInfo.getFilmOptions()
+            .then(filmOption => {
+                this.setState({
+                    addSeanceFormFilmOptions: filmOption
                 })
             })
     }
@@ -93,22 +100,17 @@ class Admin extends Component{
     }
 
     render() {
-        const {filter, filterOptions, changeFilterObjectItem, isRequestSucceeded} = this.props;
+        const {filter, changeFilterObjectItem, isRequestSucceeded} = this.props;
+        const { addSeanceFormFilmOptions } = this.state;
         if (isRequestSucceeded) {
             return <SuccessMessage path='/Schedule'/>
         }
-        let filmNames = [];
-        filterOptions
-            .filmNames
-            .forEach(filmName =>
-                filmNames.push({value: filmName, label: filmName})
-            );
         return (
             <section>
                 <AddFilmForm onSubmit={this.addFilmToDatabase}/>
                 <AddSeanceForm filter={filter}
                     filterOptions={this.state.addCinemaFormFilterOptions}
-                    filmNames={filmNames}
+                    filmOptions={addSeanceFormFilmOptions}
                     changeFilterObjectItem={changeFilterObjectItem}
                     onSubmit={this.addSeanceToDatabase}
                     additionalServices={this.state.additionalServices}
@@ -126,7 +128,6 @@ class Admin extends Component{
 
 const mapStateToScheduleProps = (state) => {
     return {
-        filterOptions: getFilterOptions(state),
         filter: getFilterObject(state),
         isRequestSucceeded: state.isRequestSucceeded,
     }

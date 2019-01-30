@@ -13,7 +13,7 @@ namespace CinemaReservation.DataAccessLayer
             services.AddSingleton<IFilmRepository, FilmRepository>();
             services.AddSingleton<IHallRepository, HallRepository>();
             services.AddSingleton<ICinemaRepository, CinemaRepository>();
-            services.AddSingleton<IAdminPageRepository, AdminPageRepository>();
+            services.AddSingleton<IFilterListRepository, FilterListRepository>();
         }
     }
 }
