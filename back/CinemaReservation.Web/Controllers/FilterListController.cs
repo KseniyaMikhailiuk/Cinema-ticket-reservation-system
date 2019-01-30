@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CinemaReservation.Web.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class FilterListController : Controller
     {
         private IFilterListService _filterListService;
@@ -45,6 +46,14 @@ namespace CinemaReservation.Web.Controllers
         public async Task<IActionResult> GetSeatTypeOptionsAsync()
         {
             List<FilterOptionModel> result = await _filterListService.GetSeatTypeOptionsAsync();
+
+            return Ok(result);
+        }
+
+        [HttpGet("getServiceOptions")]
+        public async Task<IActionResult> GetServiceOptionsAsync()
+        {
+            List<FilterOptionModel> result = await _filterListService.GetServiceOptionsAsync();
 
             return Ok(result);
         }

@@ -7,11 +7,11 @@
 
         public SeatPrice(
             decimal price,
-            int seatTypeId
+            int typeId
         )
         {
             Price = price;
-            TypeId = seatTypeId;
+            TypeId = typeId;
         }
     }
 }

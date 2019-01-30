@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using CinemaReservation.DataAccessLayer.Contracts;
@@ -50,5 +51,17 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             }
         }
 
+        public async Task<List<NameIdEntity>> GetFilmOptionsAsync()
+        {
+            using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+            {
+                List<NameIdEntity> nameIdEntity = (List<NameIdEntity>)await dbConnection.QueryAsync<NameIdEntity>(
+                    "GetFilmOptions",
+                    commandType: CommandType.StoredProcedure
+                );
+
+                return nameIdEntity;
+            }
+        }
     }
 }

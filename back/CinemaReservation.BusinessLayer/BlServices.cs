@@ -14,6 +14,7 @@ namespace CinemaReservation.BusinessLayer
             services.AddSingleton<IHallService, HallService>();
             services.AddSingleton<ICinemaService, CinemaService>();
             services.AddSingleton<ISeanceService, SeanceService>();
+            services.AddSingleton<IAdditionalServicesService, AdditionalServicesService>();
             services.AddSingleton<IFilterListService, FilterListService>();
         }
     }

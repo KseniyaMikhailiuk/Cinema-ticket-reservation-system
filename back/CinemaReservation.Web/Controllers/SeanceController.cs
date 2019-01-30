@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CinemaReservation.Web.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class SeanceController : Controller
     {
         private ISeanceService _seanceService;

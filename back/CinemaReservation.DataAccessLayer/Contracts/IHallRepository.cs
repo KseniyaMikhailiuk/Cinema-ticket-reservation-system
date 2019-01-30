@@ -9,5 +9,7 @@ namespace CinemaReservation.DataAccessLayer.Contracts
         Task<AddOperationResultEntity> UpsertHallAsync(HallEntity cinemaEntity);
         Task<AddOperationResultStatus> AddHallPlanAsync(List<SeatEntity> cinemaEntity);
         Task<AddOperationResultStatus> RemoveHallPlanAsync(int hallId);
+        Task<List<NameIdEntity>> GetHallsAsync();
+        Task<List<NameIdEntity>> GetSeatTypeOptionsAsync();
     }
 }

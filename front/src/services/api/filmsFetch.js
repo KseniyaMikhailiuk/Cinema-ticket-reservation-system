@@ -472,8 +472,7 @@ export const addFilmToDatabase = (film) =>
             })
 
 export const addSeanceToDatabase = (seance) => {
-    console.log(seance)
-     return fetch(
+    return fetch(
         "./api/seance/addseance",
         {
             method: 'post',
@@ -486,7 +485,7 @@ export const addSeanceToDatabase = (seance) => {
                 FilmId: seance.filmId,
                 HallId: seance.hallId,
                 Services: seance.services,
-                SeatPrice: seance.price,
+                SeatPrices: seance.seatPrices,
             })
         }
     )
@@ -502,65 +501,3 @@ export const addSeanceToDatabase = (seance) => {
             throw error;
         })
 }
-
-    // delay(500)
-    //     .then(() => {
-    //         let dateTime = moment({
-    //             year: seance.date.getFullYear(),
-    //             month: seance.date.getMonth(),
-    //             date: seance.date.getDate(),
-    //             hour: seance.time.split(':')[0],
-    //             minute: seance.time.split(':')[1]
-    //         })
-    //         let seanceInfo = {
-    //             dateTime: dateTime,
-    //             services: seance.services,
-    //             id: v4(),
-    //             occupiedSeats: [],
-    //             price: seance.price
-    //         }
-    //         for (let film of filmDatabase){
-    //             if (film.title === seance.filmName){
-    //                 let existedCity= film.cities.find(city => city.name === seance.city);
-    //                 if (!existedCity){
-    //                     existedCity = {
-    //                         name: seance.city,
-    //                         cinemas: [{
-    //                             name: seance.cinema,
-    //                             halls: [{
-    //                                 number: seance.hall,
-    //                                 seatAmount: 50,
-    //                                 schedule: [seanceInfo]
-    //                             }]
-    //                         }]
-    //                     };
-    //                     film.cities.push(existedCity);
-    //                     return;
-    //                 }
-    //                 let existedCinema = existedCity.cinemas.find(cinema => cinema.name === seance.cinema);
-    //                 if (!existedCinema){
-    //                     existedCinema = {
-    //                         name: seance.cinema,
-    //                         halls: [{
-    //                             number: seance.hall,
-    //                             seatAmount: 50,
-    //                             schedule: [seanceInfo]
-    //                         }]
-    //                     };
-    //                     existedCity.cinemas.push(existedCinema);
-    //                     return;
-    //                 }
-    //                 let existedHall = existedCinema.halls.find(hall => hall.number.toString() === seance.hall);
-    //                 if (!existedHall){
-    //                     existedHall = {
-    //                         number: seance.hall,
-    //                         seatAmount: 50,
-    //                         schedule: [seanceInfo]
-    //                     };
-    //                     existedCinema.halls.push(existedHall);
-    //                     return;
-    //                 }
-    //                 existedHall.schedule.push(seanceInfo);
-    //             }
-    //         }
-    //     })

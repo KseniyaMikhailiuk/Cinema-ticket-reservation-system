@@ -9,5 +9,6 @@ namespace CinemaReservation.BusinessLayer.Contracts
         Task<CinemaFilterOptionsModel> GetCinemaOptionsAsync();
         Task<List<FilterOptionModel>> GetFilmOptionsAsync();
         Task<List<FilterOptionModel>> GetSeatTypeOptionsAsync();
+        Task<List<FilterOptionModel>> GetServiceOptionsAsync();
     }
 }

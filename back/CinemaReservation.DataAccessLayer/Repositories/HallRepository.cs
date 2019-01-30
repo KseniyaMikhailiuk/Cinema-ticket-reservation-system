@@ -66,5 +66,18 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                 return AddOperationResultStatus.Ok;
             }
         }
+
+        public async Task<List<NameIdEntity>> GetHallsAsync()
+        {
+            using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+            {
+                List<NameIdEntity> nameIdEntity = (List<NameIdEntity>)await dbConnection.QueryAsync<NameIdEntity>(
+                    "GetUniqueHalls",
+                    commandType: CommandType.StoredProcedure
+                );
+
+                return nameIdEntity;
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ using CinemaReservation.Web.Models;
 namespace CinemaReservation.Web.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class HallsController : Controller
     {
         private IHallService _hallService;

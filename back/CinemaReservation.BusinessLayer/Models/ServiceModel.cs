@@ -23,5 +23,12 @@
             Name = name;
             Price = price;
         }
+
+        public ServiceModel(
+            string name
+        )
+        {
+            Name = name;
+        }
     }
 }

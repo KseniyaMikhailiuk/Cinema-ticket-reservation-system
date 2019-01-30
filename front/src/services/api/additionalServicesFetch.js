@@ -17,15 +17,49 @@ const delay = (ms) =>
     new Promise(resolve => setTimeout(resolve, ms));
 
 export const addAdditionalService = (item) =>
-    delay(500)
-        .then(() => {
-            additionalServices.push(item);
+    fetch(
+        "./api/additionalservices/addadditionalservice",
+        {
+            method: 'post',
+            headers: {
+                "Content-type": "application/json",
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                Name: item.name
+            })
+        }
+    )
+        .then(response =>
+            response.ok
+            ? response.json()
+            : false)
+        .then(data =>
+            data
+        )
+        .catch(error => {
+            console.log(error);
+            throw error;
         })
 
 export const getAdditionalServices = () =>
-    delay(500)
-        .then(() => {
-            let servicesList = [];
-            additionalServices.forEach(service => servicesList.push({value: service.name, label: service.name}));
-            return servicesList;
+    fetch(
+        "./api/filterlist/getServiceOptions",
+        {
+            method: 'get',
+            headers: {
+                "Content-type": "application/json",
+                'Accept': 'application/json'
+            }
+        }
+    )
+        .then(response =>
+            response.ok
+            ? response.json()
+            : false)
+        .then(data =>
+            data)
+        .catch(error => {
+            console.log(error);
+            throw error;
         })

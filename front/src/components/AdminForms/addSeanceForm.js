@@ -62,7 +62,7 @@ class AddSeanceForm extends Component{
         let services = [];
         this.state.services.forEach(service => {
             let updatedService = {...service};
-            if (service.name === selectedService) {
+            if (service.id === selectedService) {
                 updatedService.price = value;
             }
             services.push(updatedService)
@@ -75,14 +75,15 @@ class AddSeanceForm extends Component{
     handleServicesChange = (selectedOptions) => {
         let services = [];
         selectedOptions.forEach(option => {
-            let existedService = this.state.services.find(service => service.name === option.value);
+            let existedService = this.state.services.find(service => service.id === option.value);
             if (existedService) {
                 services.push(existedService);
             }
             else {
                 services.push({
                     id: option.value,
-                    price: 0
+                    price: 0,
+                    name: option.label
                 });
             }
         })
@@ -153,6 +154,15 @@ class AddSeanceForm extends Component{
             })
         })
 
+        let services = [];
+        additionalServices
+            .forEach(service => {
+                services.push({
+                    label: service.name,
+                    value: service.id,
+                })
+            })
+
         return(
             <>
                 <form className="forms admin" onSubmit={this.sendInfo}>
@@ -203,7 +213,7 @@ class AddSeanceForm extends Component{
                             onChange={(selectedOption) => this.handleInputChange("hallId", selectedOption.value.id)}
                             placeholder={t('selectHall')}
                         />
-                         <ul>{
+                        <ul>{
                             seatTypeOptions.map(seatType =>
                                 <li className="form-item admin__seatTypePrices">
                                     <label for={seatType.name}>{seatType.name}</label>
@@ -224,7 +234,7 @@ class AddSeanceForm extends Component{
                         <Select
                             name="services"
                             className="form-item select"
-                            options={additionalServices}
+                            options={services}
                             isMulti
                             isSearchable
                             value={selectedOption}
@@ -242,7 +252,7 @@ class AddSeanceForm extends Component{
                                         placeholder={t('servicePrice')}
                                         format={this.moneyFormat}
                                         onChange={(selectedOption) =>
-                                            this.handleServicePriceChange(selectedOption, service.name)}
+                                            this.handleServicePriceChange(selectedOption, service.id)}
                                         autoComplete="off"
                                     />
                                 </li>

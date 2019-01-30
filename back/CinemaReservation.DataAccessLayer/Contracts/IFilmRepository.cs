@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CinemaReservation.DataAccessLayer.Entities;
 
 namespace CinemaReservation.DataAccessLayer.Contracts
@@ -7,5 +8,6 @@ namespace CinemaReservation.DataAccessLayer.Contracts
     {
         Task<AddOperationResultEntity> UpsertFilmAsync(FilmEntity filmEntity);
         Task<AddOperationResultEntity> InsertFilmPosterAsync(FilmPosterEntity filmPosterEntity);
+        Task<List<NameIdEntity>> GetFilmOptionsAsync();
     }
 }

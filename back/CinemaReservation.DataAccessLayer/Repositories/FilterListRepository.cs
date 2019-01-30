@@ -82,5 +82,18 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                 return nameIdEntity;
             }
         }
+
+        public async Task<List<NameIdEntity>> GetServiceOptionsAsync()
+        {
+            using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+            {
+                List<NameIdEntity> nameIdEntity = (List<NameIdEntity>)await dbConnection.QueryAsync<NameIdEntity>(
+                    "GetServiceOptions",
+                    commandType: CommandType.StoredProcedure
+                );
+
+                return nameIdEntity;
+            }
+        }
     }
 }

@@ -18,23 +18,23 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             _settings = settings;
         }
 
-        public async Task<AddOperationResultStatus> UpsertSeanceAsync(SeanceEntity seanceEntity)
+        public async Task<AddOperationResultEntity> UpsertSeanceAsync(SeanceEntity seanceEntity)
         {
             try
             {
                 using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
                 {
-                    await dbConnection.QuerySingleOrDefaultAsync<int>(
+                    int id = await dbConnection.QuerySingleOrDefaultAsync<int>(
                         "UpsertSeance",
                         seanceEntity,
                         commandType: CommandType.StoredProcedure
                     );
-                    return AddOperationResultStatus.Ok;
+                    return new AddOperationResultEntity(id, AddOperationResultStatus.Ok);
                 }
             }
             catch
             {
-                return AddOperationResultStatus.UniqueIndexError;
+                return new AddOperationResultEntity(AddOperationResultStatus.UniqueIndexError);
             }
         }
     }

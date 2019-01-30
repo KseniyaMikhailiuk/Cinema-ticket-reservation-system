@@ -11,5 +11,6 @@ namespace CinemaReservation.DataAccessLayer.Contracts
         Task<List<NameIdEntity>> GetUniqueHallsAsync();
         Task<List<NameIdEntity>> GetFilmOptionsAsync();
         Task<List<NameIdEntity>> GetSeatTypeOptionsAsync();
+        Task<List<NameIdEntity>> GetServiceOptionsAsync();
     }
 }

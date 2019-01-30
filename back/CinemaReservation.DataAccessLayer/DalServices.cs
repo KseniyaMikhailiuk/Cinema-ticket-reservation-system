@@ -15,6 +15,7 @@ namespace CinemaReservation.DataAccessLayer
             services.AddSingleton<ICinemaRepository, CinemaRepository>();
             services.AddSingleton<ISeanceRepository, SeanceRepository>();
             services.AddSingleton<IFilterListRepository, FilterListRepository>();
+            services.AddSingleton<IAdditionalServicesRepository, AdditionalServiceRepository>();
         }
     }
 }
