@@ -423,3 +423,25 @@ export const getFilterOptions = () =>
             console.log(error);
             throw error;
         })
+
+export const getSeatTypeOptions = () =>
+    fetch(
+        "./api/filterlist/getSeatTypeOptions",
+        {
+            method: 'get',
+            headers: {
+                "Content-type": "application/json",
+                'Accept': 'application/json'
+            }
+        }
+    )
+        .then(response =>
+            response.ok
+            ? response.json()
+            : false)
+        .then(data =>
+            data)
+        .catch(error => {
+            console.log(error);
+            throw error;
+        })

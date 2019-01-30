@@ -1,9 +1,11 @@
 var additionalServices = [
     {
+        id: 1,
         name: 'начос',
         price: 3
     },
     {
+        id: 2,
         name: 'cola',
         price: 2
     }

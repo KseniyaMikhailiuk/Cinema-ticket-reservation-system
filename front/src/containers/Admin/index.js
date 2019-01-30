@@ -28,7 +28,8 @@ class Admin extends Component{
             cities: [],
             halls: []
         },
-        addSeanceFormFilmOptions: []
+        addSeanceFormFilmOptions: [],
+        addCinemaFormSeatTypes: []
     }
 
     constructor(props){
@@ -52,6 +53,12 @@ class Admin extends Component{
             .then(filterOptions => {
                 this.setState({
                     addCinemaFormFilterOptions: filterOptions
+                })
+            })
+        cinemasInfo.getSeatTypeOptions()
+            .then(seatTypes => {
+                this.setState({
+                    addCinemaFormSeatTypes: seatTypes
                 })
             })
         filmsInfo.getFilmOptions()
@@ -101,19 +108,27 @@ class Admin extends Component{
 
     render() {
         const {filter, changeFilterObjectItem, isRequestSucceeded} = this.props;
-        const { addSeanceFormFilmOptions } = this.state;
+        const {
+            addSeanceFormFilmOptions,
+            addCinemaFormSeatTypes,
+            additionalServices,
+            addCinemaFormFilterOptions
+        } = this.state;
+
         if (isRequestSucceeded) {
             return <SuccessMessage path='/Schedule'/>
         }
+
         return (
             <section>
                 <AddFilmForm onSubmit={this.addFilmToDatabase}/>
                 <AddSeanceForm filter={filter}
-                    filterOptions={this.state.addCinemaFormFilterOptions}
+                    filterOptions={addCinemaFormFilterOptions}
                     filmOptions={addSeanceFormFilmOptions}
                     changeFilterObjectItem={changeFilterObjectItem}
                     onSubmit={this.addSeanceToDatabase}
-                    additionalServices={this.state.additionalServices}
+                    additionalServices={additionalServices}
+                    seatTypeOptions={addCinemaFormSeatTypes}
                 />
                 <AddAdditionalServicesForm
                     onSubmit={this.addAdditionalServicesToDatabase}

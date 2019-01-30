@@ -20,7 +20,8 @@ namespace CinemaReservation.Web.Controllers
             _seanceService = seanceService;
         }
 
-        public async Task<IActionResult> AddSeance(AddSeanceRequest addSeanceRequest)
+        [HttpPost("addseance")]
+        public async Task<IActionResult> AddSeanceAsync(AddSeanceRequest addSeanceRequest)
         {
             List<ServiceModel> services = new List<ServiceModel>();
 
@@ -38,7 +39,7 @@ namespace CinemaReservation.Web.Controllers
             {
                 seatPrices.Add(new SeatPriceModel(
                     seatPrice.Price,
-                    seatPrice.SeatTypeId
+                    seatPrice.TypeId
                 ));
             }
 

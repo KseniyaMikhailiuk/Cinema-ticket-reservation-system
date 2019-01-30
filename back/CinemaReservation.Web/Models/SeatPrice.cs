@@ -3,7 +3,7 @@
     public class SeatPrice
     {
         public decimal Price { get; }
-        public int SeatTypeId { get; }
+        public int TypeId { get; }
 
         public SeatPrice(
             decimal price,
@@ -11,7 +11,7 @@
         )
         {
             Price = price;
-            SeatTypeId = seatTypeId;
+            TypeId = seatTypeId;
         }
     }
 }

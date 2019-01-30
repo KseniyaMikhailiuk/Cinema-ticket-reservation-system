@@ -4,30 +4,22 @@ import DatePickerCustomized from '../Common/datePicker'
 import NumericInput from 'react-numeric-input'
 import Select from 'react-select';
 import {withNamespaces} from 'react-i18next'
-import DatePicker from 'react-datepicker'
-
-import "react-datepicker/dist/react-datepicker.css";
 
 class AddSeanceForm extends Component{
     state = {
         cityId: 0,
         cinemaId: 0,
         hallId: 0,
-        filmNameId: 0,
-        date: new Date(),
-        price: {
-            standard: 0,
-            loveseat: 0,
-            comfort: 0
-        },
+        filmId: 0,
+        dateTime: new Date(),
+        seatPrices: [],
         services: []
     }
 
     constructor(props) {
         super(props);
-        this.handlePriceChange = this.handlePriceChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleTimeChange = this.handleTimeChange.bind(this);
+        this.handlePriceChange = this.handlePriceChange.bind(this);
         this.sendInfo = this.sendInfo.bind(this);
         const { filter } = this.props;
         this.state.cityId = filter.cityId;
@@ -39,16 +31,30 @@ class AddSeanceForm extends Component{
         });
     }
 
-    handleTimeChange (event) {
-        this.handleInputChange(event.target.name, event.target.value);
-    }
-
-    handlePriceChange(value, type) {
+    handlePriceChange(value, typeId) {
+        let seatPrices = this.state.seatPrices.slice(0);
+        let isSeatPriceExists = false;
+        seatPrices
+            .forEach(seatType => {
+                if (seatType.typeId === typeId) {
+                    seatType.price = value;
+                    isSeatPriceExists = true;
+                }
+            });
+        if (!isSeatPriceExists) {
+            this.setState({
+                seatPrices: [
+                    ...this.state.seatPrices,
+                    {
+                        typeId: typeId,
+                        price: value
+                    }
+                ]
+            });
+            return;
+        }
         this.setState({
-            price: {
-                ...this.state.price,
-                [type]: value
-            }
+            seatPrices: seatPrices
         })
     }
 
@@ -75,7 +81,7 @@ class AddSeanceForm extends Component{
             }
             else {
                 services.push({
-                    name: option.value,
+                    id: option.value,
                     price: 0
                 });
             }
@@ -88,13 +94,12 @@ class AddSeanceForm extends Component{
     sendInfo (event) {
         const {t} = this.props;
         event.preventDefault();
-        const {cityId, cinemaId, filmNameId, hallId, time, price, services} = this.state;
+        const {cityId, cinemaId, filmId, hallId, services} = this.state;
         if (services.find(service => service.price === 0)) {
             NotificationManager.warning(t('notAllFieldsAreFilled'), t('Ops'), 5000);
             return;
         }
-        if (cityId && cinemaId && filmNameId && hallId && time &&
-            price.comfort && price.loveseat && price.loveseat) {
+        if (cityId && cinemaId && filmId && hallId) {
             const { onSubmit } = this.props;
             onSubmit(this.state);
             return;
@@ -121,11 +126,12 @@ class AddSeanceForm extends Component{
                 })
             })
         }
+
         return preparedFilterOptions;
     }
 
     render(){
-        const { filterOptions, filmOptions, additionalServices, t } = this.props;
+        const { filterOptions, filmOptions, seatTypeOptions, additionalServices, t } = this.props;
         const { selectedOption } = this.state.services;
 
         let preparedFilterOptions = this.prepareFilterOptions(filterOptions);
@@ -176,17 +182,17 @@ class AddSeanceForm extends Component{
                             <DatePickerCustomized
                                 selectedDate={this.state.date}
                                 onFilterClick={this.handleInputChange}
-                                target="date"
+                                target="dateTime"
                                 showTimeSelect={true}
                             />
                         </div>
                         <Select
-                            name="filmNameId"
+                            name="filmId"
                             className="form-item select"
                             options={films}
                             isSearchable
                             isClearable
-                            onChange={(selectedOption) => this.handleInputChange("filmNameId", selectedOption.value.id)}
+                            onChange={(selectedOption) => this.handleInputChange("filmId", selectedOption.value.id)}
                             placeholder={t('selectFilm')}
                         />
                         <Select
@@ -197,33 +203,24 @@ class AddSeanceForm extends Component{
                             onChange={(selectedOption) => this.handleInputChange("hallId", selectedOption.value.id)}
                             placeholder={t('selectHall')}
                         />
-                        <NumericInput
-                            name="standard"
-                            className="form-item"
-                            min={0}
-                            placeholder={t('priceStandard')}
-                            format={this.moneyFormat}
-                            onChange={(value) => this.handlePriceChange(value, "standard")}
-                            autoComplete="off"
-                        />
-                        <NumericInput
-                            name="loveseats"
-                            className="form-item"
-                            min={0}
-                            placeholder={t('priceLoveseats')}
-                            format={this.moneyFormat}
-                            onChange={(value) => this.handlePriceChange(value, "loveseat")}
-                            autoComplete="off"
-                        />
-                        <NumericInput
-                            name="comfort"
-                            className="form-item"
-                            min={0}
-                            placeholder={t('priceComfort')}
-                            format={this.moneyFormat}
-                            onChange={(value) => this.handlePriceChange(value, "comfort")}
-                            autoComplete="off"
-                        />
+                         <ul>{
+                            seatTypeOptions.map(seatType =>
+                                <li className="form-item admin__seatTypePrices">
+                                    <label for={seatType.name}>{seatType.name}</label>
+                                    <NumericInput
+                                        id={seatType.name}
+                                        name={seatType.name}
+                                        min={1}
+                                        placeholder={t('price')}
+                                        format={this.moneyFormat}
+                                        onChange={(selectedOption) =>
+                                            this.handlePriceChange(selectedOption, seatType.id)}
+                                        autoComplete="off"
+                                    />
+                                </li>
+                            )
+                        }
+                        </ul>
                         <Select
                             name="services"
                             className="form-item select"

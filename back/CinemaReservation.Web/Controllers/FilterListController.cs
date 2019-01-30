@@ -20,7 +20,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpGet("getCinemaFilterOptions")]
-        public async Task<IActionResult> GetCinemaFilterOptions()
+        public async Task<IActionResult> GetCinemaFilterOptionsAsync()
         {
             CinemaFilterOptionsModel result = await _filterListService.GetCinemaOptionsAsync();
 
@@ -34,13 +34,20 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpGet("getFilmOptions")]
-        public async Task<IActionResult> GetFilmOptions()
+        public async Task<IActionResult> GetFilmOptionsAsync()
         {
             List<FilterOptionModel> result = await _filterListService.GetFilmOptionsAsync();
 
             return Ok(result);
         }
 
+        [HttpGet("getSeatTypeOptions")]
+        public async Task<IActionResult> GetSeatTypeOptionsAsync()
+        {
+            List<FilterOptionModel> result = await _filterListService.GetSeatTypeOptionsAsync();
+
+            return Ok(result);
+        }
 
         private List<FilterOptionItem> ModelListToResponseList(List<FilterOptionModel> modelList)
         {

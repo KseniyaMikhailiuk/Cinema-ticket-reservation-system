@@ -44,6 +44,13 @@ namespace CinemaReservation.BusinessLayer.Services
             return GetOptionListFromArray(films);
         }
 
+        public async Task<List<FilterOptionModel>> GetSeatTypeOptionsAsync()
+        {
+            List<NameIdEntity> seatTypes = await _filterListRepository.GetSeatTypeOptionsAsync();
+
+            return GetOptionListFromArray(seatTypes);
+        }
+
         private List<FilterOptionModel> GetOptionListFromArray(List<NameIdEntity> entities)
         {
             List<FilterOptionModel> list = new List<FilterOptionModel>();
