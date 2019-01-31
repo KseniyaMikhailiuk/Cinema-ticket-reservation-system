@@ -6,17 +6,14 @@ namespace CinemaReservation.BusinessLayer.Models
     {
         public List<FilterOptionModel> Cities { get; }
         public List<FilterOptionModel> Cinemas { get; }
-        public List<FilterOptionModel> Halls { get; }
 
         public CinemaFilterOptionsModel(
             List<FilterOptionModel> cities,
-            List<FilterOptionModel> cinemas,
-            List<FilterOptionModel> halls
+            List<FilterOptionModel> cinemas
         )
         {
             Cities = cities;
             Cinemas = cinemas;
-            Halls = halls;
         }
     }
 }

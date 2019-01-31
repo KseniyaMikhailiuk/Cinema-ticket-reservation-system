@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
@@ -58,6 +59,37 @@ namespace CinemaReservation.Web.Controllers
             }
 
             return Conflict("Cinema exists");
+        }
+
+        [HttpGet("getCinemaFilterOptions")]
+        public async Task<IActionResult> GetCinemaFilterOptionsAsync()
+        {
+            CinemaFilterOptionsModel result = await _cinemaService.GetCinemaOptionsAsync();
+
+            CinemaFilterOptionsResponse response = new CinemaFilterOptionsResponse(
+                ModelListToResponseList(result.Cities).ToArray(),
+                ModelListToResponseList(result.Cinemas).ToArray()
+            );
+
+            return Ok(response);
+        }
+
+        private List<FilterOptionItem> ModelListToResponseList(List<FilterOptionModel> modelList)
+        {
+            List<FilterOptionItem> list = new List<FilterOptionItem>();
+
+            foreach (FilterOptionModel item in modelList)
+            {
+                list.Add(
+                    new FilterOptionItem(
+                        item.Name,
+                        item.Id,
+                        item.ParentId
+                    )
+                );
+            }
+
+            return list;
         }
     }
 }

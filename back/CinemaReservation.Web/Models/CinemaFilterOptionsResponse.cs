@@ -4,17 +4,14 @@
     {
         public FilterOptionItem[] Cities { get; }
         public FilterOptionItem[] Cinemas { get; }
-        public FilterOptionItem[] Halls { get; }
 
         public CinemaFilterOptionsResponse(
             FilterOptionItem[] cities,
-            FilterOptionItem[] cinemas,
-            FilterOptionItem[] halls
+            FilterOptionItem[] cinemas
         )
         {
             Cities = cities;
             Cinemas = cinemas;
-            Halls = halls;
         }
     }
 }

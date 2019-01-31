@@ -6,6 +6,7 @@ using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.DataAccessLayer.Contracts;
 using CinemaReservation.DataAccessLayer.Entities;
+using System.Collections.Generic;
 
 namespace CinemaReservation.BusinessLayer.Services
 {
@@ -76,6 +77,31 @@ namespace CinemaReservation.BusinessLayer.Services
             }
 
             return UpsertItemResultStatus.Conflict;
+        }
+
+        public async Task<List<FilterOptionModel>> GetFilmOptionsAsync()
+        {
+            List<NameIdEntity> films = await _filmRepository.GetFilmOptionsAsync();
+
+            return GetOptionListFromArray(films);
+        }
+
+        private List<FilterOptionModel> GetOptionListFromArray(List<NameIdEntity> entities)
+        {
+            List<FilterOptionModel> list = new List<FilterOptionModel>();
+
+            foreach (NameIdEntity item in entities)
+            {
+                list.Add(
+                    new FilterOptionModel(
+                        item.Name,
+                        item.Id,
+                        item.ParentId
+                    )
+                );
+            }
+
+            return list;
         }
     }
 }

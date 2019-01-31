@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CinemaReservation.BusinessLayer.Models;
 
 
@@ -8,5 +9,6 @@ namespace CinemaReservation.BusinessLayer.Contracts
     {
         Task<UpsertItemResultStatus> AddHallsAsync(HallsModel hallsModel);
         Task<UpsertItemResultStatus> EditHallsAsync(HallsModel hallsModel);
+        Task<List<FilterOptionModel>> GetHallsOptionsAsync();
     }
 }

@@ -36,5 +36,13 @@ namespace CinemaReservation.Web.Controllers
 
             return Conflict("Unique index error");
         }
+
+        [HttpGet("getServiceOptions")]
+        public async Task<IActionResult> GetServiceOptionsAsync()
+        {
+            List<FilterOptionModel> result = await _additionalServicesService.GetServiceOptionsAsync();
+
+            return Ok(result);
+        }
     }
 }

@@ -100,5 +100,30 @@ namespace CinemaReservation.BusinessLayer.Services
 
             return UpsertItemResultStatus.Ok;
         }
+
+        public async Task<List<FilterOptionModel>> GetHallsOptionsAsync()
+        {
+            List<NameIdEntity> halls = await _hallRepository.GetHallsAsync();
+
+            return GetOptionListFromArray(halls);
+        }
+
+        private List<FilterOptionModel> GetOptionListFromArray(List<NameIdEntity> entities)
+        {
+            List<FilterOptionModel> list = new List<FilterOptionModel>();
+
+            foreach (NameIdEntity item in entities)
+            {
+                list.Add(
+                    new FilterOptionModel(
+                        item.Name,
+                        item.Id,
+                        item.ParentId
+                    )
+                );
+            }
+
+            return list;
+        }
     }
 }

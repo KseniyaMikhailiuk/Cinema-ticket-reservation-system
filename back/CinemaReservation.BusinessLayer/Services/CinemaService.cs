@@ -72,8 +72,7 @@ namespace CinemaReservation.BusinessLayer.Services
 
             return new CinemaFilterOptionsModel(
                 citiesList,
-                cinemasList,
-                hallsList
+                cinemasList
             );
         }
 

@@ -1,6 +1,7 @@
 ﻿using CinemaReservation.DataAccessLayer.Contracts;
 using CinemaReservation.DataAccessLayer.Entities;
 using Dapper;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
@@ -36,5 +37,18 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                 return AddOperationResultStatus.UniqueIndexError;
             }
         }
+        public async Task<List<NameIdEntity>> GetServiceOptionsAsync()
+        {
+            using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+            {
+                List<NameIdEntity> nameIdEntity = (List<NameIdEntity>)await dbConnection.QueryAsync<NameIdEntity>(
+                    "GetServiceOptions",
+                    commandType: CommandType.StoredProcedure
+                );
+
+                return nameIdEntity;
+            }
+        }
+
     }
 }
