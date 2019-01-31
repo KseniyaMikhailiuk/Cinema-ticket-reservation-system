@@ -42,7 +42,7 @@ namespace CinemaReservation.Web.Controllers
         {
             List<FilterOptionModel> result = await _additionalServicesService.GetServiceOptionsAsync();
 
-            return Ok(result);
+            return Ok(ModelTransformationHelper.ModelListToResponseList(result).ToArray());
         }
     }
 }

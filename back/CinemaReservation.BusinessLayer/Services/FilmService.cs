@@ -83,25 +83,7 @@ namespace CinemaReservation.BusinessLayer.Services
         {
             List<NameIdEntity> films = await _filmRepository.GetFilmOptionsAsync();
 
-            return GetOptionListFromArray(films);
-        }
-
-        private List<FilterOptionModel> GetOptionListFromArray(List<NameIdEntity> entities)
-        {
-            List<FilterOptionModel> list = new List<FilterOptionModel>();
-
-            foreach (NameIdEntity item in entities)
-            {
-                list.Add(
-                    new FilterOptionModel(
-                        item.Name,
-                        item.Id,
-                        item.ParentId
-                    )
-                );
-            }
-
-            return list;
+            return EntityTransformationHelper.GetModelListFromEntityArray(films);
         }
     }
 }

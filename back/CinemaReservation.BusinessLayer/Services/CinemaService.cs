@@ -66,32 +66,14 @@ namespace CinemaReservation.BusinessLayer.Services
             List<NameIdEntity> cities = await _cinemaRepository.GetCitiesAsync();
             List<NameIdEntity> cinemas = await _cinemaRepository.GetCinemasAsync();
 
-            List<FilterOptionModel> citiesList = GetOptionListFromArray(cities);
+            List<FilterOptionModel> citiesList = EntityTransformationHelper.GetModelListFromEntityArray(cities);
 
-            List<FilterOptionModel> cinemasList = GetOptionListFromArray(cinemas);
+            List<FilterOptionModel> cinemasList = EntityTransformationHelper.GetModelListFromEntityArray(cinemas);
 
             return new CinemaFilterOptionsModel(
                 citiesList,
                 cinemasList
             );
-        }
-
-        private List<FilterOptionModel> GetOptionListFromArray(List<NameIdEntity> entities)
-        {
-            List<FilterOptionModel> list = new List<FilterOptionModel>();
-
-            foreach (NameIdEntity item in entities)
-            {
-                list.Add(
-                    new FilterOptionModel(
-                        item.Name,
-                        item.Id,
-                        item.ParentId
-                    )
-                );
-            }
-
-            return list;
         }
     }
 }

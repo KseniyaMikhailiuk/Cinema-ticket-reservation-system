@@ -5,6 +5,7 @@ using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
 using System;
+using System.Collections.Generic;
 
 namespace CinemaReservation.Web.Controllers
 {
@@ -64,6 +65,14 @@ namespace CinemaReservation.Web.Controllers
             }
 
             return BadRequest("Error");
+        }
+
+        [HttpGet("getFilmOptions")]
+        public async Task<IActionResult> GetFilmOptionsAsync()
+        {
+            List<FilterOptionModel> result = await _filmService.GetFilmOptionsAsync();
+
+            return Ok(ModelTransformationHelper.ModelListToResponseList(result).ToArray());
         }
     }
 }

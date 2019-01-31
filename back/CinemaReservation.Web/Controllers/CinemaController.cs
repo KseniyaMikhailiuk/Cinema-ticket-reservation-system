@@ -67,29 +67,11 @@ namespace CinemaReservation.Web.Controllers
             CinemaFilterOptionsModel result = await _cinemaService.GetCinemaOptionsAsync();
 
             CinemaFilterOptionsResponse response = new CinemaFilterOptionsResponse(
-                ModelListToResponseList(result.Cities).ToArray(),
-                ModelListToResponseList(result.Cinemas).ToArray()
+                ModelTransformationHelper.ModelListToResponseList(result.Cities).ToArray(),
+                ModelTransformationHelper.ModelListToResponseList(result.Cinemas).ToArray()
             );
 
             return Ok(response);
-        }
-
-        private List<FilterOptionItem> ModelListToResponseList(List<FilterOptionModel> modelList)
-        {
-            List<FilterOptionItem> list = new List<FilterOptionItem>();
-
-            foreach (FilterOptionModel item in modelList)
-            {
-                list.Add(
-                    new FilterOptionItem(
-                        item.Name,
-                        item.Id,
-                        item.ParentId
-                    )
-                );
-            }
-
-            return list;
         }
     }
 }

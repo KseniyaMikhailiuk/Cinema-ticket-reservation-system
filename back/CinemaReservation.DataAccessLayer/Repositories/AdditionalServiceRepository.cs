@@ -37,6 +37,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                 return AddOperationResultStatus.UniqueIndexError;
             }
         }
+
         public async Task<List<NameIdEntity>> GetServiceOptionsAsync()
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))

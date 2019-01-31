@@ -25,7 +25,7 @@ namespace CinemaReservation.Web.Controllers
         {
             List<FilterOptionModel> result = await _seatTypesService.GetOptions();
 
-            return Ok(result);
+            return Ok(ModelTransformationHelper.ModelListToResponseList(result).ToArray());
         }
     }
 }

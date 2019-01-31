@@ -102,5 +102,13 @@ namespace CinemaReservation.Web.Controllers
 
             return Conflict("Hall exists");
         }
+
+        [HttpGet("getHallsOptions")]
+        public async Task<IActionResult> GetCinemaFilterOptionsAsync()
+        {
+            List<FilterOptionModel> result = await _hallService.GetHallsOptionsAsync();
+
+            return Ok(ModelTransformationHelper.ModelListToResponseList(result).ToArray());
+        }
     }
 }
