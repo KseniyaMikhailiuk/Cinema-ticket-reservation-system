@@ -23,27 +23,9 @@ namespace CinemaReservation.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddHallsAsync(UpsertHallsRequest addHallsRequest)
         {
-            List<HallModel> halls = new List<HallModel>();
+            List<HallModel> halls = addHallsRequest.Halls.GetHallModelList();
 
-            foreach (Hall hall in addHallsRequest.Halls)
-            {
-                halls.Add(new HallModel(
-                    hall.Name,
-                    hall.Id
-                ));
-            }
-
-            List<SeatModel> seats = new List<SeatModel>();
-
-            foreach (Seat seat in addHallsRequest.Seats)
-            {
-                seats.Add(new SeatModel(
-                    seat.Type,
-                    seat.Raw,
-                    seat.Line,
-                    seat.HallId
-                ));
-            }
+            List<SeatModel> seats = addHallsRequest.Seats.GetSeatModelList();
 
             UpsertItemResultStatus resultStatus = await _hallService.UpsertHallsAsync(
                 new CinemaHallsModel(
@@ -64,27 +46,9 @@ namespace CinemaReservation.Web.Controllers
         [HttpPut("{Id:int}")]
         public async Task<IActionResult> EditHallsAsync(UpsertHallsRequest editHallsRequest)
         {
-            List<HallModel> halls = new List<HallModel>();
+            List<HallModel> halls = editHallsRequest.Halls.GetHallModelList();
 
-            foreach (Hall hall in editHallsRequest.Halls)
-            {
-                halls.Add(new HallModel(
-                    hall.Name,
-                    hall.Id
-                ));
-            }
-
-            List<SeatModel> seats = new List<SeatModel>();
-
-            foreach (Seat seat in editHallsRequest.Seats)
-            {
-                seats.Add(new SeatModel(
-                    seat.Type,
-                    seat.Raw,
-                    seat.Line,
-                    seat.HallId
-                ));
-            }
+            List<SeatModel> seats = editHallsRequest.Seats.GetSeatModelList();
 
             UpsertItemResultStatus resultStatus = await _hallService.UpsertHallsAsync(
                 new CinemaHallsModel(
@@ -107,7 +71,7 @@ namespace CinemaReservation.Web.Controllers
         {
             List<OptionModel> result = await _hallService.GetHallsOptionsAsync();
 
-            return Ok(result.GetOptionsModelListToResponseArray());
+            return Ok(result.GetOptionsResponseArray());
         }
     }
 }

@@ -23,10 +23,11 @@ namespace CinemaReservation.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAdditionalServicesAsync(UpsertAdditionalServiceRequest addAdditionalServiceRequest)
         {
-            UpsertItemResultStatus resultStatus = await _additionalServicesService.UpsertAdditionalServiceAsync(new ServiceModel(
-                addAdditionalServiceRequest.Id,
-                addAdditionalServiceRequest.Name
-            ));
+            UpsertItemResultStatus resultStatus = await _additionalServicesService
+                .UpsertAdditionalServiceAsync(new ServiceModel(
+                    addAdditionalServiceRequest.Id,
+                    addAdditionalServiceRequest.Name
+                ));
 
             if (resultStatus == UpsertItemResultStatus.Ok)
             {
@@ -39,10 +40,11 @@ namespace CinemaReservation.Web.Controllers
         [HttpPut("{Id:int}")]
         public async Task<IActionResult> EditAdditionalServicesAsync(UpsertAdditionalServiceRequest editAdditionalServiceRequest)
         {
-            UpsertItemResultStatus resultStatus = await _additionalServicesService.UpsertAdditionalServiceAsync(new ServiceModel(
-                editAdditionalServiceRequest.Id,
-                editAdditionalServiceRequest.Name
-            ));
+            UpsertItemResultStatus resultStatus = await _additionalServicesService
+                .UpsertAdditionalServiceAsync(new ServiceModel(
+                    editAdditionalServiceRequest.Id,
+                    editAdditionalServiceRequest.Name
+                ));
 
             if (resultStatus == UpsertItemResultStatus.Ok)
             {
@@ -57,7 +59,7 @@ namespace CinemaReservation.Web.Controllers
         {
             List<OptionModel> result = await _additionalServicesService.GetServiceOptionsAsync();
 
-            return Ok(result.GetOptionsModelListToResponseArray());
+            return Ok(result.GetOptionsResponseArray());
         }
     }
 }

@@ -44,12 +44,17 @@ namespace CinemaReservation.BusinessLayer.Services
                     await _hallRepository.RemoveHallPlanAsync(hallResultEntity.Id);
                 }
 
-                await _hallRepository.AddHallPlanAsync(
+                AddOperationResultStatus resultStatus = await _hallRepository.AddHallPlanAsync(
                     hallSeats
-                        .GetSeatEntityListFromModelList(
+                        .GetSeatEntityList(
                             hallResultEntity.Id
                         )
                 );
+
+                if (resultStatus == AddOperationResultStatus.UniqueIndexError)
+                {
+                    return UpsertItemResultStatus.Conflict;
+                }
             }
 
             return UpsertItemResultStatus.Ok;
@@ -59,7 +64,7 @@ namespace CinemaReservation.BusinessLayer.Services
         {
             List<NameIdEntity> halls = await _hallRepository.GetHallsAsync();
 
-            return halls.GetOptionModelListFromEntityArray();
+            return halls.GetOptionModelList();
         }
     }
 }

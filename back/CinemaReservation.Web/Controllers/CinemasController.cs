@@ -67,8 +67,8 @@ namespace CinemaReservation.Web.Controllers
             CinemaOptionsModel result = await _cinemaService.GetCinemaOptionsAsync();
 
             CinemaOptionsResponse response = new CinemaOptionsResponse(
-                result.Cities.GetOptionsModelListToResponseArray(),
-                result.Cinemas.GetOptionsModelListToResponseArray()
+                result.Cities.GetOptionsResponseArray(),
+                result.Cinemas.GetOptionsResponseArray()
             );
 
             return Ok(response);

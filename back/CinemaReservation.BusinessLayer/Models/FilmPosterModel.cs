@@ -8,11 +8,11 @@ namespace CinemaReservation.BusinessLayer.Models
         public IFormFile FormFile { get; }
 
         public FilmPosterModel(
-            int targetId,
+            int filmId,
             IFormFile formFile
         )
         {
-            FilmId = targetId;
+            FilmId = filmId;
             FormFile = formFile;
         }
     }

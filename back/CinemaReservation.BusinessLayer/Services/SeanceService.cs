@@ -31,7 +31,7 @@ namespace CinemaReservation.BusinessLayer.Services
                 AddOperationResultStatus addSeatPricesResultStatus = await _seanceRepository.AddSeanceSeatPricesAsync(
                         seanceModel
                             .SeatPrices
-                            .GetPriceEntityListFromModelList(
+                            .GetPriceEntityList(
                                 resultEntity.Id
                             )
                 );
@@ -41,7 +41,7 @@ namespace CinemaReservation.BusinessLayer.Services
                     AddOperationResultStatus addServicesResultStatus = await _seanceRepository.AddSeanceAdditionalServicesAsync(
                         seanceModel
                             .Services
-                            .GetPriceEntityListFromModelList(
+                            .GetPriceEntityList(
                                 resultEntity.Id
                             )
                     );

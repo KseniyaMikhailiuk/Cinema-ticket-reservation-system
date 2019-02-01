@@ -6,7 +6,7 @@ namespace CinemaReservation.Web.Controllers
 {
     public static class ListArrayExtension
     {
-        public static OptionItem[] GetOptionsModelListToResponseArray(this List<OptionModel> modelList)
+        public static OptionItem[] GetOptionsResponseArray(this List<OptionModel> modelList)
         {
             List<OptionItem> list = new List<OptionItem>();
 
@@ -24,7 +24,39 @@ namespace CinemaReservation.Web.Controllers
             return list.ToArray();
         }
 
-        public static List<PriceModel> GetPriceRequestArrayToPriceModelList(this PriceItem[] modelList)
+        public static List<HallModel> GetHallModelList(this Hall[] hallsArray)
+        {
+            List<HallModel> halls = new List<HallModel>();
+
+            foreach (Hall hall in hallsArray)
+            {
+                halls.Add(new HallModel(
+                    hall.Name,
+                    hall.Id
+                ));
+            }
+
+            return halls;
+        }
+
+        public static List<SeatModel> GetSeatModelList(this Seat[] seatsArray)
+        {
+            List<SeatModel> seats = new List<SeatModel>();
+
+            foreach (Seat seat in seatsArray)
+            {
+                seats.Add(new SeatModel(
+                    seat.Type,
+                    seat.Raw,
+                    seat.Line,
+                    seat.HallId
+                ));
+            }
+
+            return seats;
+        }
+
+        public static List<PriceModel> GetPriceModelList(this PriceItem[] modelList)
         {
             List<PriceModel> list = new List<PriceModel>();
 

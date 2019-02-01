@@ -6,7 +6,7 @@ namespace CinemaReservation.BusinessLayer.Services
 {
     public static class ListArrayExtension
     {
-        public static List<OptionModel> GetOptionModelListFromEntityArray(this List<NameIdEntity> entities)
+        public static List<OptionModel> GetOptionModelList(this List<NameIdEntity> entities)
         {
             List<OptionModel> list = new List<OptionModel>();
 
@@ -24,7 +24,7 @@ namespace CinemaReservation.BusinessLayer.Services
             return list;
         }
 
-        public static List<SeatEntity> GetSeatEntityListFromModelList(this List<SeatModel> hallSeats, int hallId)
+        public static List<SeatEntity> GetSeatEntityList(this List<SeatModel> hallSeats, int hallId)
         {
             List<SeatEntity> seatEntities = new List<SeatEntity>();
 
@@ -44,7 +44,7 @@ namespace CinemaReservation.BusinessLayer.Services
         }
 
 
-    public static List<PriceEntity> GetPriceEntityListFromModelList(this List<PriceModel> entities, int parentId)
+    public static List<PriceEntity> GetPriceEntityList(this List<PriceModel> entities, int parentId)
         {
             List<PriceEntity> list = new List<PriceEntity>();
 

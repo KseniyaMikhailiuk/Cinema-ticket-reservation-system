@@ -62,22 +62,15 @@ namespace CinemaReservation.DataAccessLayer.Repositories
 
         public async Task<AddOperationResultStatus> RemoveHallPlanAsync(int hallId)
         {
-            try
+            using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
-                using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
-                {
-                    await dbConnection.ExecuteAsync(
-                        "RemoveSeats",
-                        new { HallId = hallId },
-                        commandType: CommandType.StoredProcedure
-                    );
+                await dbConnection.ExecuteAsync(
+                    "RemoveSeats",
+                    new { HallId = hallId },
+                    commandType: CommandType.StoredProcedure
+                );
 
-                    return AddOperationResultStatus.Ok;
-                }
-            }
-            catch
-            {
-                return AddOperationResultStatus.UniqueIndexError;
+                return AddOperationResultStatus.Ok;
             }
         }
 

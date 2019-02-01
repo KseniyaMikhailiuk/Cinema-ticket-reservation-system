@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[RemoveSeats]
-	@HallId int
+    @HallId int
 AS
-	DELETE FROM [dbo].[Seats] WHERE HallId = @HallId;
+    DELETE FROM [dbo].[Seats] WHERE HallId = @HallId;
 RETURN 0

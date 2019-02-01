@@ -100,7 +100,7 @@ namespace CinemaReservation.Web.Controllers
         {
             List<OptionModel> result = await _filmService.GetFilmOptionsAsync();
 
-            return Ok(result.GetOptionsModelListToResponseArray());
+            return Ok(result.GetOptionsResponseArray());
         }
     }
 }

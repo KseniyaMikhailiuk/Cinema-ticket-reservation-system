@@ -34,6 +34,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                 );
             }
         }
+
         public async Task<AddOperationResultEntity> InsertFilmPosterAsync(FilmPosterEntity filmPosterEntity)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))

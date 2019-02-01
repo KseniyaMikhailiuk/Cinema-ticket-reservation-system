@@ -23,7 +23,7 @@ namespace CinemaReservation.Web.Controllers
         {
             List<OptionModel> result = await _seatTypesService.GetOptions();
 
-            return Ok(result.GetOptionsModelListToResponseArray());
+            return Ok(result.GetOptionsResponseArray());
         }
     }
 }

@@ -16,6 +16,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
         {
             _settings = dalSettings;
         }
+
         public async Task<List<NameIdEntity>> GetSeatTypeOptionsAsync()
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))

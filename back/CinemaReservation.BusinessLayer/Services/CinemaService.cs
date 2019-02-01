@@ -44,9 +44,9 @@ namespace CinemaReservation.BusinessLayer.Services
             List<NameIdEntity> cities = await _cinemaRepository.GetCitiesAsync();
             List<NameIdEntity> cinemas = await _cinemaRepository.GetCinemasAsync();
 
-            List<OptionModel> citiesList = cities.GetOptionModelListFromEntityArray();
+            List<OptionModel> citiesList = cities.GetOptionModelList();
 
-            List<OptionModel> cinemasList = cinemas.GetOptionModelListFromEntityArray();
+            List<OptionModel> cinemasList = cinemas.GetOptionModelList();
 
             return new CinemaOptionsModel(
                 citiesList,

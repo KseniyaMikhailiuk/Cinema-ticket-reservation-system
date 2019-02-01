@@ -23,9 +23,9 @@ namespace CinemaReservation.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddSeanceAsync(UpsertSeanceRequest addSeanceRequest)
         {
-            List<PriceModel> services = addSeanceRequest.Services.GetPriceRequestArrayToPriceModelList();
+            List<PriceModel> services = addSeanceRequest.Services.GetPriceModelList();
 
-            List<PriceModel> seatPrices = addSeanceRequest.SeatPrices.GetPriceRequestArrayToPriceModelList();
+            List<PriceModel> seatPrices = addSeanceRequest.SeatPrices.GetPriceModelList();
 
             SeanceModel seanceModel = new SeanceModel(
                 addSeanceRequest.Id,
@@ -49,9 +49,9 @@ namespace CinemaReservation.Web.Controllers
         [HttpPut("{Id:int}")]
         public async Task<IActionResult> EditSeanceAsync(UpsertSeanceRequest addSeanceRequest)
         {
-            List<PriceModel> services = addSeanceRequest.Services.GetPriceRequestArrayToPriceModelList();
+            List<PriceModel> services = addSeanceRequest.Services.GetPriceModelList();
 
-            List<PriceModel> seatPrices = addSeanceRequest.SeatPrices.GetPriceRequestArrayToPriceModelList();
+            List<PriceModel> seatPrices = addSeanceRequest.SeatPrices.GetPriceModelList();
 
             SeanceModel seanceModel = new SeanceModel(
                 addSeanceRequest.Id,
