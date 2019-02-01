@@ -7,7 +7,7 @@ AS
 BEGIN
     DECLARE
         @FilmDuration time
-   SELECT @FilmDuration = (FilmDuration)
+    SELECT @FilmDuration = (FilmDuration)
         FROM [dbo].[Films]
         WHERE (Id = @FilmId)
     DECLARE
