@@ -22,7 +22,7 @@ namespace CinemaReservation.BusinessLayer.Services
         {
             List<NameIdEntity> seatTypes = await _seatTypesRepository.GetSeatTypeOptionsAsync();
 
-            return EntityTransformationHelper.GetModelListFromEntityArray(seatTypes);
+            return seatTypes.GetOptionModelListFromEntityArray();
         }
     }
 }

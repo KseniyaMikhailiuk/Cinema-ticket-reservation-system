@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace CinemaReservation.BusinessLayer.Services
 {
-    public static class EntityTransformationHelper
+    public static class ListArrayExtension
     {
-        public static List<FilterOptionModel> GetModelListFromEntityArray(List<NameIdEntity> entities)
+        public static List<FilterOptionModel> GetOptionModelListFromEntityArray(this List<NameIdEntity> entities)
         {
             List<FilterOptionModel> list = new List<FilterOptionModel>();
 
@@ -24,7 +24,27 @@ namespace CinemaReservation.BusinessLayer.Services
             return list;
         }
 
-        public static List<PriceEntity> GetSeatPriceEntityListFromModelList(List<PriceModel> entities, int parentId)
+        public static List<SeatEntity> GetSeatEntityListFromModelList(this List<SeatModel> hallSeats, int hallId)
+        {
+            List<SeatEntity> seatEntities = new List<SeatEntity>();
+
+            foreach (SeatModel seat in hallSeats)
+            {
+                seatEntities.Add(
+                    new SeatEntity(
+                        seat.Type,
+                        seat.Raw,
+                        seat.Line,
+                        hallId
+                    )
+                );
+            }
+
+            return seatEntities;
+        }
+
+
+    public static List<PriceEntity> GetPriceEntityListFromModelList(this List<PriceModel> entities, int parentId)
         {
             List<PriceEntity> list = new List<PriceEntity>();
 

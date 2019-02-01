@@ -18,7 +18,7 @@ namespace CinemaReservation.BusinessLayer.Services
             _cinemaRepository = cinemaRepository;
         }
 
-        public async Task<UpsertItemResultStatusAndId> AddCinemaAsync(CinemaModel cinemaModel)
+        public async Task<UpsertItemResultStatusAndId> UpsertCinemaAsync(CinemaModel cinemaModel)
         {
             AddOperationResultEntity cinemaEntity = await _cinemaRepository.UpsertCinemaAsync(
                 new CinemaEntity(
@@ -38,37 +38,14 @@ namespace CinemaReservation.BusinessLayer.Services
             return new UpsertItemResultStatusAndId(UpsertItemResultStatus.Conflict);
         }
 
-        public async Task<UpsertItemResultStatusAndId> EditCinemaAsync(CinemaModel cinemaModel)
-        {
-            AddOperationResultEntity cinemaEntity = await _cinemaRepository.UpsertCinemaAsync(
-                new CinemaEntity(
-                    cinemaModel.Id,
-                    cinemaModel.Name,
-                    cinemaModel.City
-                )
-            );
-
-            if (cinemaEntity.OperationResultStatus == AddOperationResultStatus.Ok)
-            {
-                return new UpsertItemResultStatusAndId(
-                    cinemaEntity.Id,
-                    UpsertItemResultStatus.Ok
-                );
-            }
-
-            return new UpsertItemResultStatusAndId(
-                UpsertItemResultStatus.Conflict
-            );
-        }
-
         public async Task<CinemaFilterOptionsModel> GetCinemaOptionsAsync()
         {
             List<NameIdEntity> cities = await _cinemaRepository.GetCitiesAsync();
             List<NameIdEntity> cinemas = await _cinemaRepository.GetCinemasAsync();
 
-            List<FilterOptionModel> citiesList = EntityTransformationHelper.GetModelListFromEntityArray(cities);
+            List<FilterOptionModel> citiesList = cities.GetOptionModelListFromEntityArray();
 
-            List<FilterOptionModel> cinemasList = EntityTransformationHelper.GetModelListFromEntityArray(cinemas);
+            List<FilterOptionModel> cinemasList = cinemas.GetOptionModelListFromEntityArray();
 
             return new CinemaFilterOptionsModel(
                 citiesList,

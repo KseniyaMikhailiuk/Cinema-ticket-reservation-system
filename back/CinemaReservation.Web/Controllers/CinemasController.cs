@@ -23,8 +23,9 @@ namespace CinemaReservation.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCinemaAsync(UpsertCinemaRequest addCinemaRequest)
         {
-            UpsertItemResultStatusAndId cinemaResultModel = await _cinemaService.AddCinemaAsync(
+            UpsertItemResultStatusAndId cinemaResultModel = await _cinemaService.UpsertCinemaAsync(
                 new CinemaModel(
+                    addCinemaRequest.Id,
                     addCinemaRequest.Name,
                     addCinemaRequest.City
                 )
@@ -43,7 +44,7 @@ namespace CinemaReservation.Web.Controllers
         [HttpPut("editcinema")]
         public async Task<IActionResult> EditCinemaAsync(UpsertCinemaRequest editCinemaRequest)
         {
-            UpsertItemResultStatusAndId cinemaResultModel = await _cinemaService.EditCinemaAsync(
+            UpsertItemResultStatusAndId cinemaResultModel = await _cinemaService.UpsertCinemaAsync(
                 new CinemaModel(
                     editCinemaRequest.Id,
                     editCinemaRequest.Name,
@@ -67,8 +68,8 @@ namespace CinemaReservation.Web.Controllers
             CinemaFilterOptionsModel result = await _cinemaService.GetCinemaOptionsAsync();
 
             CinemaFilterOptionsResponse response = new CinemaFilterOptionsResponse(
-                ModelTransformationHelper.ModelListToResponseList(result.Cities).ToArray(),
-                ModelTransformationHelper.ModelListToResponseList(result.Cinemas).ToArray()
+                result.Cities.GetOptionsModelListToResponseArray(),
+                result.Cinemas.GetOptionsModelListToResponseArray()
             );
 
             return Ok(response);

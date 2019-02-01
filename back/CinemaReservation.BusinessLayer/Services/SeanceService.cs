@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.DataAccessLayer.Contracts;
@@ -18,7 +17,7 @@ namespace CinemaReservation.BusinessLayer.Services
             _seanceRepository = seanceRepository;
         }
 
-        public async Task<UpsertItemResultStatus> AddSeanceAsync(SeanceModel seanceModel)
+        public async Task<UpsertItemResultStatus> UpsertSeanceAsync(SeanceModel seanceModel)
         {
             AddOperationResultEntity resultEntity = await _seanceRepository.UpsertSeanceAsync(new SeanceEntity(
                 seanceModel.DateTime,
@@ -29,19 +28,21 @@ namespace CinemaReservation.BusinessLayer.Services
             if (resultEntity.OperationResultStatus == AddOperationResultStatus.Ok)
             {
                 AddOperationResultStatus addSeatPricesResultStatus = await _seanceRepository.AddSeanceSeatPricesAsync(
-                    EntityTransformationHelper.GetSeatPriceEntityListFromModelList(
-                        seanceModel.SeatPrices,
-                        resultEntity.Id
-                    )
+                        seanceModel
+                            .SeatPrices
+                            .GetPriceEntityListFromModelList(
+                                resultEntity.Id
+                            )
                 );
 
                 if (addSeatPricesResultStatus == AddOperationResultStatus.Ok)
                 {
                     AddOperationResultStatus addServicesResultStatus = await _seanceRepository.AddSeanceAdditionalServicesAsync(
-                        EntityTransformationHelper.GetSeatPriceEntityListFromModelList(
-                            seanceModel.Services,
-                            resultEntity.Id
-                        )
+                        seanceModel
+                            .Services
+                            .GetPriceEntityListFromModelList(
+                                resultEntity.Id
+                            )
                     );
 
                     if (addServicesResultStatus == AddOperationResultStatus.Ok)

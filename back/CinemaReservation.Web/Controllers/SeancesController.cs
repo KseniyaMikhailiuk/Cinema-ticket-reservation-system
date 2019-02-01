@@ -21,13 +21,14 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddSeanceAsync(AddSeanceRequest addSeanceRequest)
+        public async Task<IActionResult> AddSeanceAsync(UpsertSeanceRequest addSeanceRequest)
         {
-            List<PriceModel> services = ModelTransformationHelper.PriceRequestArrayToPriceModelList(addSeanceRequest.Services);
+            List<PriceModel> services = addSeanceRequest.Services.GetPriceRequestArrayToPriceModelList();
 
-            List<PriceModel> seatPrices = ModelTransformationHelper.PriceRequestArrayToPriceModelList(addSeanceRequest.SeatPrices);
+            List<PriceModel> seatPrices = addSeanceRequest.SeatPrices.GetPriceRequestArrayToPriceModelList();
 
             SeanceModel seanceModel = new SeanceModel(
+                addSeanceRequest.Id,
                 addSeanceRequest.DateTime,
                 addSeanceRequest.FilmId,
                 addSeanceRequest.HallId,
@@ -35,7 +36,7 @@ namespace CinemaReservation.Web.Controllers
                 seatPrices
             );
 
-            UpsertItemResultStatus resultStatus = await _seanceService.AddSeanceAsync(seanceModel);
+            UpsertItemResultStatus resultStatus = await _seanceService.UpsertSeanceAsync(seanceModel);
 
             if (resultStatus == UpsertItemResultStatus.Ok)
             {
@@ -44,5 +45,32 @@ namespace CinemaReservation.Web.Controllers
 
             return Conflict("Seance at this time exists");
         }
+
+        [HttpPut]
+        public async Task<IActionResult> EditSeanceAsync(UpsertSeanceRequest addSeanceRequest)
+        {
+            List<PriceModel> services = addSeanceRequest.Services.GetPriceRequestArrayToPriceModelList();
+
+            List<PriceModel> seatPrices = addSeanceRequest.SeatPrices.GetPriceRequestArrayToPriceModelList();
+
+            SeanceModel seanceModel = new SeanceModel(
+                addSeanceRequest.Id,
+                addSeanceRequest.DateTime,
+                addSeanceRequest.FilmId,
+                addSeanceRequest.HallId,
+                services,
+                seatPrices
+            );
+
+            UpsertItemResultStatus resultStatus = await _seanceService.UpsertSeanceAsync(seanceModel);
+
+            if (resultStatus == UpsertItemResultStatus.Ok)
+            {
+                return Ok("Seance added successfully");
+            }
+
+            return Conflict("Seance at this time exists");
+        }
+
     }
 }

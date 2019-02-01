@@ -12,24 +12,6 @@ namespace CinemaReservation.BusinessLayer.Models
         public DateTime FinishShowingDate { get; }
         public TimeSpan FilmDuration { get; }
 
-
-        public FilmModel(
-            string title,
-            DateTime release,
-            string description,
-            DateTime startShowingDate,
-            DateTime finishShowingDate,
-            TimeSpan filmDuration
-        )
-        {
-            Title = title;
-            Release = release;
-            Description = description;
-            StartShowingDate = startShowingDate;
-            FinishShowingDate = finishShowingDate;
-            FilmDuration = filmDuration;
-        }
-
         public FilmModel(
             int id,
             string title,

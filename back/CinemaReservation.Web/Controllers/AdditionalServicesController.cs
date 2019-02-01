@@ -21,10 +21,27 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddAdditionalServicesAsync(UpsertAdditionalServiceRequest upsertAdditionalServiceRequest)
+        public async Task<IActionResult> AddAdditionalServicesAsync(UpsertAdditionalServiceRequest addAdditionalServiceRequest)
         {
-            UpsertItemResultStatus resultStatus = await _additionalServicesService.AddAdditionalServiceAsync(new ServiceModel(
-                upsertAdditionalServiceRequest.Name
+            UpsertItemResultStatus resultStatus = await _additionalServicesService.UpsertAdditionalServiceAsync(new ServiceModel(
+                addAdditionalServiceRequest.Id,
+                addAdditionalServiceRequest.Name
+            ));
+
+            if (resultStatus == UpsertItemResultStatus.Ok)
+            {
+                return Ok("ServiceAdded successfully");
+            }
+
+            return Conflict("Unique index error");
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> EditAdditionalServicesAsync(UpsertAdditionalServiceRequest editAdditionalServiceRequest)
+        {
+            UpsertItemResultStatus resultStatus = await _additionalServicesService.UpsertAdditionalServiceAsync(new ServiceModel(
+                editAdditionalServiceRequest.Id,
+                editAdditionalServiceRequest.Name
             ));
 
             if (resultStatus == UpsertItemResultStatus.Ok)
@@ -40,7 +57,7 @@ namespace CinemaReservation.Web.Controllers
         {
             List<FilterOptionModel> result = await _additionalServicesService.GetServiceOptionsAsync();
 
-            return Ok(ModelTransformationHelper.ModelListToResponseList(result).ToArray());
+            return Ok(result.GetOptionsModelListToResponseArray());
         }
     }
 }

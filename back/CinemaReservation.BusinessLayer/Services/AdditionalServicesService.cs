@@ -18,7 +18,7 @@ namespace CinemaReservation.BusinessLayer.Services
             _additionalServicesRepository = additionalServicesRepository;
         }
 
-        public async Task<UpsertItemResultStatus> AddAdditionalServiceAsync(ServiceModel serviceModel)
+        public async Task<UpsertItemResultStatus> UpsertAdditionalServiceAsync(ServiceModel serviceModel)
         {
             AddOperationResultStatus result = await _additionalServicesRepository.UpsertAdditionalServiceAsync(new AdditionalServiceEntity(
                 serviceModel.Name
@@ -35,7 +35,7 @@ namespace CinemaReservation.BusinessLayer.Services
         {
             List<NameIdEntity> services = await _additionalServicesRepository.GetServiceOptionsAsync();
 
-            return EntityTransformationHelper.GetModelListFromEntityArray(services);
+            return services.GetOptionModelListFromEntityArray();
         }
     }
 }

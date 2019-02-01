@@ -5,6 +5,7 @@ namespace CinemaReservation.BusinessLayer.Models
 {
     public class SeanceModel
     {
+        public int Id { get; }
         public DateTime DateTime { get; }
         public int FilmId { get; }
         public int HallId { get; }
@@ -12,6 +13,7 @@ namespace CinemaReservation.BusinessLayer.Models
         public List<PriceModel> SeatPrices { get; }
 
         public SeanceModel(
+            int id,
             DateTime dateTime,
             int filmId,
             int hallId,
@@ -19,6 +21,7 @@ namespace CinemaReservation.BusinessLayer.Models
             List<PriceModel> seatPrices
         )
         {
+            Id = id;
             DateTime = dateTime;
             FilmId = filmId;
             HallId = hallId;

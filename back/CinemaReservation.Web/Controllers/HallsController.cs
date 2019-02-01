@@ -45,7 +45,7 @@ namespace CinemaReservation.Web.Controllers
                 ));
             }
 
-            UpsertItemResultStatus resultStatus = await _hallService.AddHallsAsync(
+            UpsertItemResultStatus resultStatus = await _hallService.UpsertHallsAsync(
                 new HallsModel(
                     halls,
                     seats,
@@ -61,13 +61,12 @@ namespace CinemaReservation.Web.Controllers
             return Conflict("Hall exists");
         }
 
-        [HttpPut("edithalls")]
-        public async Task<IActionResult> EditHallsAsync(UpsertHallsRequest addHallsRequest)
+        [HttpPut()]
+        public async Task<IActionResult> EditHallsAsync(UpsertHallsRequest editHallsRequest)
         {
-
             List<HallModel> halls = new List<HallModel>();
 
-            foreach (Hall hall in addHallsRequest.Halls)
+            foreach (Hall hall in editHallsRequest.Halls)
             {
                 halls.Add(new HallModel(
                     hall.Name,
@@ -77,7 +76,7 @@ namespace CinemaReservation.Web.Controllers
 
             List<SeatModel> seats = new List<SeatModel>();
 
-            foreach (Seat seat in addHallsRequest.Seats)
+            foreach (Seat seat in editHallsRequest.Seats)
             {
                 seats.Add(new SeatModel(
                     seat.Type,
@@ -87,11 +86,11 @@ namespace CinemaReservation.Web.Controllers
                 ));
             }
 
-            UpsertItemResultStatus resultStatus = await _hallService.EditHallsAsync(
+            UpsertItemResultStatus resultStatus = await _hallService.UpsertHallsAsync(
                 new HallsModel(
                     halls,
                     seats,
-                    addHallsRequest.CinemaId
+                    editHallsRequest.CinemaId
                 )
             );
 
@@ -104,11 +103,11 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCinemaFilterOptionsAsync()
+        public async Task<IActionResult> GetHallOptionsAsync()
         {
             List<FilterOptionModel> result = await _hallService.GetHallsOptionsAsync();
 
-            return Ok(ModelTransformationHelper.ModelListToResponseList(result).ToArray());
+            return Ok(result.GetOptionsModelListToResponseArray());
         }
     }
 }

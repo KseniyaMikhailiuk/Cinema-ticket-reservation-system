@@ -6,7 +6,7 @@ namespace CinemaReservation.BusinessLayer.Contracts
 {
     public interface IFilmService
     {
-        Task<UpsertItemResultStatusAndId> AddFilmAsync(FilmModel filmModel);
+        Task<UpsertItemResultStatusAndId> UpsertFilmAsync(FilmModel filmModel);
         Task<UpsertItemResultStatus> AddFilmPosterAsync(FilmPosterModel filmPosterModel);
         Task<List<FilterOptionModel>> GetFilmOptionsAsync();
     }

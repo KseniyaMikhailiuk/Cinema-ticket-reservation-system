@@ -16,14 +16,5 @@
             Name = name;
             City = city;
         }
-
-        public CinemaModel(
-            string name,
-            string city
-        )
-        {
-            Name = name;
-            City = city;
-        }
     }
 }

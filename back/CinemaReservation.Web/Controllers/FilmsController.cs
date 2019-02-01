@@ -23,22 +23,50 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddFilmAsync(UpsertFilmRequest upsertFilmRequest)
+        public async Task<IActionResult> AddFilmAsync(UpsertFilmRequest addFilmRequest)
         {
             FilmModel filmModel = new FilmModel(
-                upsertFilmRequest.Title,
-                upsertFilmRequest.Release,
-                upsertFilmRequest.Description,
-                upsertFilmRequest.StartShowingDate,
-                upsertFilmRequest.FinishShowingDate,
+                addFilmRequest.Id,
+                addFilmRequest.Title,
+                addFilmRequest.Release,
+                addFilmRequest.Description,
+                addFilmRequest.StartShowingDate,
+                addFilmRequest.FinishShowingDate,
                 new TimeSpan(
-                    upsertFilmRequest.FilmDuration.Hours,
-                    upsertFilmRequest.FilmDuration.Minutes,
+                    addFilmRequest.FilmDuration.Hours,
+                    addFilmRequest.FilmDuration.Minutes,
                     0
                 )
             );
 
-            UpsertItemResultStatusAndId result = await _filmService.AddFilmAsync(filmModel);
+            UpsertItemResultStatusAndId result = await _filmService.UpsertFilmAsync(filmModel);
+
+            if (result.UpsertItemResultStatus == UpsertItemResultStatus.Ok)
+            {
+                return Ok(result.Id);
+            }
+
+            return Conflict("conflict");
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> EditFilmAsync(UpsertFilmRequest editFilmRequest)
+        {
+            FilmModel filmModel = new FilmModel(
+                editFilmRequest.Id,
+                editFilmRequest.Title,
+                editFilmRequest.Release,
+                editFilmRequest.Description,
+                editFilmRequest.StartShowingDate,
+                editFilmRequest.FinishShowingDate,
+                new TimeSpan(
+                    editFilmRequest.FilmDuration.Hours,
+                    editFilmRequest.FilmDuration.Minutes,
+                    0
+                )
+            );
+
+            UpsertItemResultStatusAndId result = await _filmService.UpsertFilmAsync(filmModel);
 
             if (result.UpsertItemResultStatus == UpsertItemResultStatus.Ok)
             {
@@ -72,7 +100,7 @@ namespace CinemaReservation.Web.Controllers
         {
             List<FilterOptionModel> result = await _filmService.GetFilmOptionsAsync();
 
-            return Ok(ModelTransformationHelper.ModelListToResponseList(result).ToArray());
+            return Ok(result.GetOptionsModelListToResponseArray());
         }
     }
 }

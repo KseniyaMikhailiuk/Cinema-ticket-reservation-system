@@ -21,9 +21,20 @@ BEGIN
 	IF EXISTS (Select * FROM [dbo].[Seances] AS Seances
 		INNER JOIN [dbo].[Films] AS Films
 		ON Films.Id = @FilmId
-		WHERE (DATEADD(minute, datepart(minute, @FilmDuration),
-			DATEADD(hour, datepart(hour, Films.FilmDuration), Seances.DateTime)) > @DateTime
-		AND Seances.DateTime < @FilmEndTime))
+		WHERE
+			(DATEADD(
+				minute,
+				datepart(minute, @FilmDuration),
+				DATEADD(
+					hour,
+					datepart(hour, Films.FilmDuration),
+					Seances.DateTime)
+			) > @DateTime
+			AND
+			Seances.DateTime < @FilmEndTime)
+			AND
+			Seances.Id != @Id)
+
 	BEGIN
 		RAISERROR('Seance at this time already exists', 16, 1)
 	END

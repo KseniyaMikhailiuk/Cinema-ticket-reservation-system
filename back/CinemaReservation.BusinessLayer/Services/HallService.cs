@@ -18,55 +18,11 @@ namespace CinemaReservation.BusinessLayer.Services
             _hallRepository = hallRepository;
         }
 
-        public async Task<UpsertItemResultStatus> AddHallsAsync(HallsModel hallsModel)
+        public async Task<UpsertItemResultStatus> UpsertHallsAsync(HallsModel hallsModel)
         {
             foreach (HallModel hall in hallsModel.Halls)
             {
-                List<SeatModel> hallSeats = hallsModel
-                    .Seats
-                    .FindAll(seat => seat.HallId == hall.Id);
-
-                AddOperationResultEntity hallEntity = await _hallRepository.UpsertHallAsync(
-                    new HallEntity(
-                        hall.Name,
-                        hallsModel.CinemaId
-                    )
-                );
-
-                if (hallEntity.OperationResultStatus == AddOperationResultStatus.UniqueIndexError)
-                {
-                    return UpsertItemResultStatus.Conflict;
-                }
-
-                List<SeatEntity> seatEntities = new List<SeatEntity>();
-
-                foreach (SeatModel seat in hallSeats)
-                {
-                    seatEntities.Add(
-                        new SeatEntity(
-                            seat.Type,
-                            seat.Raw,
-                            seat.Line,
-                            hallEntity.Id
-                        )
-                    );
-                }
-
-                await _hallRepository.AddHallPlanAsync(seatEntities);
-            }
-
-            return UpsertItemResultStatus.Ok;
-        }
-
-        public async Task<UpsertItemResultStatus> EditHallsAsync(HallsModel hallsModel)
-        {
-            foreach (HallModel hall in hallsModel.Halls)
-            {
-                List<SeatModel> hallSeats = hallsModel
-                    .Seats
-                    .FindAll(seat => seat.HallId == hall.Id);
-
-                AddOperationResultEntity hallEntity = await _hallRepository.UpsertHallAsync(
+                AddOperationResultEntity hallResultEntity = await _hallRepository.UpsertHallAsync(
                     new HallEntity(
                         hall.Id,
                         hall.Name,
@@ -74,28 +30,26 @@ namespace CinemaReservation.BusinessLayer.Services
                     )
                 );
 
-                if (hallEntity.OperationResultStatus == AddOperationResultStatus.UniqueIndexError)
+                if (hallResultEntity.OperationResultStatus == AddOperationResultStatus.UniqueIndexError)
                 {
                     return UpsertItemResultStatus.Conflict;
                 }
 
-                List<SeatEntity> seatEntities = new List<SeatEntity>();
+                List<SeatModel> hallSeats = hallsModel
+                    .Seats
+                    .FindAll(seat => seat.HallId == hall.Id);
 
-                foreach (SeatModel seat in hallSeats)
+                if (hall.Id == hallResultEntity.Id)
                 {
-                    seatEntities.Add(
-                        new SeatEntity(
-                            seat.Type,
-                            seat.Raw,
-                            seat.Line,
-                            hallEntity.Id
-                        )
-                    );
+                    await _hallRepository.RemoveHallPlanAsync(hallResultEntity.Id);
                 }
 
-                await _hallRepository.RemoveHallPlanAsync(hallEntity.Id);
-
-                await _hallRepository.AddHallPlanAsync(seatEntities);
+                await _hallRepository.AddHallPlanAsync(
+                    hallSeats
+                        .GetSeatEntityListFromModelList(
+                            hallResultEntity.Id
+                        )
+                );
             }
 
             return UpsertItemResultStatus.Ok;
@@ -105,7 +59,7 @@ namespace CinemaReservation.BusinessLayer.Services
         {
             List<NameIdEntity> halls = await _hallRepository.GetHallsAsync();
 
-            return EntityTransformationHelper.GetModelListFromEntityArray(halls);
+            return halls.GetOptionModelListFromEntityArray();
         }
     }
 }

@@ -25,9 +25,10 @@ namespace CinemaReservation.BusinessLayer.Services
         }
 
 
-        public async Task<UpsertItemResultStatusAndId> AddFilmAsync(FilmModel filmModel)
+        public async Task<UpsertItemResultStatusAndId> UpsertFilmAsync(FilmModel filmModel)
         {
             AddOperationResultEntity resultEntity = await _filmRepository.UpsertFilmAsync(new FilmEntity(
+                filmModel.Id,
                 filmModel.Title,
                 filmModel.Release,
                 filmModel.Description,
@@ -46,6 +47,7 @@ namespace CinemaReservation.BusinessLayer.Services
 
             return new UpsertItemResultStatusAndId(UpsertItemResultStatus.Conflict);
         }
+
 
         public async Task<UpsertItemResultStatus> AddFilmPosterAsync(FilmPosterModel imageModel)
         {
@@ -86,7 +88,7 @@ namespace CinemaReservation.BusinessLayer.Services
         {
             List<NameIdEntity> films = await _filmRepository.GetFilmOptionsAsync();
 
-            return EntityTransformationHelper.GetModelListFromEntityArray(films);
+            return films.GetOptionModelListFromEntityArray();
         }
     }
 }
