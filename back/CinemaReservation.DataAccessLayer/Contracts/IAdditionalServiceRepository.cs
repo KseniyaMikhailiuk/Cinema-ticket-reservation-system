@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace CinemaReservation.DataAccessLayer.Contracts
 {
-    public interface IAdditionalServicesRepository
+    public interface IAdditionalServiceRepository
     {
         Task<AddOperationResultStatus> UpsertAdditionalServiceAsync(AdditionalServiceEntity additionalServiceEntity);
         Task<List<NameIdEntity>> GetServiceOptionsAsync();

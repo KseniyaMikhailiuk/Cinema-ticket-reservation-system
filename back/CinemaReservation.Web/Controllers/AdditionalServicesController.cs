@@ -11,10 +11,10 @@ namespace CinemaReservation.Web.Controllers
     [ApiController]
     public class AdditionalServicesController : Controller
     {
-        private IAdditionalServicesService _additionalServicesService;
+        private IAdditionalServiceService _additionalServicesService;
 
         public AdditionalServicesController(
-            IAdditionalServicesService additionalServicesService
+            IAdditionalServiceService additionalServicesService
         )
         {
             _additionalServicesService = additionalServicesService;

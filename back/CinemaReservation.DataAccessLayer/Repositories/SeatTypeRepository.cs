@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace CinemaReservation.DataAccessLayer.Repositories
 {
-    public class SeatTypesRepository: ISeatTypesRepository
+    public class SeatTypeRepository: ISeatTypeRepository
     {
         private readonly IDalSettings _settings;
 
-        public SeatTypesRepository(IDalSettings dalSettings)
+        public SeatTypeRepository(IDalSettings dalSettings)
         {
             _settings = dalSettings;
         }

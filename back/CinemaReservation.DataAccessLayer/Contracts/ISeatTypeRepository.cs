@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace CinemaReservation.DataAccessLayer.Contracts
 {
-    public interface ISeatTypesRepository
+    public interface ISeatTypeRepository
     {
         Task<List<NameIdEntity>> GetSeatTypeOptionsAsync();
     }

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace CinemaReservation.BusinessLayer.Services
 {
-    public class SeatTypesService : ISeatTypesService
+    public class SeatTypeService : ISeatTypesService
     {
-        private ISeatTypesRepository _seatTypesRepository;
+        private ISeatTypeRepository _seatTypesRepository;
 
-        public SeatTypesService(
-            ISeatTypesRepository seatTypesRepository
+        public SeatTypeService(
+            ISeatTypeRepository seatTypesRepository
         )
         {
             _seatTypesRepository = seatTypesRepository;

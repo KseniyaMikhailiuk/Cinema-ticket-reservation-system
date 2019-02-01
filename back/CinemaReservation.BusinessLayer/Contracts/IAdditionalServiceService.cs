@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace CinemaReservation.BusinessLayer.Contracts
 {
-    public interface IAdditionalServicesService
+    public interface IAdditionalServiceService
     {
         Task<UpsertItemResultStatus> UpsertAdditionalServiceAsync(ServiceModel serviceModel);
         Task<List<OptionModel>> GetServiceOptionsAsync();
