@@ -11,18 +11,18 @@ namespace CinemaReservation.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FilmController : Controller
+    public class FilmsController : Controller
     {
         private IFilmService _filmService;
 
-        public FilmController(
+        public FilmsController(
             IFilmService filmService
         )
         {
             _filmService = filmService;
         }
 
-        [HttpPost("addfilm")]
+        [HttpPost]
         public async Task<IActionResult> AddFilmAsync(UpsertFilmRequest upsertFilmRequest)
         {
             FilmModel filmModel = new FilmModel(
@@ -48,7 +48,7 @@ namespace CinemaReservation.Web.Controllers
             return Conflict("conflict");
         }
 
-        [HttpPost("addposter")]
+        [HttpPut("addposter")]
         public async Task<IActionResult> AddPosterAsync(IFormCollection addPosterRequest)
         {
             int filmId = int.Parse(addPosterRequest["FilmId"]);
@@ -67,7 +67,7 @@ namespace CinemaReservation.Web.Controllers
             return BadRequest("Error");
         }
 
-        [HttpGet("getFilmOptions")]
+        [HttpGet]
         public async Task<IActionResult> GetFilmOptionsAsync()
         {
             List<FilterOptionModel> result = await _filmService.GetFilmOptionsAsync();

@@ -7,15 +7,15 @@ namespace CinemaReservation.Web.Models
         public DateTime DateTime { get; }
         public int FilmId { get; }
         public int HallId { get; }
-        public Service[] Services { get; }
-        public SeatPrice[] SeatPrices { get; }
+        public PriceItem[] Services { get; }
+        public PriceItem[] SeatPrices { get; }
 
         public AddSeanceRequest(
             DateTime dateTime,
             int filmId,
             int hallId,
-            Service[] services,
-            SeatPrice[] seatPrices
+            PriceItem[] services,
+            PriceItem[] seatPrices
         )
         {
             DateTime = dateTime;

@@ -19,16 +19,5 @@
             Line = line;
             HallId = hallId;
         }
-
-        public SeatEntity(
-            string type,
-            int raw,
-            int line
-        )
-        {
-            SeatType = type;
-            Raw = raw;
-            Line = line;
-        }
     }
 }

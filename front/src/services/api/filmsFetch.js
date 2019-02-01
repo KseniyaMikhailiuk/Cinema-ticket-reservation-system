@@ -386,7 +386,7 @@ export const releaseSeat = (info) =>
 
 export const getFilmOptions = () =>
     fetch(
-        "./api/filterlist/getFilmOptions",
+        "./api/films",
         {
             method: 'get',
             headers: {
@@ -408,7 +408,7 @@ export const getFilmOptions = () =>
 
 export const addFilmToDatabase = (film) =>
     fetch(
-        "./api/film/addfilm",
+        "./api/films",
         {
             method: 'post',
             headers: {
@@ -438,9 +438,9 @@ export const addFilmToDatabase = (film) =>
             formData.append("FilmPoster", film.filmPoster);
             formData.append("FilmId", response);
             return fetch(
-                "./api/film/addposter",
+                "./api/films/addposter",
                 {
-                    method: 'post',
+                    method: 'put',
                     headers: {
                         "Accept": "application/json"
                     },
@@ -473,7 +473,7 @@ export const addFilmToDatabase = (film) =>
 
 export const addSeanceToDatabase = (seance) => {
     return fetch(
-        "./api/seance/addseance",
+        "./api/seances",
         {
             method: 'post',
             headers: {

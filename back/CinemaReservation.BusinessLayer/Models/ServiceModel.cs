@@ -7,24 +7,6 @@
         public string Name { get; }
 
         public ServiceModel(
-            int id,
-            decimal price
-        )
-        {
-            Id = id;
-            Price = price;
-        }
-
-        public ServiceModel(
-            string name,
-            decimal price
-        )
-        {
-            Name = name;
-            Price = price;
-        }
-
-        public ServiceModel(
             string name
         )
         {

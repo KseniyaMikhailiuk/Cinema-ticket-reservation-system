@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Dapper;
 using CinemaReservation.DataAccessLayer.Contracts;
 using CinemaReservation.DataAccessLayer.Entities;
+using System.Collections.Generic;
 
 namespace CinemaReservation.DataAccessLayer.Repositories
 {
@@ -35,6 +36,46 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             catch
             {
                 return new AddOperationResultEntity(AddOperationResultStatus.UniqueIndexError);
+            }
+        }
+
+        public async Task<AddOperationResultStatus> AddSeanceAdditionalServicesAsync(List<PriceEntity> seanceServices)
+        {
+            try
+            {
+                using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+                {
+                    int id = await dbConnection.ExecuteAsync(
+                        "AddSeanceServices",
+                        seanceServices,
+                        commandType: CommandType.StoredProcedure
+                    );
+                    return AddOperationResultStatus.Ok;
+                }
+            }
+            catch
+            {
+                return AddOperationResultStatus.UniqueIndexError;
+            }
+        }
+
+        public async Task<AddOperationResultStatus> AddSeanceSeatPricesAsync(List<PriceEntity> seanceServices)
+        {
+            try
+            {
+                using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+                {
+                    int id = await dbConnection.ExecuteAsync(
+                        "AddSeanceSeatPrices",
+                        seanceServices,
+                        commandType: CommandType.StoredProcedure
+                    );
+                    return AddOperationResultStatus.Ok;
+                }
+            }
+            catch
+            {
+                return AddOperationResultStatus.UniqueIndexError;
             }
         }
     }

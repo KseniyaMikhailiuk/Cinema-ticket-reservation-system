@@ -20,7 +20,7 @@ namespace CinemaReservation.Web.Controllers
             _hallService = hallService;
         }
 
-        [HttpPost("addhalls")]
+        [HttpPost]
         public async Task<IActionResult> AddHallsAsync(UpsertHallsRequest addHallsRequest)
         {
             List<HallModel> halls = new List<HallModel>();
@@ -103,7 +103,7 @@ namespace CinemaReservation.Web.Controllers
             return Conflict("Hall exists");
         }
 
-        [HttpGet("getHallsOptions")]
+        [HttpGet]
         public async Task<IActionResult> GetCinemaFilterOptionsAsync()
         {
             List<FilterOptionModel> result = await _hallService.GetHallsOptionsAsync();

@@ -46,7 +46,7 @@ class AddSeanceForm extends Component{
                 seatPrices: [
                     ...this.state.seatPrices,
                     {
-                        typeId: typeId,
+                        id: typeId,
                         price: value
                     }
                 ]
@@ -85,6 +85,7 @@ class AddSeanceForm extends Component{
                     price: 0,
                     name: option.label
                 });
+                console.log(services)
             }
         })
         this.setState({

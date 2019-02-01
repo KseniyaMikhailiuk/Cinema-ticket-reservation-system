@@ -1,17 +1,17 @@
 ﻿namespace CinemaReservation.Web.Models
 {
-    public class Service
+    public class PriceItem
     {
-        public int Id { get; }
         public decimal Price { get; }
+        public int Id { get; }
 
-        public Service(
-            int id,
-            decimal price
+        public PriceItem(
+            decimal price,
+            int id
         )
         {
-            Id = id;
             Price = price;
+            Id = id;
         }
     }
 }

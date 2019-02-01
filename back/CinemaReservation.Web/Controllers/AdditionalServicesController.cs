@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
@@ -22,7 +20,7 @@ namespace CinemaReservation.Web.Controllers
             _additionalServicesService = additionalServicesService;
         }
 
-        [HttpPost("addadditionalservice")]
+        [HttpPost]
         public async Task<IActionResult> AddAdditionalServicesAsync(UpsertAdditionalServiceRequest upsertAdditionalServiceRequest)
         {
             UpsertItemResultStatus resultStatus = await _additionalServicesService.AddAdditionalServiceAsync(new ServiceModel(
@@ -37,7 +35,7 @@ namespace CinemaReservation.Web.Controllers
             return Conflict("Unique index error");
         }
 
-        [HttpGet("getServiceOptions")]
+        [HttpGet]
         public async Task<IActionResult> GetServiceOptionsAsync()
         {
             List<FilterOptionModel> result = await _additionalServicesService.GetServiceOptionsAsync();

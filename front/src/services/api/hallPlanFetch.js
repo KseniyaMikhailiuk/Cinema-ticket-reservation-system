@@ -320,7 +320,7 @@ export const fetchHallPlan = (seanceInfo) =>
 
 export const addCinema = (cinemaInfo) =>
     fetch(
-        "./api/cinema/addcinema",
+        "./api/cinemas",
         {
             method: 'post',
             headers: {
@@ -357,7 +357,7 @@ export const addCinema = (cinemaInfo) =>
                 hallId++;
             })
             return fetch(
-                "./api/halls/addhalls",
+                "./api/halls",
                 {
                     method: 'post',
                     headers: {
@@ -395,10 +395,9 @@ export const addCinema = (cinemaInfo) =>
             throw error;
         })
 
-
-export const getFilterOptions = () =>
+const getCinemasOptions =
     fetch(
-        "./api/filterlist/getCinemaFilterOptions",
+        "./api/cinemas",
         {
             method: 'get',
             headers: {
@@ -410,12 +409,33 @@ export const getFilterOptions = () =>
         .then(response =>
             response.ok
             ? response.json()
-            : false)
+            : false
+        )
+
+const getHallsOptions =
+    fetch(
+        "./api/halls",
+        {
+            method: 'get',
+            headers: {
+                "Content-type": "application/json",
+                'Accept': 'application/json'
+            }
+        }
+    )
+        .then(response =>
+            response.ok
+            ? response.json()
+            : false
+        )
+
+export const getFilterOptions = () =>
+    Promise.all([getCinemasOptions, getHallsOptions])
         .then(data => {
             let filterOptions = {
-                cities: data.cities,
-                cinemas: data.cinemas,
-                halls: data.halls
+                cities: data[0].cities,
+                cinemas: data[0].cinemas,
+                halls: data[1]
             };
             return filterOptions;
         })
@@ -426,7 +446,7 @@ export const getFilterOptions = () =>
 
 export const getSeatTypeOptions = () =>
     fetch(
-        "./api/filterlist/getSeatTypeOptions",
+        "./api/seatTypes",
         {
             method: 'get',
             headers: {

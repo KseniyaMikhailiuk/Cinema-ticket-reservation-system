@@ -9,18 +9,18 @@ namespace CinemaReservation.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CinemaController : Controller
+    public class CinemasController : Controller
     {
         private ICinemaService _cinemaService;
 
-        public CinemaController(
+        public CinemasController(
             ICinemaService cinemaService
         )
         {
             _cinemaService = cinemaService;
         }
 
-        [HttpPost("addcinema")]
+        [HttpPost]
         public async Task<IActionResult> AddCinemaAsync(UpsertCinemaRequest addCinemaRequest)
         {
             UpsertItemResultStatusAndId cinemaResultModel = await _cinemaService.AddCinemaAsync(
@@ -61,7 +61,7 @@ namespace CinemaReservation.Web.Controllers
             return Conflict("Cinema exists");
         }
 
-        [HttpGet("getCinemaFilterOptions")]
+        [HttpGet]
         public async Task<IActionResult> GetCinemaFilterOptionsAsync()
         {
             CinemaFilterOptionsModel result = await _cinemaService.GetCinemaOptionsAsync();

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
@@ -20,7 +18,7 @@ namespace CinemaReservation.Web.Controllers
             _seatTypesService = seatTypesService;
         }
 
-        [HttpGet("getSeatTypesOptions")]
+        [HttpGet]
         public async Task<IActionResult> GetSeatTypes()
         {
             List<FilterOptionModel> result = await _seatTypesService.GetOptions();

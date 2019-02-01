@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace CinemaReservation.Web.Controllers
 {
-    public class ModelTransformationHelper
+    public static class ModelTransformationHelper
     {
-        public List<FilterOptionItem> ModelListToResponseList(List<FilterOptionModel> modelList)
+        public static List<FilterOptionItem> ModelListToResponseList(List<FilterOptionModel> modelList)
         {
             List<FilterOptionItem> list = new List<FilterOptionItem>();
 
@@ -17,6 +17,23 @@ namespace CinemaReservation.Web.Controllers
                         item.Name,
                         item.Id,
                         item.ParentId
+                    )
+                );
+            }
+
+            return list;
+        }
+
+        public static List<PriceModel> PriceRequestArrayToPriceModelList(PriceItem[] modelList)
+        {
+            List<PriceModel> list = new List<PriceModel>();
+
+            foreach (PriceItem item in modelList)
+            {
+                list.Add(
+                    new PriceModel(
+                        item.Id,
+                        item.Price
                     )
                 );
             }
