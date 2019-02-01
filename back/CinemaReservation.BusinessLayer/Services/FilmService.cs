@@ -51,7 +51,10 @@ namespace CinemaReservation.BusinessLayer.Services
         {
             string posterUniqueId = Guid.NewGuid().ToString();
             string fileName = imageModel.FormFile.FileName;
-            string path = _configuration.GetSection("ImagesPath:FilmPosters").Value
+            string currentDirectiry = AppDomain.CurrentDomain.BaseDirectory;
+            string baseDirectory = currentDirectiry.Substring(0, currentDirectiry.IndexOf("back"));
+
+            string path = baseDirectory + _configuration.GetSection("ImagesPath:FilmPosters").Value
                 + "/"
                 + posterUniqueId
                 + fileName.Substring(fileName.IndexOf("."));
