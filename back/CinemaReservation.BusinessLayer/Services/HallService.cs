@@ -18,7 +18,7 @@ namespace CinemaReservation.BusinessLayer.Services
             _hallRepository = hallRepository;
         }
 
-        public async Task<UpsertItemResultStatus> UpsertHallsAsync(HallsModel hallsModel)
+        public async Task<UpsertItemResultStatus> UpsertHallsAsync(CinemaHallsModel hallsModel)
         {
             foreach (HallModel hall in hallsModel.Halls)
             {
@@ -55,7 +55,7 @@ namespace CinemaReservation.BusinessLayer.Services
             return UpsertItemResultStatus.Ok;
         }
 
-        public async Task<List<FilterOptionModel>> GetHallsOptionsAsync()
+        public async Task<List<OptionModel>> GetHallsOptionsAsync()
         {
             List<NameIdEntity> halls = await _hallRepository.GetHallsAsync();
 

@@ -21,7 +21,8 @@ namespace CinemaReservation.BusinessLayer.Services
         public async Task<UpsertItemResultStatus> UpsertAdditionalServiceAsync(ServiceModel serviceModel)
         {
             AddOperationResultStatus result = await _additionalServicesRepository.UpsertAdditionalServiceAsync(new AdditionalServiceEntity(
-                serviceModel.Name
+                serviceModel.Name,
+                serviceModel.Id
             ));
 
             if (result == AddOperationResultStatus.Ok)
@@ -31,7 +32,7 @@ namespace CinemaReservation.BusinessLayer.Services
 
             return UpsertItemResultStatus.Conflict;
         }
-        public async Task<List<FilterOptionModel>> GetServiceOptionsAsync()
+        public async Task<List<OptionModel>> GetServiceOptionsAsync()
         {
             List<NameIdEntity> services = await _additionalServicesRepository.GetServiceOptionsAsync();
 

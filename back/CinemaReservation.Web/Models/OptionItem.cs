@@ -1,12 +1,12 @@
 ﻿namespace CinemaReservation.Web.Models
 {
-    public class FilterOptionItem
+    public class OptionItem
     {
         public string Name { get; }
         public int Id { get; }
         public int ParentId { get; }
 
-        public FilterOptionItem(
+        public OptionItem(
             string name,
             int id,
             int parentId

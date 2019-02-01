@@ -6,14 +6,14 @@ namespace CinemaReservation.Web.Controllers
 {
     public static class ListArrayExtension
     {
-        public static FilterOptionItem[] GetOptionsModelListToResponseArray(this List<FilterOptionModel> modelList)
+        public static OptionItem[] GetOptionsModelListToResponseArray(this List<OptionModel> modelList)
         {
-            List<FilterOptionItem> list = new List<FilterOptionItem>();
+            List<OptionItem> list = new List<OptionItem>();
 
-            foreach (FilterOptionModel item in modelList)
+            foreach (OptionModel item in modelList)
             {
                 list.Add(
-                    new FilterOptionItem(
+                    new OptionItem(
                         item.Name,
                         item.Id,
                         item.ParentId

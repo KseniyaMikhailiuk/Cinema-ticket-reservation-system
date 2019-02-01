@@ -21,7 +21,7 @@ namespace CinemaReservation.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GetSeatTypes()
         {
-            List<FilterOptionModel> result = await _seatTypesService.GetOptions();
+            List<OptionModel> result = await _seatTypesService.GetOptions();
 
             return Ok(result.GetOptionsModelListToResponseArray());
         }

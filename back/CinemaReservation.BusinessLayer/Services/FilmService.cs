@@ -84,7 +84,7 @@ namespace CinemaReservation.BusinessLayer.Services
             return UpsertItemResultStatus.Conflict;
         }
 
-        public async Task<List<FilterOptionModel>> GetFilmOptionsAsync()
+        public async Task<List<OptionModel>> GetFilmOptionsAsync()
         {
             List<NameIdEntity> films = await _filmRepository.GetFilmOptionsAsync();
 

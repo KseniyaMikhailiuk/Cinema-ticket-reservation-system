@@ -10,17 +10,6 @@ namespace CinemaReservation.DataAccessLayer.Entities
         public int HallId { get; }
 
         public SeanceEntity(
-            DateTime dateTime,
-            int filmId,
-            int hallId
-        )
-        {
-            DateTime = dateTime;
-            FilmId = filmId;
-            HallId = hallId;
-        }
-
-        public SeanceEntity(
             int id,
             DateTime dateTime,
             int filmId,

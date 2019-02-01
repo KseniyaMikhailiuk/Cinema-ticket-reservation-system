@@ -46,7 +46,7 @@ namespace CinemaReservation.Web.Controllers
             }
 
             UpsertItemResultStatus resultStatus = await _hallService.UpsertHallsAsync(
-                new HallsModel(
+                new CinemaHallsModel(
                     halls,
                     seats,
                     addHallsRequest.CinemaId
@@ -61,7 +61,7 @@ namespace CinemaReservation.Web.Controllers
             return Conflict("Hall exists");
         }
 
-        [HttpPut()]
+        [HttpPut("{Id:int}")]
         public async Task<IActionResult> EditHallsAsync(UpsertHallsRequest editHallsRequest)
         {
             List<HallModel> halls = new List<HallModel>();
@@ -87,7 +87,7 @@ namespace CinemaReservation.Web.Controllers
             }
 
             UpsertItemResultStatus resultStatus = await _hallService.UpsertHallsAsync(
-                new HallsModel(
+                new CinemaHallsModel(
                     halls,
                     seats,
                     editHallsRequest.CinemaId
@@ -105,7 +105,7 @@ namespace CinemaReservation.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GetHallOptionsAsync()
         {
-            List<FilterOptionModel> result = await _hallService.GetHallsOptionsAsync();
+            List<OptionModel> result = await _hallService.GetHallsOptionsAsync();
 
             return Ok(result.GetOptionsModelListToResponseArray());
         }

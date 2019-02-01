@@ -22,6 +22,7 @@ namespace CinemaReservation.BusinessLayer.Services
         {
             AddOperationResultEntity cinemaEntity = await _cinemaRepository.UpsertCinemaAsync(
                 new CinemaEntity(
+                    cinemaModel.Id,
                     cinemaModel.Name,
                     cinemaModel.City
                 )
@@ -38,16 +39,16 @@ namespace CinemaReservation.BusinessLayer.Services
             return new UpsertItemResultStatusAndId(UpsertItemResultStatus.Conflict);
         }
 
-        public async Task<CinemaFilterOptionsModel> GetCinemaOptionsAsync()
+        public async Task<CinemaOptionsModel> GetCinemaOptionsAsync()
         {
             List<NameIdEntity> cities = await _cinemaRepository.GetCitiesAsync();
             List<NameIdEntity> cinemas = await _cinemaRepository.GetCinemasAsync();
 
-            List<FilterOptionModel> citiesList = cities.GetOptionModelListFromEntityArray();
+            List<OptionModel> citiesList = cities.GetOptionModelListFromEntityArray();
 
-            List<FilterOptionModel> cinemasList = cinemas.GetOptionModelListFromEntityArray();
+            List<OptionModel> cinemasList = cinemas.GetOptionModelListFromEntityArray();
 
-            return new CinemaFilterOptionsModel(
+            return new CinemaOptionsModel(
                 citiesList,
                 cinemasList
             );

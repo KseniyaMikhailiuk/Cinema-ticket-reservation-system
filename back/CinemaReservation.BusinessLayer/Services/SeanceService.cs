@@ -20,6 +20,7 @@ namespace CinemaReservation.BusinessLayer.Services
         public async Task<UpsertItemResultStatus> UpsertSeanceAsync(SeanceModel seanceModel)
         {
             AddOperationResultEntity resultEntity = await _seanceRepository.UpsertSeanceAsync(new SeanceEntity(
+                seanceModel.Id,
                 seanceModel.DateTime,
                 seanceModel.FilmId,
                 seanceModel.HallId

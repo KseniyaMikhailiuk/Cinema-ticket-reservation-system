@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
@@ -41,7 +40,7 @@ namespace CinemaReservation.Web.Controllers
             return Conflict("Cinema exists");
         }
 
-        [HttpPut("editcinema")]
+        [HttpPut("{Id:int}")]
         public async Task<IActionResult> EditCinemaAsync(UpsertCinemaRequest editCinemaRequest)
         {
             UpsertItemResultStatusAndId cinemaResultModel = await _cinemaService.UpsertCinemaAsync(
@@ -65,9 +64,9 @@ namespace CinemaReservation.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCinemaFilterOptionsAsync()
         {
-            CinemaFilterOptionsModel result = await _cinemaService.GetCinemaOptionsAsync();
+            CinemaOptionsModel result = await _cinemaService.GetCinemaOptionsAsync();
 
-            CinemaFilterOptionsResponse response = new CinemaFilterOptionsResponse(
+            CinemaOptionsResponse response = new CinemaOptionsResponse(
                 result.Cities.GetOptionsModelListToResponseArray(),
                 result.Cinemas.GetOptionsModelListToResponseArray()
             );

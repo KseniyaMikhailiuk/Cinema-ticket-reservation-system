@@ -13,12 +13,5 @@
             Name = name;
             Id = id;
         }
-
-        public AdditionalServiceEntity(
-            string name
-        )
-        {
-            Name = name;
-        }
     }
 }

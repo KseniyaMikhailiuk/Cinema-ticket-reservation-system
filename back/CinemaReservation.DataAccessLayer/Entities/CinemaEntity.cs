@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CinemaReservation.DataAccessLayer.Entities
+﻿namespace CinemaReservation.DataAccessLayer.Entities
 {
     public class CinemaEntity
     {
@@ -17,15 +13,6 @@ namespace CinemaReservation.DataAccessLayer.Entities
         )
         {
             Id = id;
-            Name = name;
-            City = city;
-        }
-
-        public CinemaEntity(
-            string name,
-            string city
-        )
-        {
             Name = name;
             City = city;
         }

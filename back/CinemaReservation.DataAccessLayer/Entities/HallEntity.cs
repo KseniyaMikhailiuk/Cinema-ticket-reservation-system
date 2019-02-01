@@ -16,14 +16,5 @@
             Name = name;
             CinemaId = cinemaId;
         }
-
-        public HallEntity(
-            string name,
-            int cinemaId
-        )
-        {
-            Name = name;
-            CinemaId = cinemaId;
-        }
     }
 }

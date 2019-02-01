@@ -12,24 +12,6 @@ namespace CinemaReservation.DataAccessLayer.Entities
         public DateTime FinishShowingDate { get; }
         public TimeSpan FilmDuration { get; }
 
-
-        public FilmEntity(
-            string title,
-            DateTime release,
-            string description,
-            DateTime startShowingDate,
-            DateTime finishShowingDate,
-            TimeSpan filmDuration
-        )
-        {
-            Title = title;
-            ReleaseDate = release;
-            Description = description;
-            StartShowingDate = startShowingDate;
-            FinishShowingDate = finishShowingDate;
-            FilmDuration = filmDuration;
-        }
-
         public FilmEntity(
             int id,
             string title,

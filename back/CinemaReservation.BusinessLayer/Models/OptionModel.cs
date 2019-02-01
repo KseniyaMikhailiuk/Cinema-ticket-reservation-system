@@ -1,12 +1,12 @@
 ﻿namespace CinemaReservation.BusinessLayer.Models
 {
-    public class FilterOptionModel
+    public class OptionModel
     {
         public string Name { get; }
         public int Id { get; }
         public int ParentId { get; }
 
-        public FilterOptionModel(
+        public OptionModel(
             string name,
             int id,
             int parentId

@@ -46,7 +46,7 @@ namespace CinemaReservation.Web.Controllers
             return Conflict("Seance at this time exists");
         }
 
-        [HttpPut]
+        [HttpPut("{Id:int}")]
         public async Task<IActionResult> EditSeanceAsync(UpsertSeanceRequest addSeanceRequest)
         {
             List<PriceModel> services = addSeanceRequest.Services.GetPriceRequestArrayToPriceModelList();
