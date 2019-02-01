@@ -37,6 +37,11 @@ namespace CinemaReservation.BusinessLayer.Services
                 filmModel.FilmDuration
             ));
 
+            if (filmModel.FinishShowingDate < filmModel.StartShowingDate)
+            {
+                return new UpsertItemResultStatusAndId(UpsertItemResultStatus.Conflict);
+            }
+
             if (resultEntity.OperationResultStatus == AddOperationResultStatus.Ok)
             {
                 return new UpsertItemResultStatusAndId(

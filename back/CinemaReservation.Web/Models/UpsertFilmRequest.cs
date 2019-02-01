@@ -25,8 +25,6 @@ namespace CinemaReservation.Web.Models
         [Required]
         public FilmDuration FilmDuration { get; }
 
-        [Required]
-
 
         public UpsertFilmRequest(
             int id,

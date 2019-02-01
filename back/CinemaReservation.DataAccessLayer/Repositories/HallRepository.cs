@@ -41,29 +41,43 @@ namespace CinemaReservation.DataAccessLayer.Repositories
 
         public async Task<AddOperationResultStatus> AddHallPlanAsync(List<SeatEntity> seats)
         {
-            using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+            try
             {
-                await dbConnection.ExecuteAsync(
-                    "AddSeats",
-                    seats,
-                    commandType: CommandType.StoredProcedure
-                );
+                using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+                {
+                    await dbConnection.ExecuteAsync(
+                        "AddSeats",
+                        seats,
+                        commandType: CommandType.StoredProcedure
+                    );
 
-                return AddOperationResultStatus.Ok;
+                    return AddOperationResultStatus.Ok;
+                }
+            }
+            catch
+            {
+                return AddOperationResultStatus.UniqueIndexError;
             }
         }
 
         public async Task<AddOperationResultStatus> RemoveHallPlanAsync(int hallId)
         {
-            using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+            try
             {
-                await dbConnection.ExecuteAsync(
-                    "RemoveSeats",
-                    new { HallId = hallId },
-                    commandType: CommandType.StoredProcedure
-                );
+                using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+                {
+                    await dbConnection.ExecuteAsync(
+                        "RemoveSeats",
+                        new { HallId = hallId },
+                        commandType: CommandType.StoredProcedure
+                    );
 
-                return AddOperationResultStatus.Ok;
+                    return AddOperationResultStatus.Ok;
+                }
+            }
+            catch
+            {
+                return AddOperationResultStatus.UniqueIndexError;
             }
         }
 
