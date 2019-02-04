@@ -6,6 +6,7 @@ using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CinemaReservation.Web.Controllers
 {
@@ -23,6 +24,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddFilmAsync(UpsertFilmRequest addFilmRequest)
         {
             FilmModel filmModel = new FilmModel(
@@ -50,6 +52,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPut("{Id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditFilmAsync(UpsertFilmRequest editFilmRequest)
         {
             FilmModel filmModel = new FilmModel(
@@ -77,6 +80,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPut("{FilmId:int}/poster")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddPosterAsync(IFormCollection addPosterRequest)
         {
             int filmId = int.Parse(addPosterRequest["FilmId"]);
@@ -96,6 +100,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetFilmOptionsAsync()
         {
             List<OptionModel> result = await _filmService.GetFilmOptionsAsync();

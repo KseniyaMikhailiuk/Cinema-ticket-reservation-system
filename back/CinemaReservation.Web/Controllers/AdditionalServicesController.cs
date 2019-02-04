@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaReservation.Web.Controllers
@@ -21,6 +22,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddAdditionalServicesAsync(UpsertAdditionalServiceRequest addAdditionalServiceRequest)
         {
             UpsertItemResultStatus resultStatus = await _additionalServicesService
@@ -38,6 +40,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPut("{Id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditAdditionalServicesAsync(UpsertAdditionalServiceRequest editAdditionalServiceRequest)
         {
             UpsertItemResultStatus resultStatus = await _additionalServicesService
@@ -55,6 +58,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetServiceOptionsAsync()
         {
             List<OptionModel> result = await _additionalServicesService.GetServiceOptionsAsync();

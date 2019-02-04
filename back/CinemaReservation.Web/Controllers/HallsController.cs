@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CinemaReservation.Web.Controllers
 {
@@ -21,6 +22,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddHallsAsync(UpsertHallsRequest addHallsRequest)
         {
             List<HallModel> halls = addHallsRequest.Halls.GetHallModelList();
@@ -44,6 +46,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPut("{Id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditHallsAsync(UpsertHallsRequest editHallsRequest)
         {
             List<HallModel> halls = editHallsRequest.Halls.GetHallModelList();
@@ -67,6 +70,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetHallOptionsAsync()
         {
             List<OptionModel> result = await _hallService.GetHallsOptionsAsync();
