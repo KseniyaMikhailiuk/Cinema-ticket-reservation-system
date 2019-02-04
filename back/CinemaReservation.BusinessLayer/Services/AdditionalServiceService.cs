@@ -35,7 +35,7 @@ namespace CinemaReservation.BusinessLayer.Services
         }
         public async Task<List<OptionModel>> GetServiceOptionsAsync()
         {
-            List<NameIdEntity> services = await _additionalServicesRepository.GetServiceOptionsAsync();
+            List<OptionNameIdEntity> services = await _additionalServicesRepository.GetServiceOptionsAsync();
 
             return services.GetOptionModelList();
         }

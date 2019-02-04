@@ -21,8 +21,6 @@ class AddSeanceForm extends Component{
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handlePriceChange = this.handlePriceChange.bind(this);
         this.sendInfo = this.sendInfo.bind(this);
-        const { filter } = this.props;
-        this.state.cityId = filter.cityId;
     }
 
     handleInputChange(name, value) {

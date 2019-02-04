@@ -1,20 +1,17 @@
 ﻿namespace CinemaReservation.BusinessLayer.Models
 {
-    public class CinemaModel
+    public class CityModel
     {
         public int Id { get; }
         public string Name { get; }
-        public int CityId { get; }
 
-        public CinemaModel(
+        public CityModel(
             int id,
-            string name,
-            int cityId
+            string name
         )
         {
             Id = id;
             Name = name;
-            CityId = cityId;
         }
     }
 }

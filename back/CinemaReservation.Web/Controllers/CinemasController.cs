@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
@@ -26,7 +27,7 @@ namespace CinemaReservation.Web.Controllers
                 new CinemaModel(
                     addCinemaRequest.Id,
                     addCinemaRequest.Name,
-                    addCinemaRequest.City
+                    addCinemaRequest.CityId
                 )
             );
 
@@ -47,7 +48,7 @@ namespace CinemaReservation.Web.Controllers
                 new CinemaModel(
                     editCinemaRequest.Id,
                     editCinemaRequest.Name,
-                    editCinemaRequest.City
+                    editCinemaRequest.CityId
                 )
             );
 
@@ -62,16 +63,11 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCinemaFilterOptionsAsync()
+        public async Task<IActionResult> GetCinemaOptionsAsync()
         {
-            CinemaOptionsModel result = await _cinemaService.GetCinemaOptionsAsync();
+            List<OptionModel> result = await _cinemaService.GetCinemaOptionsAsync();
 
-            CinemaOptionsResponse response = new CinemaOptionsResponse(
-                result.Cities.GetOptionsResponseArray(),
-                result.Cinemas.GetOptionsResponseArray()
-            );
-
-            return Ok(response);
+            return Ok(result.GetOptionsResponseArray());
         }
     }
 }

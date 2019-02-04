@@ -1,12 +1,12 @@
 ﻿namespace CinemaReservation.DataAccessLayer.Entities
 {
-    public class NameIdEntity
+    public class OptionNameIdEntity
     {
         public int Id { get; }
         public int ParentId { get; }
         public string Name { get; }
 
-        public NameIdEntity(
+        public OptionNameIdEntity(
             string name,
             int id,
             int parentId
@@ -17,7 +17,7 @@
             ParentId = parentId;
         }
 
-        public NameIdEntity(
+        public OptionNameIdEntity(
             string name,
             int id
         )

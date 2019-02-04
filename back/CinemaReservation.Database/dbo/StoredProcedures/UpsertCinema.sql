@@ -1,21 +1,9 @@
 ﻿CREATE PROCEDURE [dbo].[UpsertCinema]
     @Id int,
     @Name nvarchar(50),
-    @City nvarchar(50)
+    @CityId int
 AS
 BEGIN
-    DECLARE @CityId int
-    IF NOT EXISTS ( SELECT 1 FROM [dbo].[Cities] WHERE Name = @City )
-    BEGIN
-        INSERT INTO [dbo].[Cities] (Name)
-        VALUES (@City)
-        SELECT @CityId = SCOPE_IDENTITY()
-    END
-    ELSE
-    BEGIN
-        SELECT @CityId = Id FROM [dbo].[Cities] WHERE Name = @City
-    END
-
     MERGE [dbo].[Cinemas] AS Target
     USING
         (SELECT @Id, @Name, @CityId)

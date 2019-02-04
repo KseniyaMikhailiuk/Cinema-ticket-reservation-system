@@ -320,15 +320,14 @@ export const fetchHallPlan = (seanceInfo) =>
 
 export const addCinema = (cinemaInfo) =>
     fetch(
-        "./api/cinemas",
+        "./api/cities",
         {
             method: 'post',
             headers: {
                 "Content-type": "application/json"
             },
             body: JSON.stringify({
-                Name: cinemaInfo.cinema,
-                City: cinemaInfo.city
+                Name: cinemaInfo.city
             })
         }
     )
@@ -336,66 +335,112 @@ export const addCinema = (cinemaInfo) =>
             response.ok
             ? response.json()
             : false)
-        .then(response => {
-            let halls = [];
-            let seats = [];
-            let hallId = 0;
-            cinemaInfo.halls.forEach(hall => {
-                halls.push({
-                    Name: hall.name,
-                    Id: hallId
-                })
-                hall.plan.forEach(line => {
-                    line.forEach(seat => {
-                        delete seat.id;
-                        seats.push({
-                            ...seat,
-                            hallId: hallId
-                        });
-                    })
-                })
-                hallId++;
-            })
-            return fetch(
-                "./api/halls",
+        .then(cityId => {
+            fetch(
+                "./api/cinemas",
                 {
                     method: 'post',
                     headers: {
-                        "Content-type": "application/json",
-                        'Accept': 'application/json'
+                        "Content-type": "application/json"
                     },
                     body: JSON.stringify({
-                        Halls: halls,
-                        Seats: seats,
-                        CinemaId: response
+                        Name: cinemaInfo.cinema,
+                        CityId: cityId
                     })
                 }
             )
-            .then(response =>
-                response.ok
-                ? response.json()
-                : false)
-            .then(data =>
-                data
-            )
-            .catch(error => {
-                console.log(error);
-                throw error;
-            })
+                .then(response =>
+                    response.ok
+                    ? response.json()
+                    : false)
+                .then(response => {
+                    let halls = [];
+                    let seats = [];
+                    let hallId = 0;
+                    cinemaInfo.halls.forEach(hall => {
+                        halls.push({
+                            Name: hall.name,
+                            Id: hallId
+                        })
+                        hall.plan.forEach(line => {
+                            line.forEach(seat => {
+                                delete seat.id;
+                                seats.push({
+                                    ...seat,
+                                    hallId: hallId
+                                });
+                            })
+                        })
+                        hallId++;
+                    })
+                    return fetch(
+                        "./api/halls",
+                        {
+                            method: 'post',
+                            headers: {
+                                "Content-type": "application/json",
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                Halls: halls,
+                                Seats: seats,
+                                CinemaId: response
+                            })
+                        }
+                    )
+                    .then(response =>
+                        response.ok
+                        ? response.json()
+                        : false)
+                    .then(data =>
+                        data
+                    )
+                    .catch(error => {
+                        console.log(error);
+                        throw error;
+                    })
+                })
+                .then(response =>
+                    response.ok
+                    ? response.json()
+                    : false)
+                .then(data =>
+                    data
+                )
+                .catch(error => {
+                    console.log(error);
+                    throw error;
+                })
         })
-        .then(response =>
-            response.ok
-            ? response.json()
-            : false)
-        .then(data =>
-            data
-        )
         .catch(error => {
             console.log(error);
             throw error;
         })
 
-const getCinemasOptions =
+export const getCitiesOptions = () =>
+    fetch(
+        "./api/cities",
+        {
+            method: 'get',
+            headers: {
+                "Content-type": "application/json",
+                'Accept': 'application/json'
+            }
+        }
+    )
+        .then(response =>
+            response.ok
+            ? response.json()
+            : false
+        )
+        .then(data =>
+            data)
+        .catch(error => {
+            console.log(error);
+            throw error;
+        })
+
+export const getCinemasOptions = () =>
     fetch(
         "./api/cinemas",
         {
@@ -411,8 +456,14 @@ const getCinemasOptions =
             ? response.json()
             : false
         )
+        .then(data =>
+            data)
+        .catch(error => {
+            console.log(error);
+            throw error;
+        })
 
-const getHallsOptions =
+export const getHallsOptions = () =>
     fetch(
         "./api/halls",
         {
@@ -428,17 +479,8 @@ const getHallsOptions =
             ? response.json()
             : false
         )
-
-export const getFilterOptions = () =>
-    Promise.all([getCinemasOptions, getHallsOptions])
-        .then(data => {
-            let filterOptions = {
-                cities: data[0].cities,
-                cinemas: data[0].cinemas,
-                halls: data[1]
-            };
-            return filterOptions;
-        })
+        .then(data =>
+            data)
         .catch(error => {
             console.log(error);
             throw error;

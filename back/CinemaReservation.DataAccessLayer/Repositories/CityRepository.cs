@@ -1,35 +1,35 @@
-﻿using System.Data;
+﻿using CinemaReservation.DataAccessLayer.Contracts;
+using CinemaReservation.DataAccessLayer.Entities;
+using Dapper;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-using Dapper;
-using CinemaReservation.DataAccessLayer.Contracts;
-using CinemaReservation.DataAccessLayer.Entities;
-using System.Collections.Generic;
 
 namespace CinemaReservation.DataAccessLayer.Repositories
 {
-    public class CinemaRepository: ICinemaRepository
+    public class CityRepository: ICityRepository
     {
         private readonly IDalSettings _settings;
 
-
-        public CinemaRepository(IDalSettings dalSettings)
+        public CityRepository(IDalSettings dalSettings)
         {
             _settings = dalSettings;
         }
 
-        public async Task<AddOperationResultEntity> UpsertCinemaAsync(CinemaEntity cinemaEntity)
+
+        public async Task<AddOperationResultEntity> UpsertCityAsync(CityEntity cityEntity)
         {
             try
             {
                 using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
                 {
-                    int cinemaId = await dbConnection.QuerySingleOrDefaultAsync<int>(
-                        "UpsertCinema",
-                        cinemaEntity,
+                    int cityId = await dbConnection.QuerySingleOrDefaultAsync<int>(
+                        "UpsertCity",
+                        cityEntity,
                         commandType: CommandType.StoredProcedure
                     );
-                    return new AddOperationResultEntity(cinemaId, AddOperationResultStatus.Ok);
+                    return new AddOperationResultEntity(cityId, AddOperationResultStatus.Ok);
                 }
             }
             catch
@@ -38,12 +38,12 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             }
         }
 
-        public async Task<List<OptionNameIdEntity>> GetCinemasAsync()
+        public async Task<List<OptionNameIdEntity>> GetCitiesAsync()
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
                 List<OptionNameIdEntity> nameIdEntity = (List<OptionNameIdEntity>)await dbConnection.QueryAsync<OptionNameIdEntity>(
-                    "GetUniqueCinemas",
+                    "GetUniqueCities",
                     commandType: CommandType.StoredProcedure
                 );
 

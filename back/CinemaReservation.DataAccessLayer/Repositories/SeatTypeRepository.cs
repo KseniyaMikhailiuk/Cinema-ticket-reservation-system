@@ -17,11 +17,11 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             _settings = dalSettings;
         }
 
-        public async Task<List<NameIdEntity>> GetSeatTypeOptionsAsync()
+        public async Task<List<OptionNameIdEntity>> GetSeatTypeOptionsAsync()
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
-                List<NameIdEntity> nameIdEntity = (List<NameIdEntity>)await dbConnection.QueryAsync<NameIdEntity>(
+                List<OptionNameIdEntity> nameIdEntity = (List<OptionNameIdEntity>)await dbConnection.QueryAsync<OptionNameIdEntity>(
                     "GetSeatTypeOptions",
                     commandType: CommandType.StoredProcedure
                 );

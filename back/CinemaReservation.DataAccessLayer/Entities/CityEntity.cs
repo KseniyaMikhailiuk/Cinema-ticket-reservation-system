@@ -1,20 +1,17 @@
 ﻿namespace CinemaReservation.DataAccessLayer.Entities
 {
-    public class CinemaEntity
+    public class CityEntity
     {
         public int Id { get; }
         public string Name { get; }
-        public int CityId { get; }
 
-        public CinemaEntity(
+        public CityEntity(
             int id,
-            string name,
-            int cityId
+            string name
         )
         {
             Id = id;
             Name = name;
-            CityId = cityId;
         }
     }
 }

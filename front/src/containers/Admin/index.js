@@ -9,7 +9,6 @@ import AddAdditionalServicesForm from '../../components/AdminForms/addAdditional
 import AddCinemaForm from '../../components/AdminForms/AddCinemaForm'
 import SuccessMessage from '../../components/Common/SuccessMessage'
 
-import {getFilterObject, getLoadingStatus} from '../../store/stateGetters';
 import * as actions from '../../store/actions'
 
 import * as servicesInfo from '../../services/api/additionalServicesFetch'
@@ -39,23 +38,27 @@ class Admin extends Component{
     }
 
     componentDidMount() {
-        const {startFilterOptionsFetching} = this.props;
         this.setState({
             isDataLoading: true
         })
-        startFilterOptionsFetching();
-        const services = servicesInfo.getAdditionalServices()
-        const cinemas = cinemasInfo.getFilterOptions()
-        const seatTypes = cinemasInfo.getSeatTypeOptions()
-        const films = filmsInfo.getFilmOptions()
+        const services = servicesInfo.getAdditionalServices();
+        const cinemas = cinemasInfo.getCinemasOptions();
+        const cities = cinemasInfo.getCitiesOptions();
+        const halls = cinemasInfo.getHallsOptions();
+        const seatTypes = cinemasInfo.getSeatTypeOptions();
+        const films = filmsInfo.getFilmOptions();
 
-        Promise.all([services, cinemas, seatTypes, films])
+        Promise.all([services, cities, cinemas, halls, seatTypes, films])
             .then(data => {
                 this.setState({
                     additionalServices: data[0],
-                    addCinemaFormFilterOptions: data[1],
-                    addCinemaFormSeatTypes: data[2],
-                    addSeanceFormFilmOptions: data[3],
+                    addCinemaFormFilterOptions: {
+                        cities: data[1],
+                        cinemas: data[2],
+                        halls: data[3]
+                    },
+                    addCinemaFormSeatTypes: data[4],
+                    addSeanceFormFilmOptions: data[5],
                     isDataLoading: false
                 })
             })
@@ -99,7 +102,7 @@ class Admin extends Component{
     }
 
     render() {
-        const {filter, changeFilterObjectItem, isRequestSucceeded} = this.props;
+        const {changeFilterObjectItem, isRequestSucceeded} = this.props;
         const {
             addSeanceFormFilmOptions,
             addCinemaFormSeatTypes,
@@ -116,7 +119,7 @@ class Admin extends Component{
             <section>
                 <Loader loaded={!isDataLoading}>
                     <AddFilmForm onSubmit={this.addFilmToDatabase}/>
-                    <AddSeanceForm filter={filter}
+                    <AddSeanceForm
                         filterOptions={addCinemaFormFilterOptions}
                         filmOptions={addSeanceFormFilmOptions}
                         changeFilterObjectItem={changeFilterObjectItem}
@@ -138,7 +141,6 @@ class Admin extends Component{
 
 const mapStateToScheduleProps = (state) => {
     return {
-        filter: getFilterObject(state),
         isRequestSucceeded: state.isRequestSucceeded
     }
 }

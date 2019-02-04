@@ -96,6 +96,7 @@
     <Build Include="dbo\StoredProcedures\GetServiceOptions.sql" />
     <Build Include="dbo\StoredProcedures\AddSeanceServices.sql" />
     <Build Include="dbo\StoredProcedures\AddSeanceSeatPrices.sql" />
+    <Build Include="dbo\StoredProcedures\UpsertCity.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="CinemaReservation.Database.refactorlog" />

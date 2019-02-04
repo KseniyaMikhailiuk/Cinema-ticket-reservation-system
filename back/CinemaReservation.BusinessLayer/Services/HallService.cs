@@ -62,7 +62,7 @@ namespace CinemaReservation.BusinessLayer.Services
 
         public async Task<List<OptionModel>> GetHallsOptionsAsync()
         {
-            List<NameIdEntity> halls = await _hallRepository.GetHallsAsync();
+            List<OptionNameIdEntity> halls = await _hallRepository.GetHallsAsync();
 
             return halls.GetOptionModelList();
         }

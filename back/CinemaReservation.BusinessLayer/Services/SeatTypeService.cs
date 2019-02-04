@@ -20,7 +20,7 @@ namespace CinemaReservation.BusinessLayer.Services
 
         public async Task<List<OptionModel>> GetOptions()
         {
-            List<NameIdEntity> seatTypes = await _seatTypesRepository.GetSeatTypeOptionsAsync();
+            List<OptionNameIdEntity> seatTypes = await _seatTypesRepository.GetSeatTypeOptionsAsync();
 
             return seatTypes.GetOptionModelList();
         }

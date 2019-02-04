@@ -91,7 +91,7 @@ namespace CinemaReservation.BusinessLayer.Services
 
         public async Task<List<OptionModel>> GetFilmOptionsAsync()
         {
-            List<NameIdEntity> films = await _filmRepository.GetFilmOptionsAsync();
+            List<OptionNameIdEntity> films = await _filmRepository.GetFilmOptionsAsync();
 
             return films.GetOptionModelList();
         }

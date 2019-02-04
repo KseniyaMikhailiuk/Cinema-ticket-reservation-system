@@ -4,8 +4,9 @@ using System.Threading.Tasks;
 
 namespace CinemaReservation.DataAccessLayer.Contracts
 {
-    public interface ISeatTypeRepository
+    public interface ICityRepository
     {
-        Task<List<OptionNameIdEntity>> GetSeatTypeOptionsAsync();
+        Task<AddOperationResultEntity> UpsertCityAsync(CityEntity cityEntity);
+        Task<List<OptionNameIdEntity>> GetCitiesAsync();
     }
 }

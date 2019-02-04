@@ -6,11 +6,11 @@ namespace CinemaReservation.BusinessLayer.Services
 {
     public static class ListArrayExtension
     {
-        public static List<OptionModel> GetOptionModelList(this List<NameIdEntity> entities)
+        public static List<OptionModel> GetOptionModelList(this List<OptionNameIdEntity> entities)
         {
             List<OptionModel> list = new List<OptionModel>();
 
-            foreach (NameIdEntity item in entities)
+            foreach (OptionNameIdEntity item in entities)
             {
                 list.Add(
                     new OptionModel(
