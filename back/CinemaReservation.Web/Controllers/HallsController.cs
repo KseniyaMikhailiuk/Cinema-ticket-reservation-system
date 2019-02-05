@@ -22,7 +22,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> AddHallsAsync(UpsertHallsRequest addHallsRequest)
         {
             List<HallModel> halls = addHallsRequest.Halls.GetHallModelList();
@@ -46,7 +46,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPut("{Id:int}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> EditHallsAsync(UpsertHallsRequest editHallsRequest)
         {
             List<HallModel> halls = editHallsRequest.Halls.GetHallModelList();
@@ -70,7 +70,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> GetHallOptionsAsync()
         {
             List<OptionModel> result = await _hallService.GetHallsOptionsAsync();

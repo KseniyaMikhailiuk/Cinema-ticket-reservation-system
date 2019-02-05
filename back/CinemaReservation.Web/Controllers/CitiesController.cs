@@ -22,7 +22,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> AddСityAsync(UpsertCityRequest addCityRequest)
         {
             UpsertItemResultStatusAndId cityResultModel = await _cityService.UpsertCityAsync(
@@ -43,7 +43,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPut("{Id:int}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> EditCinemaAsync(UpsertCinemaRequest editCinemaRequest)
         {
             UpsertItemResultStatusAndId cinemaResultModel = await _cityService.UpsertCityAsync(
@@ -64,7 +64,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> GetCityOptionsAsync()
         {
             List<OptionModel> result = await _cityService.GetCityOptionsAsync();

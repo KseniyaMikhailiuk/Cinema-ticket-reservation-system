@@ -24,7 +24,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> AddFilmAsync(UpsertFilmRequest addFilmRequest)
         {
             FilmModel filmModel = new FilmModel(
@@ -52,7 +52,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPut("{Id:int}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> EditFilmAsync(UpsertFilmRequest editFilmRequest)
         {
             FilmModel filmModel = new FilmModel(
@@ -80,7 +80,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPut("{FilmId:int}/poster")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> AddPosterAsync(IFormCollection addPosterRequest)
         {
             int filmId = int.Parse(addPosterRequest["FilmId"]);
@@ -100,7 +100,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> GetFilmOptionsAsync()
         {
             List<OptionModel> result = await _filmService.GetFilmOptionsAsync();

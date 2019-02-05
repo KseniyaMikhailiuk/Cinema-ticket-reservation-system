@@ -22,7 +22,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> AddSeanceAsync(UpsertSeanceRequest addSeanceRequest)
         {
             List<PriceModel> services = addSeanceRequest.Services.GetPriceModelList();
@@ -49,7 +49,7 @@ namespace CinemaReservation.Web.Controllers
         }
 
         [HttpPut("{Id:int}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> EditSeanceAsync(UpsertSeanceRequest addSeanceRequest)
         {
             List<PriceModel> services = addSeanceRequest.Services.GetPriceModelList();
