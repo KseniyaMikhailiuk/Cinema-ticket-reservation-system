@@ -43,7 +43,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
                 List<OptionNameIdEntity> nameIdEntity = (List<OptionNameIdEntity>)await dbConnection.QueryAsync<OptionNameIdEntity>(
-                    "GetUniqueCities",
+                    "GetCities",
                     commandType: CommandType.StoredProcedure
                 );
 

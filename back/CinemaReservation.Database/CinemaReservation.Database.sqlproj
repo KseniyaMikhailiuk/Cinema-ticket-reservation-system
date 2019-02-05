@@ -87,9 +87,9 @@
     <Build Include="dbo\StoredProcedures\UpsertFilm.sql" />
     <Build Include="dbo\StoredProcedures\InsertFilmPoster.sql" />
     <Build Include="dbo\StoredProcedures\UpsertSeance.sql" />
-    <Build Include="dbo\StoredProcedures\GetUniqueCities.sql" />
-    <Build Include="dbo\StoredProcedures\GetUniqueCinemas.sql" />
-    <Build Include="dbo\StoredProcedures\GetUniqueHalls.sql" />
+    <Build Include="dbo\StoredProcedures\GetCities.sql" />
+    <Build Include="dbo\StoredProcedures\GetCinemas.sql" />
+    <Build Include="dbo\StoredProcedures\GetHalls.sql" />
     <Build Include="dbo\StoredProcedures\GetFilmOptions.sql" />
     <Build Include="dbo\StoredProcedures\GetSeatTypeOptions.sql" />
     <Build Include="dbo\StoredProcedures\UpsertAdditionalService.sql" />
