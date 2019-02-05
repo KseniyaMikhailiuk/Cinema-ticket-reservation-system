@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaReservation.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/seances")]
     [ApiController]
     public class SeancesController : Controller
     {

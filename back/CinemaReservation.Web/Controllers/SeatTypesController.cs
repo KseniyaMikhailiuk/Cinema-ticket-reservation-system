@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaReservation.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/seat-types")]
     public class SeatTypesController : Controller
     {
         private ISeatTypesService _seatTypesService;

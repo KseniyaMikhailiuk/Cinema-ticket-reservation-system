@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CinemaReservation.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/films")]
     [ApiController]
     public class FilmsController : Controller
     {
