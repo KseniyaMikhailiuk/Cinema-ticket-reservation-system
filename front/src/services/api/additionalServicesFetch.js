@@ -1,6 +1,6 @@
 export const addAdditionalService = (item) =>
     fetch(
-        "./api/additionalservices",
+        "./api/additional-services",
         {
             method: 'post',
             headers: {
@@ -26,7 +26,7 @@ export const addAdditionalService = (item) =>
 
 export const getAdditionalServices = () =>
     fetch(
-        "./api/additionalservices",
+        "./api/additional-services",
         {
             method: 'get',
             headers: {

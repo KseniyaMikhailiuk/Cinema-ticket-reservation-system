@@ -56,15 +56,8 @@ namespace CinemaReservation.BusinessLayer.Services
 
         public async Task<UpsertItemResultStatus> AddFilmPosterAsync(FilmPosterModel imageModel)
         {
-            string posterUniqueId = Guid.NewGuid().ToString();
-            string fileName = imageModel.FormFile.FileName;
-            string currentDirectiry = AppDomain.CurrentDomain.BaseDirectory;
-            string baseDirectory = currentDirectiry.Substring(0, currentDirectiry.IndexOf("back"));
-
-            string path = baseDirectory + _configuration.GetSection("ImagesPath:FilmPosters").Value
-                + "/"
-                + posterUniqueId
-                + fileName.Substring(fileName.IndexOf("."));
+            string posterUniqueId = Guid.NewGuid().ToString() + Path.GetExtension(imageModel.FormFile.FileName);
+            string path = Path.Combine(_configuration.GetSection("FilmPostersPath").Value, posterUniqueId);
 
             if (imageModel.FormFile != null && imageModel.FormFile.Length > 0)
             {

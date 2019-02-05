@@ -488,7 +488,7 @@ export const getHallsOptions = () =>
 
 export const getSeatTypeOptions = () =>
     fetch(
-        "./api/seatTypes",
+        "./api/seat-types",
         {
             method: 'get',
             headers: {
