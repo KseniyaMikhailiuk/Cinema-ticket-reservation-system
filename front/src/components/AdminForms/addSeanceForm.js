@@ -34,7 +34,7 @@ class AddSeanceForm extends Component{
         let isSeatPriceExists = false;
         seatPrices
             .forEach(seatType => {
-                if (seatType.typeId === typeId) {
+                if (seatType.id === typeId) {
                     seatType.price = value;
                     isSeatPriceExists = true;
                 }

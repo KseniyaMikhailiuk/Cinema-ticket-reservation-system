@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
+using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,13 +24,10 @@ namespace CinemaReservation.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        public async Task<IActionResult> AddСityAsync(UpsertCityRequest addCityRequest)
+        public async Task<IActionResult> AddСityAsync(UpsertCityRequest request)
         {
             UpsertItemResultStatusAndId cityResultModel = await _cityService.UpsertCityAsync(
-                new CityModel(
-                    addCityRequest.Id,
-                    addCityRequest.Name
-                )
+                request.Adapt<CityModel>()
             );
 
             if (cityResultModel.UpsertItemResultStatus == UpsertItemResultStatus.Ok)
@@ -44,13 +42,10 @@ namespace CinemaReservation.Web.Controllers
 
         [HttpPut("{Id:int}")]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        public async Task<IActionResult> EditCinemaAsync(UpsertCinemaRequest editCinemaRequest)
+        public async Task<IActionResult> EditCinemaAsync(UpsertCinemaRequest request)
         {
             UpsertItemResultStatusAndId cinemaResultModel = await _cityService.UpsertCityAsync(
-                new CityModel(
-                    editCinemaRequest.Id,
-                    editCinemaRequest.Name
-                )
+                request.Adapt<CityModel>()
             );
 
             if (cinemaResultModel.UpsertItemResultStatus == UpsertItemResultStatus.Ok)
@@ -69,7 +64,7 @@ namespace CinemaReservation.Web.Controllers
         {
             List<OptionModel> result = await _cityService.GetCityOptionsAsync();
 
-            return Ok(result.GetOptionsResponseArray());
+            return Ok(result.Adapt<OptionItem[]>());
         }
     }
 }

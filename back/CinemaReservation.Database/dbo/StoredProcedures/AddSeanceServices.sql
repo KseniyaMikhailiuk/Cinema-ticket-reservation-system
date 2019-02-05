@@ -1,8 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[AddSeanceServices]
-    @ParentId int,
-    @ItemId int,
+    @SeanceId int,
+    @Id int,
     @Price money
 AS
     INSERT INTO [dbo].[SeanceAdditionalServices] (SeanceId, ServiceId, Price)
-    VALUES (@ParentId, @ItemId, @Price)
+    VALUES (@SeanceId, @Id, @Price)
 RETURN 0

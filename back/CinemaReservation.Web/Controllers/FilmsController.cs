@@ -7,6 +7,7 @@ using CinemaReservation.Web.Models;
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using Mapster;
 
 namespace CinemaReservation.Web.Controllers
 {
@@ -25,18 +26,18 @@ namespace CinemaReservation.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        public async Task<IActionResult> AddFilmAsync(UpsertFilmRequest addFilmRequest)
+        public async Task<IActionResult> AddFilmAsync(UpsertFilmRequest request)
         {
             FilmModel filmModel = new FilmModel(
-                addFilmRequest.Id,
-                addFilmRequest.Title,
-                addFilmRequest.Release,
-                addFilmRequest.Description,
-                addFilmRequest.StartShowingDate,
-                addFilmRequest.FinishShowingDate,
+                request.Id,
+                request.Title,
+                request.Release,
+                request.Description,
+                request.StartShowingDate,
+                request.FinishShowingDate,
                 new TimeSpan(
-                    addFilmRequest.FilmDuration.Hours,
-                    addFilmRequest.FilmDuration.Minutes,
+                    request.FilmDuration.Hours,
+                    request.FilmDuration.Minutes,
                     0
                 )
             );
@@ -53,18 +54,18 @@ namespace CinemaReservation.Web.Controllers
 
         [HttpPut("{Id:int}")]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        public async Task<IActionResult> EditFilmAsync(UpsertFilmRequest editFilmRequest)
+        public async Task<IActionResult> EditFilmAsync(UpsertFilmRequest request)
         {
             FilmModel filmModel = new FilmModel(
-                editFilmRequest.Id,
-                editFilmRequest.Title,
-                editFilmRequest.Release,
-                editFilmRequest.Description,
-                editFilmRequest.StartShowingDate,
-                editFilmRequest.FinishShowingDate,
+                request.Id,
+                request.Title,
+                request.Release,
+                request.Description,
+                request.StartShowingDate,
+                request.FinishShowingDate,
                 new TimeSpan(
-                    editFilmRequest.FilmDuration.Hours,
-                    editFilmRequest.FilmDuration.Minutes,
+                    request.FilmDuration.Hours,
+                    request.FilmDuration.Minutes,
                     0
                 )
             );
@@ -81,10 +82,10 @@ namespace CinemaReservation.Web.Controllers
 
         [HttpPut("{FilmId:int}/poster")]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        public async Task<IActionResult> AddPosterAsync(IFormCollection addPosterRequest)
+        public async Task<IActionResult> AddPosterAsync(IFormCollection request)
         {
-            int filmId = int.Parse(addPosterRequest["FilmId"]);
-            IFormFile formFile = addPosterRequest.Files.GetFile("FilmPoster");
+            int filmId = int.Parse(request["FilmId"]);
+            IFormFile formFile = request.Files.GetFile("FilmPoster");
 
             UpsertItemResultStatus resultStatus = await _filmService.AddFilmPosterAsync(new FilmPosterModel(
                 filmId,
@@ -105,7 +106,7 @@ namespace CinemaReservation.Web.Controllers
         {
             List<OptionModel> result = await _filmService.GetFilmOptionsAsync();
 
-            return Ok(result.GetOptionsResponseArray());
+            return Ok(result.Adapt<OptionItem[]>());
         }
     }
 }

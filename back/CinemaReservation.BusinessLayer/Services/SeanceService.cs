@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.DataAccessLayer.Contracts;
 using CinemaReservation.DataAccessLayer.Entities;
+using Mapster;
 
 namespace CinemaReservation.BusinessLayer.Services
 {
@@ -28,22 +30,26 @@ namespace CinemaReservation.BusinessLayer.Services
 
             if (resultEntity.OperationResultStatus == AddOperationResultStatus.Ok)
             {
+                TypeAdapterConfig<SeatPriceModel, SeatPriceEntity>
+                    .NewConfig()
+                    .Map(dest => dest.SeanceId, sourse => resultEntity.Id);
+
                 AddOperationResultStatus addSeatPricesResultStatus = await _seanceRepository.AddSeanceSeatPricesAsync(
                         seanceModel
                             .SeatPrices
-                            .GetPriceEntityList(
-                                resultEntity.Id
-                            )
+                            .Adapt<List<SeatPriceEntity>>()
                 );
 
                 if (addSeatPricesResultStatus == AddOperationResultStatus.Ok)
                 {
+                    TypeAdapterConfig<SeatPriceModel, ServicePriceEntity>
+                        .NewConfig()
+                        .Map(dest => dest.SeanceId, sourse => resultEntity.Id);
+
                     AddOperationResultStatus addServicesResultStatus = await _seanceRepository.AddSeanceAdditionalServicesAsync(
                         seanceModel
                             .Services
-                            .GetPriceEntityList(
-                                resultEntity.Id
-                            )
+                            .Adapt<List<ServicePriceEntity>>()
                     );
 
                     if (addServicesResultStatus == AddOperationResultStatus.Ok)

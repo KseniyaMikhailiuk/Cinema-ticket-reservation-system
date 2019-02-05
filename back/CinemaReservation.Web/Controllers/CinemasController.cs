@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
+using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,14 +24,10 @@ namespace CinemaReservation.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        public async Task<IActionResult> AddCinemaAsync(UpsertCinemaRequest addCinemaRequest)
+        public async Task<IActionResult> AddCinemaAsync(UpsertCinemaRequest request)
         {
             UpsertItemResultStatusAndId cinemaResultModel = await _cinemaService.UpsertCinemaAsync(
-                new CinemaModel(
-                    addCinemaRequest.Id,
-                    addCinemaRequest.Name,
-                    addCinemaRequest.CityId
-                )
+                request.Adapt<CinemaModel>()
             );
 
             if (cinemaResultModel.UpsertItemResultStatus == UpsertItemResultStatus.Ok)
@@ -45,14 +42,10 @@ namespace CinemaReservation.Web.Controllers
 
         [HttpPut("{Id:int}")]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        public async Task<IActionResult> EditCinemaAsync(UpsertCinemaRequest editCinemaRequest)
+        public async Task<IActionResult> EditCinemaAsync(UpsertCinemaRequest request)
         {
             UpsertItemResultStatusAndId cinemaResultModel = await _cinemaService.UpsertCinemaAsync(
-                new CinemaModel(
-                    editCinemaRequest.Id,
-                    editCinemaRequest.Name,
-                    editCinemaRequest.CityId
-                )
+                request.Adapt<CinemaModel>()
             );
 
             if (cinemaResultModel.UpsertItemResultStatus == UpsertItemResultStatus.Ok)
@@ -71,7 +64,7 @@ namespace CinemaReservation.Web.Controllers
         {
             List<OptionModel> result = await _cinemaService.GetCinemaOptionsAsync();
 
-            return Ok(result.GetOptionsResponseArray());
+            return Ok(result.Adapt<OptionItem[]>());
         }
     }
 }

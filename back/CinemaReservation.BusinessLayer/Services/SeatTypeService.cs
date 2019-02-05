@@ -2,6 +2,7 @@
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.DataAccessLayer.Contracts;
 using CinemaReservation.DataAccessLayer.Entities;
+using Mapster;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -22,7 +23,7 @@ namespace CinemaReservation.BusinessLayer.Services
         {
             List<OptionNameIdEntity> seatTypes = await _seatTypesRepository.GetSeatTypeOptionsAsync();
 
-            return seatTypes.GetOptionModelList();
+            return seatTypes.Adapt<List<OptionModel>>();
         }
     }
 }

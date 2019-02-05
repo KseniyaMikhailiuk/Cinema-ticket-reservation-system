@@ -5,6 +5,7 @@ using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.Web;
 using Microsoft.AspNetCore.Authorization;
+using Mapster;
 
 namespace CinemaReservation.PresentationLayer.Controllers
 {
@@ -24,24 +25,13 @@ namespace CinemaReservation.PresentationLayer.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync(RegistrationRequest registrationRequest)
         {
-            RegistrationModel registrationModel = new RegistrationModel(
-                registrationRequest.Name,
-                registrationRequest.Surname,
-                registrationRequest.Email,
-                registrationRequest.Password
-            );
+            RegistrationModel registrationModel = registrationRequest.Adapt<RegistrationModel>();
 
             RegistrationResultModel result = await _accountService.RegisterUserAsync(registrationModel);
 
             if (result.ResultStatus == RegistrationResultStatus.Ok)
             {
-                AuthorizationResponse authorizationResponse = new AuthorizationResponse(
-                    result.Id,
-                    result.Name,
-                    result.Surname,
-                    result.Email,
-                    result.IsAdmin
-                );
+                AuthorizationResponse authorizationResponse = result.Adapt<AuthorizationResponse>();
 
                 await HttpContext.SignInAsync(authorizationResponse);
 
@@ -54,22 +44,13 @@ namespace CinemaReservation.PresentationLayer.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> LoginAsync(LoginRequest loginRequest)
         {
-            LoginModel loginModel = new LoginModel(
-                loginRequest.Email,
-                loginRequest.Password
-            );
+            LoginModel loginModel = loginRequest.Adapt<LoginModel>();
 
             AuthorizationResultModel result = await _accountService.AuthorizeUserAsync(loginModel);
 
             if (result.ResultStatus == AuthorizationResultStatus.Ok)
             {
-                AuthorizationResponse authorizationResponse = new AuthorizationResponse(
-                    result.Id,
-                    result.Name,
-                    result.Surname,
-                    result.Email,
-                    result.IsAdmin
-                );
+                AuthorizationResponse authorizationResponse = result.Adapt<AuthorizationResponse>();
 
                 await HttpContext.SignInAsync(authorizationResponse);
 
@@ -96,13 +77,7 @@ namespace CinemaReservation.PresentationLayer.Controllers
 
             UserModel result = await _accountService.GetUserAsync(userId);
 
-            return Ok(new UserResponse(
-                result.Id,
-                result.Name,
-                result.Surname,
-                result.Email,
-                result.IsAdmin
-            ));
+            return Ok(result.Adapt<UserResponse>());
         }
     }
 }

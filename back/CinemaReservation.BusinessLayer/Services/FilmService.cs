@@ -7,6 +7,7 @@ using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.DataAccessLayer.Contracts;
 using CinemaReservation.DataAccessLayer.Entities;
 using System.Collections.Generic;
+using Mapster;
 
 namespace CinemaReservation.BusinessLayer.Services
 {
@@ -32,15 +33,9 @@ namespace CinemaReservation.BusinessLayer.Services
                 return new UpsertItemResultStatusAndId(UpsertItemResultStatus.Conflict);
             }
 
-            AddOperationResultEntity resultEntity = await _filmRepository.UpsertFilmAsync(new FilmEntity(
-                filmModel.Id,
-                filmModel.Title,
-                filmModel.Release,
-                filmModel.Description,
-                filmModel.StartShowingDate,
-                filmModel.FinishShowingDate,
-                filmModel.FilmDuration
-            ));
+            AddOperationResultEntity resultEntity = await _filmRepository.UpsertFilmAsync(
+                filmModel.Adapt<FilmEntity>()
+            );
 
             if (resultEntity.OperationResultStatus == AddOperationResultStatus.Ok)
             {
@@ -86,7 +81,7 @@ namespace CinemaReservation.BusinessLayer.Services
         {
             List<OptionNameIdEntity> films = await _filmRepository.GetFilmOptionsAsync();
 
-            return films.GetOptionModelList();
+            return films.Adapt<List<OptionModel>>();
         }
     }
 }

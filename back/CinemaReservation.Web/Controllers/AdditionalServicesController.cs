@@ -5,6 +5,7 @@ using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Mapster;
 
 namespace CinemaReservation.Web.Controllers
 {
@@ -23,13 +24,12 @@ namespace CinemaReservation.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        public async Task<IActionResult> AddAdditionalServicesAsync(UpsertAdditionalServiceRequest addAdditionalServiceRequest)
+        public async Task<IActionResult> AddAdditionalServicesAsync(UpsertAdditionalServiceRequest request)
         {
             UpsertItemResultStatus resultStatus = await _additionalServicesService
-                .UpsertAdditionalServiceAsync(new ServiceModel(
-                    addAdditionalServiceRequest.Id,
-                    addAdditionalServiceRequest.Name
-                ));
+                .UpsertAdditionalServiceAsync(
+                    request.Adapt<ServiceModel>()
+                );
 
             if (resultStatus == UpsertItemResultStatus.Ok)
             {
@@ -41,13 +41,12 @@ namespace CinemaReservation.Web.Controllers
 
         [HttpPut("{Id:int}")]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        public async Task<IActionResult> EditAdditionalServicesAsync(UpsertAdditionalServiceRequest editAdditionalServiceRequest)
+        public async Task<IActionResult> EditAdditionalServicesAsync(UpsertAdditionalServiceRequest request)
         {
             UpsertItemResultStatus resultStatus = await _additionalServicesService
-                .UpsertAdditionalServiceAsync(new ServiceModel(
-                    editAdditionalServiceRequest.Id,
-                    editAdditionalServiceRequest.Name
-                ));
+                .UpsertAdditionalServiceAsync(
+                    request.Adapt<ServiceModel>()
+                );
 
             if (resultStatus == UpsertItemResultStatus.Ok)
             {
@@ -63,7 +62,7 @@ namespace CinemaReservation.Web.Controllers
         {
             List<OptionModel> result = await _additionalServicesService.GetServiceOptionsAsync();
 
-            return Ok(result.GetOptionsResponseArray());
+            return Ok(result.Adapt<OptionItem[]>());
         }
     }
 }

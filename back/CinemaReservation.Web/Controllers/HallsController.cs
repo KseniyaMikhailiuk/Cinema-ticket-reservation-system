@@ -5,6 +5,7 @@ using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Mapster;
 
 namespace CinemaReservation.Web.Controllers
 {
@@ -23,17 +24,17 @@ namespace CinemaReservation.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        public async Task<IActionResult> AddHallsAsync(UpsertHallsRequest addHallsRequest)
+        public async Task<IActionResult> AddHallsAsync(UpsertHallsRequest request)
         {
-            List<HallModel> halls = addHallsRequest.Halls.GetHallModelList();
+            List<HallModel> halls = request.Halls.Adapt<List<HallModel>>();
 
-            List<SeatModel> seats = addHallsRequest.Seats.GetSeatModelList();
+            List<SeatModel> seats = request.Seats.Adapt<List<SeatModel>>();
 
             UpsertItemResultStatus resultStatus = await _hallService.UpsertHallsAsync(
                 new CinemaHallsModel(
                     halls,
                     seats,
-                    addHallsRequest.CinemaId
+                    request.CinemaId
                 )
             );
 
@@ -47,17 +48,17 @@ namespace CinemaReservation.Web.Controllers
 
         [HttpPut("{Id:int}")]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        public async Task<IActionResult> EditHallsAsync(UpsertHallsRequest editHallsRequest)
+        public async Task<IActionResult> EditHallsAsync(UpsertHallsRequest request)
         {
-            List<HallModel> halls = editHallsRequest.Halls.GetHallModelList();
+            List<HallModel> halls = request.Halls.Adapt<List<HallModel>>();
 
-            List<SeatModel> seats = editHallsRequest.Seats.GetSeatModelList();
+            List<SeatModel> seats = request.Seats.Adapt<List<SeatModel>>();
 
             UpsertItemResultStatus resultStatus = await _hallService.UpsertHallsAsync(
                 new CinemaHallsModel(
                     halls,
                     seats,
-                    editHallsRequest.CinemaId
+                    request.CinemaId
                 )
             );
 
@@ -75,7 +76,7 @@ namespace CinemaReservation.Web.Controllers
         {
             List<OptionModel> result = await _hallService.GetHallsOptionsAsync();
 
-            return Ok(result.GetOptionsResponseArray());
+            return Ok(result.Adapt<OptionItem[]>());
         }
     }
 }

@@ -39,7 +39,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             }
         }
 
-        public async Task<AddOperationResultStatus> AddSeanceAdditionalServicesAsync(List<PriceEntity> seanceServices)
+        public async Task<AddOperationResultStatus> AddSeanceAdditionalServicesAsync(List<ServicePriceEntity> seanceServices)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             }
         }
 
-        public async Task<AddOperationResultStatus> AddSeanceSeatPricesAsync(List<PriceEntity> seanceServices)
+        public async Task<AddOperationResultStatus> AddSeanceSeatPricesAsync(List<SeatPriceEntity> seanceSeatPrices)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                 {
                     int id = await dbConnection.ExecuteAsync(
                         "AddSeanceSeatPrices",
-                        seanceServices,
+                        seanceSeatPrices,
                         commandType: CommandType.StoredProcedure
                     );
                     return AddOperationResultStatus.Ok;

@@ -17,18 +17,18 @@ namespace CinemaReservation.Web.Models
         public int HallId { get; }
 
         [Required]
-        public PriceItem[] Services { get; }
+        public ServicePrice[] Services { get; }
 
         [Required]
-        public PriceItem[] SeatPrices { get; }
+        public SeatPrice[] SeatPrices { get; }
 
         public UpsertSeanceRequest(
             int id,
             DateTime dateTime,
             int filmId,
             int hallId,
-            PriceItem[] services,
-            PriceItem[] seatPrices
+            ServicePrice[] services,
+            SeatPrice[] seatPrices
         )
         {
             Id = id;

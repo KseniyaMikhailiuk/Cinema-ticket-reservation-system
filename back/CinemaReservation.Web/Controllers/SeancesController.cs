@@ -5,6 +5,7 @@ using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Mapster;
 
 namespace CinemaReservation.Web.Controllers
 {
@@ -23,17 +24,17 @@ namespace CinemaReservation.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        public async Task<IActionResult> AddSeanceAsync(UpsertSeanceRequest addSeanceRequest)
+        public async Task<IActionResult> AddSeanceAsync(UpsertSeanceRequest request)
         {
-            List<PriceModel> services = addSeanceRequest.Services.GetPriceModelList();
+            List<ServicePriceModel> services = request.Services.Adapt<List<ServicePriceModel>>();
 
-            List<PriceModel> seatPrices = addSeanceRequest.SeatPrices.GetPriceModelList();
+            List<SeatPriceModel> seatPrices = request.SeatPrices.Adapt<List<SeatPriceModel>>();
 
             SeanceModel seanceModel = new SeanceModel(
-                addSeanceRequest.Id,
-                addSeanceRequest.DateTime,
-                addSeanceRequest.FilmId,
-                addSeanceRequest.HallId,
+                request.Id,
+                request.DateTime,
+                request.FilmId,
+                request.HallId,
                 services,
                 seatPrices
             );
@@ -50,17 +51,17 @@ namespace CinemaReservation.Web.Controllers
 
         [HttpPut("{Id:int}")]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        public async Task<IActionResult> EditSeanceAsync(UpsertSeanceRequest addSeanceRequest)
+        public async Task<IActionResult> EditSeanceAsync(UpsertSeanceRequest request)
         {
-            List<PriceModel> services = addSeanceRequest.Services.GetPriceModelList();
+            List<ServicePriceModel> services = request.Services.Adapt<List<ServicePriceModel>>();
 
-            List<PriceModel> seatPrices = addSeanceRequest.SeatPrices.GetPriceModelList();
+            List<SeatPriceModel> seatPrices = request.SeatPrices.Adapt<List<SeatPriceModel>>();
 
             SeanceModel seanceModel = new SeanceModel(
-                addSeanceRequest.Id,
-                addSeanceRequest.DateTime,
-                addSeanceRequest.FilmId,
-                addSeanceRequest.HallId,
+                request.Id,
+                request.DateTime,
+                request.FilmId,
+                request.HallId,
                 services,
                 seatPrices
             );

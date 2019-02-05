@@ -2,6 +2,7 @@
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.DataAccessLayer.Contracts;
 using CinemaReservation.DataAccessLayer.Entities;
+using Mapster;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,10 +22,7 @@ namespace CinemaReservation.BusinessLayer.Services
         public async Task<UpsertItemResultStatusAndId> UpsertCityAsync(CityModel cityModel)
         {
             AddOperationResultEntity cityResultEntity = await _cityRepository.UpsertCityAsync(
-                new CityEntity(
-                    cityModel.Id,
-                    cityModel.Name
-                )
+                cityModel.Adapt<CityEntity>()
             );
 
             if (cityResultEntity.OperationResultStatus == AddOperationResultStatus.Ok)
@@ -43,7 +41,7 @@ namespace CinemaReservation.BusinessLayer.Services
 
             List<OptionNameIdEntity> cities = await _cityRepository.GetCitiesAsync();
 
-            List<OptionModel> citiesList = cities.GetOptionModelList();
+            List<OptionModel> citiesList = cities.Adapt<List<OptionModel>>();
 
             return citiesList;
 

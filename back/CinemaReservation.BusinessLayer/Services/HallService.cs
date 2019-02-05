@@ -4,6 +4,7 @@ using CinemaReservation.DataAccessLayer.Entities;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.DataAccessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
+using Mapster;
 
 namespace CinemaReservation.BusinessLayer.Services
 {
@@ -23,11 +24,7 @@ namespace CinemaReservation.BusinessLayer.Services
             foreach (HallModel hall in hallsModel.Halls)
             {
                 AddOperationResultEntity hallResultEntity = await _hallRepository.UpsertHallAsync(
-                    new HallEntity(
-                        hall.Id,
-                        hall.Name,
-                        hallsModel.CinemaId
-                    )
+                    hallsModel.Adapt<HallEntity>()
                 );
 
                 if (hallResultEntity.OperationResultStatus == AddOperationResultStatus.UniqueIndexError)
@@ -44,11 +41,13 @@ namespace CinemaReservation.BusinessLayer.Services
                     await _hallRepository.RemoveHallPlanAsync(hallResultEntity.Id);
                 }
 
+                TypeAdapterConfig<SeatModel, SeatEntity>
+                    .NewConfig()
+                    .Map(dest => dest.HallId, sourse => hallResultEntity.Id);
+
                 AddOperationResultStatus resultStatus = await _hallRepository.AddHallPlanAsync(
                     hallSeats
-                        .GetSeatEntityList(
-                            hallResultEntity.Id
-                        )
+                        .Adapt<List<SeatEntity>>()
                 );
 
                 if (resultStatus == AddOperationResultStatus.UniqueIndexError)
@@ -64,7 +63,7 @@ namespace CinemaReservation.BusinessLayer.Services
         {
             List<OptionNameIdEntity> halls = await _hallRepository.GetHallsAsync();
 
-            return halls.GetOptionModelList();
+            return halls.Adapt<List<OptionModel>>();
         }
     }
 }
