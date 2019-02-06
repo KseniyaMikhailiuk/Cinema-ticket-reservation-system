@@ -5,6 +5,8 @@ using CinemaReservation.DataAccessLayer.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mapster;
+using CinemaReservation.DataAccessLayer.Exceptions;
+using CinemaReservation.BusinessLayer.Exceptions;
 
 namespace CinemaReservation.BusinessLayer.Services
 {
@@ -19,19 +21,19 @@ namespace CinemaReservation.BusinessLayer.Services
             _additionalServicesRepository = additionalServicesRepository;
         }
 
-        public async Task<UpsertItemResultStatus> UpsertAdditionalServiceAsync(ServiceModel serviceModel)
+        public async Task UpsertAdditionalServiceAsync(ServiceModel serviceModel)
         {
-            AddOperationResultStatus result = await _additionalServicesRepository
-                .UpsertAdditionalServiceAsync(
-                    serviceModel.Adapt<AdditionalServiceEntity>()
-                );
-
-            if (result == AddOperationResultStatus.Ok)
+            try
             {
-                return UpsertItemResultStatus.Ok;
+                await _additionalServicesRepository
+                    .UpsertAdditionalServiceAsync(
+                        serviceModel.Adapt<AdditionalServiceEntity>()
+                    );
             }
-
-            return UpsertItemResultStatus.Conflict;
+            catch(UniqueIndexException e)
+            {
+                throw new ConflictException(e);
+            }
         }
         public async Task<List<OptionModel>> GetServiceOptionsAsync()
         {

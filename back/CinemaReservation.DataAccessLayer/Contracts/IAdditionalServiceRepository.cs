@@ -6,7 +6,7 @@ namespace CinemaReservation.DataAccessLayer.Contracts
 {
     public interface IAdditionalServiceRepository
     {
-        Task<AddOperationResultStatus> UpsertAdditionalServiceAsync(AdditionalServiceEntity additionalServiceEntity);
+        Task UpsertAdditionalServiceAsync(AdditionalServiceEntity additionalServiceEntity);
         Task<List<OptionNameIdEntity>> GetServiceOptionsAsync();
     }
 }

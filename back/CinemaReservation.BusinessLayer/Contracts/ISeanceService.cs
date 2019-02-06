@@ -5,6 +5,6 @@ namespace CinemaReservation.BusinessLayer.Contracts
 {
     public interface ISeanceService
     {
-        Task<UpsertItemResultStatus> UpsertSeanceAsync(SeanceModel seanceModel);
+        Task UpsertSeanceAsync(SeanceModel seanceModel);
     }
 }

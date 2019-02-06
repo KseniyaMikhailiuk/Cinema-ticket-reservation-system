@@ -5,6 +5,8 @@ using Dapper;
 using CinemaReservation.DataAccessLayer.Contracts;
 using CinemaReservation.DataAccessLayer.Entities;
 using System.Collections.Generic;
+using CinemaReservation.DataAccessLayer.Exceptions;
+using System;
 
 namespace CinemaReservation.DataAccessLayer.Repositories
 {
@@ -32,13 +34,13 @@ namespace CinemaReservation.DataAccessLayer.Repositories
 
                 return id;
             }
-            catch
+            catch(SqlException e)
             {
-                throw new System.Exception();
+                throw new UniqueIndexException("UpsertSeance", e);
             }
         }
 
-        public async Task<AddOperationResultStatus> AddSeanceAdditionalServicesAsync(List<ServicePriceEntity> seanceServices, OperationContext context)
+        public async Task AddSeanceAdditionalServicesAsync(List<ServicePriceEntity> seanceServices, OperationContext context)
         {
             try
             {
@@ -48,15 +50,14 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                     commandType: CommandType.StoredProcedure,
                     transaction: context.Transaction
                 );
-                return AddOperationResultStatus.Ok;
             }
-            catch
+            catch(SqlException e)
             {
-                return AddOperationResultStatus.UniqueIndexError;
+                throw new UniqueIndexException("AddSeanceServices", e);
             }
         }
 
-        public async Task<AddOperationResultStatus> AddSeanceSeatPricesAsync(List<SeatPriceEntity> seanceSeatPrices, OperationContext context)
+        public async Task AddSeanceSeatPricesAsync(List<SeatPriceEntity> seanceSeatPrices, OperationContext context)
         {
             try
             {
@@ -66,11 +67,10 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                     commandType: CommandType.StoredProcedure,
                     transaction: context.Transaction
                 );
-                return AddOperationResultStatus.Ok;
             }
             catch
             {
-                return AddOperationResultStatus.UniqueIndexError;
+                throw new UniqueIndexException("AddSeanceSeatPrices");
             }
         }
 

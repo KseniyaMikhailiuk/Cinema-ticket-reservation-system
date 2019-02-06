@@ -6,6 +6,7 @@ using CinemaReservation.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Mapster;
+using CinemaReservation.BusinessLayer.Exceptions;
 
 namespace CinemaReservation.Web.Controllers
 {
@@ -26,34 +27,37 @@ namespace CinemaReservation.Web.Controllers
         [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> AddAdditionalServicesAsync(UpsertAdditionalServiceRequest request)
         {
-            UpsertItemResultStatus resultStatus = await _additionalServicesService
-                .UpsertAdditionalServiceAsync(
-                    request.Adapt<ServiceModel>()
-                );
-
-            if (resultStatus == UpsertItemResultStatus.Ok)
+            try
             {
-                return Ok("ServiceAdded successfully");
-            }
+                await _additionalServicesService
+                    .UpsertAdditionalServiceAsync(
+                        request.Adapt<ServiceModel>()
+                    );
 
-            return Conflict("Unique index error");
+                return Ok();
+            }
+            catch(ConflictException e)
+            {
+                return Conflict(e.Message);
+            }
         }
 
         [HttpPut("{Id:int}")]
         [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> EditAdditionalServicesAsync(UpsertAdditionalServiceRequest request)
         {
-            UpsertItemResultStatus resultStatus = await _additionalServicesService
+            try
+            {
+                await _additionalServicesService
                 .UpsertAdditionalServiceAsync(
                     request.Adapt<ServiceModel>()
                 );
-
-            if (resultStatus == UpsertItemResultStatus.Ok)
-            {
-                return Ok("ServiceAdded successfully");
+                return Ok();
             }
-
-            return Conflict("Unique index error");
+            catch (ConflictException e)
+            {
+                return Conflict(e.Message);
+            }
         }
 
         [HttpGet]
