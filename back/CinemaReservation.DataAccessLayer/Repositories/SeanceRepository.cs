@@ -19,39 +19,36 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             _settings = settings;
         }
 
-        public async Task<AddOperationResultEntity> UpsertSeanceAsync(SeanceEntity seanceEntity)
+        public async Task<int> UpsertSeanceAsync(SeanceEntity seanceEntity, OperationContext context)
         {
             try
             {
-                using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
-                {
-                    int id = await dbConnection.QuerySingleOrDefaultAsync<int>(
-                        "UpsertSeance",
-                        seanceEntity,
-                        commandType: CommandType.StoredProcedure
-                    );
-                    return new AddOperationResultEntity(id, AddOperationResultStatus.Ok);
-                }
+                int id = await context.Connection.QuerySingleOrDefaultAsync<int>(
+                   "UpsertSeance",
+                   seanceEntity,
+                   commandType: CommandType.StoredProcedure,
+                   transaction: context.Transaction
+                );
+
+                return id;
             }
             catch
             {
-                return new AddOperationResultEntity(AddOperationResultStatus.UniqueIndexError);
+                throw new System.Exception();
             }
         }
 
-        public async Task<AddOperationResultStatus> AddSeanceAdditionalServicesAsync(List<ServicePriceEntity> seanceServices)
+        public async Task<AddOperationResultStatus> AddSeanceAdditionalServicesAsync(List<ServicePriceEntity> seanceServices, OperationContext context)
         {
             try
             {
-                using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
-                {
-                    int id = await dbConnection.ExecuteAsync(
-                        "AddSeanceServices",
-                        seanceServices,
-                        commandType: CommandType.StoredProcedure
-                    );
-                    return AddOperationResultStatus.Ok;
-                }
+                int id = await context.Connection.ExecuteAsync(
+                    "AddSeanceServices",
+                    seanceServices,
+                    commandType: CommandType.StoredProcedure,
+                    transaction: context.Transaction
+                );
+                return AddOperationResultStatus.Ok;
             }
             catch
             {
@@ -59,24 +56,28 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             }
         }
 
-        public async Task<AddOperationResultStatus> AddSeanceSeatPricesAsync(List<SeatPriceEntity> seanceSeatPrices)
+        public async Task<AddOperationResultStatus> AddSeanceSeatPricesAsync(List<SeatPriceEntity> seanceSeatPrices, OperationContext context)
         {
             try
             {
-                using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
-                {
-                    int id = await dbConnection.ExecuteAsync(
-                        "AddSeanceSeatPrices",
-                        seanceSeatPrices,
-                        commandType: CommandType.StoredProcedure
-                    );
-                    return AddOperationResultStatus.Ok;
-                }
+                int id = await context.Connection.ExecuteAsync(
+                    "AddSeanceSeatPrices",
+                    seanceSeatPrices,
+                    commandType: CommandType.StoredProcedure,
+                    transaction: context.Transaction
+                );
+                return AddOperationResultStatus.Ok;
             }
             catch
             {
                 return AddOperationResultStatus.UniqueIndexError;
             }
+        }
+
+        public OperationContext GetOperationContext()
+        {
+            IDbConnection connection = new SqlConnection(_settings.ConnectionString);
+            return new OperationContext(connection);
         }
     }
 }

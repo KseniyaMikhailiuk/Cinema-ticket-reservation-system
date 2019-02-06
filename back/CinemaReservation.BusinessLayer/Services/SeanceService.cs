@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
@@ -21,39 +22,40 @@ namespace CinemaReservation.BusinessLayer.Services
 
         public async Task<UpsertItemResultStatus> UpsertSeanceAsync(SeanceModel seanceModel)
         {
-            AddOperationResultEntity resultEntity = await _seanceRepository.UpsertSeanceAsync(new SeanceEntity(
-                seanceModel.Id,
-                seanceModel.DateTime,
-                seanceModel.FilmId,
-                seanceModel.HallId
-            ));
-
-            if (resultEntity.OperationResultStatus == AddOperationResultStatus.Ok)
+            using (OperationContext context = _seanceRepository.GetOperationContext())
             {
+                int id = await _seanceRepository.UpsertSeanceAsync(
+                    seanceModel.Adapt<SeanceEntity>(),
+                    context
+                );
+
                 TypeAdapterConfig<SeatPriceModel, SeatPriceEntity>
                     .NewConfig()
-                    .Map(dest => dest.SeanceId, sourse => resultEntity.Id);
+                    .Map(dest => dest.SeanceId, sourse => id);
 
                 AddOperationResultStatus addSeatPricesResultStatus = await _seanceRepository.AddSeanceSeatPricesAsync(
-                        seanceModel
-                            .SeatPrices
-                            .Adapt<List<SeatPriceEntity>>()
+                    seanceModel
+                        .SeatPrices
+                        .Adapt<List<SeatPriceEntity>>(),
+                    context
                 );
 
                 if (addSeatPricesResultStatus == AddOperationResultStatus.Ok)
                 {
                     TypeAdapterConfig<SeatPriceModel, ServicePriceEntity>
                         .NewConfig()
-                        .Map(dest => dest.SeanceId, sourse => resultEntity.Id);
+                        .Map(dest => dest.SeanceId, sourse => id);
 
                     AddOperationResultStatus addServicesResultStatus = await _seanceRepository.AddSeanceAdditionalServicesAsync(
                         seanceModel
                             .Services
-                            .Adapt<List<ServicePriceEntity>>()
+                            .Adapt<List<ServicePriceEntity>>(),
+                        context
                     );
 
                     if (addServicesResultStatus == AddOperationResultStatus.Ok)
                     {
+                        context.Apply();
                         return UpsertItemResultStatus.Ok;
                     }
                 }
