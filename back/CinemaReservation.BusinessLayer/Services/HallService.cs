@@ -38,7 +38,7 @@ namespace CinemaReservation.BusinessLayer.Services
 
                 if (hall.Id == hallResultEntity.Id)
                 {
-                    await _hallRepository.RemoveHallPlanAsync(hallResultEntity.Id);
+                    await _hallRepository.DeleteHallPlanAsync(hallResultEntity.Id);
                 }
 
                 TypeAdapterConfig<SeatModel, SeatEntity>

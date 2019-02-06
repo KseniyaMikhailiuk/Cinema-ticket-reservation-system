@@ -8,7 +8,7 @@ using Dapper;
 
 namespace CinemaReservation.DataAccessLayer.Repositories
 {
-    class FilmRepository : IFilmRepository
+    public class FilmRepository : IFilmRepository
     {
         private readonly IDalSettings _settings;
 
@@ -49,6 +49,34 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                     filmId,
                     AddOperationResultStatus.Ok
                 );
+            }
+        }
+
+        public async Task<FilmEntity> GetFilmAsync(int id)
+        {
+            using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+            {
+                FilmEntity film = await dbConnection.QuerySingleOrDefaultAsync<FilmEntity>(
+                    "GetFilm",
+                    new { Id = id },
+                    commandType: CommandType.StoredProcedure
+                );
+
+                return film;
+            }
+        }
+
+        public async Task<FilmPosterEntity> GetFilmPosterAsync(int id)
+        {
+            using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+            {
+                FilmPosterEntity filmPoster = await dbConnection.QuerySingleOrDefaultAsync<FilmPosterEntity>(
+                    "GetFilmPoster",
+                    new { Id = id },
+                    commandType: CommandType.StoredProcedure
+                );
+
+                return filmPoster;
             }
         }
 

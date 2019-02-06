@@ -9,5 +9,7 @@ namespace CinemaReservation.DataAccessLayer.Contracts
         Task<AddOperationResultEntity> UpsertFilmAsync(FilmEntity filmEntity);
         Task<AddOperationResultEntity> InsertFilmPosterAsync(FilmPosterEntity filmPosterEntity);
         Task<List<OptionNameIdEntity>> GetFilmOptionsAsync();
+        Task<FilmEntity> GetFilmAsync(int id);
+        Task<FilmPosterEntity> GetFilmPosterAsync(int id);
     }
 }

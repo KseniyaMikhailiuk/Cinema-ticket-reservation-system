@@ -87,7 +87,7 @@ namespace CinemaReservation.Web.Controllers
             int filmId = int.Parse(request["FilmId"]);
             IFormFile formFile = request.Files.GetFile("FilmPoster");
 
-            UpsertItemResultStatus resultStatus = await _filmService.AddFilmPosterAsync(new FilmPosterModel(
+            UpsertItemResultStatus resultStatus = await _filmService.InsertFilmPosterAsync(new FilmPosterModel(
                 filmId,
                 formFile
             ));

@@ -60,7 +60,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             }
         }
 
-        public async Task<AddOperationResultStatus> RemoveHallPlanAsync(int hallId)
+        public async Task<AddOperationResultStatus> DeleteHallPlanAsync(int hallId)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {

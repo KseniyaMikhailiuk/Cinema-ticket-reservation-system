@@ -15,7 +15,7 @@ namespace CinemaReservation.DataAccessLayer.Entities
         public FilmEntity(
             int id,
             string title,
-            DateTime release,
+            DateTime releaseDate,
             string description,
             DateTime startShowingDate,
             DateTime finishShowingDate,
@@ -24,7 +24,7 @@ namespace CinemaReservation.DataAccessLayer.Entities
         {
             Id = id;
             Title = title;
-            ReleaseDate = release;
+            ReleaseDate = releaseDate;
             Description = description;
             StartShowingDate = startShowingDate;
             FinishShowingDate = finishShowingDate;

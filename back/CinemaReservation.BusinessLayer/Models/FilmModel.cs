@@ -6,7 +6,7 @@ namespace CinemaReservation.BusinessLayer.Models
     {
         public int Id { get; }
         public string Title { get; }
-        public DateTime Release { get; }
+        public DateTime ReleaseDate { get; }
         public string Description { get; }
         public DateTime StartShowingDate { get; }
         public DateTime FinishShowingDate { get; }
@@ -15,7 +15,7 @@ namespace CinemaReservation.BusinessLayer.Models
         public FilmModel(
             int id,
             string title,
-            DateTime release,
+            DateTime releaseDate,
             string description,
             DateTime startShowingDate,
             DateTime finishShowingDate,
@@ -24,7 +24,7 @@ namespace CinemaReservation.BusinessLayer.Models
         {
             Id = id;
             Title = title;
-            Release = release;
+            ReleaseDate = releaseDate;
             Description = description;
             StartShowingDate = startShowingDate;
             FinishShowingDate = finishShowingDate;

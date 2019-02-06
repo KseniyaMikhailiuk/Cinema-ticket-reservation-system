@@ -1,8 +1,10 @@
-﻿namespace CinemaReservation.DataAccessLayer.Entities
+﻿using System;
+
+namespace CinemaReservation.DataAccessLayer.Entities
 {
     public class FilmPosterEntity
     {
-        public string PosterUnuqueId { get; }
+        public string PosterUniqueId { get; }
         public int FilmId { get; }
 
         public FilmPosterEntity(
@@ -11,7 +13,16 @@
         )
         {
             FilmId = filmId;
-            PosterUnuqueId = posterUniqueId;
+            PosterUniqueId = posterUniqueId;
+        }
+
+        public FilmPosterEntity(
+            int filmId,
+            Guid posterUniqueId
+        )
+        {
+            FilmId = filmId;
+            PosterUniqueId = posterUniqueId.ToString();
         }
     }
 }
