@@ -32,19 +32,14 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             }
         }
 
-        public async Task<AddOperationResultEntity> InsertFilmPosterAsync(FilmPosterEntity filmPosterEntity)
+        public async Task InsertFilmPosterAsync(FilmPosterEntity filmPosterEntity)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
-                int filmId = await dbConnection.QuerySingleOrDefaultAsync<int>(
+                await dbConnection.QuerySingleOrDefaultAsync<int>(
                     "InsertFilmPoster",
                     filmPosterEntity,
                     commandType: CommandType.StoredProcedure
-                );
-
-                return new AddOperationResultEntity(
-                    filmId,
-                    AddOperationResultStatus.Ok
                 );
             }
         }
@@ -77,12 +72,13 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             }
         }
 
-        public async Task<List<OptionNameIdEntity>> GetFilmOptionsAsync()
+        public async Task<List<FilmEntity>> GetFilmsAsync(string nameFilter)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
-                List<OptionNameIdEntity> nameIdEntity = (List<OptionNameIdEntity>)await dbConnection.QueryAsync<OptionNameIdEntity>(
-                    "GetFilmOptions",
+                List<FilmEntity> nameIdEntity = (List<FilmEntity>)await dbConnection.QueryAsync<FilmEntity>(
+                    "GetFilms",
+                    new { Filter = nameFilter },
                     commandType: CommandType.StoredProcedure
                 );
 

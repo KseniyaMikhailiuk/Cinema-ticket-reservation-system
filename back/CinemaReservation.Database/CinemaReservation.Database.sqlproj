@@ -99,8 +99,6 @@
     <Build Include="dbo\StoredProcedures\GetFilmPoster.sql" />
     <Build Include="dbo\StoredProcedures\GetFilm.sql" />
     <Build Include="dbo\StoredProcedures\GetSeatTypes.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <RefactorLog Include="CinemaReservation.Database.refactorlog" />
+    <Build Include="dbo\StoredProcedures\GetFilms.sql" />
   </ItemGroup>
 </Project>

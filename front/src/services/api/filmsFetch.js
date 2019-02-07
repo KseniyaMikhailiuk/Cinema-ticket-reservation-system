@@ -384,15 +384,18 @@ export const releaseSeat = (info) =>
             }
         })
 
-export const getFilmOptions = () =>
+export const getFilmOptions = (inputValue) =>
     fetch(
-        "./api/films",
+        "./api/films/names",
         {
-            method: 'get',
+            method: 'put',
             headers: {
                 "Content-type": "application/json",
                 'Accept': 'application/json'
-            }
+            },
+            body: JSON.stringify({
+                filter: inputValue
+            })
         }
     )
         .then(response =>

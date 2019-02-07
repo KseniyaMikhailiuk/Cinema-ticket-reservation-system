@@ -15,6 +15,8 @@ import * as servicesInfo from '../../services/api/additionalServicesFetch'
 import * as filmsInfo from '../../services/api/filmsFetch'
 import * as cinemasInfo from '../../services/api/hallPlanFetch'
 
+import settings from '../../services/config/settings.json'
+
 import 'react-notifications/lib/notifications.css';
 
 import './admin.scss'
@@ -35,6 +37,7 @@ class Admin extends Component{
         this.addSeanceToDatabase = this.addSeanceToDatabase.bind(this);
         this.addAdditionalServicesToDatabase = this.addAdditionalServicesToDatabase.bind(this);
         this.addCinemaToDatabase = this.addCinemaToDatabase.bind(this);
+        this.getFilmFilteredOptionsAsync = this.getFilmFilteredOptionsAsync.bind(this);
     }
 
     componentDidMount() {
@@ -101,6 +104,19 @@ class Admin extends Component{
             })
     }
 
+    getFilmFilteredOptionsAsync(inputValue){
+        if (inputValue.length < settings.min_search_length)
+        {
+            return;
+        }
+        const films = filmsInfo.getFilmOptions(inputValue)
+            .then(() => {
+                this.setState({
+                    addSeanceFormFilmOptions: films
+                })
+            })
+    }
+
     render() {
         const {changeFilterObjectItem, isRequestSucceeded} = this.props;
         const {
@@ -108,6 +124,7 @@ class Admin extends Component{
             addCinemaFormSeatTypes,
             additionalServices,
             addCinemaFormFilterOptions,
+            getFilmFilteredOptionsAsync,
             isDataLoading
         } = this.state;
 
@@ -126,6 +143,7 @@ class Admin extends Component{
                         onSubmit={this.addSeanceToDatabase}
                         additionalServices={additionalServices}
                         seatTypeOptions={addCinemaFormSeatTypes}
+                        getFilmFilteredOptionsAsync={getFilmFilteredOptionsAsync}
                     />
                     <AddAdditionalServicesForm
                         onSubmit={this.addAdditionalServicesToDatabase}

@@ -36,7 +36,7 @@ namespace CinemaReservation.BusinessLayer.Services
         }
 
 
-        public async Task<UpsertItemResultStatus> InsertFilmPosterAsync(FilmPosterModel imageModel)
+        public async Task InsertFilmPosterAsync(FilmPosterModel imageModel)
         {
             string filmPosterPath = _configuration.GetSection("FilmPostersPath").Value;
 
@@ -54,24 +54,23 @@ namespace CinemaReservation.BusinessLayer.Services
                 }
             }
 
-            AddOperationResultEntity resultEntity = await _filmRepository.InsertFilmPosterAsync(
+            await _filmRepository.InsertFilmPosterAsync(
                 new FilmPosterEntity(
                     imageModel.FilmId,
                     posterUniqueId
                 )
             );
-
-            if (resultEntity.OperationResultStatus == AddOperationResultStatus.Ok)
-            {
-                return UpsertItemResultStatus.Ok;
-            }
-
-            return UpsertItemResultStatus.Conflict;
         }
 
-        public async Task<List<OptionModel>> GetFilmOptionsAsync()
+        public async Task<List<OptionModel>> GetFilmNamesAsync(string filter)
         {
-            List<OptionNameIdEntity> films = await _filmRepository.GetFilmOptionsAsync();
+            List<FilmEntity> films = await _filmRepository.GetFilmsAsync(filter);
+
+            TypeAdapterConfig<FilmEntity, OptionModel>
+                .NewConfig()
+                .Map(dest => dest.Id, sourse => sourse.Id)
+                .Map(dest => dest.Name, sourse => sourse.Title)
+                .IgnoreNonMapped(true);
 
             return films.Adapt<List<OptionModel>>();
         }

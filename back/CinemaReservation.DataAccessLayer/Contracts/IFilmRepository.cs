@@ -7,8 +7,8 @@ namespace CinemaReservation.DataAccessLayer.Contracts
     public interface IFilmRepository
     {
         Task<int> UpsertFilmAsync(FilmEntity filmEntity);
-        Task<AddOperationResultEntity> InsertFilmPosterAsync(FilmPosterEntity filmPosterEntity);
-        Task<List<OptionNameIdEntity>> GetFilmOptionsAsync();
+        Task InsertFilmPosterAsync(FilmPosterEntity filmPosterEntity);
+        Task<List<FilmEntity>> GetFilmsAsync(string nameFilter);
         Task<FilmEntity> GetFilmAsync(int id);
         Task<FilmPosterEntity> GetFilmPosterAsync(int id);
     }

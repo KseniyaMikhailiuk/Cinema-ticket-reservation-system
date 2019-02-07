@@ -87,24 +87,19 @@ namespace CinemaReservation.Web.Controllers
             int filmId = int.Parse(request["FilmId"]);
             IFormFile formFile = request.Files.GetFile("FilmPoster");
 
-            UpsertItemResultStatus resultStatus = await _filmService.InsertFilmPosterAsync(new FilmPosterModel(
+            await _filmService.InsertFilmPosterAsync(new FilmPosterModel(
                 filmId,
                 formFile
             ));
 
-            if (resultStatus == UpsertItemResultStatus.Ok)
-            {
-                return Ok("Film added");
-            }
-
-            return BadRequest("Error");
+            return Ok("Film added");
         }
 
-        [HttpGet]
+        [HttpPut("names")]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        public async Task<IActionResult> GetFilmOptionsAsync()
+        public async Task<IActionResult> GetFilmOptionsAsync(string filter)
         {
-            List<OptionModel> result = await _filmService.GetFilmOptionsAsync();
+            List<OptionModel> result = await _filmService.GetFilmNamesAsync(filter);
 
             return Ok(result.Adapt<OptionItem[]>());
         }

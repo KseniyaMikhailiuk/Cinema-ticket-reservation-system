@@ -3,6 +3,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import DatePickerCustomized from '../Common/datePicker'
 import NumericInput from 'react-numeric-input'
 import Select from 'react-select';
+import AsyncSelect  from 'react-select/lib/Async';
 import {withNamespaces} from 'react-i18next'
 
 class AddSeanceForm extends Component{
@@ -130,7 +131,7 @@ class AddSeanceForm extends Component{
     }
 
     render(){
-        const { filterOptions, filmOptions, seatTypeOptions, additionalServices, t } = this.props;
+        const { filterOptions, filmOptions, seatTypeOptions, additionalServices, t, getFilmFilteredOptionsAsync } = this.props;
         const { selectedOption } = this.state.services;
 
         let preparedFilterOptions = this.prepareFilterOptions(filterOptions);
@@ -194,13 +195,14 @@ class AddSeanceForm extends Component{
                                 showTimeSelect={true}
                             />
                         </div>
-                        <Select
+                        <AsyncSelect
                             name="filmId"
                             className="form-item select"
                             options={films}
                             isSearchable
                             isClearable
                             onChange={(selectedOption) => this.handleInputChange("filmId", selectedOption.value.id)}
+                            loadOptions={getFilmFilteredOptionsAsync}
                             placeholder={t('selectFilm')}
                         />
                         <Select
