@@ -6,6 +6,7 @@ using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Mapster;
+using CinemaReservation.BusinessLayer.Exceptions;
 
 namespace CinemaReservation.Web.Controllers
 {
@@ -30,20 +31,22 @@ namespace CinemaReservation.Web.Controllers
 
             List<SeatModel> seats = request.Seats.Adapt<List<SeatModel>>();
 
-            UpsertItemResultStatus resultStatus = await _hallService.UpsertHallsAsync(
-                new CinemaHallsModel(
-                    halls,
-                    seats,
-                    request.CinemaId
-                )
-            );
-
-            if (resultStatus == UpsertItemResultStatus.Ok)
+            try
             {
+                await _hallService.UpsertHallsAsync(
+                    new CinemaHallsModel(
+                        halls,
+                        seats,
+                        request.CinemaId
+                    )
+                );
+
                 return Ok("Halls are added");
             }
-
-            return Conflict("Hall exists");
+            catch(ConflictException e)
+            {
+                return Conflict(e.Message);
+            }
         }
 
         [HttpPut("{Id:int}")]
@@ -54,20 +57,22 @@ namespace CinemaReservation.Web.Controllers
 
             List<SeatModel> seats = request.Seats.Adapt<List<SeatModel>>();
 
-            UpsertItemResultStatus resultStatus = await _hallService.UpsertHallsAsync(
-                new CinemaHallsModel(
-                    halls,
-                    seats,
-                    request.CinemaId
-                )
-            );
-
-            if (resultStatus == UpsertItemResultStatus.Ok)
+            try
             {
-                return Ok("Halls are modified");
-            }
+                await _hallService.UpsertHallsAsync(
+                    new CinemaHallsModel(
+                        halls,
+                        seats,
+                        request.CinemaId
+                    )
+                );
 
-            return Conflict("Hall exists");
+                return Ok("Halls are added");
+            }
+            catch (ConflictException e)
+            {
+                return Conflict(e.Message);
+            }
         }
 
         [HttpGet]

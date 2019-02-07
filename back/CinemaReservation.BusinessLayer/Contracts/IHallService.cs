@@ -7,7 +7,7 @@ namespace CinemaReservation.BusinessLayer.Contracts
 {
     public interface IHallService
     {
-        Task<UpsertItemResultStatus> UpsertHallsAsync(CinemaHallsModel hallsModel);
+        Task UpsertHallsAsync(CinemaHallsModel hallsModel);
         Task<List<OptionModel>> GetHallsOptionsAsync();
     }
 }

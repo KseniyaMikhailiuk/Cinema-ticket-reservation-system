@@ -6,6 +6,7 @@ using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.Web;
 using Microsoft.AspNetCore.Authorization;
 using Mapster;
+using CinemaReservation.BusinessLayer.Exceptions;
 
 namespace CinemaReservation.PresentationLayer.Controllers
 {
@@ -26,19 +27,21 @@ namespace CinemaReservation.PresentationLayer.Controllers
         public async Task<IActionResult> RegisterAsync(RegistrationRequest registrationRequest)
         {
             RegistrationModel registrationModel = registrationRequest.Adapt<RegistrationModel>();
-
-            RegistrationResultModel result = await _accountService.RegisterUserAsync(registrationModel);
-
-            if (result.ResultStatus == RegistrationResultStatus.Ok)
+            RegistrationResultModel result;
+            try
             {
-                AuthorizationResponse authorizationResponse = result.Adapt<AuthorizationResponse>();
-
-                await HttpContext.SignInAsync(authorizationResponse);
-
-                return Ok(authorizationResponse);
+                result = await _accountService.RegisterUserAsync(registrationModel);
+            }
+            catch(ConflictException e)
+            {
+                return BadRequest(e.Message);
             }
 
-            return BadRequest("User exists");
+            AuthorizationResponse authorizationResponse = result.Adapt<AuthorizationResponse>();
+
+            await HttpContext.SignInAsync(authorizationResponse);
+
+            return Ok(authorizationResponse);
         }
 
         [HttpPost("login")]

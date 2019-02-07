@@ -6,7 +6,7 @@ namespace CinemaReservation.DataAccessLayer.Contracts
 {
     public interface IHallRepository
     {
-        Task<AddOperationResultEntity> UpsertHallAsync(HallEntity cinemaEntity);
+        Task<int> UpsertHallAsync(HallEntity cinemaEntity);
         Task<AddOperationResultStatus> AddHallPlanAsync(List<SeatEntity> cinemaEntity);
         Task<AddOperationResultStatus> DeleteHallPlanAsync(int hallId);
         Task<List<OptionNameIdEntity>> GetHallsAsync();

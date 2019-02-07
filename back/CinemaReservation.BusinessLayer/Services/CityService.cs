@@ -1,7 +1,9 @@
 ﻿using CinemaReservation.BusinessLayer.Contracts;
+using CinemaReservation.BusinessLayer.Exceptions;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.DataAccessLayer.Contracts;
 using CinemaReservation.DataAccessLayer.Entities;
+using CinemaReservation.DataAccessLayer.Exceptions;
 using Mapster;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,21 +21,20 @@ namespace CinemaReservation.BusinessLayer.Services
             _cityRepository = cityRepository;
         }
 
-        public async Task<UpsertItemResultStatusAndId> UpsertCityAsync(CityModel cityModel)
+        public async Task<int> UpsertCityAsync(CityModel cityModel)
         {
-            AddOperationResultEntity cityResultEntity = await _cityRepository.UpsertCityAsync(
-                cityModel.Adapt<CityEntity>()
-            );
-
-            if (cityResultEntity.OperationResultStatus == AddOperationResultStatus.Ok)
+            try
             {
-                return new UpsertItemResultStatusAndId(
-                    cityResultEntity.Id,
-                    UpsertItemResultStatus.Ok
+                int result = await _cityRepository.UpsertCityAsync(
+                    cityModel.Adapt<CityEntity>()
                 );
-            }
 
-            return new UpsertItemResultStatusAndId(UpsertItemResultStatus.Conflict);
+                return result;
+            }
+            catch(UniqueIndexException e)
+            {
+                throw new ConflictException(e);
+            }
         }
 
         public async Task<List<OptionModel>> GetCityOptionsAsync()

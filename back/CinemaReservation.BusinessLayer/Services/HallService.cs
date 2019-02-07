@@ -5,6 +5,8 @@ using CinemaReservation.BusinessLayer.Contracts;
 using CinemaReservation.DataAccessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using Mapster;
+using CinemaReservation.DataAccessLayer.Exceptions;
+using CinemaReservation.BusinessLayer.Exceptions;
 
 namespace CinemaReservation.BusinessLayer.Services
 {
@@ -19,44 +21,44 @@ namespace CinemaReservation.BusinessLayer.Services
             _hallRepository = hallRepository;
         }
 
-        public async Task<UpsertItemResultStatus> UpsertHallsAsync(CinemaHallsModel hallsModel)
+        public async Task UpsertHallsAsync(CinemaHallsModel hallsModel)
         {
             foreach (HallModel hall in hallsModel.Halls)
             {
-                AddOperationResultEntity hallResultEntity = await _hallRepository.UpsertHallAsync(
-                    hallsModel.Adapt<HallEntity>()
-                );
-
-                if (hallResultEntity.OperationResultStatus == AddOperationResultStatus.UniqueIndexError)
+                int result;
+                try
                 {
-                    return UpsertItemResultStatus.Conflict;
+                    result = await _hallRepository.UpsertHallAsync(
+                        new HallEntity(
+                            hall.Id,
+                            hall.Name,
+                            hallsModel.CinemaId
+                        )
+                    );
+                }
+                catch(UniqueIndexException e)
+                {
+                    throw new ConflictException(e);
                 }
 
                 List<SeatModel> hallSeats = hallsModel
                     .Seats
                     .FindAll(seat => seat.HallId == hall.Id);
 
-                if (hall.Id == hallResultEntity.Id)
+                if (hall.Id == result)
                 {
-                    await _hallRepository.DeleteHallPlanAsync(hallResultEntity.Id);
+                    await _hallRepository.DeleteHallPlanAsync(result);
                 }
 
                 TypeAdapterConfig<SeatModel, SeatEntity>
                     .NewConfig()
-                    .Map(dest => dest.HallId, sourse => hallResultEntity.Id);
+                    .Map(dest => dest.HallId, sourse => result);
 
-                AddOperationResultStatus resultStatus = await _hallRepository.AddHallPlanAsync(
+                await _hallRepository.AddHallPlanAsync(
                     hallSeats
                         .Adapt<List<SeatEntity>>()
                 );
-
-                if (resultStatus == AddOperationResultStatus.UniqueIndexError)
-                {
-                    return UpsertItemResultStatus.Conflict;
-                }
             }
-
-            return UpsertItemResultStatus.Ok;
         }
 
         public async Task<List<OptionModel>> GetHallsOptionsAsync()

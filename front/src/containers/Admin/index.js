@@ -132,6 +132,7 @@ class Admin extends Component{
                     />
                     <AddCinemaForm
                         onSubmit={this.addCinemaToDatabase}
+                        seatTypeOptions={addCinemaFormSeatTypes}
                     />
                 </Loader>
             </section>

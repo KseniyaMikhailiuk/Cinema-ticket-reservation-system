@@ -13,14 +13,15 @@ const SeatTypeSelectDialog = ({
     handleSeatTypeSelect,
     onSeatTypeSubmit,
     isLastSeat,
+    seatTypeOptions,
     t
 }) => {
     var seatTypesForSelect = [];
-    for (let element in SeatTypesInfo) {
-        if (isLastSeat && element === SeatTypesInfo.loveseat.type) {
+    for (let element in seatTypeOptions) {
+        if (isLastSeat && element.name === SeatTypesInfo.loveseat.type) {
             continue;
         }
-        seatTypesForSelect.push({value: element, label: element});
+        seatTypesForSelect.push({value: element.id, label: element.name});
     }
     return (
         <Dialog
@@ -38,7 +39,7 @@ const SeatTypeSelectDialog = ({
                 options={seatTypesForSelect}
                 isSearchable
                 isClearable
-                onChange={(selectedOption) => handleSeatTypeSelect(selectedOption.label)}
+                onChange={(selectedOption) => handleSeatTypeSelect(selectedOption.value)}
                 placeholder={t('selectSeatType')}
             />
             <button

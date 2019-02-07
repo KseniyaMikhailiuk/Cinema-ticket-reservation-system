@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using CinemaReservation.BusinessLayer.Contracts;
+using CinemaReservation.BusinessLayer.Exceptions;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.Web.Models;
 using Mapster;
@@ -26,36 +27,40 @@ namespace CinemaReservation.Web.Controllers
         [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> AddCinemaAsync(UpsertCinemaRequest request)
         {
-            UpsertItemResultStatusAndId cinemaResultModel = await _cinemaService.UpsertCinemaAsync(
-                request.Adapt<CinemaModel>()
-            );
-
-            if (cinemaResultModel.UpsertItemResultStatus == UpsertItemResultStatus.Ok)
+            try
             {
+                int result = await _cinemaService.UpsertCinemaAsync(
+                    request.Adapt<CinemaModel>()
+                );
+
                 return Ok(
-                    cinemaResultModel.Id
+                    result
                 );
             }
-
-            return Conflict("Cinema exists");
+            catch(ConflictException e)
+            {
+                return Conflict(e.Message);
+            }
         }
 
         [HttpPut("{Id:int}")]
         [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> EditCinemaAsync(UpsertCinemaRequest request)
         {
-            UpsertItemResultStatusAndId cinemaResultModel = await _cinemaService.UpsertCinemaAsync(
-                request.Adapt<CinemaModel>()
-            );
-
-            if (cinemaResultModel.UpsertItemResultStatus == UpsertItemResultStatus.Ok)
+            try
             {
+                int result = await _cinemaService.UpsertCinemaAsync(
+                    request.Adapt<CinemaModel>()
+                );
+
                 return Ok(
-                    cinemaResultModel.Id
+                    result
                 );
             }
-
-            return Conflict("Cinema exists");
+            catch(ConflictException e)
+            {
+                return Conflict(e.Message);
+            }
         }
 
         [HttpGet]

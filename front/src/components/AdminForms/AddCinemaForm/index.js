@@ -99,6 +99,7 @@ class AddCinemaForm extends Component {
                             [...Array(this.state.hallsAmount)].map(() =>
                                 <AddHallPlan
                                     onHallSubmit={this.addHallToCinema}
+                                    seatTypeOptions={seatTypeOptions}
                                 />
                             )
                         }

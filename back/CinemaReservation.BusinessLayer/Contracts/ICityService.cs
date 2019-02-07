@@ -6,7 +6,7 @@ namespace CinemaReservation.BusinessLayer.Contracts
 {
     public interface ICityService
     {
-        Task<UpsertItemResultStatusAndId> UpsertCityAsync(CityModel cityModel);
+        Task<int> UpsertCityAsync(CityModel cityModel);
         Task<List<OptionModel>> GetCityOptionsAsync();
     }
 }

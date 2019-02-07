@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using Dapper;
 using CinemaReservation.DataAccessLayer.Contracts;
 using CinemaReservation.DataAccessLayer.Entities;
+using CinemaReservation.DataAccessLayer.Exceptions;
 
 namespace CinemaReservation.DataAccessLayer.Repositories
 {
@@ -20,12 +21,20 @@ namespace CinemaReservation.DataAccessLayer.Repositories
 
         public async Task<int> UpsertUserAsync(UserEntity userEntity)
         {
-            using(IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString)){
-                return await dbConnection.ExecuteScalarAsync<int>(
-                    "UpsertUser",
-                    userEntity,
-                    commandType: CommandType.StoredProcedure
-                );
+            try
+            {
+                using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+                {
+                    return await dbConnection.ExecuteScalarAsync<int>(
+                        "UpsertUser",
+                        userEntity,
+                        commandType: CommandType.StoredProcedure
+                    );
+                }
+            }
+            catch(SqlException e)
+            {
+                throw new UniqueIndexException("UpsertUser", e);
             }
         }
 

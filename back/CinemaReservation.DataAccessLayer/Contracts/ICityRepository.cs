@@ -6,7 +6,7 @@ namespace CinemaReservation.DataAccessLayer.Contracts
 {
     public interface ICityRepository
     {
-        Task<AddOperationResultEntity> UpsertCityAsync(CityEntity cityEntity);
+        Task<int> UpsertCityAsync(CityEntity cityEntity);
         Task<List<OptionNameIdEntity>> GetCitiesAsync();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CinemaReservation.DataAccessLayer.Contracts;
 using CinemaReservation.DataAccessLayer.Entities;
+using CinemaReservation.DataAccessLayer.Exceptions;
 using Dapper;
 using System.Collections.Generic;
 using System.Data;
@@ -18,7 +19,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
         }
 
 
-        public async Task<AddOperationResultEntity> UpsertCityAsync(CityEntity cityEntity)
+        public async Task<int> UpsertCityAsync(CityEntity cityEntity)
         {
             try
             {
@@ -29,12 +30,12 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                         cityEntity,
                         commandType: CommandType.StoredProcedure
                     );
-                    return new AddOperationResultEntity(cityId, AddOperationResultStatus.Ok);
+                    return cityId;
                 }
             }
-            catch
+            catch(SqlException e)
             {
-                return new AddOperationResultEntity(AddOperationResultStatus.UniqueIndexError);
+                throw new UniqueIndexException("UpsertCity", e);
             }
         }
 
