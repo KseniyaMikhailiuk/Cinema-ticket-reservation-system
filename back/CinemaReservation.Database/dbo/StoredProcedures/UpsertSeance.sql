@@ -22,7 +22,7 @@ BEGIN
         INNER JOIN [dbo].[Films] AS Films
         ON Films.Id = @FilmId
         WHERE
-            (DATEADD(
+            DATEADD(
                 minute,
                 datepart(minute, @FilmDuration),
                 DATEADD(
@@ -30,11 +30,10 @@ BEGIN
                     datepart(hour, Films.FilmDuration),
                     Seances.DateTime)
             ) > @DateTime
-            AND
-            Seances.DateTime < @FilmEndTime)
-            AND
-            Seances.Id != @Id)
-
+            AND Seances.DateTime < @FilmEndTime
+            AND Seances.Id != @Id
+			AND Seances.HallId = @HallId
+	)
     BEGIN
         RAISERROR('Seance at this time already exists', 16, 1)
     END

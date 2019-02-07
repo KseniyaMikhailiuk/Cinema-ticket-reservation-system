@@ -34,7 +34,7 @@ namespace CinemaReservation.Web.Controllers
                         request.Adapt<ServiceModel>()
                     );
 
-                return Ok();
+                return Ok("");
             }
             catch(ConflictException e)
             {

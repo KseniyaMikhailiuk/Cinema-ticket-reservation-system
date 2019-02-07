@@ -26,26 +26,13 @@ namespace CinemaReservation.BusinessLayer.Services
         }
 
 
-        public async Task<UpsertItemResultStatusAndId> UpsertFilmAsync(FilmModel filmModel)
+        public async Task<int> UpsertFilmAsync(FilmModel filmModel)
         {
-            if (filmModel.FinishShowingDate < filmModel.StartShowingDate)
-            {
-                return new UpsertItemResultStatusAndId(UpsertItemResultStatus.Conflict);
-            }
-
-            AddOperationResultEntity resultEntity = await _filmRepository.UpsertFilmAsync(
+            int result = await _filmRepository.UpsertFilmAsync(
                 filmModel.Adapt<FilmEntity>()
             );
 
-            if (resultEntity.OperationResultStatus == AddOperationResultStatus.Ok)
-            {
-                return new UpsertItemResultStatusAndId(
-                    resultEntity.Id,
-                    UpsertItemResultStatus.Ok
-                );
-            }
-
-            return new UpsertItemResultStatusAndId(UpsertItemResultStatus.Conflict);
+            return result;
         }
 
 

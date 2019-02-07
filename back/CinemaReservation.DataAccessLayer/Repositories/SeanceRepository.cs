@@ -6,7 +6,6 @@ using CinemaReservation.DataAccessLayer.Contracts;
 using CinemaReservation.DataAccessLayer.Entities;
 using System.Collections.Generic;
 using CinemaReservation.DataAccessLayer.Exceptions;
-using System;
 
 namespace CinemaReservation.DataAccessLayer.Repositories
 {

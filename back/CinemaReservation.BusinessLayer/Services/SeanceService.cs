@@ -45,7 +45,7 @@ namespace CinemaReservation.BusinessLayer.Services
                         context
                     );
 
-                    TypeAdapterConfig<SeatPriceModel, ServicePriceEntity>
+                    TypeAdapterConfig<ServicePriceModel, ServicePriceEntity>
                         .NewConfig()
                         .Map(dest => dest.SeanceId, sourse => id);
 

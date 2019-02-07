@@ -28,6 +28,11 @@ namespace CinemaReservation.Web.Controllers
         [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> AddFilmAsync(UpsertFilmRequest request)
         {
+            if (request.FinishShowingDate < request.StartShowingDate)
+            {
+                return BadRequest();
+            }
+
             FilmModel filmModel = new FilmModel(
                 request.Id,
                 request.Title,
@@ -42,20 +47,20 @@ namespace CinemaReservation.Web.Controllers
                 )
             );
 
-            UpsertItemResultStatusAndId result = await _filmService.UpsertFilmAsync(filmModel);
+            int result = await _filmService.UpsertFilmAsync(filmModel);
 
-            if (result.UpsertItemResultStatus == UpsertItemResultStatus.Ok)
-            {
-                return Ok(result.Id);
-            }
-
-            return Conflict("conflict");
+            return Ok(result);
         }
 
         [HttpPut("{Id:int}")]
         [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> EditFilmAsync(UpsertFilmRequest request)
         {
+            if (request.FinishShowingDate < request.StartShowingDate)
+            {
+                return BadRequest();
+            }
+
             FilmModel filmModel = new FilmModel(
                 request.Id,
                 request.Title,
@@ -70,14 +75,9 @@ namespace CinemaReservation.Web.Controllers
                 )
             );
 
-            UpsertItemResultStatusAndId result = await _filmService.UpsertFilmAsync(filmModel);
+            int result = await _filmService.UpsertFilmAsync(filmModel);
 
-            if (result.UpsertItemResultStatus == UpsertItemResultStatus.Ok)
-            {
-                return Ok(result.Id);
-            }
-
-            return Conflict("conflict");
+            return Ok(result);
         }
 
         [HttpPut("{FilmId:int}/poster")]

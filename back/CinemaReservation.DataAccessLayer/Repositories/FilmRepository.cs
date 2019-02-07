@@ -18,7 +18,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             _settings = dalSettings;
         }
 
-        public async Task<AddOperationResultEntity> UpsertFilmAsync(FilmEntity filmEntity)
+        public async Task<int> UpsertFilmAsync(FilmEntity filmEntity)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
@@ -28,10 +28,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                     commandType: CommandType.StoredProcedure
                 );
 
-                return new AddOperationResultEntity(
-                    filmId,
-                    AddOperationResultStatus.Ok
-                );
+                return filmId;
             }
         }
 
