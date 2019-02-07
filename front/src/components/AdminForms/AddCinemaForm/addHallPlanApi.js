@@ -32,7 +32,6 @@ export const changeHallPlanRawsAmount = (value, prevHallPlanState, standardType)
             updatedLine.length -= (prevHallPlanState.raws - value);
         }
         else{
-            console.log(standardType)
             for (let j = line.length; j < line.length + value - prevHallPlanState.raws; j++) {
                 updatedLine.push({
                     id: v4(),
