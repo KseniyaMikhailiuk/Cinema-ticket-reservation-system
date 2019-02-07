@@ -1,8 +1,6 @@
 import v4 from 'uuid'
 
-import SeatTypesInfo from '../../Common/seatTypes'
-
-export const changeHallPlanLinesAmount = (value, prevHallPlanState) => {
+export const changeHallPlanLinesAmount = (value, prevHallPlanState, standardType) => {
     let hallPlan = [...prevHallPlanState.hallPlan];
     if (value < prevHallPlanState.lines) {
         hallPlan.length = hallPlan.length - 1;
@@ -13,9 +11,11 @@ export const changeHallPlanLinesAmount = (value, prevHallPlanState) => {
             for (let i = 0; i < prevHallPlanState.raws; i++) {
                 line.push({
                     id: v4(),
-                    type: SeatTypesInfo.standard.type,
+                    seatTypeId: standardType.id,
                     raw: i + 1,
-                    line: j + 1
+                    line: j + 1,
+                    widthScale: 1,
+                    type: standardType.name
                 });
             }
             hallPlan.push(line);
@@ -24,7 +24,7 @@ export const changeHallPlanLinesAmount = (value, prevHallPlanState) => {
     return hallPlan;
 }
 
-export const changeHallPlanRawsAmount = (value, prevHallPlanState) => {
+export const changeHallPlanRawsAmount = (value, prevHallPlanState, standardType) => {
     let hallPlan = [];
     prevHallPlanState.hallPlan.forEach(line => {
         let updatedLine = [...line];
@@ -32,12 +32,15 @@ export const changeHallPlanRawsAmount = (value, prevHallPlanState) => {
             updatedLine.length -= (prevHallPlanState.raws - value);
         }
         else{
+            console.log(standardType)
             for (let j = line.length; j < line.length + value - prevHallPlanState.raws; j++) {
                 updatedLine.push({
                     id: v4(),
-                    type: SeatTypesInfo.standard.type,
+                    seatTypeId: standardType.id,
                     raw: j + 1,
-                    line: hallPlan.length + 1
+                    line: hallPlan.length + 1,
+                    widthScale: 1,
+                    type: standardType.name
                 });
             }
         }
@@ -46,7 +49,7 @@ export const changeHallPlanRawsAmount = (value, prevHallPlanState) => {
     return hallPlan;
 }
 
-export const changeHallPlanSeatType = (prevHallPlan, selectedSeatId, selectedSeatType) => {
+export const changeHallPlanSeatType = (prevHallPlan, selectedSeatId, type) => {
     let hallPlan = [];
     prevHallPlan.forEach(line => {
         let updatedLine = [];
@@ -54,8 +57,10 @@ export const changeHallPlanSeatType = (prevHallPlan, selectedSeatId, selectedSea
         for (let seat of line){
             let updatedSeat = {...seat};
             if (updatedSeat.id === selectedSeatId) {
-                updatedSeat.type = selectedSeatType;
-                if (selectedSeatType === SeatTypesInfo.loveseat.type) {
+                updatedSeat.seatTypeId = type.id;
+                updatedSeat.type = type.name;
+                updatedSeat.widthScale = type.widthScale;
+                if (type.widthScale > 1) {
                     loveseatsAmount++;
                 }
             }

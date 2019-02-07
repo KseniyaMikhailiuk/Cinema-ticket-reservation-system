@@ -20,7 +20,8 @@ class AddHallPlan extends Component{
         selectedSeatType: 0,
         selectedSeatId: 0,
         isLastSeat: 0,
-        isDisabled: false
+        isDisabled: false,
+        standardType: {}
     }
 
     constructor (props) {
@@ -39,18 +40,30 @@ class AddHallPlan extends Component{
         };
     }
 
+    componentDidMount(){
+        const {seatTypeOptions} = this.props;
+
+        for (let op of seatTypeOptions){
+            if (op.name === SeatTypesInfo.standard.type){
+                this.setState({
+                    standardType: op
+                })
+            }
+        }
+    }
+
     changeHallPlanLines (targetName, value) {
-        const {hallPlan, lines, raws} = this.state;
+        const {hallPlan, lines, raws, standardType} = this.state;
         this.setState({
-            hallPlan: changeHallPlanLinesAmount(value, {hallPlan, lines, raws}),
+            hallPlan: changeHallPlanLinesAmount(value, {hallPlan, lines, raws}, standardType),
             [targetName]: value
         });
     }
 
     changeHallPlanRaws (targetName, value) {
-        const {hallPlan, lines, raws} = this.state;
+        const {hallPlan, lines, raws, standardType} = this.state;
         this.setState({
-            hallPlan: changeHallPlanRawsAmount(value, {hallPlan, lines, raws}),
+            hallPlan: changeHallPlanRawsAmount(value, {hallPlan, lines, raws}, standardType),
             [targetName]: value
         });
     }
@@ -76,12 +89,13 @@ class AddHallPlan extends Component{
         });
         this.onClose();
         this.setState({
-            selectedSeatType: SeatTypesInfo.standard.type
+            selectedSeatType: this.state.standardType
         });
     }
 
     showDialog (){
         if (this.state.showDialog) {
+            const {seatTypeOptions} = this.props;
             return (
                 <SeatTypeSelectDialog
                     onClose={this.onClose}
@@ -89,6 +103,7 @@ class AddHallPlan extends Component{
                     handleSeatTypeSelect={this.handleSeatTypeSelect}
                     onSeatTypeSubmit={this.onSeatTypeSubmit}
                     isLastSeat={this.state.isLastSeat}
+                    seatTypeOptions={seatTypeOptions}
                 />
             )
         }

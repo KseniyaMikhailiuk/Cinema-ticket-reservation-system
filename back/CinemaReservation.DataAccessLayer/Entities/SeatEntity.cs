@@ -2,19 +2,19 @@
 {
     public class SeatEntity
     {
-        public string SeatType { get; }
+        public int SeatTypeId { get; }
         public int Raw { get; }
         public int Line { get; }
         public int HallId { get; }
 
         public SeatEntity(
-            string type,
+            int seatTypeId,
             int raw,
             int line,
             int hallId
         )
         {
-            SeatType = type;
+            SeatTypeId = seatTypeId;
             Raw = raw;
             Line = line;
             HallId = hallId;

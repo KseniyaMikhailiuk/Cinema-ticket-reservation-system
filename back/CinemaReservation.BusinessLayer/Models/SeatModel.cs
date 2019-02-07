@@ -2,19 +2,19 @@
 {
     public class SeatModel
     {
-        public string SeatType { get; }
+        public int SeatTypeId { get; }
         public int Raw { get; }
         public int Line { get; }
         public int HallId { get; }
 
         public SeatModel(
-            string seatType,
+            int seatTypeId,
             int raw,
             int line,
             int hallId
         )
         {
-            SeatType = seatType;
+            SeatTypeId = seatTypeId;
             Raw = raw;
             Line = line;
             HallId = hallId;

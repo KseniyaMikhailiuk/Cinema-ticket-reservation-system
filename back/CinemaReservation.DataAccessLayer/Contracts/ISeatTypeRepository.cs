@@ -6,6 +6,6 @@ namespace CinemaReservation.DataAccessLayer.Contracts
 {
     public interface ISeatTypeRepository
     {
-        Task<List<OptionNameIdEntity>> GetSeatTypeOptionsAsync();
+        Task<List<SeatTypeEntity>> GetSeatTypesAsync();
     }
 }

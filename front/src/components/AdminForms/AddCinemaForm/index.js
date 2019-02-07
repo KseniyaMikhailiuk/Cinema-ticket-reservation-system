@@ -67,7 +67,7 @@ class AddCinemaForm extends Component {
     }
 
     render() {
-        const {t} = this.props;
+        const {t, seatTypeOptions} = this.props;
         return(
             <>
                 <form className="forms admin" onSubmit={this.sendInfo}>

@@ -5,8 +5,6 @@ import {withNamespaces} from 'react-i18next'
 
 import 'rc-dialog/assets/index.css'
 
-import SeatTypesInfo from '../../Common/seatTypes'
-
 const SeatTypeSelectDialog = ({
     isVisible,
     onClose,
@@ -17,11 +15,14 @@ const SeatTypeSelectDialog = ({
     t
 }) => {
     var seatTypesForSelect = [];
-    for (let element in seatTypeOptions) {
-        if (isLastSeat && element.name === SeatTypesInfo.loveseat.type) {
+    for (let element of seatTypeOptions) {
+        if (isLastSeat && element.widthScale > 1) {
             continue;
         }
-        seatTypesForSelect.push({value: element.id, label: element.name});
+        seatTypesForSelect.push({
+            value: element,
+            label: element.name
+        });
     }
     return (
         <Dialog
