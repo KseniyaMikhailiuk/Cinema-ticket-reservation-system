@@ -99,6 +99,6 @@
     <Build Include="dbo\StoredProcedures\GetFilmPoster.sql" />
     <Build Include="dbo\StoredProcedures\GetFilm.sql" />
     <Build Include="dbo\StoredProcedures\GetSeatTypes.sql" />
-    <Build Include="dbo\StoredProcedures\GetFilms.sql" />
+    <Build Include="dbo\StoredProcedures\GetTopTenFilmsByName.sql" />
   </ItemGroup>
 </Project>

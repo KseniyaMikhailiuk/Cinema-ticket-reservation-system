@@ -97,9 +97,9 @@ namespace CinemaReservation.Web.Controllers
 
         [HttpPut("names")]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        public async Task<IActionResult> GetFilmOptionsAsync(string filter)
+        public async Task<IActionResult> GetNamesAsync(GetFilmNamesRequest request)
         {
-            List<OptionModel> result = await _filmService.GetFilmNamesAsync(filter);
+            List<OptionModel> result = await _filmService.GetFilmNamesAsync(request.Filter);
 
             return Ok(result.Adapt<OptionItem[]>());
         }

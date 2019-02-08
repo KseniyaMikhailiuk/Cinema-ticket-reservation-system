@@ -72,13 +72,13 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             }
         }
 
-        public async Task<List<FilmEntity>> GetFilmsAsync(string nameFilter)
+        public async Task<List<FilmEntity>> GetFilmsByNameAsync(string filter)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
                 List<FilmEntity> nameIdEntity = (List<FilmEntity>)await dbConnection.QueryAsync<FilmEntity>(
-                    "GetFilms",
-                    new { Filter = nameFilter },
+                    "GetTopTenFilmsByName",
+                    new { Filter = filter },
                     commandType: CommandType.StoredProcedure
                 );
 

@@ -64,7 +64,7 @@ namespace CinemaReservation.BusinessLayer.Services
 
         public async Task<List<OptionModel>> GetFilmNamesAsync(string filter)
         {
-            List<FilmEntity> films = await _filmRepository.GetFilmsAsync(filter);
+            List<FilmEntity> films = await _filmRepository.GetFilmsByNameAsync(filter);
 
             TypeAdapterConfig<FilmEntity, OptionModel>
                 .NewConfig()

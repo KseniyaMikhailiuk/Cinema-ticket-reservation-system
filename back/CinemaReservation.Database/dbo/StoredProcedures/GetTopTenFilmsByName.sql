@@ -1,7 +1,7 @@
-﻿CREATE PROCEDURE [dbo].[GetFilms]
+﻿CREATE PROCEDURE [dbo].[GetTopTenFilmsByName]
     @Filter nvarchar(255)
 AS
-    IF (@Filter = NULL)
+    IF (LEN(@Filter) < 1)
 	    SELECT top 10 * FROM [dbo].[Films]
 	ELSE
 	    SELECT top 10 * FROM [dbo].[Films] WHERE CHARINDEX(LOWER(@Filter), LOWER(Title)) > 0

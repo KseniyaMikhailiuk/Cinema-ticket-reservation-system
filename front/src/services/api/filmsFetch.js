@@ -394,7 +394,7 @@ export const getFilmOptions = (inputValue) =>
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
-                filter: inputValue
+                Filter: inputValue
             })
         }
     )

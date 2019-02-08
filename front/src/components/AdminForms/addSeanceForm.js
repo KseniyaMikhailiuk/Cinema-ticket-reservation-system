@@ -198,11 +198,10 @@ class AddSeanceForm extends Component{
                         <AsyncSelect
                             name="filmId"
                             className="form-item select"
-                            options={films}
-                            isSearchable
-                            isClearable
+                            cacheOptions
                             onChange={(selectedOption) => this.handleInputChange("filmId", selectedOption.value.id)}
                             loadOptions={getFilmFilteredOptionsAsync}
+                            defaultOptions={films}
                             placeholder={t('selectFilm')}
                         />
                         <Select

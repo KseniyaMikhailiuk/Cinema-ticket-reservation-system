@@ -49,7 +49,7 @@ class Admin extends Component{
         const cities = cinemasInfo.getCitiesOptions();
         const halls = cinemasInfo.getHallsOptions();
         const seatTypes = cinemasInfo.getSeatTypeOptions();
-        const films = filmsInfo.getFilmOptions();
+        const films = filmsInfo.getFilmOptions("");
 
         Promise.all([services, cities, cinemas, halls, seatTypes, films])
             .then(data => {
@@ -105,12 +105,8 @@ class Admin extends Component{
     }
 
     getFilmFilteredOptionsAsync(inputValue){
-        if (inputValue.length < settings.min_search_length)
-        {
-            return;
-        }
-        const films = filmsInfo.getFilmOptions(inputValue)
-            .then(() => {
+        filmsInfo.getFilmOptions(inputValue)
+            .then(films => {
                 this.setState({
                     addSeanceFormFilmOptions: films
                 })
@@ -124,7 +120,6 @@ class Admin extends Component{
             addCinemaFormSeatTypes,
             additionalServices,
             addCinemaFormFilterOptions,
-            getFilmFilteredOptionsAsync,
             isDataLoading
         } = this.state;
 
@@ -143,7 +138,7 @@ class Admin extends Component{
                         onSubmit={this.addSeanceToDatabase}
                         additionalServices={additionalServices}
                         seatTypeOptions={addCinemaFormSeatTypes}
-                        getFilmFilteredOptionsAsync={getFilmFilteredOptionsAsync}
+                        getFilmFilteredOptionsAsync={this.getFilmFilteredOptionsAsync}
                     />
                     <AddAdditionalServicesForm
                         onSubmit={this.addAdditionalServicesToDatabase}
