@@ -61,11 +61,11 @@ namespace CinemaReservation.BusinessLayer.Services
             }
         }
 
-        public async Task<IReadOnlyCollection<OptionModel>> GetHallsOptionsAsync()
+        public async Task<IReadOnlyCollection<HallModel>> GetHallsOptionsAsync()
         {
-            IReadOnlyCollection<OptionNameIdEntity> halls = await _hallRepository.GetHallsAsync();
+            IReadOnlyCollection<HallEntity> halls = await _hallRepository.GetHallsAsync();
 
-            return halls.Adapt<IReadOnlyCollection<OptionModel>>();
+            return halls.Adapt<IReadOnlyCollection<HallModel>>();
         }
     }
 }

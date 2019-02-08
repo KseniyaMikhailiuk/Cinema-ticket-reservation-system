@@ -67,9 +67,9 @@ namespace CinemaReservation.Web.Controllers
         [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> GetCityOptionsAsync()
         {
-            IReadOnlyCollection<OptionModel> result = await _cityService.GetCityOptionsAsync();
+            IReadOnlyCollection<CityModel> result = await _cityService.GetCityNamesAsync();
 
-            return Ok(result.Adapt<OptionItem[]>());
+            return Ok(result.Adapt<GetCitiesResponse[]>());
         }
     }
 }

@@ -37,12 +37,12 @@ namespace CinemaReservation.BusinessLayer.Services
             }
         }
 
-        public async Task<IReadOnlyCollection<OptionModel>> GetCityOptionsAsync()
+        public async Task<IReadOnlyCollection<CityModel>> GetCityNamesAsync()
         {
 
-            IReadOnlyCollection<OptionNameIdEntity> cities = await _cityRepository.GetCitiesAsync();
+            IReadOnlyCollection<CityEntity> cities = await _cityRepository.GetCitiesByNameAsync();
 
-            IReadOnlyCollection<OptionModel> citiesList = cities.Adapt<IReadOnlyCollection<OptionModel>>();
+            IReadOnlyCollection<CityModel> citiesList = cities.Adapt<IReadOnlyCollection<CityModel>>();
 
             return citiesList;
 

@@ -39,17 +39,17 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             }
         }
 
-        public async Task<IReadOnlyCollection<OptionNameIdEntity>> GetCitiesAsync()
+        public async Task<IReadOnlyCollection<CityEntity>> GetCitiesByNameAsync()
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
-                IReadOnlyCollection<OptionNameIdEntity> nameIdEntity =
-                    (IReadOnlyCollection<OptionNameIdEntity>)await dbConnection.QueryAsync<OptionNameIdEntity>(
+                IReadOnlyCollection<CityEntity> cities =
+                    (IReadOnlyCollection<CityEntity>)await dbConnection.QueryAsync<CityEntity>(
                         "GetCities",
                         commandType: CommandType.StoredProcedure
                     );
 
-                return nameIdEntity;
+                return cities;
             }
         }
     }

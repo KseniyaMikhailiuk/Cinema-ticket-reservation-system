@@ -90,7 +90,6 @@
     <Build Include="dbo\StoredProcedures\GetCities.sql" />
     <Build Include="dbo\StoredProcedures\GetCinemas.sql" />
     <Build Include="dbo\StoredProcedures\GetHalls.sql" />
-    <Build Include="dbo\StoredProcedures\GetFilmOptions.sql" />
     <Build Include="dbo\StoredProcedures\UpsertAdditionalService.sql" />
     <Build Include="dbo\StoredProcedures\GetServiceOptions.sql" />
     <Build Include="dbo\StoredProcedures\AddSeanceServices.sql" />

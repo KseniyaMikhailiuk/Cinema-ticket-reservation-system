@@ -7,6 +7,6 @@ namespace CinemaReservation.DataAccessLayer.Contracts
     public interface IAdditionalServiceRepository
     {
         Task UpsertAdditionalServiceAsync(AdditionalServiceEntity additionalServiceEntity);
-        Task<IReadOnlyCollection<OptionNameIdEntity>> GetServiceOptionsAsync();
+        Task<IReadOnlyCollection<AdditionalServiceEntity>> GetServiceOptionsAsync();
     }
 }
