@@ -41,7 +41,7 @@ namespace CinemaReservation.BusinessLayer.Services
                     await _seanceRepository.AddSeanceSeatPricesAsync(
                         seanceModel
                             .SeatPrices
-                            .Adapt<List<SeatPriceEntity>>(),
+                            .Adapt<IReadOnlyCollection<SeatPriceEntity>>(),
                         context
                     );
 
@@ -52,7 +52,7 @@ namespace CinemaReservation.BusinessLayer.Services
                     await _seanceRepository.AddSeanceAdditionalServicesAsync(
                         seanceModel
                             .Services
-                            .Adapt<List<ServicePriceEntity>>(),
+                            .Adapt<IReadOnlyCollection<ServicePriceEntity>>(),
                         context
                     );
 

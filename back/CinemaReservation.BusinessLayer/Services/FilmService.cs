@@ -66,9 +66,9 @@ namespace CinemaReservation.BusinessLayer.Services
             );
         }
 
-        public async Task<List<OptionModel>> GetFilmNamesAsync(string filter)
+        public async Task<IReadOnlyCollection<OptionModel>> GetFilmNamesAsync(string filter)
         {
-            List<FullFilmEntity> films = await _filmRepository.GetFilmsByNameAsync(filter);
+            IReadOnlyCollection<FullFilmEntity> films = await _filmRepository.GetFilmsByNameAsync(filter);
 
             TypeAdapterConfig<FullFilmEntity, OptionModel>
                 .NewConfig()
@@ -76,7 +76,7 @@ namespace CinemaReservation.BusinessLayer.Services
                 .Map(dest => dest.Name, sourse => sourse.Title)
                 .IgnoreNonMapped(true);
 
-            return films.Adapt<List<OptionModel>>();
+            return films.Adapt<IReadOnlyCollection<OptionModel>>();
         }
     }
 }

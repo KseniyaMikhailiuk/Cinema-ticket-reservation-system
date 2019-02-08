@@ -79,7 +79,7 @@ namespace CinemaReservation.Web.Controllers
         [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> GetHallOptionsAsync()
         {
-            List<OptionModel> result = await _hallService.GetHallsOptionsAsync();
+            IReadOnlyCollection<OptionModel> result = await _hallService.GetHallsOptionsAsync();
 
             return Ok(result.Adapt<OptionItem[]>());
         }

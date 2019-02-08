@@ -39,7 +39,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             }
         }
 
-        public async Task AddSeanceAdditionalServicesAsync(List<ServicePriceEntity> seanceServices, OperationContext context)
+        public async Task AddSeanceAdditionalServicesAsync(IReadOnlyCollection<ServicePriceEntity> seanceServices, OperationContext context)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             }
         }
 
-        public async Task AddSeanceSeatPricesAsync(List<SeatPriceEntity> seanceSeatPrices, OperationContext context)
+        public async Task AddSeanceSeatPricesAsync(IReadOnlyCollection<SeatPriceEntity> seanceSeatPrices, OperationContext context)
         {
             try
             {

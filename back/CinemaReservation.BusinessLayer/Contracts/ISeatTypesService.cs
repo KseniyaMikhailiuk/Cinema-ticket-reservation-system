@@ -6,6 +6,6 @@ namespace CinemaReservation.BusinessLayer.Contracts
 {
     public interface ISeatTypesService
     {
-        Task<List<SeatTypeModel>> GetOptions();
+        Task<IReadOnlyCollection<SeatTypeModel>> GetOptions();
     }
 }

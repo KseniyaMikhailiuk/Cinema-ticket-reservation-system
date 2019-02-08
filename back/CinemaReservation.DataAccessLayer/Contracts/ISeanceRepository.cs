@@ -8,8 +8,8 @@ namespace CinemaReservation.DataAccessLayer.Contracts
     public interface ISeanceRepository
     {
         Task<int> UpsertSeanceAsync(SeanceEntity seanceEntity, OperationContext context);
-        Task AddSeanceAdditionalServicesAsync(List<ServicePriceEntity> seanceServices, OperationContext context);
-        Task AddSeanceSeatPricesAsync(List<SeatPriceEntity> seanceServices, OperationContext context);
+        Task AddSeanceAdditionalServicesAsync(IReadOnlyCollection<ServicePriceEntity> seanceServices, OperationContext context);
+        Task AddSeanceSeatPricesAsync(IReadOnlyCollection<SeatPriceEntity> seanceServices, OperationContext context);
         OperationContext GetOperationContext();
     }
 }

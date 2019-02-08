@@ -9,16 +9,16 @@ namespace CinemaReservation.BusinessLayer.Models
         public DateTime DateTime { get; }
         public int FilmId { get; }
         public int HallId { get; }
-        public List<ServicePriceModel> Services { get; }
-        public List<SeatPriceModel> SeatPrices { get; }
+        public IReadOnlyCollection<ServicePriceModel> Services { get; }
+        public IReadOnlyCollection<SeatPriceModel> SeatPrices { get; }
 
         public SeanceModel(
             int id,
             DateTime dateTime,
             int filmId,
             int hallId,
-            List<ServicePriceModel> services,
-            List<SeatPriceModel> seatPrices
+            IReadOnlyCollection<ServicePriceModel> services,
+            IReadOnlyCollection<SeatPriceModel> seatPrices
         )
         {
             Id = id;

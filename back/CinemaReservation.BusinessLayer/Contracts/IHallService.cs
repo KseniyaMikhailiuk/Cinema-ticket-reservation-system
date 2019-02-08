@@ -8,6 +8,6 @@ namespace CinemaReservation.BusinessLayer.Contracts
     public interface IHallService
     {
         Task UpsertHallsAsync(CinemaHallsModel hallsModel);
-        Task<List<OptionModel>> GetHallsOptionsAsync();
+        Task<IReadOnlyCollection<OptionModel>> GetHallsOptionsAsync();
     }
 }

@@ -30,9 +30,9 @@ namespace CinemaReservation.Web.Controllers
         {
             try
             {
-                List<ServicePriceModel> services = request.Services.Adapt<List<ServicePriceModel>>();
+                IReadOnlyCollection<ServicePriceModel> services = request.Services.Adapt<IReadOnlyCollection<ServicePriceModel>>();
 
-                List<SeatPriceModel> seatPrices = request.SeatPrices.Adapt<List<SeatPriceModel>>();
+                IReadOnlyCollection<SeatPriceModel> seatPrices = request.SeatPrices.Adapt<IReadOnlyCollection<SeatPriceModel>>();
 
                 SeanceModel seanceModel = new SeanceModel(
                     request.Id,
@@ -59,9 +59,9 @@ namespace CinemaReservation.Web.Controllers
         {
             try
             {
-                List<ServicePriceModel> services = request.Services.Adapt<List<ServicePriceModel>>();
+                IReadOnlyCollection<ServicePriceModel> services = request.Services.Adapt<IReadOnlyCollection<ServicePriceModel>>();
 
-                List<SeatPriceModel> seatPrices = request.SeatPrices.Adapt<List<SeatPriceModel>>();
+                IReadOnlyCollection<SeatPriceModel> seatPrices = request.SeatPrices.Adapt<IReadOnlyCollection<SeatPriceModel>>();
 
                 SeanceModel seanceModel = new SeanceModel(
                     request.Id,

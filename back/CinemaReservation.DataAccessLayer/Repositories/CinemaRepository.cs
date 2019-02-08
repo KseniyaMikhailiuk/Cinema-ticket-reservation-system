@@ -39,14 +39,15 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             }
         }
 
-        public async Task<List<OptionNameIdEntity>> GetCinemasAsync()
+        public async Task<IReadOnlyCollection<OptionNameIdEntity>> GetCinemasAsync()
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
-                List<OptionNameIdEntity> nameIdEntity = (List<OptionNameIdEntity>)await dbConnection.QueryAsync<OptionNameIdEntity>(
-                    "GetCinemas",
-                    commandType: CommandType.StoredProcedure
-                );
+                IReadOnlyCollection<OptionNameIdEntity> nameIdEntity =
+                    (IReadOnlyCollection<OptionNameIdEntity>)await dbConnection.QueryAsync<OptionNameIdEntity>(
+                        "GetCinemas",
+                        commandType: CommandType.StoredProcedure
+                    );
 
                 return nameIdEntity;
             }
