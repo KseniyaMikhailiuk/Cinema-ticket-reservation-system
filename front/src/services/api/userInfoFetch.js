@@ -1,10 +1,10 @@
 export const registerUser = (userData) =>
     fetch(
-        "./api/account/register",
+        '/api/account/register',
         {
             method: 'post',
             headers: {
-                "Content-type": "application/json"
+                'Content-type': 'application/json'
             },
             body: JSON.stringify({
                 Name: userData.name,
@@ -28,11 +28,11 @@ export const registerUser = (userData) =>
 
 export const authorizeUser = (userData) =>
     fetch(
-        "./api/account/login",
+        '/api/account/login',
         {
             method: 'post',
             headers: {
-                "Content-type": "application/json"
+                'Content-type': 'application/json'
             },
             body: JSON.stringify({
                 Email: userData.email,
@@ -54,7 +54,7 @@ export const authorizeUser = (userData) =>
 
 export const deauthorizeUser = () =>
     fetch(
-        "./api/account/logout",
+        '/api/account/logout',
         {
             method: 'post',
         }
@@ -66,11 +66,11 @@ export const deauthorizeUser = () =>
 
 export const getUser = () =>
     fetch(
-        "./api/account/getUser",
+        '/api/account/getUser',
         {
             method: 'get',
             headers: {
-                "Content-type": "application/json"
+                'Content-type': 'application/json'
             }
         }
     )

@@ -92,7 +92,7 @@ namespace CinemaReservation.Web.Controllers
                 formFile
             ));
 
-            return Ok("Film added");
+            return NoContent();
         }
 
         [HttpPut("names")]

@@ -41,7 +41,11 @@ namespace CinemaReservation.BusinessLayer.Services
             string filmPosterPath = _configuration.GetSection("FilmPostersPath").Value;
 
             FilmPosterEntity result = await _filmRepository.GetFilmPosterAsync(imageModel.FilmId);
-            File.Delete(Path.Combine(filmPosterPath, result.PosterUniqueId));
+
+            if (result.PosterUniqueId != null)
+            {
+                File.Delete(Path.Combine(filmPosterPath, result.PosterUniqueId));
+            }
 
             string posterUniqueId = Guid.NewGuid().ToString() + Path.GetExtension(imageModel.FormFile.FileName);
             string path = Path.Combine(filmPosterPath, posterUniqueId);
@@ -64,9 +68,9 @@ namespace CinemaReservation.BusinessLayer.Services
 
         public async Task<List<OptionModel>> GetFilmNamesAsync(string filter)
         {
-            List<FilmEntity> films = await _filmRepository.GetFilmsByNameAsync(filter);
+            List<FullFilmEntity> films = await _filmRepository.GetFilmsByNameAsync(filter);
 
-            TypeAdapterConfig<FilmEntity, OptionModel>
+            TypeAdapterConfig<FullFilmEntity, OptionModel>
                 .NewConfig()
                 .Map(dest => dest.Id, sourse => sourse.Id)
                 .Map(dest => dest.Name, sourse => sourse.Title)

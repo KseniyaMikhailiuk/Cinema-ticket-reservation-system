@@ -1,24 +1,16 @@
 export const addAdditionalService = (item) =>
     fetch(
-        "./api/additional-services",
+        '/api/additional-services',
         {
             method: 'post',
             headers: {
-                "Content-type": "application/json",
-                'Accept': 'application/json'
+                'Content-type': 'application/json'
             },
             body: JSON.stringify({
                 Name: item.name
             })
         }
     )
-        .then(response =>
-            response.ok
-            ? response.json()
-            : false)
-        .then(data =>
-            data
-        )
         .catch(error => {
             console.log(error);
             throw error;
@@ -26,11 +18,11 @@ export const addAdditionalService = (item) =>
 
 export const getAdditionalServices = () =>
     fetch(
-        "./api/additional-services",
+        '/api/additional-services',
         {
             method: 'get',
             headers: {
-                "Content-type": "application/json",
+                'Content-type': 'application/json',
                 'Accept': 'application/json'
             }
         }

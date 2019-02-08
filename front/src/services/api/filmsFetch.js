@@ -386,11 +386,11 @@ export const releaseSeat = (info) =>
 
 export const getFilmOptions = (inputValue) =>
     fetch(
-        "./api/films/names",
+        '/api/films/names',
         {
             method: 'put',
             headers: {
-                "Content-type": "application/json",
+                'Content-type': 'application/json',
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
@@ -411,11 +411,11 @@ export const getFilmOptions = (inputValue) =>
 
 export const addFilmToDatabase = (film) =>
     fetch(
-        "./api/films",
+        '/api/films',
         {
             method: 'post',
             headers: {
-                "Content-type": "application/json",
+                'Content-type': 'application/json',
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
@@ -438,37 +438,20 @@ export const addFilmToDatabase = (film) =>
             : false)
         .then(response => {
             let formData = new FormData();
-            formData.append("FilmPoster", film.filmPoster);
-            formData.append("FilmId", response);
+            formData.append('FilmPoster', film.filmPoster);
+            formData.append('FilmId', response);
             return fetch(
                 `.\/api\/films\/${response}\/poster`,
                 {
                     method: 'put',
-                    headers: {
-                        "Accept": "application/json"
-                    },
                     body: formData
                 }
-            )
-            .then(response =>
-                response.ok
-                ? response.json()
-                : false)
-            .then(data =>
-                data
             )
             .catch(error => {
                 console.log(error);
                 throw error;
             })
         })
-            .then(response =>
-                response.ok
-                ? response.json()
-                : false)
-            .then(data =>
-                data
-            )
             .catch(error => {
                 console.log(error);
                 throw error;
@@ -476,12 +459,11 @@ export const addFilmToDatabase = (film) =>
 
 export const addSeanceToDatabase = (seance) => {
     return fetch(
-        "./api/seances",
+        '/api/seances',
         {
             method: 'post',
             headers: {
-                "Content-type": "application/json",
-                'Accept': 'application/json'
+                'Content-type': 'application/json'
             },
             body: JSON.stringify({
                 DateTime: seance.dateTime,
@@ -492,13 +474,6 @@ export const addSeanceToDatabase = (seance) => {
             })
         }
     )
-        .then(response =>
-            response.ok
-            ? response.json()
-            : false)
-        .then(data =>
-            data
-        )
         .catch(error => {
             console.log(error);
             throw error;

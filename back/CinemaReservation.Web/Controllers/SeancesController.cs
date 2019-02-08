@@ -45,7 +45,7 @@ namespace CinemaReservation.Web.Controllers
 
                 await _seanceService.UpsertSeanceAsync(seanceModel);
 
-                return Ok("Seance added successfully");
+                return NoContent();
             }
             catch (ConflictException e)
             {
@@ -74,7 +74,7 @@ namespace CinemaReservation.Web.Controllers
 
                 await _seanceService.UpsertSeanceAsync(seanceModel);
 
-                return Ok("Seance added successfully");
+                return NoContent();
             }
             catch (Exception e)
             {

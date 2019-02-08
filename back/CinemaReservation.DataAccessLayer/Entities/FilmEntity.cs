@@ -11,12 +11,10 @@ namespace CinemaReservation.DataAccessLayer.Entities
         public DateTime StartShowingDate { get; }
         public DateTime FinishShowingDate { get; }
         public TimeSpan FilmDuration { get; }
-        public string PosterUniqueId { get; }
 
         public FilmEntity(
             int id,
             string title,
-            string posterUniqueId,
             DateTime releaseDate,
             string description,
             DateTime startShowingDate,
@@ -31,7 +29,6 @@ namespace CinemaReservation.DataAccessLayer.Entities
             StartShowingDate = startShowingDate;
             FinishShowingDate = finishShowingDate;
             FilmDuration = filmDuration;
-            PosterUniqueId = posterUniqueId;
         }
     }
 }

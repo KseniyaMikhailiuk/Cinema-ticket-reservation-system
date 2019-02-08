@@ -41,7 +41,7 @@ namespace CinemaReservation.Web.Controllers
                     )
                 );
 
-                return Ok("Halls are added");
+                return NoContent();
             }
             catch(ConflictException e)
             {
@@ -67,7 +67,7 @@ namespace CinemaReservation.Web.Controllers
                     )
                 );
 
-                return Ok("Halls are added");
+                return NoContent();
             }
             catch (ConflictException e)
             {

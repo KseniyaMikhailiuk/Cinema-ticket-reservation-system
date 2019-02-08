@@ -34,7 +34,7 @@ namespace CinemaReservation.Web.Controllers
                         request.Adapt<ServiceModel>()
                     );
 
-                return Ok("");
+                return NoContent();
             }
             catch(ConflictException e)
             {
@@ -52,7 +52,7 @@ namespace CinemaReservation.Web.Controllers
                 .UpsertAdditionalServiceAsync(
                     request.Adapt<ServiceModel>()
                 );
-                return Ok();
+                return NoContent();
             }
             catch (ConflictException e)
             {

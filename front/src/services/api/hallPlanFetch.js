@@ -320,11 +320,11 @@ export const fetchHallPlan = (seanceInfo) =>
 
 export const addCinema = (cinemaInfo) =>
     fetch(
-        "./api/cities",
+        '/api/cities',
         {
             method: 'post',
             headers: {
-                "Content-type": "application/json"
+                'Content-type': 'application/json'
             },
             body: JSON.stringify({
                 Name: cinemaInfo.city
@@ -337,11 +337,11 @@ export const addCinema = (cinemaInfo) =>
             : false)
         .then(cityId => {
             fetch(
-                "./api/cinemas",
+                '/api/cinemas',
                 {
                     method: 'post',
                     headers: {
-                        "Content-type": "application/json"
+                        'Content-type': 'application/json'
                     },
                     body: JSON.stringify({
                         Name: cinemaInfo.cinema,
@@ -374,12 +374,11 @@ export const addCinema = (cinemaInfo) =>
                         hallId++;
                     })
                     return fetch(
-                        "./api/halls",
+                        '/api/halls',
                         {
                             method: 'post',
                             headers: {
-                                "Content-type": "application/json",
-                                'Accept': 'application/json'
+                                'Content-type': 'application/json'
                             },
                             body: JSON.stringify({
                                 Halls: halls,
@@ -388,25 +387,11 @@ export const addCinema = (cinemaInfo) =>
                             })
                         }
                     )
-                    .then(response =>
-                        response.ok
-                        ? response.json()
-                        : false)
-                    .then(data =>
-                        data
-                    )
                     .catch(error => {
                         console.log(error);
                         throw error;
                     })
                 })
-                .then(response =>
-                    response.ok
-                    ? response.json()
-                    : false)
-                .then(data =>
-                    data
-                )
                 .catch(error => {
                     console.log(error);
                     throw error;
@@ -419,11 +404,11 @@ export const addCinema = (cinemaInfo) =>
 
 export const getCitiesOptions = () =>
     fetch(
-        "./api/cities",
+        '/api/cities',
         {
             method: 'get',
             headers: {
-                "Content-type": "application/json",
+                'Content-type': 'application/json',
                 'Accept': 'application/json'
             }
         }
@@ -442,11 +427,11 @@ export const getCitiesOptions = () =>
 
 export const getCinemasOptions = () =>
     fetch(
-        "./api/cinemas",
+        '/api/cinemas',
         {
             method: 'get',
             headers: {
-                "Content-type": "application/json",
+                'Content-type': 'application/json',
                 'Accept': 'application/json'
             }
         }
@@ -465,11 +450,11 @@ export const getCinemasOptions = () =>
 
 export const getHallsOptions = () =>
     fetch(
-        "./api/halls",
+        '/api/halls',
         {
             method: 'get',
             headers: {
-                "Content-type": "application/json",
+                'Content-type': 'application/json',
                 'Accept': 'application/json'
             }
         }
@@ -488,11 +473,11 @@ export const getHallsOptions = () =>
 
 export const getSeatTypeOptions = () =>
     fetch(
-        "./api/seat-types",
+        '/api/seat-types',
         {
             method: 'get',
             headers: {
-                "Content-type": "application/json",
+                'Content-type': 'application/json',
                 'Accept': 'application/json'
             }
         }

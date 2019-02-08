@@ -26,7 +26,6 @@ namespace CinemaReservation.DataAccessLayer.Entities
         {
             if (Transaction != null)
             {
-                Transaction.Rollback();
                 Transaction.Dispose();
             }
             if (Connection != null)
