@@ -33,7 +33,6 @@ const SeatTypeSelectDialog = ({
             animation="zoom"
             closable
         >
-            <p>Тип места</p>
             <Select
                 name="seatType"
                 className="select"

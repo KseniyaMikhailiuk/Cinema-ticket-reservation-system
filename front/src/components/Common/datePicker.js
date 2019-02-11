@@ -1,5 +1,6 @@
 import React from 'react'
 import DatePicker from 'react-datepicker'
+import {withNamespaces} from 'react-i18next'
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -22,7 +23,7 @@ class DatePickerCusomized extends DatePicker {
 
     render() {
         const {selectedDate} = this.state;
-        const {showTimeSelect} = this.props;
+        const {showTimeSelect, t} = this.props;
         {
             if (showTimeSelect){
                 return (
@@ -34,9 +35,9 @@ class DatePickerCusomized extends DatePicker {
                         onChange={this.handleDayChange}
                         autoComplete="off"
                         showTimeSelect={showTimeSelect}
-                        timeFormat="HH:mm"
                         timeIntervals={5}
-                        dateFormat="MMMM d, yyyy h:mm aa"
+                        dateFormat={t('dataTimeFormat')}
+                        timeFormat={t('timeFormat')}
                         timeCaption="time"
                     />
                 )
@@ -48,6 +49,8 @@ class DatePickerCusomized extends DatePicker {
                     minDate={new Date()}
                     selected={selectedDate}
                     onChange={this.handleDayChange}
+                    dateFormat={t('dataTimeFormat')}
+                    timeFormat={t('timeFormat')}
                     autoComplete="off"
                 />
             )
@@ -55,4 +58,4 @@ class DatePickerCusomized extends DatePicker {
     }
 }
 
-export default DatePickerCusomized;
+export default withNamespaces()(DatePickerCusomized);

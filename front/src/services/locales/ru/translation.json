@@ -78,5 +78,9 @@
 
     "all": "Все",
     "previous": "Предыдущие",
-    "next": "Будущие"
+    "next": "Будущие",
+
+    "dataTimeFormat": "d.MM.yyyy, h:mm",
+    "timeFormat": "hh:mm",
+    "locale": "ru"
 }
