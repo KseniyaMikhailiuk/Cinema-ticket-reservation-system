@@ -4,10 +4,6 @@ namespace CinemaReservation.DataAccessLayer.Exceptions
 {
     public class UniqueIndexException: Exception
     {
-        public UniqueIndexException()
-        {
-        }
-
         public UniqueIndexException(string storedProc)
             : base(string.Format("Exception occurrde during execution of stored proc {0}", storedProc))
         {}

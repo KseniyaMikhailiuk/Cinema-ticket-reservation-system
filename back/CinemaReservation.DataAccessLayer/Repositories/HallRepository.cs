@@ -40,28 +40,19 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             }
         }
 
-        public async Task<AddOperationResultStatus> AddHallPlanAsync(List<SeatEntity> seats)
+        public async Task AddHallPlanAsync(List<SeatEntity> seats)
         {
-            try
+            using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
-                using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
-                {
-                    await dbConnection.ExecuteAsync(
-                        "AddSeats",
-                        seats,
-                        commandType: CommandType.StoredProcedure
-                    );
-
-                    return AddOperationResultStatus.Ok;
-                }
-            }
-            catch
-            {
-                return AddOperationResultStatus.UniqueIndexError;
+                await dbConnection.ExecuteAsync(
+                    "AddSeats",
+                    seats,
+                    commandType: CommandType.StoredProcedure
+                );
             }
         }
 
-        public async Task<AddOperationResultStatus> DeleteHallPlanAsync(int hallId)
+        public async Task DeleteHallPlanAsync(int hallId)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
@@ -70,8 +61,6 @@ namespace CinemaReservation.DataAccessLayer.Repositories
                     new { HallId = hallId },
                     commandType: CommandType.StoredProcedure
                 );
-
-                return AddOperationResultStatus.Ok;
             }
         }
 

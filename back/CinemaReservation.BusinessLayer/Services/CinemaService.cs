@@ -34,7 +34,6 @@ namespace CinemaReservation.BusinessLayer.Services
             {
                 throw new ConflictException(e);
             }
-
         }
 
         public async Task<IReadOnlyCollection<CinemaModel>> GetCinemasAsync()
