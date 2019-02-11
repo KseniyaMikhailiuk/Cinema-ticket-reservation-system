@@ -8,5 +8,6 @@ namespace CinemaReservation.DataAccessLayer.Contracts
     {
         Task<int> UpsertCityAsync(CityEntity cityEntity);
         Task<IReadOnlyCollection<CityEntity>> GetCitiesAsync();
+        Task<bool> CheckId(int id);
     }
 }

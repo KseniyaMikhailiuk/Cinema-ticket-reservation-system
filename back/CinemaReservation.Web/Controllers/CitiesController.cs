@@ -47,6 +47,11 @@ namespace CinemaReservation.Web.Controllers
         [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> EditCinemaAsync(UpsertCinemaRequest request)
         {
+            if (!await _cityService.CheckId(request.Id))
+            {
+                return BadRequest();
+            }
+
             try
             {
                 int result = await _cityService.UpsertCityAsync(

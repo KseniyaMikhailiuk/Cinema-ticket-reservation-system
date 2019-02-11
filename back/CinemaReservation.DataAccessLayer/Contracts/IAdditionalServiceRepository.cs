@@ -8,5 +8,6 @@ namespace CinemaReservation.DataAccessLayer.Contracts
     {
         Task UpsertAdditionalServiceAsync(AdditionalServiceEntity additionalServiceEntity);
         Task<IReadOnlyCollection<AdditionalServiceEntity>> GetServicesAsync();
+        Task<bool> CheckId(int id);
     }
 }

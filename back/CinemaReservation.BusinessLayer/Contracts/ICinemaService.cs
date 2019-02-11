@@ -8,5 +8,6 @@ namespace CinemaReservation.BusinessLayer.Contracts
     {
         Task<int> UpsertCinemaAsync(CinemaModel cityModel);
         Task<IReadOnlyCollection<CinemaModel>> GetCinemasAsync();
+        Task<bool> CheckId(int id);
     }
 }

@@ -11,5 +11,6 @@ namespace CinemaReservation.DataAccessLayer.Contracts
         Task AddSeanceAdditionalServicesAsync(IReadOnlyCollection<ServicePriceEntity> seanceServices, OperationContext context);
         Task AddSeanceSeatPricesAsync(IReadOnlyCollection<SeatPriceEntity> seanceServices, OperationContext context);
         OperationContext GetOperationContext();
+        Task<bool> CheckId(int id);
     }
 }

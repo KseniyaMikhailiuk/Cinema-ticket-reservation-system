@@ -46,6 +46,11 @@ namespace CinemaReservation.Web.Controllers
         [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> EditAdditionalServicesAsync(UpsertAdditionalServiceRequest request)
         {
+            if (!await _additionalServicesService.CheckId(request.Id))
+            {
+                return BadRequest();
+            }
+
             try
             {
                 await _additionalServicesService

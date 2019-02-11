@@ -56,6 +56,11 @@ namespace CinemaReservation.Web.Controllers
         [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> EditFilmAsync(UpsertFilmRequest request)
         {
+            if (!await _filmService.CheckId(request.Id))
+            {
+                return BadRequest();
+            }
+
             if (request.FinishShowingDate < request.StartShowingDate)
             {
                 return BadRequest();

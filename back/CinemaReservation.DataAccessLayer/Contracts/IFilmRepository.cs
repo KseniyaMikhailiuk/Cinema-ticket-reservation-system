@@ -11,5 +11,6 @@ namespace CinemaReservation.DataAccessLayer.Contracts
         Task<IReadOnlyCollection<FullFilmEntity>> GetFilmsByNameAsync(string filter);
         Task<FullFilmEntity> GetFilmAsync(int id);
         Task<FilmPosterEntity> GetFilmPosterAsync(int id);
+        Task<bool> CheckId(int id);
     }
 }

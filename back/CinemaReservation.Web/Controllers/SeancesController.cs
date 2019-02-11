@@ -57,6 +57,11 @@ namespace CinemaReservation.Web.Controllers
         [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> EditSeanceAsync(UpsertSeanceRequest request)
         {
+            if (!await _seanceService.CheckId(request.Id))
+            {
+                return BadRequest();
+            }
+
             try
             {
                 IReadOnlyCollection<ServicePriceModel> services = request.Services.Adapt<IReadOnlyCollection<ServicePriceModel>>();

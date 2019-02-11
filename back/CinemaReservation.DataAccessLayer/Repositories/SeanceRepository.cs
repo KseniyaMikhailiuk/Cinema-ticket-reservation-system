@@ -78,5 +78,19 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             IDbConnection connection = new SqlConnection(_settings.ConnectionString);
             return new OperationContext(connection);
         }
+
+        public async Task<bool> CheckId(int id)
+        {
+            using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
+            {
+                bool result = await dbConnection.ExecuteScalarAsync<bool>(
+                    "CheckId",
+                    new { Id = id, TableName = "Seances" },
+                    commandType: CommandType.StoredProcedure
+                );
+
+                return result;
+            }
+        }
     }
 }
