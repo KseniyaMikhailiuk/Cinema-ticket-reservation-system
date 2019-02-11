@@ -19,7 +19,7 @@ namespace CinemaReservation.BusinessLayer.Services
             _seatTypesRepository = seatTypesRepository;
         }
 
-        public async Task<IReadOnlyCollection<SeatTypeModel>> GetOptions()
+        public async Task<IReadOnlyCollection<SeatTypeModel>> GetSeatTypes()
         {
             IReadOnlyCollection<SeatTypeEntity> seatTypes = await _seatTypesRepository.GetSeatTypesAsync();
 

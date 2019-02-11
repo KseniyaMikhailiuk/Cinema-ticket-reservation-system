@@ -69,7 +69,11 @@ namespace CinemaReservation.Web.Controllers
         {
             IReadOnlyCollection<CinemaModel> result = await _cinemaService.GetCinemasAsync();
 
-            return Ok(result.Adapt<GetCinemasResponse[]>());
+            TypeAdapterConfig<CinemaModel, GetNamesResponse>
+                .NewConfig()
+                .Map(dest => dest.ParentId, sourse => sourse.CityId);
+
+            return Ok(result.Adapt<GetNamesResponse[]>());
         }
     }
 }

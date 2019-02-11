@@ -41,9 +41,7 @@ namespace CinemaReservation.BusinessLayer.Services
         {
             IReadOnlyCollection<CinemaEntity> cinemas = await _cinemaRepository.GetCinemasAsync();
 
-            IReadOnlyCollection<CinemaModel> cinemasList = cinemas.Adapt<IReadOnlyCollection<CinemaModel>>();
-
-            return cinemasList;
+            return cinemas.Adapt<IReadOnlyCollection<CinemaModel>>();
         }
     }
 }

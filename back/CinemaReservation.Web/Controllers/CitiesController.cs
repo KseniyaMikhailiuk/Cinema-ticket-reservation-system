@@ -65,11 +65,11 @@ namespace CinemaReservation.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        public async Task<IActionResult> GetCityOptionsAsync()
+        public async Task<IActionResult> GetCitiesAsync()
         {
-            IReadOnlyCollection<CityModel> result = await _cityService.GetCityNamesAsync();
+            IReadOnlyCollection<CityModel> result = await _cityService.GetCitiesAsync();
 
-            return Ok(result.Adapt<GetCitiesResponse[]>());
+            return Ok(result.Adapt<GetNamesResponse[]>());
         }
     }
 }

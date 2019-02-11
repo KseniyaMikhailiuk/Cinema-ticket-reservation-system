@@ -1,20 +1,20 @@
 ﻿namespace CinemaReservation.Web.Models
 {
-    public class GetHallsResponse
+    public class GetNamesResponse
     {
         public string Name { get; }
         public int Id { get; }
-        public int CinemaId { get; }
+        public int ParentId { get; }
 
-        public GetHallsResponse(
+        public GetNamesResponse(
             string name,
             int id,
-            int cinemaId
+            int parentId
         )
         {
             Name = name;
             Id = id;
-            CinemaId = cinemaId;
+            ParentId = parentId;
         }
     }
 }

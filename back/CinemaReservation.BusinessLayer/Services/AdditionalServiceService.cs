@@ -35,9 +35,9 @@ namespace CinemaReservation.BusinessLayer.Services
                 throw new ConflictException(e);
             }
         }
-        public async Task<IReadOnlyCollection<ServiceModel>> GetServiceOptionsAsync()
+        public async Task<IReadOnlyCollection<ServiceModel>> GetServicesAsync()
         {
-            IReadOnlyCollection<AdditionalServiceEntity> services = await _additionalServicesRepository.GetServiceOptionsAsync();
+            IReadOnlyCollection<AdditionalServiceEntity> services = await _additionalServicesRepository.GetServicesAsync();
 
             return services.Adapt<IReadOnlyCollection<ServiceModel>>();
         }

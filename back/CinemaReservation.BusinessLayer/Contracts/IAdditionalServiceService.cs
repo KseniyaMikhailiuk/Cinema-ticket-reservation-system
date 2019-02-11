@@ -7,6 +7,6 @@ namespace CinemaReservation.BusinessLayer.Contracts
     public interface IAdditionalServiceService
     {
         Task UpsertAdditionalServiceAsync(ServiceModel serviceModel);
-        Task<IReadOnlyCollection<ServiceModel>> GetServiceOptionsAsync();
+        Task<IReadOnlyCollection<ServiceModel>> GetServicesAsync();
     }
 }

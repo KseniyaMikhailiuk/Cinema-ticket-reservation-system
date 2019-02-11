@@ -25,7 +25,7 @@ namespace CinemaReservation.Web.Controllers
         [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> GetSeatTypes()
         {
-            IReadOnlyCollection<SeatTypeModel> result = await _seatTypesService.GetOptions();
+            IReadOnlyCollection<SeatTypeModel> result = await _seatTypesService.GetSeatTypes();
 
             return Ok(result.Adapt<SeatType[]>());
         }

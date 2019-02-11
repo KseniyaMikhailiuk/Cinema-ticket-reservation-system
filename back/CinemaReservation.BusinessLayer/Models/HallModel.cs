@@ -8,15 +8,6 @@
 
         public HallModel(
             string name,
-            int id
-        )
-        {
-            Name = name;
-            Id = id;
-        }
-
-        public HallModel(
-            string name,
             int id,
             int cinemaId
         )

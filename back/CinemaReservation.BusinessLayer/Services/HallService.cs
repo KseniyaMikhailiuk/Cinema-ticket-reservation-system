@@ -61,7 +61,7 @@ namespace CinemaReservation.BusinessLayer.Services
             }
         }
 
-        public async Task<IReadOnlyCollection<HallModel>> GetHallsOptionsAsync()
+        public async Task<IReadOnlyCollection<HallModel>> GetHallsAsync()
         {
             IReadOnlyCollection<HallEntity> halls = await _hallRepository.GetHallsAsync();
 

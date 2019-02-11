@@ -87,8 +87,6 @@
     <Build Include="dbo\StoredProcedures\UpsertFilm.sql" />
     <Build Include="dbo\StoredProcedures\InsertFilmPoster.sql" />
     <Build Include="dbo\StoredProcedures\UpsertSeance.sql" />
-    <Build Include="dbo\StoredProcedures\GetCities.sql" />
-    <Build Include="dbo\StoredProcedures\GetCinemas.sql" />
     <Build Include="dbo\StoredProcedures\GetHalls.sql" />
     <Build Include="dbo\StoredProcedures\UpsertAdditionalService.sql" />
     <Build Include="dbo\StoredProcedures\GetServiceOptions.sql" />
@@ -96,8 +94,10 @@
     <Build Include="dbo\StoredProcedures\AddSeanceSeatPrices.sql" />
     <Build Include="dbo\StoredProcedures\UpsertCity.sql" />
     <Build Include="dbo\StoredProcedures\GetFilmPoster.sql" />
-    <Build Include="dbo\StoredProcedures\GetFilm.sql" />
     <Build Include="dbo\StoredProcedures\GetSeatTypes.sql" />
     <Build Include="dbo\StoredProcedures\GetTopTenFilmsByName.sql" />
+    <Build Include="dbo\StoredProcedures\GetCinemas.sql" />
+    <Build Include="dbo\StoredProcedures\GetCities.sql" />
+    <Build Include="dbo\StoredProcedures\GetFilm.sql" />
   </ItemGroup>
 </Project>
