@@ -45,5 +45,10 @@ namespace CinemaReservation.BusinessLayer.Services
             return cities.Adapt<IReadOnlyCollection<CityModel>>();
 
         }
+
+        public async Task<bool> CheckId(int id)
+        {
+            return await _cityRepository.CheckId(id);
+        }
     }
 }

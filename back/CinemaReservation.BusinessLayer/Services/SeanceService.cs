@@ -64,5 +64,10 @@ namespace CinemaReservation.BusinessLayer.Services
                 throw new ConflictException(e);
             }
         }
+
+        public async Task<bool> CheckId(int id)
+        {
+            return await _seanceRepository.CheckId(id);
+        }
     }
 }

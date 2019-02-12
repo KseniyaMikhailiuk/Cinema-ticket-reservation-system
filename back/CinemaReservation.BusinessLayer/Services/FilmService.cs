@@ -78,5 +78,10 @@ namespace CinemaReservation.BusinessLayer.Services
 
             return films.Adapt<IReadOnlyCollection<OptionModel>>();
         }
+
+        public async Task<bool> CheckId(int id)
+        {
+            return await _filmRepository.CheckId(id);
+        }
     }
 }
