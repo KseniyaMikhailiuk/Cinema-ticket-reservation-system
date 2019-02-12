@@ -1,4 +1,5 @@
 import {v4} from 'uuid'
+import redirectAwareFetch from './FetchService/fetchService'
 
 const cinemaHallPlans = [
     {
@@ -472,23 +473,16 @@ export const getHallsOptions = () =>
         })
 
 export const getSeatTypeOptions = () =>
-    fetch(
+    redirectAwareFetch(
         '/api/seat-types',
         {
-            method: 'get',
+            method: 'GET',
             headers: {
                 'Content-type': 'application/json',
                 'Accept': 'application/json'
             }
         }
     )
-        .then(response =>
-            response.ok
-            ? response.json()
-            : false)
-        .then(data =>
-            data)
-        .catch(error => {
-            console.log(error);
-            throw error;
-        })
+    .then(result =>
+        result.data
+    )

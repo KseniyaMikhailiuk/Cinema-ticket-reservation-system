@@ -441,7 +441,7 @@ export const addFilmToDatabase = (film) =>
             formData.append('FilmPoster', film.filmPoster);
             formData.append('FilmId', response);
             return fetch(
-                `.\/api\/films\/${response}\/poster`,
+                `\/api\/films\/${response}\/poster`,
                 {
                     method: 'put',
                     body: formData

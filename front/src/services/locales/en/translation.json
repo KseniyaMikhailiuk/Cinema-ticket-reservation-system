@@ -81,6 +81,5 @@
     "next": "Next",
 
     "dataTimeFormat": "MMMM d, yyyy h:mm aa",
-    "timeFormat": "hh:mm aa",
-    "locale": "en-GB"
+    "timeFormat": "hh:mm aa"
 }
