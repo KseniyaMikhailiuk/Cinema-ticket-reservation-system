@@ -1,39 +1,19 @@
+import errorAwareFetch from './FetchService/fetchService'
+import * as fetchOptions from './FetchService/fetchOptions'
+
 export const addAdditionalService = (item) =>
-    fetch(
+    errorAwareFetch(
         '/api/additional-services',
-        {
-            method: 'post',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                Name: item.name
-            })
-        }
-    )
-        .catch(error => {
-            console.log(error);
-            throw error;
+        fetchOptions.post({
+            Name: item.name
         })
+    )
 
 export const getAdditionalServices = () =>
-    fetch(
+    errorAwareFetch(
         '/api/additional-services',
-        {
-            method: 'get',
-            headers: {
-                'Content-type': 'application/json',
-                'Accept': 'application/json'
-            }
-        }
+        fetchOptions.get
     )
-        .then(response =>
-            response.ok
-            ? response.json()
-            : false)
-        .then(data =>
-            data)
-        .catch(error => {
-            console.log(error);
-            throw error;
-        })
+        .then(result =>
+            result.data
+        )

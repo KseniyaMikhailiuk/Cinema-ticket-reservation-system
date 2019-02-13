@@ -100,7 +100,7 @@ namespace CinemaReservation.Web.Controllers
             return NoContent();
         }
 
-        [HttpPut("names")]
+        [HttpPost("names")]
         [Authorize(Roles = nameof(UserRoles.Admin))]
         public async Task<IActionResult> GetNamesAsync(GetFilmNamesRequest request)
         {

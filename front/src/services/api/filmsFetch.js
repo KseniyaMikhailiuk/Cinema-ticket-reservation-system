@@ -1,4 +1,6 @@
 import v4 from 'uuid/v4'
+import errorAwareFetch from './FetchService/fetchService'
+import * as fetchOptions from './FetchService/fetchOptions'
 import moment from 'moment'
 
 const services = [{name: "кукис", price: 2}, {name: "кола", price: 3}, {name: "начос", price: 3}];
@@ -385,97 +387,57 @@ export const releaseSeat = (info) =>
         })
 
 export const getFilmOptions = (inputValue) =>
-    fetch(
+    errorAwareFetch(
         '/api/films/names',
-        {
-            method: 'put',
-            headers: {
-                'Content-type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                Filter: inputValue
-            })
-        }
-    )
-        .then(response =>
-            response.ok
-            ? response.json()
-            : false)
-        .then(data =>
-            data)
-        .catch(error => {
-            console.log(error);
-            throw error;
+        fetchOptions.post({
+            Filter: inputValue
         })
+    )
+        .then(result =>
+            result.data
+        )
+
 
 export const addFilmToDatabase = (film) =>
-    fetch(
+    errorAwareFetch(
         '/api/films',
-        {
-            method: 'post',
-            headers: {
-                'Content-type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                Title: film.filmName,
-                Poster: film.filmPoster,
-                Release: film.filmRelease,
-                Description: film.filmDescription,
-                StartShowingDate: film.startShowingDate,
-                FinishShowingDate: film.finishShowingDate,
-                FilmDuration: {
-                    Hours: film.filmDuration.hours(),
-                    Minutes: film.filmDuration.minutes()
-                }
-            })
-        }
+        fetchOptions.post({
+            Title: film.filmName,
+            Poster: film.filmPoster,
+            Release: film.filmRelease,
+            Description: film.filmDescription,
+            StartShowingDate: film.startShowingDate,
+            FinishShowingDate: film.finishShowingDate,
+            FilmDuration: {
+                Hours: film.filmDuration.hours(),
+                Minutes: film.filmDuration.minutes()
+            }
+        })
     )
-        .then(response =>
-            response.ok
-            ? response.json()
-            : false)
+        .then(result =>
+            result.data
+        )
         .then(response => {
             let formData = new FormData();
             formData.append('FilmPoster', film.filmPoster);
             formData.append('FilmId', response);
-            return fetch(
+            return errorAwareFetch(
                 `\/api\/films\/${response}\/poster`,
                 {
                     method: 'put',
                     body: formData
                 }
             )
-            .catch(error => {
-                console.log(error);
-                throw error;
-            })
         })
-            .catch(error => {
-                console.log(error);
-                throw error;
-            })
 
-export const addSeanceToDatabase = (seance) => {
-    return fetch(
+export const addSeanceToDatabase = (seance) =>
+    errorAwareFetch(
         '/api/seances',
-        {
-            method: 'post',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                DateTime: seance.dateTime,
-                FilmId: seance.filmId,
-                HallId: seance.hallId,
-                Services: seance.services,
-                SeatPrices: seance.seatPrices,
-            })
-        }
-    )
-        .catch(error => {
-            console.log(error);
-            throw error;
+        fetchOptions.post({
+            DateTime: seance.dateTime,
+            FilmId: seance.filmId,
+            HallId: seance.hallId,
+            Services: seance.services,
+            SeatPrices: seance.seatPrices,
         })
-}
+    )

@@ -1,5 +1,6 @@
 import {v4} from 'uuid'
-import redirectAwareFetch from './FetchService/fetchService'
+import errorAwareFetch from './FetchService/fetchService'
+import * as fetchOptions from './FetchService/fetchOptions'
 
 const cinemaHallPlans = [
     {
@@ -320,40 +321,26 @@ export const fetchHallPlan = (seanceInfo) =>
         })
 
 export const addCinema = (cinemaInfo) =>
-    fetch(
+    errorAwareFetch(
         '/api/cities',
-        {
-            method: 'post',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                Name: cinemaInfo.city
-            })
-        }
+        fetchOptions.post({
+            Name: cinemaInfo.city
+        })
     )
-        .then(response =>
-            response.ok
-            ? response.json()
-            : false)
+        .then(result =>
+            result.data
+        )
         .then(cityId => {
-            fetch(
+            errorAwareFetch(
                 '/api/cinemas',
-                {
-                    method: 'post',
-                    headers: {
-                        'Content-type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        Name: cinemaInfo.cinema,
-                        CityId: cityId
-                    })
-                }
+                fetchOptions.post({
+                    Name: cinemaInfo.cinema,
+                    CityId: cityId
+                })
             )
-                .then(response =>
-                    response.ok
-                    ? response.json()
-                    : false)
+                .then(result =>
+                    result.data
+                )
                 .then(response => {
                     let halls = [];
                     let seats = [];
@@ -365,7 +352,6 @@ export const addCinema = (cinemaInfo) =>
                         })
                         hall.plan.forEach(line => {
                             line.forEach(seat => {
-                                delete seat.id;
                                 seats.push({
                                     ...seat,
                                     hallId: hallId
@@ -374,114 +360,48 @@ export const addCinema = (cinemaInfo) =>
                         })
                         hallId++;
                     })
-                    return fetch(
+                    return errorAwareFetch(
                         '/api/halls',
-                        {
-                            method: 'post',
-                            headers: {
-                                'Content-type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                Halls: halls,
-                                Seats: seats,
-                                CinemaId: response
-                            })
-                        }
+                        fetchOptions.post({
+                            Halls: halls,
+                            Seats: seats,
+                            CinemaId: response
+                        })
                     )
-                    .catch(error => {
-                        console.log(error);
-                        throw error;
-                    })
                 })
-                .catch(error => {
-                    console.log(error);
-                    throw error;
-                })
-        })
-        .catch(error => {
-            console.log(error);
-            throw error;
         })
 
 export const getCitiesOptions = () =>
-    fetch(
+    errorAwareFetch(
         '/api/cities',
-        {
-            method: 'get',
-            headers: {
-                'Content-type': 'application/json',
-                'Accept': 'application/json'
-            }
-        }
+        fetchOptions.get
     )
-        .then(response =>
-            response.ok
-            ? response.json()
-            : false
+        .then(result =>
+            result.data
         )
-        .then(data =>
-            data)
-        .catch(error => {
-            console.log(error);
-            throw error;
-        })
 
 export const getCinemasOptions = () =>
-    fetch(
+    errorAwareFetch(
         '/api/cinemas',
-        {
-            method: 'get',
-            headers: {
-                'Content-type': 'application/json',
-                'Accept': 'application/json'
-            }
-        }
+        fetchOptions.get
     )
-        .then(response =>
-            response.ok
-            ? response.json()
-            : false
+        .then(result =>
+            result.data
         )
-        .then(data =>
-            data)
-        .catch(error => {
-            console.log(error);
-            throw error;
-        })
 
 export const getHallsOptions = () =>
-    fetch(
+    errorAwareFetch(
         '/api/halls',
-        {
-            method: 'get',
-            headers: {
-                'Content-type': 'application/json',
-                'Accept': 'application/json'
-            }
-        }
+        fetchOptions.get
     )
-        .then(response =>
-            response.ok
-            ? response.json()
-            : false
+        .then(result =>
+            result.data
         )
-        .then(data =>
-            data)
-        .catch(error => {
-            console.log(error);
-            throw error;
-        })
 
 export const getSeatTypeOptions = () =>
-    redirectAwareFetch(
+    errorAwareFetch(
         '/api/seat-types',
-        {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json',
-                'Accept': 'application/json'
-            }
-        }
+        fetchOptions.get
     )
     .then(result =>
         result.data
