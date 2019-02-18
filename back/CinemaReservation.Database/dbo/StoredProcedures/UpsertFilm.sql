@@ -1,6 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[UpsertFilm]
     @Id int,
     @Title nvarchar(50),
+    @PosterUniqueId uniqueidentifier,
     @Description nvarchar(MAX),
     @ReleaseDate date,
     @StartShowingDate date,

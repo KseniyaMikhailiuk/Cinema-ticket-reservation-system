@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace CinemaReservation.BusinessLayer.Models
+namespace CinemaReservation.Web.Models
 {
-    public class FilmModel
+    public class Film
     {
         public int Id { get; }
         public string Title { get; }
@@ -13,7 +16,7 @@ namespace CinemaReservation.BusinessLayer.Models
         public TimeSpan FilmDuration { get; }
         public string PosterUniqueId { get; }
 
-        public FilmModel(
+        public Film(
             int id,
             string title,
             string posterUniqueId,

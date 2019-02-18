@@ -8,7 +8,7 @@ namespace CinemaReservation.BusinessLayer.Contracts
     {
         Task<int> UpsertFilmAsync(FilmModel filmModel);
         Task InsertFilmPosterAsync(FilmPosterModel filmPosterModel);
-        Task<IReadOnlyCollection<OptionModel>> GetFilmNamesAsync(string filter);
+        Task<IReadOnlyCollection<FilmModel>> GetFilmsAsync(string filter);
         Task<bool> CheckId(int id);
     }
 }

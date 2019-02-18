@@ -146,7 +146,7 @@ class AddSeanceForm extends Component{
         let films = [];
         filmOptions.forEach(film => {
             films.push({
-                label: film.name,
+                label: film.title,
                 value: {
                     id: film.id,
                 }

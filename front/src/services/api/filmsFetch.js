@@ -388,13 +388,15 @@ export const releaseSeat = (info) =>
 
 export const getFilmOptions = (inputValue) =>
     errorAwareFetch(
-        '/api/films/names',
+        '/api/films/filtered',
         fetchOptions.post({
             Filter: inputValue
         })
     )
-        .then(result =>
-            result.data
+        .then(result => {
+            console.log(result)
+            return result.data
+        }
         )
 
 

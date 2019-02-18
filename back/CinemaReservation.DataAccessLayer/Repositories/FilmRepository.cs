@@ -44,11 +44,11 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             }
         }
 
-        public async Task<FullFilmEntity> GetFilmAsync(int id)
+        public async Task<FilmEntity> GetFilmAsync(int id)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
-                FullFilmEntity film = await dbConnection.QuerySingleOrDefaultAsync<FullFilmEntity>(
+                FilmEntity film = await dbConnection.QuerySingleOrDefaultAsync<FilmEntity>(
                     "GetFilm",
                     new { Id = id },
                     commandType: CommandType.StoredProcedure
@@ -72,11 +72,11 @@ namespace CinemaReservation.DataAccessLayer.Repositories
             }
         }
 
-        public async Task<IReadOnlyCollection<FullFilmEntity>> GetFilmsByNameAsync(string filter)
+        public async Task<IReadOnlyCollection<FilmEntity>> GetFilmsByFilterAsync(string filter)
         {
             using (IDbConnection dbConnection = new SqlConnection(_settings.ConnectionString))
             {
-                IReadOnlyCollection<FullFilmEntity> nameIdEntity = (IReadOnlyCollection<FullFilmEntity>)await dbConnection.QueryAsync<FullFilmEntity>(
+                IReadOnlyCollection<FilmEntity> nameIdEntity = (IReadOnlyCollection<FilmEntity>)await dbConnection.QueryAsync<FilmEntity>(
                     "GetTopTenFilmsByName",
                     new { Filter = filter },
                     commandType: CommandType.StoredProcedure

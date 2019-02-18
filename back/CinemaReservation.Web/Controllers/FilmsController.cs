@@ -36,6 +36,7 @@ namespace CinemaReservation.Web.Controllers
             FilmModel filmModel = new FilmModel(
                 request.Id,
                 request.Title,
+                null,
                 request.Release,
                 request.Description,
                 request.StartShowingDate,
@@ -69,6 +70,7 @@ namespace CinemaReservation.Web.Controllers
             FilmModel filmModel = new FilmModel(
                 request.Id,
                 request.Title,
+                null,
                 request.Release,
                 request.Description,
                 request.StartShowingDate,
@@ -100,13 +102,13 @@ namespace CinemaReservation.Web.Controllers
             return NoContent();
         }
 
-        [HttpPost("names")]
+        [HttpPost("filtered")]
         [Authorize(Roles = nameof(UserRoles.Admin))]
-        public async Task<IActionResult> GetNamesAsync(GetFilmNamesRequest request)
+        public async Task<IActionResult> GetFilmsAsync(GetFilmNamesRequest request)
         {
-            IReadOnlyCollection<OptionModel> result = await _filmService.GetFilmNamesAsync(request.Filter);
+            IReadOnlyCollection<FilmModel> result = await _filmService.GetFilmsAsync(request.Filter);
 
-            return Ok(result.Adapt<OptionItem[]>());
+            return Ok(result.Adapt<FilmModel[]>());
         }
     }
 }

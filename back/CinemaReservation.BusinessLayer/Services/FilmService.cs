@@ -47,8 +47,9 @@ namespace CinemaReservation.BusinessLayer.Services
                 File.Delete(Path.Combine(filmPosterPath, result.PosterUniqueId));
             }
 
-            string posterUniqueId = Guid.NewGuid().ToString() + Path.GetExtension(imageModel.FormFile.FileName);
-            string path = Path.Combine(filmPosterPath, posterUniqueId);
+            string posterUniqueId = Guid.NewGuid().ToString();
+            string posterExtension = Path.GetExtension(imageModel.FormFile.FileName);
+            string path = Path.Combine(filmPosterPath, posterUniqueId + posterExtension);
 
             if (imageModel.FormFile != null && imageModel.FormFile.Length > 0)
             {
@@ -61,22 +62,18 @@ namespace CinemaReservation.BusinessLayer.Services
             await _filmRepository.InsertFilmPosterAsync(
                 new FilmPosterEntity(
                     imageModel.FilmId,
-                    posterUniqueId
+                    posterUniqueId,
+                    posterExtension
+
                 )
             );
         }
 
-        public async Task<IReadOnlyCollection<OptionModel>> GetFilmNamesAsync(string filter)
+        public async Task<IReadOnlyCollection<FilmModel>> GetFilmsAsync(string filter)
         {
-            IReadOnlyCollection<FullFilmEntity> films = await _filmRepository.GetFilmsByNameAsync(filter);
+            IReadOnlyCollection<FilmEntity> films = await _filmRepository.GetFilmsByFilterAsync(filter);
 
-            TypeAdapterConfig<FullFilmEntity, OptionModel>
-                .NewConfig()
-                .Map(dest => dest.Id, sourse => sourse.Id)
-                .Map(dest => dest.Name, sourse => sourse.Title)
-                .IgnoreNonMapped(true);
-
-            return films.Adapt<IReadOnlyCollection<OptionModel>>();
+            return films.Adapt<IReadOnlyCollection<FilmModel>>();
         }
 
         public async Task<bool> CheckId(int id)

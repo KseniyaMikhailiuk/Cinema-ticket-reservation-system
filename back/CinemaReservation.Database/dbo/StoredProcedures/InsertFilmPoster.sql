@@ -1,6 +1,10 @@
 ﻿CREATE PROCEDURE [dbo].[InsertFilmPoster]
     @FilmId int,
-    @PosterUniqueId uniqueidentifier
+    @PosterUniqueId uniqueidentifier,
+	@PosterImageExtension nvarchar(10)
 AS
-    UPDATE [dbo].Films SET PosterUniqueId = @PosterUniqueId WHERE Id = @FilmId;
+    UPDATE [dbo].Films SET
+	    PosterUniqueId = @PosterUniqueId,
+		PosterImageExtension = @PosterImageExtension
+		    WHERE Id = @FilmId;
 RETURN 0
