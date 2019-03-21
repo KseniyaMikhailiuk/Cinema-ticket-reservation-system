@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
+import Loader from 'react-loader'
 
 import AddFilmForm from '../../components/AdminForms/addFilmForm'
 import AddSeanceForm from '../../components/AdminForms/addSeanceForm';
@@ -8,12 +9,13 @@ import AddAdditionalServicesForm from '../../components/AdminForms/addAdditional
 import AddCinemaForm from '../../components/AdminForms/AddCinemaForm'
 import SuccessMessage from '../../components/Common/SuccessMessage'
 
-import {getFilterObject, getFilterOptions} from '../../store/stateGetters';
 import * as actions from '../../store/actions'
 
 import * as servicesInfo from '../../services/api/additionalServicesFetch'
 import * as filmsInfo from '../../services/api/filmsFetch'
 import * as cinemasInfo from '../../services/api/hallPlanFetch'
+
+import settings from '../../services/config/settings.json'
 
 import 'react-notifications/lib/notifications.css';
 
@@ -23,11 +25,10 @@ class Admin extends Component{
 
     state = {
         additionalServices: [],
-        addCinemaFormFilterOptions: {
-            cinemas: [],
-            cities: [],
-            halls: []
-        }
+        addCinemaFormFilterOptions: {},
+        addSeanceFormFilmOptions: [],
+        addCinemaFormSeatTypes: [],
+        isDataLoading: false
     }
 
     constructor(props){
@@ -36,21 +37,32 @@ class Admin extends Component{
         this.addSeanceToDatabase = this.addSeanceToDatabase.bind(this);
         this.addAdditionalServicesToDatabase = this.addAdditionalServicesToDatabase.bind(this);
         this.addCinemaToDatabase = this.addCinemaToDatabase.bind(this);
+        this.getFilmFilteredOptionsAsync = this.getFilmFilteredOptionsAsync.bind(this);
     }
 
     componentDidMount() {
-        const {startFilterOptionsFetching} = this.props;
-        startFilterOptionsFetching();
-        servicesInfo.getAdditionalServices()
-            .then(services => {
+        this.setState({
+            isDataLoading: true
+        })
+        const services = servicesInfo.getAdditionalServices();
+        const cinemas = cinemasInfo.getCinemasOptions();
+        const cities = cinemasInfo.getCitiesOptions();
+        const halls = cinemasInfo.getHallsOptions();
+        const seatTypes = cinemasInfo.getSeatTypeOptions();
+        const films = filmsInfo.getFilmOptions("");
+
+        Promise.all([services, cities, cinemas, halls, seatTypes, films])
+            .then(data => {
                 this.setState({
-                    additionalServices: services
-                });
-            })
-        cinemasInfo.getFilterOptions()
-            .then(filterOptions => {
-                this.setState({
-                    addCinemaFormFilterOptions: filterOptions
+                    additionalServices: data[0],
+                    addCinemaFormFilterOptions: {
+                        cities: data[1],
+                        cinemas: data[2],
+                        halls: data[3]
+                    },
+                    addCinemaFormSeatTypes: data[4],
+                    addSeanceFormFilmOptions: data[5],
+                    isDataLoading: false
                 })
             })
     }
@@ -92,33 +104,50 @@ class Admin extends Component{
             })
     }
 
+    getFilmFilteredOptionsAsync(inputValue){
+        filmsInfo.getFilmOptions(inputValue)
+            .then(films => {
+                this.setState({
+                    addSeanceFormFilmOptions: films
+                })
+            })
+    }
+
     render() {
-        const {filter, filterOptions, changeFilterObjectItem, isRequestSucceeded} = this.props;
+        const {changeFilterObjectItem, isRequestSucceeded} = this.props;
+        const {
+            addSeanceFormFilmOptions,
+            addCinemaFormSeatTypes,
+            additionalServices,
+            addCinemaFormFilterOptions,
+            isDataLoading
+        } = this.state;
+
         if (isRequestSucceeded) {
             return <SuccessMessage path='/Schedule'/>
         }
-        let filmNames = [];
-        filterOptions
-            .filmNames
-            .forEach(filmName =>
-                filmNames.push({value: filmName, label: filmName})
-            );
+
         return (
             <section>
-                <AddFilmForm onSubmit={this.addFilmToDatabase}/>
-                <AddSeanceForm filter={filter}
-                    filterOptions={this.state.addCinemaFormFilterOptions}
-                    filmNames={filmNames}
-                    changeFilterObjectItem={changeFilterObjectItem}
-                    onSubmit={this.addSeanceToDatabase}
-                    additionalServices={this.state.additionalServices}
-                />
-                <AddAdditionalServicesForm
-                    onSubmit={this.addAdditionalServicesToDatabase}
-                />
-                <AddCinemaForm
-                    onSubmit={this.addCinemaToDatabase}
-                />
+                <Loader loaded={!isDataLoading}>
+                    <AddFilmForm onSubmit={this.addFilmToDatabase}/>
+                    <AddSeanceForm
+                        filterOptions={addCinemaFormFilterOptions}
+                        filmOptions={addSeanceFormFilmOptions}
+                        changeFilterObjectItem={changeFilterObjectItem}
+                        onSubmit={this.addSeanceToDatabase}
+                        additionalServices={additionalServices}
+                        seatTypeOptions={addCinemaFormSeatTypes}
+                        getFilmFilteredOptionsAsync={this.getFilmFilteredOptionsAsync}
+                    />
+                    <AddAdditionalServicesForm
+                        onSubmit={this.addAdditionalServicesToDatabase}
+                    />
+                    <AddCinemaForm
+                        onSubmit={this.addCinemaToDatabase}
+                        seatTypeOptions={addCinemaFormSeatTypes}
+                    />
+                </Loader>
             </section>
         )
     }
@@ -126,9 +155,7 @@ class Admin extends Component{
 
 const mapStateToScheduleProps = (state) => {
     return {
-        filterOptions: getFilterOptions(state),
-        filter: getFilterObject(state),
-        isRequestSucceeded: state.isRequestSucceeded,
+        isRequestSucceeded: state.isRequestSucceeded
     }
 }
 

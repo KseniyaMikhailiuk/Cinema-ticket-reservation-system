@@ -42,12 +42,12 @@ class AddCinemaForm extends Component {
         });
     }
 
-    addHallToCinema (hallPlan) {
+    addHallToCinema (hallPlan, hallName) {
         this.setState({
             halls: [
                 ...this.state.halls,
                 {
-                    number: this.state.halls.length + 1,
+                    name: hallName,
                     plan: hallPlan
                 }
             ]
@@ -67,7 +67,7 @@ class AddCinemaForm extends Component {
     }
 
     render() {
-        const {t} = this.props;
+        const {t, seatTypeOptions} = this.props;
         return(
             <>
                 <form className="forms admin" onSubmit={this.sendInfo}>
@@ -99,6 +99,7 @@ class AddCinemaForm extends Component {
                             [...Array(this.state.hallsAmount)].map(() =>
                                 <AddHallPlan
                                     onHallSubmit={this.addHallToCinema}
+                                    seatTypeOptions={seatTypeOptions}
                                 />
                             )
                         }

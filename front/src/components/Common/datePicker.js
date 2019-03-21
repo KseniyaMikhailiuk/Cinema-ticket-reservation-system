@@ -1,5 +1,6 @@
 import React from 'react'
 import DatePicker from 'react-datepicker'
+import {withNamespaces} from 'react-i18next'
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -16,23 +17,45 @@ class DatePickerCusomized extends DatePicker {
         this.setState({
             selectedDate: date
         });
-        const {onFilterClick} = this.props;
-        onFilterClick("date", date);
+        const {onFilterClick, target} = this.props;
+        onFilterClick(target, date);
     }
 
     render() {
-        const {selectedDate} = this.props
-        return (
-            <DatePicker
-                name="time"
-                className="form-item"
-                minDate={new Date()}
-                selected={selectedDate}
-                onChange={this.handleDayChange}
-                autoComplete="off"
-            />
-        )
+        const {selectedDate} = this.state;
+        const {showTimeSelect, t} = this.props;
+        {
+            if (showTimeSelect){
+                return (
+                    <DatePicker
+                        name="time"
+                        className="form-item"
+                        minDate={new Date()}
+                        selected={selectedDate}
+                        onChange={this.handleDayChange}
+                        autoComplete="off"
+                        showTimeSelect={showTimeSelect}
+                        timeIntervals={5}
+                        dateFormat={t('dataTimeFormat')}
+                        timeFormat={t('timeFormat')}
+                        timeCaption="time"
+                    />
+                )
+            }
+            return (
+                <DatePicker
+                    name="time"
+                    className="form-item"
+                    minDate={new Date()}
+                    selected={selectedDate}
+                    onChange={this.handleDayChange}
+                    dateFormat={t('dataTimeFormat')}
+                    timeFormat={t('timeFormat')}
+                    autoComplete="off"
+                />
+            )
+        }
     }
 }
 
-export default DatePickerCusomized;
+export default withNamespaces()(DatePickerCusomized);

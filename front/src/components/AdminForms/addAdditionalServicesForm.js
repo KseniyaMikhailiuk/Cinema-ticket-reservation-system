@@ -5,19 +5,13 @@ import {withNamespaces} from 'react-i18next'
 
 class AddAdditionalServicesForm extends Component {
     state = {
-        name: "",
-        price: 0
+        name: ""
     }
 
     constructor(props) {
         super(props);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.sendInfo = this.sendInfo.bind(this);
-        this.handlePriceChange = this.handlePriceChange.bind(this);
-    }
-
-    moneyFormat = (value) => {
-        return value + ' BYN';
     }
 
     handleInputChange (event) {
@@ -27,17 +21,11 @@ class AddAdditionalServicesForm extends Component {
         });
     }
 
-    handlePriceChange(value){
-        this.setState({
-            price: value
-        });
-    }
-
     sendInfo (event) {
         const {t} = this.props;
         event.preventDefault();
-        const {name, price} = this.state;
-        if (name && price) {
+        const {name} = this.state;
+        if (name) {
             const {onSubmit} = this.props;
             onSubmit(this.state);
             return;
@@ -58,15 +46,6 @@ class AddAdditionalServicesForm extends Component {
                             placeholder={t('enterName')}
                             className="form-item admin__form-item"
                             onChange={this.handleInputChange}
-                        />
-                        <NumericInput
-                            name="price"
-                            className="form-item"
-                            min={1}
-                            max={100}
-                            placeholder={t('servicePrice')}
-                            format={this.moneyFormat}
-                            onChange={this.handlePriceChange}
                         />
                     </fieldset>
                     <input className="form-item forms__button bordered" value={t('add')} type="submit"></input>

@@ -24,6 +24,7 @@
     "enterCinemaName": "Введите название кинотеатра",
     "enterFilmDescription": "Введите описание фильма",
     "enterName": "Введите название",
+    "enterHallName": "Введите название зала",
 
     "hallsNumber": "Число залов",
     "numberOfRaws": "Число рядов",
@@ -77,5 +78,8 @@
 
     "all": "Все",
     "previous": "Предыдущие",
-    "next": "Будущие"
+    "next": "Будущие",
+
+    "dataTimeFormat": "d.MM.yyyy, h:mm",
+    "timeFormat": "hh:mm"
 }

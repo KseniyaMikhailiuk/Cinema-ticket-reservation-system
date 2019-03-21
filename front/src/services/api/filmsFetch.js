@@ -1,4 +1,6 @@
 import v4 from 'uuid/v4'
+import errorAwareFetch from './FetchService/fetchService'
+import * as fetchOptions from './FetchService/fetchOptions'
 import moment from 'moment'
 
 const services = [{name: "кукис", price: 2}, {name: "кола", price: 3}, {name: "начос", price: 3}];
@@ -384,80 +386,60 @@ export const releaseSeat = (info) =>
             }
         })
 
+export const getFilmOptions = (inputValue) =>
+    errorAwareFetch(
+        '/api/films/filtered',
+        fetchOptions.post({
+            Filter: inputValue
+        })
+    )
+        .then(result => {
+            console.log(result)
+            return result.data
+        }
+        )
+
+
 export const addFilmToDatabase = (film) =>
-    delay(500)
-        .then(() => {
-            let formattedDate = moment(film.filmRelease);
-            formattedDate = `${formattedDate.date()} ${formattedDate.month() + 1} ${formattedDate.year()}`
-            filmDatabase.push({
-                id: v4(),
-                title: film.filmName,
-                image: film.filmPoster,
-                date: formattedDate,
-                description: film.filmDescription,
-                cities: []
-            })
+    errorAwareFetch(
+        '/api/films',
+        fetchOptions.post({
+            Title: film.filmName,
+            Poster: film.filmPoster,
+            Release: film.filmRelease,
+            Description: film.filmDescription,
+            StartShowingDate: film.startShowingDate,
+            FinishShowingDate: film.finishShowingDate,
+            FilmDuration: {
+                Hours: film.filmDuration.hours(),
+                Minutes: film.filmDuration.minutes()
+            }
+        })
+    )
+        .then(result =>
+            result.data
+        )
+        .then(response => {
+            let formData = new FormData();
+            formData.append('FilmPoster', film.filmPoster);
+            formData.append('FilmId', response);
+            return errorAwareFetch(
+                `\/api\/films\/${response}\/poster`,
+                {
+                    method: 'put',
+                    body: formData
+                }
+            )
         })
 
 export const addSeanceToDatabase = (seance) =>
-    delay(500)
-        .then(() => {
-            let dateTime = moment({
-                year: seance.date.getFullYear(),
-                month: seance.date.getMonth(),
-                date: seance.date.getDate(),
-                hour: seance.time.split(':')[0],
-                minute: seance.time.split(':')[1]
-            })
-            let seanceInfo = {
-                dateTime: dateTime,
-                services: seance.services,
-                id: v4(),
-                occupiedSeats: [],
-                price: seance.price
-            }
-            for (let film of filmDatabase){
-                if (film.title === seance.filmName){
-                    let existedCity= film.cities.find(city => city.name === seance.city);
-                    if (!existedCity){
-                        existedCity = {
-                            name: seance.city,
-                            cinemas: [{
-                                name: seance.cinema,
-                                halls: [{
-                                    number: seance.hall,
-                                    seatAmount: 50,
-                                    schedule: [seanceInfo]
-                                }]
-                            }]
-                        };
-                        film.cities.push(existedCity);
-                        return;
-                    }
-                    let existedCinema = existedCity.cinemas.find(cinema => cinema.name === seance.cinema);
-                    if (!existedCinema){
-                        existedCinema = {
-                            name: seance.cinema,
-                            halls: [{
-                                number: seance.hall,
-                                seatAmount: 50,
-                                schedule: [seanceInfo]
-                            }]
-                        };
-                        existedCity.cinemas.push(existedCinema);
-                        return;
-                    }
-                    let existedHall = existedCinema.halls.find(hall => hall.number.toString() === seance.hall);
-                    if (!existedHall){
-                        existedHall = {
-                            number: seance.hall,
-                            seatAmount: 50,
-                            schedule: [seanceInfo]
-                        };
-                        existedCinema.halls.push(existedHall);
-                        return;
-                    }
-                    existedHall.schedule.push(seanceInfo);
-                }
-            }
+    errorAwareFetch(
+        '/api/seances',
+        fetchOptions.post({
+            DateTime: seance.dateTime,
+            FilmId: seance.filmId,
+            HallId: seance.hallId,
+            Services: seance.services,
+            SeatPrices: seance.seatPrices,
         })
+    )

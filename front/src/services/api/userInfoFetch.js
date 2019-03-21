@@ -1,87 +1,45 @@
+import errorAwareFetch from './FetchService/fetchService'
+import * as fetchOptions from './FetchService/fetchOptions'
+
 export const registerUser = (userData) =>
-    fetch(
-        "./api/account/register",
-        {
-            method: 'post',
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify({
-                Name: userData.name,
-                Surname: userData.surname,
-                Email: userData.email,
-                Password: userData.password
-            }
-        )
-    })
-        .then(response =>
-            response.ok
-            ? response.json()
-            : false)
-        .then(data =>
-            data
-        )
-        .catch(error => {
-            console.log(error);
-            throw error;
+    errorAwareFetch(
+        '/api/account/register',
+        fetchOptions.post({
+            Name: userData.name,
+            Surname: userData.surname,
+            Email: userData.email,
+            Password: userData.password
         })
+    )
+        .then(result =>
+            result.data
+        )
 
 export const authorizeUser = (userData) =>
-    fetch(
-        "./api/account/login",
-        {
-            method: 'post',
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify({
-                Email: userData.email,
-                Password: userData.password
-            })
-        }
-    )
-        .then(response =>
-            response.ok
-            ? response.json()
-            : false)
-        .then(data =>
-            data
-        )
-        .catch(error => {
-            console.log(error);
-            throw error;
+    errorAwareFetch(
+        '/api/account/login',
+        fetchOptions.post({
+            Email: userData.email,
+            Password: userData.password
         })
+    )
+        .then(result =>
+            result.data
+        )
 
 export const deauthorizeUser = () =>
-    fetch(
-        "./api/account/logout",
+    errorAwareFetch(
+        '/api/account/logout',
         {
             method: 'post',
         }
     )
-        .catch(error => {
-            console.log(error);
-            throw error;
-        })
 
 export const getUser = () =>
-    fetch(
-        "./api/account/getUser",
-        {
-            method: 'get',
-            headers: {
-                "Content-type": "application/json"
-            }
-        }
+    errorAwareFetch(
+        '/api/account/getUser',
+        fetchOptions.get
     )
-        .then(response =>
-            response.ok
-            ? response.json()
-            : false)
-        .then(data =>
-            data
+        .then(result =>
+            result.data
         )
-        .catch(error => {
-            console.log(error);
-            throw error;
-        })

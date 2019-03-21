@@ -24,6 +24,7 @@
     "enterCinemaName": "Enter cinema name",
     "enterFilmDescription": "Enter film description",
     "enterName": "Enter film name",
+    "enterHallName": "Enter hall name",
 
     "hallsNumber": "Number of halls",
     "numberOfRaws": "Number of raws",
@@ -77,5 +78,8 @@
 
     "all": "All",
     "previous": "Previous",
-    "next": "Next"
+    "next": "Next",
+
+    "dataTimeFormat": "MMMM d, yyyy h:mm aa",
+    "timeFormat": "hh:mm aa"
 }

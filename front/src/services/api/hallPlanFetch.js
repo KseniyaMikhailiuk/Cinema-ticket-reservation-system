@@ -1,4 +1,6 @@
 import {v4} from 'uuid'
+import errorAwareFetch from './FetchService/fetchService'
+import * as fetchOptions from './FetchService/fetchOptions'
 
 const cinemaHallPlans = [
     {
@@ -319,52 +321,88 @@ export const fetchHallPlan = (seanceInfo) =>
         })
 
 export const addCinema = (cinemaInfo) =>
-    delay(500)
-        .then(() => {
-            let existedCity = cinemaHallPlans.find(city => city.cityName === cinemaInfo.city);
-            if (!existedCity){
-                existedCity = {
-                    cityName: cinemaInfo.city,
-                    cinemas: [
-                        {
-                            name: cinemaInfo.cinema,
-                            hallsAmount: cinemaInfo.hallsAmount,
-                            halls: cinemaInfo.halls,
-                        }
-                    ]
-                }
-                cinemaHallPlans.push(existedCity);
-                return;
-            }
-            let existedCinema = existedCity.cinemas.find(cinema => cinema.name === cinemaInfo.cicinematy);
-            if (!existedCinema){
-                existedCity.cinemas.push({
-                        name: cinemaInfo.cinema,
-                        hallsAmount: cinemaInfo.hallsAmount,
-                        halls: cinemaInfo.halls,
+    errorAwareFetch(
+        '/api/cities',
+        fetchOptions.post({
+            Name: cinemaInfo.city
+        })
+    )
+        .then(result =>
+            result.data
+        )
+        .then(cityId => {
+            errorAwareFetch(
+                '/api/cinemas',
+                fetchOptions.post({
+                    Name: cinemaInfo.cinema,
+                    CityId: cityId
+                })
+            )
+                .then(result =>
+                    result.data
+                )
+                .then(response => {
+                    let halls = [];
+                    let seats = [];
+                    let hallId = 0;
+                    cinemaInfo.halls.forEach(hall => {
+                        halls.push({
+                            Name: hall.name,
+                            Id: hallId
+                        })
+                        hall.plan.forEach(line => {
+                            line.forEach(seat => {
+                                seats.push({
+                                    ...seat,
+                                    hallId: hallId
+                                });
+                            })
+                        })
+                        hallId++;
                     })
-                return;
-            }
+                    return errorAwareFetch(
+                        '/api/halls',
+                        fetchOptions.post({
+                            Halls: halls,
+                            Seats: seats,
+                            CinemaId: response
+                        })
+                    )
+                })
         })
 
-export const getFilterOptions = () =>
-    delay(500)
-        .then(() => {
-            let filterOptions = {
-                cities: [],
-                cinemas: [],
-                halls: []
-            };
-            for (let city of cinemaHallPlans) {
-                filterOptions.cities.push({value: city.cityName, label: city.cityName});
-                for (let cinema of city.cinemas){
-                    if (cinema.halls.length > 0){
-                        filterOptions.cinemas.push({value: city.cityName, label: cinema.name})
-                        for (let hall of cinema.halls){
-                            filterOptions.halls.push({value: `${cinema.name}, ${city.cityName}`, label: hall.number})
-                        }
-                    }
-                }
-            }
-            return filterOptions;
-        })
+export const getCitiesOptions = () =>
+    errorAwareFetch(
+        '/api/cities',
+        fetchOptions.get
+    )
+        .then(result =>
+            result.data
+        )
+
+export const getCinemasOptions = () =>
+    errorAwareFetch(
+        '/api/cinemas',
+        fetchOptions.get
+    )
+        .then(result =>
+            result.data
+        )
+
+export const getHallsOptions = () =>
+    errorAwareFetch(
+        '/api/halls',
+        fetchOptions.get
+    )
+        .then(result =>
+            result.data
+        )
+
+export const getSeatTypeOptions = () =>
+    errorAwareFetch(
+        '/api/seat-types',
+        fetchOptions.get
+    )
+    .then(result =>
+        result.data
+    )

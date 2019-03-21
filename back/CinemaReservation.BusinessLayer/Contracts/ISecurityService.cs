@@ -1,6 +1,4 @@
-﻿using CinemaReservation.BusinessLayer.Services;
-
-namespace CinemaReservation.BusinessLayer.Contracts
+﻿namespace CinemaReservation.BusinessLayer.Contracts
 {
     public interface ISecurityService
     {

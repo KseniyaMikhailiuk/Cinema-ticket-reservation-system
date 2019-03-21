@@ -52,7 +52,7 @@ $color-gray: rgb(112, 110, 114);
         }
     }
 
-    &__services{
+    &__services, &__seatTypePrices{
         display: flex;
         align-items: center;
         justify-content: center;

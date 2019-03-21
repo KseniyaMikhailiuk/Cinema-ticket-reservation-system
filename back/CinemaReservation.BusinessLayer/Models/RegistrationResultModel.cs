@@ -7,14 +7,12 @@
         public string Surname { get; }
         public string Email { get; }
         public bool IsAdmin { get; }
-        public RegistrationResultStatus ResultStatus { get; }
 
         public RegistrationResultModel(
             int id,
             string name,
             string surname,
             string email,
-            RegistrationResultStatus resultStatus,
             bool isAdmin
         )
         {
@@ -22,15 +20,7 @@
             Name = name;
             Surname = surname;
             Email = email;
-            ResultStatus = resultStatus;
             IsAdmin = isAdmin;
-        }
-
-        public RegistrationResultModel(
-            RegistrationResultStatus resultStatus
-        )
-        {
-            ResultStatus = resultStatus;
         }
     }
 }

@@ -1,29 +1,19 @@
-var additionalServices = [
-    {
-        name: 'начос',
-        price: 3
-    },
-    {
-        name: 'cola',
-        price: 2
-    }
-]
-
-export default additionalServices;
-
-const delay = (ms) =>
-    new Promise(resolve => setTimeout(resolve, ms));
+import errorAwareFetch from './FetchService/fetchService'
+import * as fetchOptions from './FetchService/fetchOptions'
 
 export const addAdditionalService = (item) =>
-    delay(500)
-        .then(() => {
-            additionalServices.push(item);
+    errorAwareFetch(
+        '/api/additional-services',
+        fetchOptions.post({
+            Name: item.name
         })
+    )
 
 export const getAdditionalServices = () =>
-    delay(500)
-        .then(() => {
-            let servicesList = [];
-            additionalServices.forEach(service => servicesList.push({value: service.name, label: service.name}));
-            return servicesList;
-        })
+    errorAwareFetch(
+        '/api/additional-services',
+        fetchOptions.get
+    )
+        .then(result =>
+            result.data
+        )

@@ -3,32 +3,25 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import DatePickerCustomized from '../Common/datePicker'
 import NumericInput from 'react-numeric-input'
 import Select from 'react-select';
+import AsyncSelect  from 'react-select/lib/Async';
 import {withNamespaces} from 'react-i18next'
 
 class AddSeanceForm extends Component{
     state = {
-        city: "",
-        cinema: "",
-        hall: 0,
-        filmName: "",
-        date: new Date(),
-        time: "",
-        price: {
-            standard: 0,
-            loveseat: 0,
-            comfort: 0
-        },
+        cityId: 0,
+        cinemaId: 0,
+        hallId: 0,
+        filmId: 0,
+        dateTime: new Date(),
+        seatPrices: [],
         services: []
     }
 
     constructor(props) {
         super(props);
-        this.handlePriceChange = this.handlePriceChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleTimeChange = this.handleTimeChange.bind(this);
+        this.handlePriceChange = this.handlePriceChange.bind(this);
         this.sendInfo = this.sendInfo.bind(this);
-        const { filter } = this.props;
-        this.state.city = filter.city;
     }
 
     handleInputChange(name, value) {
@@ -37,16 +30,30 @@ class AddSeanceForm extends Component{
         });
     }
 
-    handleTimeChange (event) {
-        this.handleInputChange(event.target.name, event.target.value);
-    }
-
-    handlePriceChange(value, type) {
+    handlePriceChange(value, typeId) {
+        let seatPrices = this.state.seatPrices.slice(0);
+        let isSeatPriceExists = false;
+        seatPrices
+            .forEach(seatType => {
+                if (seatType.id === typeId) {
+                    seatType.price = value;
+                    isSeatPriceExists = true;
+                }
+            });
+        if (!isSeatPriceExists) {
+            this.setState({
+                seatPrices: [
+                    ...this.state.seatPrices,
+                    {
+                        id: typeId,
+                        price: value
+                    }
+                ]
+            });
+            return;
+        }
         this.setState({
-            price: {
-                ...this.state.price,
-                [type]: value
-            }
+            seatPrices: seatPrices
         })
     }
 
@@ -54,7 +61,7 @@ class AddSeanceForm extends Component{
         let services = [];
         this.state.services.forEach(service => {
             let updatedService = {...service};
-            if (service.name === selectedService) {
+            if (service.id === selectedService) {
                 updatedService.price = value;
             }
             services.push(updatedService)
@@ -67,14 +74,15 @@ class AddSeanceForm extends Component{
     handleServicesChange = (selectedOptions) => {
         let services = [];
         selectedOptions.forEach(option => {
-            let existedService = this.state.services.find(service => service.name === option.value);
+            let existedService = this.state.services.find(service => service.id === option.value);
             if (existedService) {
                 services.push(existedService);
             }
             else {
                 services.push({
-                    name: option.value,
-                    price: 0
+                    id: option.value,
+                    price: 0,
+                    name: option.label
                 });
             }
         })
@@ -86,13 +94,12 @@ class AddSeanceForm extends Component{
     sendInfo (event) {
         const {t} = this.props;
         event.preventDefault();
-        const {city, cinema, filmName, hall, time, price, services} = this.state;
+        const {cityId, cinemaId, filmId, hallId, services} = this.state;
         if (services.find(service => service.price === 0)) {
             NotificationManager.warning(t('notAllFieldsAreFilled'), t('Ops'), 5000);
             return;
         }
-        if (city && cinema && filmName && hall && time &&
-            price.comfort && price.loveseat && price.loveseat) {
+        if (cityId && cinemaId && filmId && hallId) {
             const { onSubmit } = this.props;
             onSubmit(this.state);
             return;
@@ -104,17 +111,57 @@ class AddSeanceForm extends Component{
         return value + ' BYN';
     }
 
+    prepareFilterOptions(filterOptions){
+        let preparedFilterOptions = {}
+        for(var propName in filterOptions) {
+            preparedFilterOptions[propName] = [];
+            filterOptions[propName]
+            .forEach(item => {
+                preparedFilterOptions[propName].push({
+                    label: item.name,
+                    value: {
+                        id: item.id,
+                        parentId: item.parentId
+                    }
+                })
+            })
+        }
+
+        return preparedFilterOptions;
+    }
+
     render(){
-        const { filterOptions, filmNames, additionalServices, t } = this.props;
+        const { filterOptions, filmOptions, seatTypeOptions, additionalServices, t, getFilmFilteredOptionsAsync } = this.props;
         const { selectedOption } = this.state.services;
-        let halls = filterOptions
-        	.halls
-        	.filter(hall => this.state.city && this.state.cinema &&
-	            hall.value.indexOf(this.state.city) !== -1 &&
-	            hall.value.indexOf(this.state.cinema) !== -1);
-        let cinemas = filterOptions
-        	.cinemas
-        	.filter(cinema => cinema.value === this.state.city || !this.state.city);
+
+        let preparedFilterOptions = this.prepareFilterOptions(filterOptions);
+        let halls = preparedFilterOptions
+            .halls
+            .filter(hall => this.state.cityId && this.state.cinemaId &&
+                hall.value.parentId === this.state.cinemaId);
+        let cinemas = preparedFilterOptions
+            .cinemas
+            .filter(cinema => cinema.value.parentId === this.state.cityId && this.state.cityId );
+
+        let films = [];
+        filmOptions.forEach(film => {
+            films.push({
+                label: film.title,
+                value: {
+                    id: film.id,
+                }
+            })
+        })
+
+        let services = [];
+        additionalServices
+            .forEach(service => {
+                services.push({
+                    label: service.name,
+                    value: service.id,
+                })
+            })
+
         return(
             <>
                 <form className="forms admin" onSubmit={this.sendInfo}>
@@ -123,82 +170,70 @@ class AddSeanceForm extends Component{
                             {t('addSeance')}
                         </legend>
                         <Select
-                            name="city"
+                            name="cityId"
                             className="form-item select"
-                            options={filterOptions.cities}
+                            options={preparedFilterOptions.cities}
                             isSearchable
                             isClearable
-                            onChange={(selectedOption) => this.handleInputChange("city", selectedOption.label)}
+                            onChange={(selectedOption) => this.handleInputChange("cityId", selectedOption.value.id)}
                             placeholder={t('selectCity')}
                         />
                         <Select
-                            name="cinema"
+                            name="cinemaId"
                             className="form-item select"
                             options={cinemas}
                             isSearchable
                             isClearable
-                            onChange={(selectedOption) => this.handleInputChange("cinema", selectedOption.label)}
+                            onChange={(selectedOption) => this.handleInputChange("cinemaId", selectedOption.value.id)}
                             placeholder={t('selectCinema')}
                         />
                         <div className="form-item">
                             <DatePickerCustomized
                                 selectedDate={this.state.date}
                                 onFilterClick={this.handleInputChange}
+                                target="dateTime"
+                                showTimeSelect={true}
                             />
                         </div>
-                        <Select
-                            name="filmName"
+                        <AsyncSelect
+                            name="filmId"
                             className="form-item select"
-                            options={filmNames}
-                            isSearchable
-                            isClearable
-                            onChange={(selectedOption) => this.handleInputChange("filmName", selectedOption.label)}
+                            cacheOptions
+                            onChange={(selectedOption) => this.handleInputChange("filmId", selectedOption.value.id)}
+                            loadOptions={getFilmFilteredOptionsAsync}
+                            defaultOptions={films}
                             placeholder={t('selectFilm')}
                         />
                         <Select
-                            name="hall"
+                            name="hallId"
                             className="form-item select"
                             options={halls}
                             isSearchable
-                            onChange={(selectedOption) => this.handleInputChange("hall", selectedOption.label)}
+                            onChange={(selectedOption) => this.handleInputChange("hallId", selectedOption.value.id)}
                             placeholder={t('selectHall')}
                         />
-                        <input
-                            name="time"
-                            className="form-item"
-                            type="time"
-                            onChange={this.handleTimeChange}/>
-                        <NumericInput
-                            name="standard"
-                            className="form-item"
-                            min={0}
-                            placeholder={t('priceStandard')}
-                            format={this.moneyFormat}
-                            onChange={(value) => this.handlePriceChange(value, "standard")}
-                            autoComplete="off"
-                        />
-                        <NumericInput
-                            name="loveseats"
-                            className="form-item"
-                            min={0}
-                            placeholder={t('priceLoveseats')}
-                            format={this.moneyFormat}
-                            onChange={(value) => this.handlePriceChange(value, "loveseat")}
-                            autoComplete="off"
-                        />
-                        <NumericInput
-                            name="comfort"
-                            className="form-item"
-                            min={0}
-                            placeholder={t('priceComfort')}
-                            format={this.moneyFormat}
-                            onChange={(value) => this.handlePriceChange(value, "comfort")}
-                            autoComplete="off"
-                        />
+                        <ul>{
+                            seatTypeOptions.map(seatType =>
+                                <li className="form-item admin__seatTypePrices">
+                                    <label for={seatType.name}>{seatType.name}</label>
+                                    <NumericInput
+                                        id={seatType.name}
+                                        name={seatType.name}
+                                        min={1}
+                                        placeholder={t('price')}
+                                        format={this.moneyFormat}
+                                        onChange={(selectedOption) =>
+                                            this.handlePriceChange(selectedOption, seatType.id)}
+                                        autoComplete="off"
+                                    />
+                                </li>
+                            )
+                        }
+                        </ul>
                         <Select
                             name="services"
                             className="form-item select"
-                            options={additionalServices}
+                            options={services}
                             isMulti
                             isSearchable
                             value={selectedOption}
@@ -216,7 +251,7 @@ class AddSeanceForm extends Component{
                                         placeholder={t('servicePrice')}
                                         format={this.moneyFormat}
                                         onChange={(selectedOption) =>
-                                            this.handleServicePriceChange(selectedOption, service.name)}
+                                            this.handleServicePriceChange(selectedOption, service.id)}
                                         autoComplete="off"
                                     />
                                 </li>

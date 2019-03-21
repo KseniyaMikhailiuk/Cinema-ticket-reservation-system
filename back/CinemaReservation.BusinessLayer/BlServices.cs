@@ -10,6 +10,13 @@ namespace CinemaReservation.BusinessLayer
         {
             services.AddSingleton<IAccountService, AccountService>();
             services.AddSingleton<ISecurityService, SecurityService>();
+            services.AddSingleton<IFilmService, FilmService>();
+            services.AddSingleton<IHallService, HallService>();
+            services.AddSingleton<ICinemaService, CinemaService>();
+            services.AddSingleton<ICityService, CityService>();
+            services.AddSingleton<ISeanceService, SeanceService>();
+            services.AddSingleton<IAdditionalServiceService, AdditionalServiceService>();
+            services.AddSingleton<ISeatTypesService, SeatTypeService>();
         }
     }
 }

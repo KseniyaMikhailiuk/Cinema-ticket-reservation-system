@@ -3,6 +3,8 @@ using CinemaReservation.DataAccessLayer.Entities;
 using CinemaReservation.DataAccessLayer.Contracts;
 using CinemaReservation.BusinessLayer.Models;
 using CinemaReservation.BusinessLayer.Contracts;
+using CinemaReservation.DataAccessLayer.Exceptions;
+using CinemaReservation.BusinessLayer.Exceptions;
 
 namespace CinemaReservation.BusinessLayer.Services
 {
@@ -19,13 +21,6 @@ namespace CinemaReservation.BusinessLayer.Services
 
         public async Task<RegistrationResultModel> RegisterUserAsync(RegistrationModel registrationModel)
         {
-            if (await _userRepository.GetUserByEmailAsync(registrationModel.Email) != null)
-            {
-                return new RegistrationResultModel(
-                    RegistrationResultStatus.UserExists
-                );
-            }
-
             byte[] salt = _securityService.GetSalt();
             byte[] passwordHash = _securityService.GetPasswordHash(registrationModel.Password, salt);
             UserEntity userEntity = new UserEntity(
@@ -36,16 +31,21 @@ namespace CinemaReservation.BusinessLayer.Services
                 salt
             );
 
-            int userId = await _userRepository.UpsertUserAsync(userEntity);
-
-            return new RegistrationResultModel(
-                userId,
-                registrationModel.Name,
-                registrationModel.Surname,
-                registrationModel.Email,
-                RegistrationResultStatus.Ok,
-                isAdmin: false
-            );
+            try
+            {
+                int userId = await _userRepository.UpsertUserAsync(userEntity);
+                return new RegistrationResultModel(
+                    userId,
+                    registrationModel.Name,
+                    registrationModel.Surname,
+                    registrationModel.Email,
+                    isAdmin: false
+                );
+            }
+            catch(UniqueIndexException e)
+            {
+                throw new ConflictException(e);
+            }
         }
 
         public async Task<AuthorizationResultModel> AuthorizeUserAsync(LoginModel loginModel)

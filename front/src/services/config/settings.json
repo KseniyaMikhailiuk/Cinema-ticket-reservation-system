@@ -1,4 +1,5 @@
 {
     "password_min_length": 8,
-    "language": "ru"
+    "language": "ru",
+    "min_search_length": 3
 }

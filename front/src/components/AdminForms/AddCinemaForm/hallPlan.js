@@ -11,9 +11,9 @@ const HallPlan = ({
     function countSeatWidth (seat) {
         let standardSeatWidth = 100 / (raws * 2 - 1);
         let seatWidth = standardSeatWidth + '%';
-        if (seat.type === SeatTypesInfo.loveseat.type) {
+        if (seat.widthScale > 1) {
             seatWidth = (standardSeatWidth
-                * SeatTypesInfo.loveseat.amountOfGuestsOnOneSeat
+                * seat.widthScale
                 + standardSeatWidth) + '%';
         }
         return seatWidth;
